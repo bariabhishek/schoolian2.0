@@ -1,0 +1,108 @@
+package startup.abhishek.spleshscreen.fragments;
+
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import startup.abhishek.spleshscreen.Adeptor.Adeptor;
+import startup.abhishek.spleshscreen.Adeptor.ModelList;
+import startup.abhishek.spleshscreen.R;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class HomeFragment extends Fragment {
+
+    RecyclerView recyclerView ;
+    ArrayList<ModelList> list;
+
+    private TextView mTextMessage;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+  /*  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    //   mTextMessage.setText( R.string.title_home );
+                    return true;
+                case R.id.inbox:
+                    //   mTextMessage.setText("demo" );
+                    return true;
+                case R.id.profile:
+                    //    mTextMessage.setText( R.string.title_notifications );
+                    return true;
+                case R.id.notification:
+                    //    mTextMessage.setText( R.string.title_notifications );
+                    return true;
+                case R.id.follower:
+                    //    mTextMessage.setText( R.string.title_notifications );
+                    return true;
+            }
+            return false;
+        }
+    };*/
+    private void arraydata() {
+        list.add( new ModelList( R.drawable.logonewcolor,"workshop","need A car cleaner","$ 5" ) );
+        list.add( new ModelList( R.drawable.sch,"workshop","need A car cleaner","$ 5" ) );
+        list.add( new ModelList( R.drawable.logo,"workshop","need A car cleaner","$ 5" ) );
+        list.add( new ModelList( R.drawable.follo,"workshop","need A car cleaner","$ 5" ) );
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate( R.layout.fragment_home, container, false );
+
+        list = new ArrayList <>(  );
+        arraydata();
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById( R.id.fab );
+        fab.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make( view, "Replace with your own action", Snackbar.LENGTH_LONG )
+                        .setAction( "Action", null ).show();
+            }
+        } );
+
+
+
+        Adeptor a= new Adeptor( getContext(),list );
+        recyclerView = view.findViewById( R.id.recycleview );
+      //  mTextMessage = (TextView) view.findViewById( R.id.message );
+  //      BottomNavigationView navigation = (BottomNavigationView) view.findViewById( R.id.navigation );
+//        navigation.setOnNavigationItemSelectedListener( mOnNavigationItemSelectedListener );
+
+        recyclerView.setHasFixedSize( true );
+        recyclerView.setItemAnimator( new DefaultItemAnimator() );
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2) );
+        recyclerView.setAdapter( a );
+        //recyclerView.setNestedScrollingEnabled(false);
+       //  ViewCompat.setNestedScrollingEnabled( recyclerView,false );
+        return view;
+    }
+
+}

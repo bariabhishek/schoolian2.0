@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REQUESTED JOB SEEKER"
+                android:textColor="#fff"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/photo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"/>
+        <LinearLayout
+            android:padding="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:text="Abhishek"
+               android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/pese"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:textStyle="bold"
+            android:text=" ₹300"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/bgrecycllecapsule"
+            />
+    </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo"/>
+            <LinearLayout
+                android:padding="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:text="Shivam"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textStyle="bold"
+                android:text=" ₹280"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/bgrecycllecapsule"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo"/>
+            <LinearLayout
+                android:padding="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:text="Rajat"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textStyle="bold"
+                android:text=" ₹250"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/bgrecycllecapsule"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo"/>
+            <LinearLayout
+                android:padding="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:text="Nirmal"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textStyle="bold"
+                android:text=" ₹260"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/bgrecycllecapsule"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
