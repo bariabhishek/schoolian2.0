@@ -30,6 +30,7 @@ import startup.abhishek.spleshscreen.fragments.ProfileFragment;
 
 
 public class Home extends NavigationDrawerActivity_ {
+    //abhi push kiaa h
 
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
@@ -49,7 +50,6 @@ public class Home extends NavigationDrawerActivity_ {
         View contentView = inflater.inflate(R.layout.activity_home, null, false);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.addView(contentView, 0);
-
         bottomNavigationView = findViewById( R.id.navigation );
         frameLayout = findViewById( R.id.frame );
 

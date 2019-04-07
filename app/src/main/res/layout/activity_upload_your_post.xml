@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".UploadYourPost">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Post Your Job"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,21 +41,31 @@
         android:layout_marginTop="30dp"
         android:textStyle="bold"/>
     <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:padding="10dp"
+        android:background="@drawable/bg_edittext"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"/>
+    <EditText
         android:ems="10"
         android:inputType="textMultiLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Discribe about your job"
         android:layout_marginHorizontal="20dp"
+        android:padding="10dp"
+        android:background="@drawable/bg_edittext"
         android:layout_marginTop="20dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint=" ₹"
-        android:gravity="center"
-        android:inputType="number"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginTop="20dp"/>
+
+         <EditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginHorizontal="50dp"
+             android:inputType="number"
+             android:hint="Rupee"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,21 +81,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+
         android:orientation="horizontal">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"
+            android:background="@drawable/bg_edittext"
+            android:padding="4dp"
             android:src="@drawable/sch"/>
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"
+            android:background="@drawable/bg_edittext"
+            android:padding="4dp"
             android:src="@drawable/sch"/>
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"
+            android:background="@drawable/bg_edittext"
+            android:padding="4dp"
             android:src="@drawable/sch"/>
     </LinearLayout>
     <Button
@@ -73,5 +115,7 @@
         android:textSize="18sp"
         android:padding="5dp"
         android:text="Post"/>
+</LinearLayout>
 
+    </ScrollView>
 </LinearLayout>

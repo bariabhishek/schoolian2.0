@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/demo3"
+    tools:context=".JobGiver">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+       >
+
+
+        <RelativeLayout
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/student"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/jobgiver_jobseekrui">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/student"/>
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/studentText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Job Giver"
+            android:layout_below="@id/student"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            android:fontFamily="monospace"
+            android:textColor="#000"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/parents"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="20dp"
+            android:layout_below="@id/studentText"
+            android:background="@drawable/jobgiver_jobseekrui">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/manager"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/parentsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Job Seeker"
+            android:layout_below="@id/parents"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:textColor="#000" />
+
+    </LinearLayout>
+
+</RelativeLayout>

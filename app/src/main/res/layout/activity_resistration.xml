@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".Registration">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,14 +38,24 @@
         android:layout_marginTop="170dp"
         android:layout_marginHorizontal="20dp">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/sch"/>
+
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/etpassword"
+            android:id="@+id/etname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_below="@id/civ"
+            android:layout_marginTop="10dp">
             <EditText
-                android:id="@+id/edittextpassword"
+                android:id="@+id/edittextname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
@@ -55,33 +65,19 @@
                 android:paddingRight="10dp"/>
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/etname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/etpassword"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="15dp">
-            <EditText
-                android:id="@+id/edittextname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email"
-                android:inputType="textWebEmailAddress"
-                android:drawableRight="@drawable/mail_"
-                android:drawablePadding="20dp"
-                android:paddingRight="10dp"/>
-        </android.support.design.widget.TextInputLayout>
+
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/etpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_below="@id/etname"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             app:passwordToggleEnabled="true"
             android:layout_marginTop="15dp">
             <EditText
+                android:id="@+id/edittextpassword1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
@@ -91,7 +87,28 @@
                 android:paddingLeft="10dp"/>
         </android.support.design.widget.TextInputLayout>
 
+        <RadioGroup
+            android:id="@+id/redoigroup"
+            android:layout_below="@id/etpassword"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content">
 
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"/>
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"/>
+        </RadioGroup>
     </RelativeLayout>
 
     <Button
@@ -105,25 +122,15 @@
         android:textColor="#fff"
         android:layout_below="@id/login_layout"
         android:textSize="20dp"/>
-    <Button
-        android:id="@+id/signfb_btn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="50dp"
-        android:background="@drawable/background_button_red"
-        android:layout_marginTop="10dp"
-        android:text="Sign UP with facebook"
-        android:textColor="#fff"
-        android:layout_below="@id/login_btn"
-        android:layout_marginBottom="10dp"
-        android:padding="10dp"
-        android:textSize="17sp"/>
+
 
     <LinearLayout
-        android:layout_below="@id/signfb_btn"
+        android:layout_below="@id/login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/llcreateone"
         android:orientation="horizontal" >
 <TextView
     android:layout_centerHorizontal="true"
@@ -135,6 +142,7 @@
 
     />
     <TextView
+        android:id="@+id/createOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_one"
@@ -143,5 +151,24 @@
         android:textSize="17sp"
         android:layout_marginLeft="10dp"
         />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llcreateone"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginHorizontal="10dp"
+        android:src="@drawable/facebook"/>
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginHorizontal="10dp"
+        android:src="@drawable/search"/>
     </LinearLayout>
 </RelativeLayout>
