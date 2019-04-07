@@ -31,7 +31,7 @@ import startup.abhishek.spleshscreen.fragments.ProfileFragment;
 
 public class Home extends NavigationDrawerActivity_ {
     //abhi push kiaa h
-
+// dusra update agya
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
 
