@@ -13,6 +13,17 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:elevation="15dp"
-    android:src="@drawable/logonewcolor"/>
+    android:src="@drawable/logonewcolor"
+    android:id="@+id/logo"
+    android:alpha="0"/>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/colorPrimary"/>
 
 </RelativeLayout>

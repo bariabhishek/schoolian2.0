@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -18,8 +17,8 @@ public class Registration extends AppCompatActivity {
 
     CircleImageView circleImageView;
     Button signin;
-    TextInputLayout username , userpassword;
-    EditText name , password;
+    TextInputLayout username , userpassword,usermobile;
+    EditText name , password,mobile;
     RadioGroup radioGroup;
     RadioButton male,female;
 
@@ -30,23 +29,34 @@ public class Registration extends AppCompatActivity {
 
         circleImageView = findViewById( R.id.civ );
         name = findViewById( R.id.edittextname );
+        name = findViewById( R.id.edittextMobile );
         password = findViewById( R.id.edittextpassword1 );
-        signin = findViewById( R.id.login_btn );
+        signin = findViewById( R.id.login_btn);
         username = findViewById( R.id.etname );
-        userpassword = findViewById( R.id.etpassword );
+        userpassword = findViewById( R.id.etEmail);
+        usermobile = findViewById( R.id.etMobile);
         radioGroup = findViewById( R.id.redoigroup );
         male = findViewById( R.id.male );
         female = findViewById( R.id.female );
         signCondition();
 
 
-        final String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId()))
-                        .getText().toString();
-
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Toast.makeText(getBaseContext(), value, Toast.LENGTH_SHORT).show();
+                // find which radio button is selected
+                if(checkedId == R.id.male) {
+                    circleImageView.setImageResource(R.drawable.boy);
+                    Toast.makeText(getApplicationContext(), "choice: Male",
+                            Toast.LENGTH_SHORT).show();
+                } else if(checkedId == R.id.female) {
+                    circleImageView.setImageResource(R.drawable.girl);
+                    Toast.makeText(getApplicationContext(), "choice: Female",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
+
         });
     }
 
@@ -55,11 +65,12 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(name.getText().toString().isEmpty() && password.getText().toString().isEmpty()){
+                if(name.getText().toString().isEmpty() && password.getText().toString().isEmpty()&&mobile.getText().toString().isEmpty()){
                     username.setError( "not Valid" );
 
                 }else {
                     if(password.length()>8){
+                        userpassword.setError("minimum 8 character");
                         Toast.makeText( getApplicationContext(),"minimum 8 character",Toast.LENGTH_LONG ).show();
                     }
                     else {

@@ -12,7 +12,7 @@
         android:id="@+id/etno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etpassword"
+        android:layout_below="@id/etEmail"
         android:layout_marginHorizontal="20dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
