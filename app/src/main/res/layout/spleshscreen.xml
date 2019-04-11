@@ -15,7 +15,8 @@
     android:elevation="15dp"
     android:src="@drawable/logonewcolor"
     android:id="@+id/logo"
-    android:alpha="0"/>
+    android:alpha="0"
+    tools:ignore="ContentDescription" />
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
