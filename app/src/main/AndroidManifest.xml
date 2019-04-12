@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,11 +26,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".JobDiscription" />
         <activity android:name=".UploadYourPost" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".NavigationDrawerActivity_"
@@ -42,7 +41,12 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Login" />
         <activity android:name=".Registration" />
-        <activity android:name=".SpleshScreen" />
+        <activity android:name=".SpleshScreen" >
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
     </application>
 
 </manifest>

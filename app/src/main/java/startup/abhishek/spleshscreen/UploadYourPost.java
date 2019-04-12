@@ -47,7 +47,8 @@ public class UploadYourPost extends AppCompatActivity {
     int PICK_IMAGE_REQUEST = 0;
     String encodedImage;
     public String photo;
-    String Url="https://voulu.in/api/jobpost.php/";
+    SessionManger sessionManger;
+    String Url="https://voulu.in/api/jobpost.php";
 
     Button post;
 
@@ -57,8 +58,8 @@ public class UploadYourPost extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_upload_your_post );
 
-        SessionManger obj = new SessionManger( this );
-        HashMap <String,String> hashMap = obj.getUserDetail();
+        sessionManger = new SessionManger( this );
+        HashMap <String,String> hashMap = sessionManger.getUserDetail();
         mobilenumber= hashMap.get( SessionManger.MOBILE );
 
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
@@ -98,52 +99,50 @@ public class UploadYourPost extends AppCompatActivity {
         }else if(pese.getText().toString().isEmpty()){
             pese.setError(  "fill blanck"  );
         }else {
-            volley();
+                String titles=title.getText().toString();
+                String diss=dis.getText().toString();
+                String paise=pese.getText().toString();
+
+            volley(mobilenumber,titles,diss,paise,getStringImage(bitmap));
         }
             }
         } );
 
     }
 
-     public void volley() {
+     public void volley(final String mobilenumber, final String titles, final String  dis, final String paise, final String stringImage) {
 
-        RequestQueue requestQueue = Volley.newRequestQueue( getApplicationContext() );
-        StringRequest stringRequest = new StringRequest( Request.Method.POST, Url, new Response.Listener <String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e( "ap",response );
-                try {
+         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                 new Response.Listener<String>() {
+                     @Override
+                     public void onResponse(String response) {
+                         //    progressDialog.dismiss();
+                         Log.i("TAGG", response+" "+stringImage);
 
-                    JSONArray jsonArray = new JSONArray( response );
-
-                        JSONObject jsonObject = jsonArray.getJSONObject( 0);
-                        if(jsonObject.getString( "code" ).equalsIgnoreCase( "ok" )){
-                            Toast.makeText( getApplicationContext(),"done",Toast.LENGTH_LONG ).show();
-                        }
-
-
-                }catch (JSONException e){
-                    Toast.makeText( getApplicationContext(),e.toString(),Toast.LENGTH_LONG ).show();
-                }
-
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG ).show();
-
-            }
-        })
+                     }
+                 },
+                 new Response.ErrorListener() {
+                     @Override
+                     public void onErrorResponse(VolleyError error) {
+                         Toast.makeText(UploadYourPost.this, mobilenumber+""+error, Toast.LENGTH_SHORT).show();
+                     }
+                 })
         {
-            @Override
-            protected Map <String, String> getParams() throws AuthFailureError {
-                Log.d( "kfjkdfjkdfksdlfsd","shdkas" );
-                return super.getParams();
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("title", titles);
+                    params.put("mobile", mobilenumber);
+                    params.put("des", dis);
+                    params.put("pic", stringImage);
+                    params.put("rate", paise);
+                    return params;
+
             }
         };
-        requestQueue.add( stringRequest );
+         RequestQueue requestQueue = Volley.newRequestQueue( this );
+         requestQueue.add( stringRequest );
+         requestQueue.getCache().clear();
     }
 
     private void initilisation() {

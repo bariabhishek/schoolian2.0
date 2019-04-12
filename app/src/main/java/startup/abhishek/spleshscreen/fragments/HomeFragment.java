@@ -1,6 +1,7 @@
 package startup.abhishek.spleshscreen.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,17 +13,36 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import startup.abhishek.spleshscreen.Adeptor.Adeptor;
 import startup.abhishek.spleshscreen.Adeptor.ModelList;
+import startup.abhishek.spleshscreen.Home;
 import startup.abhishek.spleshscreen.R;
+import startup.abhishek.spleshscreen.Registration;
+import startup.abhishek.spleshscreen.UploadYourPost;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,8 +51,11 @@ public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView ;
     ArrayList<ModelList> list;
+    ImageButton imageButton;
 
     private TextView mTextMessage;
+
+    String Url="https://voulu.in/api/getJobPost.php";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -63,10 +86,69 @@ public class HomeFragment extends Fragment {
         }
     };*/
     private void arraydata() {
-        list.add( new ModelList( R.drawable.logonewcolor,"workshop","need A car cleaner","$ 5" ) );
-        list.add( new ModelList( R.drawable.sch,"workshop","need A car cleaner","$ 5" ) );
-        list.add( new ModelList( R.drawable.logo,"workshop","need A car cleaner","$ 5" ) );
-        list.add( new ModelList( R.drawable.follo,"workshop","need A car cleaner","$ 5" ) );
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //    progressDialog.dismiss();
+                        Log.i("TAG", response.toString());
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("allPost");
+                            if (success.equals("1")){
+                                Log.d("Response",response);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String title = object.getString("name").trim();
+                                    String mobile = object.getString("mobile").trim();
+                                    String des = object.getString("des").trim();
+                                    String rate = object.getString("rate").trim();
+                                    String img = object.getString("img").trim();
+                                    String id = object.getString("Id").trim();
+                                    list.add( new ModelList( R.drawable.logonewcolor,title,des,rate ) );
+                                    list.add( new ModelList( R.drawable.logonewcolor,"workshop","need A car cleaner","$ 5" ) );
+                                    list.add( new ModelList( R.drawable.sch,"workshop","need A car cleaner","$ 5" ) );
+                                    list.add( new ModelList( R.drawable.logo,"workshop","need A car cleaner","$ 5" ) );
+                                    list.add( new ModelList( R.drawable.follo,"workshop","need A car cleaner","$ 5" ) );
+
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
+                 return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
+
+
+
 
     }
 
@@ -75,7 +157,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate( R.layout.fragment_home, container, false );
-
+            imageButton=view.findViewById(R.id.uplodButton);
         list = new ArrayList <>(  );
         arraydata();
 
@@ -83,8 +165,8 @@ public class HomeFragment extends Fragment {
         fab.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make( view, "Replace with your own action", Snackbar.LENGTH_LONG )
-                        .setAction( "Action", null ).show();
+                Intent vi = new Intent(getActivity(), UploadYourPost. class);
+                startActivity(vi);
             }
         } );
 
@@ -102,6 +184,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter( a );
         //recyclerView.setNestedScrollingEnabled(false);
        //  ViewCompat.setNestedScrollingEnabled( recyclerView,false );
+
         return view;
     }
 
