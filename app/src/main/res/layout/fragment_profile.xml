@@ -34,7 +34,7 @@
                     android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/profileUpload"
+
                     android:layout_width="wrap_content"
                     android:layout_height="230dp"
                     android:src="@drawable/backg"
@@ -44,6 +44,7 @@
                     android:contentDescription="@string/title_home"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileUpload"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:alpha="2"
@@ -100,7 +101,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/colorPrimary"
                                 android:padding="10dp"
                                 android:text="101"/>
                         </LinearLayout>
@@ -123,7 +124,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/colorPrimary"
                                 android:padding="10dp"
                                 android:text="101"/>
                         </LinearLayout>
@@ -145,7 +146,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/colorPrimary"
                                 android:padding="10dp"
                                 android:text="101"/>
                         </LinearLayout>
@@ -177,10 +178,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginHorizontal="10dp"
-                        android:tint="@color/colorPrimaryDark"
+                        android:tint="@color/colorPrimary"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/ic_mail_black_24dp"/>
                     <TextView
@@ -201,10 +202,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginHorizontal="10dp"
-                        android:tint="@color/colorPrimaryDark"
+                        android:tint="@color/colorPrimary"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/ic_phone_android_black_24dp"/>
                     <TextView
@@ -224,10 +225,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginHorizontal="10dp"
-                        android:tint="@color/colorPrimaryDark"
+                        android:tint="@color/colorPrimary"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/ic_cloud_done_black_24dp"/>
                     <TextView
@@ -248,7 +249,7 @@
                     android:background="@drawable/bg_capsule_for_message"
                     android:text="Follow"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorPrimary"
                     android:layout_gravity="center"/>
 
             </LinearLayout>

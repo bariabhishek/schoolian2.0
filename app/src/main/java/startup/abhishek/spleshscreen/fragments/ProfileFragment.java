@@ -10,12 +10,15 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 import startup.abhishek.spleshscreen.R;
 
@@ -29,6 +32,7 @@ public class ProfileFragment extends Fragment {
     Bitmap bitmap;
     ImageView uploadProfile;
     int PICK_IMAGE_REQUEST = 0;
+    String encodedImage;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -70,6 +74,8 @@ public class ProfileFragment extends Fragment {
                 //getting image from gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
 
+                getStringImage( bitmap );
+
                 //Setting image to ImageView
                 uploadProfile.setImageBitmap(bitmap);
             } catch (Exception e) {
@@ -81,5 +87,16 @@ public class ProfileFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "image error", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    public String getStringImage(Bitmap bmp) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+
     }
 }
