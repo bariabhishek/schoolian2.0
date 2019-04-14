@@ -92,11 +92,8 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-         if (id == R.id.profile) {
 
-            setFregment(profileFragment);
-
-        } else if (id == R.id.jobpost) {
+         if (id == R.id.jobpost) {
 
             Intent intent = new Intent( this,UploadYourPost.class );
             startActivity( intent );

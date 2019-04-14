@@ -129,20 +129,21 @@ public class Registration extends AppCompatActivity {
                 if(sname.isEmpty() && spassword.isEmpty()&&smobile.isEmpty()){
                     username.setError( "not Valid" );
 
-                }else {
-                    if(password.length()>8){
-                        userpassword.setError("minimum 8 character");
-                        Toast.makeText( getApplicationContext(),"minimum 8 character",Toast.LENGTH_LONG ).show();
-                    }
-                    else {
-                        if(isImageset) {
-                            uploadDataWithImage(sname,smobile,spassword,Gender,getStringImage(profileImage));
+                }
+                else {
+                              if(password.getText().toString().length()<=8){
+                               userpassword.setError("minimum 8 character requierd");
+                                Toast.makeText( getApplicationContext(),"minimum 8 character",Toast.LENGTH_LONG ).show();
+                                                                            }
+                              else {
+                                         if(isImageset) {
+                                                        uploadDataWithImage(sname,smobile,spassword,Gender,getStringImage(profileImage));
+                                                        }
+                             else
+                                  {
+                                      uploadDataWithOutImage(sname,smobile,spassword,Gender,simage);
+                                  }
                         }
-                        else
-                        {
-                            uploadDataWithOutImage(sname,smobile,spassword,Gender,simage);
-                        }
-                    }
                 }
 
 

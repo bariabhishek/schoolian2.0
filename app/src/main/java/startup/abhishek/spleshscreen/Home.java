@@ -90,17 +90,17 @@ public class Home extends NavigationDrawerActivity_ {
                         setFragment(homeFragment);
                         return true;
 
-                    case R.id.inbox :
-                        setFragment( inboxFragment );
-                        return true;
+//                    case R.id.inbox :
+//                        setFragment( inboxFragment );
+//                        return true;
 
                     case R.id.notification :
                         setFragment( notificationFragment );
                         return true;
 
-                    case R.id.follower :
-                        setFragment( followersFragment );
-                        return true;
+//                    case R.id.follower :
+//                        setFragment( followersFragment );
+//                        return true;
 
                     case R.id.profile :
                         setFragment( profileFragment );
@@ -221,6 +221,18 @@ public class Home extends NavigationDrawerActivity_ {
         switch (item.getItemId()) {
             case R.id.jobpost:
                 Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent( this,UploadYourPost.class );
+                startActivity( intent );
+                break;
+            case R.id.yourpost:
+                break;
+            case R.id.wallet:
+                break;
+            case R.id.follow:
+                break;
+            case  R.id.aboutus:
+                break;
+            case  R.id.help:
                 break;
             case R.id.logout:
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Home.this);
