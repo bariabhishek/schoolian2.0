@@ -1,6 +1,7 @@
 package startup.abhishek.spleshscreen.Adeptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import startup.abhishek.spleshscreen.JobDiscription;
 import startup.abhishek.spleshscreen.R;
 
 public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
@@ -37,13 +40,21 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         Glide.with(context).load(list.get(i).getImage()).into(viewHolder.imageView);
        //viewHolder.imageView.setImageResource( list.get( i ).getImage() );
         viewHolder.title.setText( list.get( i ).getTitle());
         viewHolder.dis.setText( list.get( i ).getDis() );
         viewHolder.pese.setText( list.get( i ).getPese() );
+        viewHolder.postCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent view = new Intent(context, JobDiscription. class);
+                view.putExtra("id",list.get( i ).getId());
+                context.startActivity(view);
+            }
+        });
     }
 
     @Override
@@ -55,6 +66,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
 
         ImageView imageView ;
         TextView title, pese , dis;
+        LinearLayout postCard;
 
         public ViewHolder(@NonNull View itemView) {
             super( itemView );
@@ -63,6 +75,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
             title = itemView.findViewById( R.id.title );
             dis = itemView.findViewById( R.id.dis );
             pese = itemView.findViewById( R.id.pese );
+            postCard=itemView.findViewById(R.id.postCard);
         }
     }
 
