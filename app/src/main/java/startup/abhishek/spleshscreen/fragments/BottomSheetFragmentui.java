@@ -25,7 +25,7 @@ public class BottomSheetFragmentui extends BottomSheetDialogFragment {
         call = view.findViewById( R.id.civcall );
         message = view.findViewById( R.id.civmessage );
 
-        click();
+
 
 
         return view;

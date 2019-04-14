@@ -41,7 +41,7 @@
                         android:contentDescription="@string/title_home"
                         android:fitsSystemWindows="true"
                         android:scaleType="fitXY"
-                        android:id="@+id/backImage"
+                        android:id="@+id/postMainImage"
                         android:src="@drawable/backg"
                         android:layout_above="@id/userBox"/>
                     <LinearLayout
@@ -58,6 +58,7 @@
                             android:layout_margin="5dp"
                             android:padding="2dp"
                             android:src="@drawable/sch"
+                            android:id="@+id/postProfile"
                             app:civ_border_color="@color/colorPrimaryDark"
                             app:civ_border_width="1dp"/>
                         <LinearLayout
@@ -70,6 +71,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
+                                android:id="@+id/postUsername"
                                 android:text="Name"
                                 android:textColor="#000"
                                 android:textSize="20sp"
@@ -128,6 +130,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
                     android:layout_gravity="center"
+                    android:id="@+id/postJobTitle"
                     android:textStyle="bold"
                     android:layout_marginTop="20dp"/>
 
@@ -148,7 +151,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Job desc"/>
+                        android:text="Job desc" android:id="@+id/postJobdes"/>
 
 
 
@@ -160,10 +163,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:background="@drawable/bg_capsule_for_message"
-                    android:text="Follow"
+                    android:text="Comments"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:id="@+id/showComment"
+                  />
+
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

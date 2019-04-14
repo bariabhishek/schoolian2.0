@@ -66,7 +66,10 @@ public class SpleshScreen extends AppCompatActivity {
             }
             else
             {
-                new Handler().postDelayed(new Runnable() {
+                Intent intent = new Intent(SpleshScreen.this, Home.class);
+                startActivity(intent);
+                finish();
+              /*  new Handler().postDelayed(new Runnable() {
 
 // Using handler with postDelayed called runnable run method
 
@@ -76,13 +79,11 @@ public class SpleshScreen extends AppCompatActivity {
 
                         logopic.animate().alpha(1f).setDuration(500);
 
-                        Intent intent = new Intent(SpleshScreen.this, Home.class);
-                        startActivity(intent);
-                        finish();
+
 
                     }
 
-                }, 1*500);
+                }, 1*500);*/
 
 
 
