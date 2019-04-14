@@ -20,11 +20,11 @@ public class JobDiscription extends AppCompatActivity implements BottomSheetFrag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_job_discription );
+        setContentView( R.layout.new_job_dec );
 
-        viewPager = findViewById( R.id.viewPager );
+        /*viewPager = findViewById( R.id.viewPager );
         coustomSwipeAdeptor = new CoustomSwipeAdeptor( this,image );
-        viewPager.setAdapter( coustomSwipeAdeptor );
+        viewPager.setAdapter( coustomSwipeAdeptor );*/
 
         accept = findViewById( R.id.btnConnect );
 

@@ -1,12 +1,14 @@
 package startup.abhishek.spleshscreen;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -39,6 +41,7 @@ public class UploadYourPost extends AppCompatActivity {
 
 
     //new post
+    AlertDialog alertDialog;
 
     EditText title,dis,pese;
     ImageView imageView1,imageView2,imageView3;
@@ -112,19 +115,42 @@ public class UploadYourPost extends AppCompatActivity {
 
      public void volley(final String mobilenumber, final String titles, final String  dis, final String paise, final String stringImage) {
 
+         final ProgressDialog progressDialog = new ProgressDialog(this);
+         progressDialog.setMessage("Uploading...");
+         progressDialog.setCancelable(false);
+         progressDialog.show();
+         UploadYourPost.this.setFinishOnTouchOutside(false);
+
          StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                  new Response.Listener<String>() {
                      @Override
                      public void onResponse(String response) {
-                         //    progressDialog.dismiss();
-                         Log.i("TAGG", response+" "+stringImage);
+                         try {
+                             JSONObject jsonObject = new JSONObject(response);
+                             String success = jsonObject.getString("success");
+
+                             if (success.equals("1")){
+                                 Toast.makeText(UploadYourPost.this, "Success!", Toast.LENGTH_SHORT).show();
+                                 progressDialog.dismiss();
+                                 Intent views = new Intent(UploadYourPost.this,Home. class);
+                                 startActivity(views);
+                                 finish();
+
+                             }
+
+                         } catch (JSONException e) {
+                             e.printStackTrace();
+                             progressDialog.dismiss();
+                             Toast.makeText(UploadYourPost.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
+                         }
 
                      }
                  },
                  new Response.ErrorListener() {
                      @Override
                      public void onErrorResponse(VolleyError error) {
-                         Toast.makeText(UploadYourPost.this, mobilenumber+""+error, Toast.LENGTH_SHORT).show();
+                         progressDialog.dismiss();
+                         Toast.makeText(UploadYourPost.this, "Try Again!"+error, Toast.LENGTH_SHORT).show();
                      }
                  })
         {

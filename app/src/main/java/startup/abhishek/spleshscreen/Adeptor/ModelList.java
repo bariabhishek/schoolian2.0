@@ -2,21 +2,57 @@ package startup.abhishek.spleshscreen.Adeptor;
 
 public class ModelList {
 
-    int Image;
+    String Image;
     String title;
+    String dis;
+    String pese;
+    String id;
+    String time;
+    String mobile;
 
-    public int getImage() {
-        return Image;
-    }
-
-    public ModelList(int image, String title, String dis, String pese) {
+    public ModelList(String image, String title, String dis, String pese, String id, String time, String mobile) {
         Image = image;
         this.title = title;
         this.dis = dis;
         this.pese = pese;
+        this.id = id;
+        this.time = time;
+        this.mobile = mobile;
     }
 
-    public void setImage(int image) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+
+
+    public String getImage() {
+        return Image;
+    }
+
+
+
+    public void setImage(String image) {
         Image = image;
     }
 
@@ -44,6 +80,5 @@ public class ModelList {
         this.pese = pese;
     }
 
-    String dis;
-    String pese;
+
 }

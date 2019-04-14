@@ -10,18 +10,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import startup.abhishek.spleshscreen.R;
 
 public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
-    public Adeptor(Context context, ArrayList <ModelList> list) {
+    public Adeptor(Context context, List <ModelList> list) {
         this.context = context;
         this.list = list;
     }
 
     Context context;
-    ArrayList<ModelList> list ;
+    List<ModelList> list ;
 
     @NonNull
     @Override
@@ -36,7 +39,8 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        viewHolder.imageView.setImageResource( list.get( i ).getImage() );
+        Glide.with(context).load(list.get(i).getImage()).into(viewHolder.imageView);
+       //viewHolder.imageView.setImageResource( list.get( i ).getImage() );
         viewHolder.title.setText( list.get( i ).getTitle());
         viewHolder.dis.setText( list.get( i ).getDis() );
         viewHolder.pese.setText( list.get( i ).getPese() );

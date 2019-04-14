@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import startup.abhishek.spleshscreen.Adeptor.Adeptor;
@@ -50,9 +51,9 @@ import startup.abhishek.spleshscreen.UploadYourPost;
 public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView ;
-    ArrayList<ModelList> list;
+    List<ModelList> list;
     ImageButton imageButton;
-
+    View view;
     private TextView mTextMessage;
 
     String Url="https://voulu.in/api/getJobPost.php";
@@ -102,19 +103,19 @@ public class HomeFragment extends Fragment {
                                 for (int i = 0; i < jsonArray.length(); i++) {
 
                                     JSONObject object = jsonArray.getJSONObject(i);
-                                    String title = object.getString("name").trim();
+                                    String title = object.getString("title").trim();
                                     String mobile = object.getString("mobile").trim();
                                     String des = object.getString("des").trim();
                                     String rate = object.getString("rate").trim();
                                     String img = object.getString("img").trim();
-                                    String id = object.getString("Id").trim();
-                                    list.add( new ModelList( R.drawable.logonewcolor,title,des,rate ) );
-                                    list.add( new ModelList( R.drawable.logonewcolor,"workshop","need A car cleaner","$ 5" ) );
-                                    list.add( new ModelList( R.drawable.sch,"workshop","need A car cleaner","$ 5" ) );
-                                    list.add( new ModelList( R.drawable.logo,"workshop","need A car cleaner","$ 5" ) );
-                                    list.add( new ModelList( R.drawable.follo,"workshop","need A car cleaner","$ 5" ) );
+                                    String id = object.getString("id").trim();
+                                    String time = object.getString("time").trim();
+                                    Toast.makeText(getActivity(), ""+title+mobile+des, Toast.LENGTH_SHORT).show();
+                                    list.add( new ModelList(img,title,des,rate,id,time,mobile ) );
 
                                 }
+                                setupRecycle(list);
+
                             }
                             else
                             {
@@ -156,7 +157,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate( R.layout.fragment_home, container, false );
+         view = inflater.inflate( R.layout.fragment_home, container, false );
             imageButton=view.findViewById(R.id.uplodButton);
         list = new ArrayList <>(  );
         arraydata();
@@ -172,20 +173,19 @@ public class HomeFragment extends Fragment {
 
 
 
+
+
+        return view;
+    }
+
+    public void setupRecycle(List <ModelList> list)
+    {
         Adeptor a= new Adeptor( getContext(),list );
         recyclerView = view.findViewById( R.id.recycleview );
-      //  mTextMessage = (TextView) view.findViewById( R.id.message );
-  //      BottomNavigationView navigation = (BottomNavigationView) view.findViewById( R.id.navigation );
-//        navigation.setOnNavigationItemSelectedListener( mOnNavigationItemSelectedListener );
 
         recyclerView.setHasFixedSize( true );
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2) );
         recyclerView.setAdapter( a );
-        //recyclerView.setNestedScrollingEnabled(false);
-       //  ViewCompat.setNestedScrollingEnabled( recyclerView,false );
-
-        return view;
     }
-
 }
