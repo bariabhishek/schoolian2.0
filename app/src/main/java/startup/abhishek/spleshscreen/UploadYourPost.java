@@ -137,6 +137,11 @@ public class UploadYourPost extends AppCompatActivity {
                                  finish();
 
                              }
+                             else
+                             {
+                                 Toast.makeText(UploadYourPost.this, "Not upload", Toast.LENGTH_SHORT).show();
+                                 progressDialog.dismiss();
+                             }
 
                          } catch (JSONException e) {
                              e.printStackTrace();

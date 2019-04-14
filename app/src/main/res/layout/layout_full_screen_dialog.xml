@@ -25,29 +25,39 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
 
-            android:id="@+id/recycleviewComment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-           >
+    <android.support.v7.widget.RecyclerView
 
-        </android.support.v7.widget.RecyclerView>
-    <LinearLayout
-        android:id="@+id/bottomEdit"
-        android:layout_below="@+id/recycleviewComment"
+        android:id="@+id/recycleviewComment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomEdit">
+
+    </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:background="@drawable/background_layout_white"
+        android:id="@+id/bottomEdit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom">
+
         <EditText
             android:layout_width="match_parent"
-            android:layout_weight=".7"
-            android:layout_height="wrap_content" />
-        <ImageButton
-            android:layout_weight=".3"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight=".2"
+            android:lines="5"
+            android:maxLength="220"
+            android:inputType="text"
+            android:hint="Type your comment..."
+            android:textColor="#000"
+            android:id="@+id/CommenBox"/>
+        <ImageView
+            android:layout_weight=".8"
+            android:id="@+id/sedCommentButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             app:srcCompat="@drawable/ic_send_black_24dp"/>
 
     </LinearLayout>

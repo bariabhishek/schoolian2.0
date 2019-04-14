@@ -56,7 +56,9 @@ public class JobDiscription extends AppCompatActivity implements BottomSheetFrag
 //                fragment1.show(getSupportFragmentManager(),"Comments");
 
         FullScreenDialog dialog =new FullScreenDialog();
-       // FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Bundle b=new Bundle();
+        b.putString("id",id);
+        dialog.setArguments(b);
         dialog.show(getSupportFragmentManager(),"TAG");
 
     }
