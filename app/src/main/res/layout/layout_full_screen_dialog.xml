@@ -35,7 +35,7 @@
 
     </android.support.v7.widget.RecyclerView>
     <LinearLayout
-        android:background="@drawable/background_layout_white"
+        android:background="@drawable/background_rounded"
         android:id="@+id/bottomEdit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -50,6 +50,7 @@
             android:lines="5"
             android:maxLength="220"
             android:inputType="text"
+            android:textColorHint="#000"
             android:hint="Type your comment..."
             android:textColor="#000"
             android:id="@+id/CommenBox"/>
