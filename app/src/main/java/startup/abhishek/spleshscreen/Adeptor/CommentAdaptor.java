@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
     private String postId;
     public String mobile;
     private String Url="https://voulu.in/api/getMobileUsingPostId.php";
+    private String UrlDelet="https://voulu.in/api/deletCommentPostId.php";
     private SessionManger sessionManger;
     private String userMobile;
 
@@ -74,9 +76,68 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
         checkPostId(postId,viewHolder);
       //  Toast.makeText(context, "userMobile =>"+userMobile+" mobile=>"+mobile, Toast.LENGTH_SHORT).show();
 
+        viewHolder.reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletComment(list.get(i).getComment_id(),i);
+            }
+        });
 
 
 
+
+    }
+
+    private void deletComment(final String postId, final int i) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UrlDelet,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            if (success.equals("1")){
+                                Log.d("Response",response);
+                                    list.remove(i);
+                                    notifyItemRemoved(i);
+                                notifyItemRangeChanged(i,list.size());
+                                Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(context, "Something went wrong...", Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(context, "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("postId", postId);
+                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
 
     }
 
@@ -147,17 +208,21 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView imageView ;
+        Button accept,reject;
         TextView comment, time , username;
         LinearLayout giverOptions;
 
+
         public ViewHolder(@NonNull View itemView) {
             super( itemView );
-
             imageView = itemView.findViewById( R.id.commentProfile );
             comment = itemView.findViewById( R.id.MainComment );
             username = itemView.findViewById( R.id.commentUsername );
             time = itemView.findViewById( R.id.commentTime );
             giverOptions=itemView.findViewById(R.id.giverOptions);
+            accept=itemView.findViewById(R.id.btnAccept);
+            reject=itemView.findViewById(R.id.btnReject);
+
         }
     }
 

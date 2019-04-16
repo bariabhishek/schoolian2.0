@@ -137,7 +137,7 @@ public class FullScreenDialog extends DialogFragment {
                             if (success.equals("1")){
                                 Toast.makeText(getActivity(), "Successfully Sent!", Toast.LENGTH_SHORT).show();
                                 commentBox.setText("");
-                                getComment(post_id);
+                                getComment(post_id );
 
                             }
                             else
