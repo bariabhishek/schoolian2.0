@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "704944224597",
+    "firebase_url": "https://spleshscreen.firebaseio.com",
+    "project_id": "spleshscreen",
+    "storage_bucket": "spleshscreen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704944224597:android:4a2ffa2be095cc1f",
+        "android_client_info": {
+          "package_name": "startup.abhishek.spleshscreen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704944224597-rq88umgs4io59of8imdrd53ads5uhd31.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "startup.abhishek.spleshscreen",
+            "certificate_hash": "df4fbf9999a2dff8abd95091ce594474e09a8456"
+          }
+        },
+        {
+          "client_id": "704944224597-oghg378l6o6jeiiphva8p0vtnupo68mt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsjWwYYrLxgM1wt0fhktOgwUCaDYjkw24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704944224597-oghg378l6o6jeiiphva8p0vtnupo68mt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
