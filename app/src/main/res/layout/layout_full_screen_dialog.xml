@@ -40,24 +40,29 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:elevation="5dp"
         android:layout_alignParentBottom="true"
         android:gravity="bottom">
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight=".8"
             android:lines="5"
             android:maxLength="220"
             android:inputType="text"
-            android:textColorHint="#000"
             android:hint="Type your comment..."
+            android:gravity="center"
+            android:layout_margin="2dp"
             android:textColor="#000"
+            android:background="@drawable/bg_edittext"
             android:id="@+id/CommenBox"/>
         <ImageView
-            android:layout_weight=".8"
+            android:layout_weight=".2"
             android:id="@+id/sedCommentButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_margin="2dp"
+            android:padding="6dp"
             android:layout_height="50dp"
             app:srcCompat="@drawable/ic_send_black_24dp"/>
 

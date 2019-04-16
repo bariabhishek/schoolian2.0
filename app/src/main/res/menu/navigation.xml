@@ -15,10 +15,10 @@
         android:id="@+id/notification"
         android:icon="@drawable/notificatio"
         android:title="@string/title_notifications" />
-    <!--  <item
-         android:id="@+id/follower"
+      <item
+         android:id="@+id/Fevrate"
          android:icon="@drawable/followers"
-         android:title="@string/follower" />-->
+         android:title="@string/follower"/>
      <item
          android:id="@+id/profile"
          android:icon="@drawable/person_24dp"

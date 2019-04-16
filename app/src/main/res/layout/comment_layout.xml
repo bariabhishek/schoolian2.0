@@ -19,7 +19,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:padding="2dp"
                 android:src="@drawable/sch"
                 app:civ_border_color="#000"
@@ -40,7 +40,7 @@
                     android:text="Uername"
                     android:id="@+id/commentUsername"/>
                 <TextView
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:text="Time"
@@ -49,7 +49,7 @@
 
 
                 <TextView
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:textColor="#000"
@@ -63,10 +63,12 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <LinearLayout
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/giverOptions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_margin="3dp"
                 android:orientation="vertical">
                 <Button
                     android:id="@+id/btnAccept"

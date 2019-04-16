@@ -98,9 +98,9 @@ public class Home extends NavigationDrawerActivity_ {
                         setFragment( notificationFragment );
                         return true;
 
-//                    case R.id.follower :
-//                        setFragment( followersFragment );
-//                        return true;
+                    case R.id.Fevrate :
+                        setFragment( followersFragment );
+                       return true;
 
                     case R.id.profile :
                         setFragment( profileFragment );
@@ -152,9 +152,6 @@ public class Home extends NavigationDrawerActivity_ {
                                             PERMISSIONS_MULTIPLE_REQUEST);
                                 }
                             }).show();
-
-
-
 
 
 
