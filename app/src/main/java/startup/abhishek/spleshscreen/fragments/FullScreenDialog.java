@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,9 +29,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import startup.abhishek.spleshscreen.Adeptor.Adeptor;
+import startup.abhishek.spleshscreen.Adeptor.CommentAdaptor;
+import startup.abhishek.spleshscreen.Adeptor.CommentModel;
+import startup.abhishek.spleshscreen.Adeptor.ModelList;
 import startup.abhishek.spleshscreen.Home;
 import startup.abhishek.spleshscreen.Login;
 import startup.abhishek.spleshscreen.R;
@@ -40,13 +50,18 @@ public class FullScreenDialog extends DialogFragment {
     ImageView sendBtn;
     SessionManger sessionManger;
     final String Url="https://voulu.in/api/sendComment.php";
+    final String Url2="https://voulu.in/api/getComments.php";
     String postId;
+    List <CommentModel> list;
+    RecyclerView recyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
        postId=getArguments().getString("id");
+       list=new ArrayList<>();
+        getComment(postId);
 
     }
 
@@ -55,6 +70,7 @@ public class FullScreenDialog extends DialogFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.layout_full_screen_dialog, container, false);
         setToolbar(view);
+        recyclerView = view.findViewById( R.id.recycleviewComment );
         sessionManger =new SessionManger(getActivity());
         sendBtn=view.findViewById(R.id.sedCommentButton);
         commentBox=view.findViewById(R.id.CommenBox);
@@ -120,6 +136,8 @@ public class FullScreenDialog extends DialogFragment {
 
                             if (success.equals("1")){
                                 Toast.makeText(getActivity(), "Successfully Sent!", Toast.LENGTH_SHORT).show();
+                                commentBox.setText("");
+                                getComment(post_id );
 
                             }
                             else
@@ -161,33 +179,44 @@ public class FullScreenDialog extends DialogFragment {
         requestQueue.getCache().clear();
     }
     public void getComment(final String post_id){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url2,
                 new Response.Listener<String>()
                 {
+
                     @Override
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
+
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-
+                            JSONArray jsonArray = jsonObject.getJSONArray("allPost");
                             if (success.equals("1")){
+                                Log.d("Response",response);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String comment = object.getString("comment").trim();
+                                    String username = object.getString("username").trim();
+                                    String commentId = object.getString("commentId").trim();
+                                    String userPic = object.getString("userPic").trim();
+                                    String time = object.getString("time").trim();
+                                   //(String comment_id, String comment, String username, String userpic, String time)
+                                    list.add(new CommentModel(commentId,comment,username,userPic,time) );
 
-
+                                }
+                                setupRecycle(list);
 
                             }
                             else
                             {
-                                Toast.makeText(getActivity(), "Not Send", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
                             }
-
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            // email_hint.setError("Invalid Mobile no. or Password");
-                            Toast.makeText(getActivity(), "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+
 
                         }
 
@@ -206,10 +235,22 @@ public class FullScreenDialog extends DialogFragment {
             {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("postId", post_id);
+                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
                 return params;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
+    }
+
+    private void setupRecycle(List<CommentModel> list) {
+        CommentAdaptor a= new CommentAdaptor( getContext(),list,postId );
+
+
+        recyclerView.setHasFixedSize( true );
+        recyclerView.setItemAnimator( new DefaultItemAnimator() );
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) );
+        recyclerView.setAdapter( a );
+
     }
 }
