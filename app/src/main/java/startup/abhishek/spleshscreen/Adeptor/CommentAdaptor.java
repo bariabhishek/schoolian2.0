@@ -1,6 +1,7 @@
 package startup.abhishek.spleshscreen.Adeptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import startup.abhishek.spleshscreen.JobConfirm;
 import startup.abhishek.spleshscreen.R;
 import startup.abhishek.spleshscreen.SessionManger;
 
@@ -73,7 +75,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
         viewHolder.username.setText( list.get( i ).getUsername());
         viewHolder.comment.setText( list.get( i ).getComment() );
         viewHolder.time.setText( list.get( i ).getTime() );
-        checkPostId(postId,viewHolder);
+        checkPostId(postId,viewHolder,i);
       //  Toast.makeText(context, "userMobile =>"+userMobile+" mobile=>"+mobile, Toast.LENGTH_SHORT).show();
 
         viewHolder.reject.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +84,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                 deletComment(list.get(i).getComment_id(),i);
             }
         });
+
 
 
 
@@ -100,8 +103,8 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                             String success = jsonObject.getString("success");
                             if (success.equals("1")){
                                 Log.d("Response",response);
-                                    list.remove(i);
-                                    notifyItemRemoved(i);
+                                list.remove(i);
+                                notifyItemRemoved(i);
                                 notifyItemRangeChanged(i,list.size());
                                 Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                             }
@@ -141,7 +144,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
 
     }
 
-    private void checkPostId(final String post_id, final ViewHolder viewHolder) {
+    private void checkPostId(final String post_id, final ViewHolder viewHolder, final int position) {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                     new Response.Listener<String>()
                     {
@@ -156,10 +159,17 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                                     Log.d("Response",response);
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                       mobile = object.getString("user_mobile").trim();
+                                        mobile = object.getString("user_mobile").trim();
+                                      //  final String profile = object.getString("profile").trim();
                                         if (userMobile.equals(mobile))
                                         {
                                             viewHolder.giverOptions.setVisibility(View.VISIBLE);
+                                            viewHolder.accept.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    confirmTask(postId,list.get(position).getComment_id());
+                                                }
+                                            });
                                         }
                                     }
 
@@ -198,6 +208,15 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
             requestQueue.getCache().clear();
 
         }
+
+    private void confirmTask(String postId, String comment_id) {
+
+        Intent view = new Intent(context, JobConfirm. class);
+        view.putExtra("postId",postId);
+        view.putExtra("commnet_id",comment_id);
+        context.startActivity(view);
+
+    }
 
 
     @Override

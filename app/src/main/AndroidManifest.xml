@@ -19,11 +19,6 @@
         <activity android:name=".Wallet" />
         <activity android:name=".JobConfirm" />
         <activity android:name=".OTP">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".JobGiver" />
         <activity android:name=".UserMobileNumber" />
