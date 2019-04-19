@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -47,11 +48,12 @@ import startup.abhishek.spleshscreen.UploadYourPost;
 public class FullScreenDialog extends DialogFragment {
 
     EditText commentBox;
+    ProgressBar progressBar;
     ImageView sendBtn;
     SessionManger sessionManger;
-    final String Url="https://voulu.in/api/sendComment.php";
-    final String Url2="https://voulu.in/api/getComments.php";
-    String postId;
+    final String Url="http://voulu.in/api/sendComment.php";
+    final String Url2="http://voulu.in/api/getComments.php";
+    String postId,title;
     List <CommentModel> list;
     RecyclerView recyclerView;
 
@@ -60,8 +62,9 @@ public class FullScreenDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
        postId=getArguments().getString("id");
+       title=getArguments().getString("title");
        list=new ArrayList<>();
-        getComment(postId);
+
 
     }
 
@@ -73,8 +76,9 @@ public class FullScreenDialog extends DialogFragment {
         recyclerView = view.findViewById( R.id.recycleviewComment );
         sessionManger =new SessionManger(getActivity());
         sendBtn=view.findViewById(R.id.sedCommentButton);
+        progressBar=view.findViewById(R.id.progressComment);
         commentBox=view.findViewById(R.id.CommenBox);
-
+        getComment(postId);
         HashMap<String,String> user=sessionManger.getUserDetail();
         final String mobile = user.get(sessionManger.MOBILE);
 
@@ -179,6 +183,9 @@ public class FullScreenDialog extends DialogFragment {
         requestQueue.getCache().clear();
     }
     public void getComment(final String post_id){
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.getCache().clear();
+        progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url2,
                 new Response.Listener<String>()
                 {
@@ -205,18 +212,24 @@ public class FullScreenDialog extends DialogFragment {
                                     list.add(new CommentModel(commentId,comment,username,userPic,time) );
 
                                 }
+                                progressBar.setVisibility(View.GONE);
+
                                 setupRecycle(list);
 
                             }
                             else
                             {
                                 Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+                                Log.d("Response", response);
+
+
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
-
+                            Toast.makeText(getContext(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+                            Log.d("Response", e.getMessage());
 
                         }
 
@@ -226,6 +239,10 @@ public class FullScreenDialog extends DialogFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity(), "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                        Log.d("Response", error.toString());
+
+
 
                     }
                 }
@@ -239,12 +256,12 @@ public class FullScreenDialog extends DialogFragment {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
         requestQueue.add(stringRequest);
     }
 
     private void setupRecycle(List<CommentModel> list) {
-        CommentAdaptor a= new CommentAdaptor( getContext(),list,postId );
+        CommentAdaptor a= new CommentAdaptor( getContext(),list,postId,title );
 
 
         recyclerView.setHasFixedSize( true );

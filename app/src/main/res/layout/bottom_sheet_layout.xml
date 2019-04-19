@@ -6,15 +6,31 @@
     android:layout_width="match_parent"
     android:padding="15dp"
     android:layout_height="match_parent">
-
-
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="28dp"
+        android:id="@+id/OtpBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:text="OTP"/>
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:text="Share this code to contact person"/>
     <TextView
         android:layout_gravity="center"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000"
-        android:text="Contect to JobSeeker"/>
+        android:id="@+id/jobSeekerBottomsheet"
+        android:text="Contect to JobSeeker"
+        android:layout_marginTop="10dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

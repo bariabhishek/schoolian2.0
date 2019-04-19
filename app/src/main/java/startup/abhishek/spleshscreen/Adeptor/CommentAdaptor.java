@@ -39,17 +39,18 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
 
     private Context context;
     private List<CommentModel> list ;
-    private String postId;
+    private String postId,jobTitle;
     public String mobile;
-    private String Url="https://voulu.in/api/getMobileUsingPostId.php";
-    private String UrlDelet="https://voulu.in/api/deletCommentPostId.php";
+    private String Url="http://voulu.in/api/getMobileUsingPostId.php";
+    private String UrlDelet="http://voulu.in/api/deletCommentPostId.php";
     private SessionManger sessionManger;
     private String userMobile;
 
-    public CommentAdaptor(Context context, List <CommentModel> list, String postId) {
+    public CommentAdaptor(Context context, List <CommentModel> list, String postId,String jobTitle) {
         this.context = context;
         this.list = list;
         this.postId=postId;
+        this.jobTitle=jobTitle;
     }
 
 
@@ -75,7 +76,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
         viewHolder.username.setText( list.get( i ).getUsername());
         viewHolder.comment.setText( list.get( i ).getComment() );
         viewHolder.time.setText( list.get( i ).getTime() );
-        checkPostId(postId,viewHolder,i);
+        checkPostId(postId,viewHolder,i,userMobile);
       //  Toast.makeText(context, "userMobile =>"+userMobile+" mobile=>"+mobile, Toast.LENGTH_SHORT).show();
 
         viewHolder.reject.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +135,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
             {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("postId", postId);
+
                 params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
                 return params;
             }
@@ -144,7 +146,9 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
 
     }
 
-    private void checkPostId(final String post_id, final ViewHolder viewHolder, final int position) {
+    private void checkPostId(final String post_id, final ViewHolder viewHolder, final int position, final String userMobile) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.getCache().clear();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                     new Response.Listener<String>()
                     {
@@ -154,29 +158,17 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 String success = jsonObject.getString("success");
-                                JSONArray jsonArray = jsonObject.getJSONArray("getmobile");
+                              //  JSONArray jsonArray = jsonObject.getJSONArray("getmobile");
                                 if (success.equals("1")){
-                                    Log.d("Response",response);
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        JSONObject object = jsonArray.getJSONObject(i);
-                                        mobile = object.getString("user_mobile").trim();
-                                      //  final String profile = object.getString("profile").trim();
-                                        if (userMobile.equals(mobile))
-                                        {
+
                                             viewHolder.giverOptions.setVisibility(View.VISIBLE);
                                             viewHolder.accept.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    confirmTask(postId,list.get(position).getComment_id());
+                                                    confirmTask(postId,list.get(position).getComment_id(),jobTitle);
                                                 }
                                             });
-                                        }
-                                    }
 
-                                }
-                                else
-                                {
-                                    Toast.makeText(context, "Something went wrong...", Toast.LENGTH_LONG).show();
                                 }
 
                             } catch (JSONException e) {
@@ -200,19 +192,19 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                 {
                     Map<String, String>  params = new HashMap<String, String>();
                     params.put("postId", post_id);
+                    params.put("mobile", userMobile);
                     return params;
                 }
             };
-            RequestQueue requestQueue = Volley.newRequestQueue(context);
-            requestQueue.add(stringRequest);
-            requestQueue.getCache().clear();
 
+        requestQueue.add(stringRequest);
         }
 
-    private void confirmTask(String postId, String comment_id) {
+    private void confirmTask(String postId, String comment_id, String jobTitle) {
 
         Intent view = new Intent(context, JobConfirm. class);
         view.putExtra("postId",postId);
+        view.putExtra("title",jobTitle);
         view.putExtra("commnet_id",comment_id);
         context.startActivity(view);
 

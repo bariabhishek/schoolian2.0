@@ -52,6 +52,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
             public void onClick(View v) {
                 Intent view = new Intent(context, JobDiscription. class);
                 view.putExtra("id",list.get( i ).getId());
+                view.putExtra("title",list.get( i ).getTitle());
                 context.startActivity(view);
             }
         });

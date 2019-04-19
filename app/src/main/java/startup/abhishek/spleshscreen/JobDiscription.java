@@ -16,19 +16,20 @@ import startup.abhishek.spleshscreen.fragments.BottomSheetFragmentForCooments;
 import startup.abhishek.spleshscreen.fragments.BottomSheetFragmentui;
 import startup.abhishek.spleshscreen.fragments.FullScreenDialog;
 
-public class JobDiscription extends AppCompatActivity implements BottomSheetFragmentui.BottomSheetListener {
+public class JobDiscription extends AppCompatActivity  {
 
     Button accept,reject,showComment;
 
     int[] image = {R.drawable.sch,R.drawable.sch};
     ViewPager viewPager ;
     CoustomSwipeAdeptor coustomSwipeAdeptor;
-    String id;
+    String id,title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.new_job_dec );
         id=getIntent().getExtras().getString("id");
+        title=getIntent().getExtras().getString("title");
         Toast.makeText(this, ""+id, Toast.LENGTH_LONG).show();
         /*viewPager = findViewById( R.id.viewPager );
         coustomSwipeAdeptor = new CoustomSwipeAdeptor( this,image );
@@ -49,23 +50,15 @@ public class JobDiscription extends AppCompatActivity implements BottomSheetFrag
 
     public void click() {
 
-//                BottomSheetFragmentForCooments fragment1= new BottomSheetFragmentForCooments();
-//                Bundle b=new Bundle();
-//                b.putString("id",id);
-//                fragment1.setArguments(b);
-//                fragment1.show(getSupportFragmentManager(),"Comments");
-
         FullScreenDialog dialog =new FullScreenDialog();
         Bundle b=new Bundle();
         b.putString("id",id);
+        b.putString("title",title);
         dialog.setArguments(b);
         dialog.show(getSupportFragmentManager(),"TAG");
 
     }
 
-    @Override
-    public void onButtonClicked(String text) {
 
-    }
 
 }

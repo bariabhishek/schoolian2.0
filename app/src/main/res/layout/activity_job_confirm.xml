@@ -98,6 +98,7 @@ Make sure that you share receive OTP with this person."
         android:layout_marginTop="25dp"
         android:background="@drawable/bg_capsule_for_message"
         android:text="CONFIRM"
+        android:id="@+id/confirm"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:layout_gravity="center"/>

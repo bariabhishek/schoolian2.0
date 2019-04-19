@@ -149,6 +149,7 @@ public class HomeFragment extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
 
 
 
