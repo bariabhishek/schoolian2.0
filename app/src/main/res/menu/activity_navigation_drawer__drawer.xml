@@ -20,7 +20,7 @@
         <item
             android:id="@+id/follow"
             android:icon="@drawable/follower1"
-            android:title="Followers" />
+            android:title="Favorites" />
     </group>
 
     <item android:title="Communicate" >

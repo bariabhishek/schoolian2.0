@@ -18,7 +18,7 @@
       <item
          android:id="@+id/Fevrate"
          android:icon="@drawable/followers"
-         android:title="@string/follower"/>
+         android:title="Favorite Post"/>
      <item
          android:id="@+id/profile"
          android:icon="@drawable/person_24dp"
