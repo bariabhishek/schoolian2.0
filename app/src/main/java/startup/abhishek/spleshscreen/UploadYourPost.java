@@ -128,6 +128,7 @@ public class UploadYourPost extends AppCompatActivity {
                          try {
                              JSONObject jsonObject = new JSONObject(response);
                              String success = jsonObject.getString("success");
+                             Log.d("uploadchak", response);
 
                              if (success.equals("1")){
                                  Toast.makeText(UploadYourPost.this, "Success!", Toast.LENGTH_SHORT).show();
@@ -172,8 +173,10 @@ public class UploadYourPost extends AppCompatActivity {
             }
         };
          RequestQueue requestQueue = Volley.newRequestQueue( this );
-         requestQueue.add( stringRequest );
+
+         stringRequest.setShouldCache(false);
          requestQueue.getCache().clear();
+         requestQueue.add( stringRequest );
     }
 
     private void initilisation() {

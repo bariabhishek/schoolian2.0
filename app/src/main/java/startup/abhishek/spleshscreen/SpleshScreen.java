@@ -47,13 +47,12 @@ public class SpleshScreen extends AppCompatActivity {
 
                 new Handler().postDelayed(new Runnable() {
 
-// Using handler with postDelayed called runnable run method
 
                     @Override
 
                     public void run() {
 
-                        logopic.animate().alpha(1f).setDuration(1000);
+                        logopic.animate().alpha(1f).setDuration(5000);
 
                         Intent intent = new Intent(SpleshScreen.this, Login.class);
                         startActivity(intent);
@@ -61,7 +60,7 @@ public class SpleshScreen extends AppCompatActivity {
 
                     }
 
-                }, 1*1000);
+                }, 2*2500);
 
             }
             else

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -49,7 +50,7 @@ public class FullScreenDialog extends DialogFragment {
 
     EditText commentBox;
     ProgressBar progressBar;
-    ImageView sendBtn;
+    TextView sendBtn;
     SessionManger sessionManger;
     final String Url="http://voulu.in/api/sendComment.php";
     final String Url2="http://voulu.in/api/getComments.php";

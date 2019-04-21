@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
                                     String img = object.getString("img").trim();
                                     String id = object.getString("id").trim();
                                     String time = object.getString("time").trim();
-                                    Toast.makeText(getActivity(), ""+title+mobile+des, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getActivity(), ""+title+mobile+des, Toast.LENGTH_SHORT).show();
                                     list.add( new ModelList(img,title,des,rate,id,time,mobile ) );
 
                                 }
