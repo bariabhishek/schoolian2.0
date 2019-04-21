@@ -302,8 +302,9 @@ public class Registration extends AppCompatActivity {
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
+        stringRequest.setShouldCache(false);
+        requestQueue.add(stringRequest);
 
 
     }

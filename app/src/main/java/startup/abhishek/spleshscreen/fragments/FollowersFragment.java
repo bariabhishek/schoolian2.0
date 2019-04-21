@@ -91,7 +91,7 @@ SessionManger sessionManger;
                                     String img = object.getString("img").trim();
                                     String id = object.getString("id").trim();
                                     String time = object.getString("time").trim();
-                                    Toast.makeText(getActivity(), ""+title+mobile+des, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getActivity(), ""+title+mobile+des, Toast.LENGTH_SHORT).show();
                                     arrayList.add( new DataModelFollower(img,title,des,rate,id,time,mobile ) );
 
                                 }
@@ -100,12 +100,12 @@ SessionManger sessionManger;
                             }
                             else
                             {
-                                Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                               // Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
 
 
                         }
@@ -114,7 +114,7 @@ SessionManger sessionManger;
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
+                    ///    Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
 
                     }
                 })
