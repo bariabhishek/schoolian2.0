@@ -163,7 +163,7 @@ public class Registration extends AppCompatActivity {
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("register");
                             if (success.equals("1")){
-                                Log.d("Response",response+" "+gender);
+                               // Log.d("Response",response+" "+gender);
                                 for (int i = 0; i < jsonArray.length(); i++) {
 
                                     JSONObject object = jsonArray.getJSONObject(i);

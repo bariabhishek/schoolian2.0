@@ -117,10 +117,14 @@ public class HomeFragment extends Fragment {
                                 setupRecycle(list);
 
                             }
+                            else
+                            {
+                              //  Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                    //        Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+                           // Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
 
 
                         }
@@ -129,7 +133,7 @@ public class HomeFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                     //   Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
+                       /// Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
 
                     }
                 })
