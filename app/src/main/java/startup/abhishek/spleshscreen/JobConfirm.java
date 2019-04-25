@@ -32,6 +32,7 @@ public class JobConfirm extends AppCompatActivity {
     SessionManger sessionManger;
     String Url="https://voulu.in/api/getJobSeekerDetail.php";
     String Url2="https://voulu.in/api/sendDataCompleteTask.php";
+    String Url3="https://voulu.in/api/notification.php";
     TextView tvJobSeekr,tvJobGiver,yourChoosingLine,titile;
     CircleImageView jobGiverImage,jobSeekerImage;
     Button sendDatabtn;
@@ -55,6 +56,42 @@ public class JobConfirm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendData(postId,comment_id,job_giver_mobile,job_seeker_mobile);
+                volleywork();
+            }
+
+            private void volleywork() {
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Url3,
+                        new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response) {
+                                // response
+                                Log.e( "NotificationChack", response  );
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(JobConfirm.this, "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams()
+                    {
+                        Map<String, String>  params = new HashMap<String, String>();
+                        params.put("message", "your job confirm");
+                        params.put("title", "Congret");
+                        return params;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(JobConfirm.this);
+                requestQueue.add(stringRequest);
+                requestQueue.getCache().clear();
+
+
             }
         });
     }
