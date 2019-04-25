@@ -56,44 +56,45 @@ public class JobConfirm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendData(postId,comment_id,job_giver_mobile,job_seeker_mobile);
-                volleywork();
             }
 
-            private void volleywork() {
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Url3,
-                        new Response.Listener<String>()
-                        {
-                            @Override
-                            public void onResponse(String response) {
-                                // response
-                                Log.e( "NotificationChack", response  );
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(JobConfirm.this, "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
-
-                            }
-                        }
-                ) {
-                    @Override
-                    protected Map<String, String> getParams()
-                    {
-                        Map<String, String>  params = new HashMap<String, String>();
-                        params.put("message", "your job confirm");
-                        params.put("title", "Congret");
-                        return params;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(JobConfirm.this);
-                requestQueue.add(stringRequest);
-                requestQueue.getCache().clear();
-
-
-            }
         });
+    }
+    private void volleywork() {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url3,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.e( "NotificationChack", response  );
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(JobConfirm.this, "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("message", "Your Commented job has been accepted by "+job_giver_name);
+                params.put("title", "Job Accepted");
+                params.put("mobile", job_seeker_mobile);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(JobConfirm.this);
+        requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
+
+
     }
 
     private void initiliaze() {
@@ -193,7 +194,7 @@ public class JobConfirm extends AppCompatActivity {
                                 bundle.putString("seekerMobile",job_giver_mobile);
                                 bottomSheetFragmentui.setArguments(bundle);
                                 bottomSheetFragmentui.show(getSupportFragmentManager(),"bottomSheet");
-
+                                volleywork();
 
                             }
                             else

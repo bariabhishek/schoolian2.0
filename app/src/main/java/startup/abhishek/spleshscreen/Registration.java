@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.Nullable;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Base64;
@@ -26,6 +28,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -53,14 +58,22 @@ public class Registration extends AppCompatActivity {
     boolean isImageset=false;
     String Gender="male";
     String simage=Gender;
+    String newToken;
     SessionManger sessionManger;
     String Url="https://voulu.in/api/register.php";
  Uri resultUri;
+
+
+
+
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState);
         setContentView( R.layout.activity_resistration );
-            sessionManger=new SessionManger(this);
+        sessionManger=new SessionManger(this);
         circleImageView = findViewById( R.id.civ );
         progressBar = findViewById( R.id.progressBarReg );
         name = findViewById( R.id.edittextname );
@@ -75,6 +88,17 @@ public class Registration extends AppCompatActivity {
         female = findViewById( R.id.female );
 
 
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                 newToken = instanceIdResult.getToken();
+                Log.e("newToken",newToken);
+
+            }
+        });
+
+
+
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +110,7 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if(checkedId == R.id.male) {
-                    final String gender="male";;
+                    final String gender="male";
                     if(!isImageset) {
                         circleImageView.setImageResource(R.drawable.boy);
                         Gender=gender;
@@ -138,11 +162,11 @@ public class Registration extends AppCompatActivity {
                                                                             }
                               else {
                                   if (isImageset) {
-                                      uploadDataWithImage(sname, smobile, spassword, Gender, getStringImage(profileImage));
+                                      uploadDataWithImage(sname, smobile, spassword, Gender, getStringImage(profileImage),newToken);
 
                                   } else
                                       {
-                                      uploadDataWithOutImage(sname, smobile, spassword, Gender, simage);
+                                      uploadDataWithOutImage(sname, smobile, spassword, Gender, simage,newToken);
 
                                      }
                         }
@@ -151,81 +175,7 @@ public class Registration extends AppCompatActivity {
 
     }
 
-  /*  private void uploadDataWithImage(final String sname, final String smobile, final String spassword, final String gender, final String stringImage) {
-       progressBar.setVisibility(View.VISIBLE);
-       signin.setVisibility(View.GONE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //    progressDialog.dismiss();
-                        Log.i("TAG", response.toString());
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("register");
-                            if (success.equals("1")){
-                               // Log.d("Response",response+" "+gender);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-
-                                    JSONObject object = jsonArray.getJSONObject(i);
-                                    String name = object.getString("name").trim();
-                                    String email = object.getString("email").trim();
-                                    String photo = object.getString("profile_pic").trim();
-                                    String phone = object.getString("mobile").trim();
-                                    String gender = object.getString("gender").trim();
-                                    String verfied_status = object.getString("verfied_status").trim();
-
-                                    sessionManger.createSession(name, email, photo, verfied_status, phone, gender);
-                                    Intent intent = new Intent(Registration.this, Home.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-                            else
-                            {
-                                progressBar.setVisibility(View.GONE);
-                                signin.setVisibility(View.VISIBLE);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-
-                params.put("name", sname);
-                params.put("mobile", smobile);
-                params.put("gender", gender);
-                params.put("email", "");
-                params.put("verfiedStatus", "");
-                params.put("usertype", "");
-                params.put("password", spassword);
-                params.put("profile_pic", stringImage);
-                params.put("without", "imag");
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        stringRequest.setShouldCache(false);
-        requestQueue.getCache().clear();
-        requestQueue.add(stringRequest);
-
-    }
-*/
-    private void uploadDataWithImage(final String sname, final String smobile, final String spassword, final String gender, final String stringimage)
+    private void uploadDataWithImage(final String sname, final String smobile, final String spassword, final String gender, final String stringimage, final String newToken)
     {
         progressBar.setVisibility(View.VISIBLE);
         signin.setVisibility(View.GONE);
@@ -295,6 +245,7 @@ public class Registration extends AppCompatActivity {
                 params.put("password", spassword);
                 params.put("profile_pic", stringimage);
                 params.put("without", "image");
+                params.put("token",newToken );
 
 
                 return params;
@@ -321,7 +272,7 @@ public class Registration extends AppCompatActivity {
         return encodedImage;
     }
 
-    private void uploadDataWithOutImage(final String sname, final String smobile, final String spassword, final String gender, final String simage) {
+    private void uploadDataWithOutImage(final String sname, final String smobile, final String spassword, final String gender, final String simage, final String newToken) {
         progressBar.setVisibility(View.VISIBLE);
         signin.setVisibility(View.GONE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
@@ -384,6 +335,7 @@ public class Registration extends AppCompatActivity {
                 params.put("password", spassword);
                 params.put("profile_pic", simage);
                 params.put("without", "noImage");
+                params.put("token",newToken );
 
 
                 return params;
@@ -432,4 +384,7 @@ public class Registration extends AppCompatActivity {
             }
         }
     }
+
+
+
 }
