@@ -1,10 +1,7 @@
 package startup.abhishek.spleshscreen;
 
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import startup.abhishek.spleshscreen.Adeptor.CoustomSwipeAdeptor;
-import startup.abhishek.spleshscreen.fragments.BottomSheetFragmentForCooments;
-import startup.abhishek.spleshscreen.fragments.BottomSheetFragmentui;
 import startup.abhishek.spleshscreen.fragments.FullScreenDialog;
 
 public class JobDiscription extends AppCompatActivity  {

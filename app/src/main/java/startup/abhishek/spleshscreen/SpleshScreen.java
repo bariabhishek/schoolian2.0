@@ -1,16 +1,14 @@
 package startup.abhishek.spleshscreen;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SpleshScreen extends AppCompatActivity {
     int versionCode = BuildConfig.VERSION_CODE;
@@ -45,22 +43,19 @@ public class SpleshScreen extends AppCompatActivity {
         super.onStart();
          if (!sessionManger.isLoging()) {
 
-                new Handler().postDelayed(new Runnable() {
 
 
-                    @Override
+           Handler  handler=new Handler();
+             handler.postDelayed(new Runnable() {
+                 @Override
+                 public void run() {
+                    // logopic.animate().alpha(1f).setDuration(3000);
 
-                    public void run() {
-
-                        logopic.animate().alpha(1f).setDuration(5000);
-
-                        Intent intent = new Intent(SpleshScreen.this, Login.class);
-                        startActivity(intent);
-                        finish();
-
-                    }
-
-                }, 2*2500);
+                     Intent intent = new Intent(SpleshScreen.this, Login.class);
+                     startActivity(intent);
+                     finish();
+                 }
+             },3000);
 
             }
             else
@@ -68,24 +63,6 @@ public class SpleshScreen extends AppCompatActivity {
                 Intent intent = new Intent(SpleshScreen.this, Home.class);
                 startActivity(intent);
                 finish();
-              /*  new Handler().postDelayed(new Runnable() {
-
-// Using handler with postDelayed called runnable run method
-
-                    @Override
-
-                    public void run() {
-
-                        logopic.animate().alpha(1f).setDuration(500);
-
-
-
-                    }
-
-                }, 1*500);*/
-
-
-
             }
 
 

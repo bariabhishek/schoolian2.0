@@ -7,10 +7,10 @@
     android:orientation="vertical"
     tools:context=".UploadYourPost">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -20,8 +20,8 @@
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -74,9 +74,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Upload image about job if have"
-        android:textColor="#000"
+        android:gravity="center"
+        android:text="Upload Images"
+        android:textColor="#00BCD4"
+        android:background="@drawable/bg_capsule_for_message"
         android:textSize="18sp"
+        android:id="@+id/uplodImageBtn"
+        android:padding="5dp"
         android:layout_marginTop="30dp"
         android:textStyle="bold|italic"/>
     <LinearLayout
@@ -94,7 +98,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/bg_edittext"
             android:padding="4dp"
-            android:src="@drawable/sch"/>
+          />
         <ImageView
             android:id="@+id/iv2"
             android:layout_width="100dp"
@@ -102,7 +106,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/bg_edittext"
             android:padding="4dp"
-            android:src="@drawable/sch"/>
+            />
         <ImageView
             android:id="@+id/iv3"
             android:layout_width="100dp"
@@ -110,7 +114,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/bg_edittext"
             android:padding="4dp"
-            android:src="@drawable/sch"/>
+            />
     </LinearLayout>
     <Button
         android:id="@+id/post"

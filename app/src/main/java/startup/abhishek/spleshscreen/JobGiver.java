@@ -1,6 +1,6 @@
 package startup.abhishek.spleshscreen;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class JobGiver extends AppCompatActivity {

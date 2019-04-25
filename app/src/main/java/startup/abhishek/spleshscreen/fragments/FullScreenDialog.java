@@ -1,21 +1,18 @@
 package startup.abhishek.spleshscreen.fragments;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,15 +33,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import startup.abhishek.spleshscreen.Adeptor.Adeptor;
 import startup.abhishek.spleshscreen.Adeptor.CommentAdaptor;
 import startup.abhishek.spleshscreen.Adeptor.CommentModel;
-import startup.abhishek.spleshscreen.Adeptor.ModelList;
-import startup.abhishek.spleshscreen.Home;
-import startup.abhishek.spleshscreen.Login;
 import startup.abhishek.spleshscreen.R;
 import startup.abhishek.spleshscreen.SessionManger;
-import startup.abhishek.spleshscreen.UploadYourPost;
 
 public class FullScreenDialog extends DialogFragment {
 
@@ -128,6 +120,7 @@ public class FullScreenDialog extends DialogFragment {
 
     public void sendComment(final String comment, final String user_id_as_mobile, final String post_id)
     {
+        commentBox.setText(null);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>()
                 {
@@ -141,9 +134,8 @@ public class FullScreenDialog extends DialogFragment {
 
                             if (success.equals("1")){
                                 Toast.makeText(getActivity(), "Successfully Sent!", Toast.LENGTH_SHORT).show();
-                                commentBox.setText("");
+                                list.clear();
                                 getComment(post_id );
-
                             }
                             else
                             {

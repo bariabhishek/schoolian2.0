@@ -8,7 +8,7 @@
     tools:context=".UserMobileNumber">
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:drawableRight="@drawable/ic_phone_android_black_24dp"
             android:drawablePadding="20dp"
             android:paddingRight="10dp"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/nobtn"

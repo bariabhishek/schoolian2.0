@@ -9,10 +9,10 @@
     tools:context=".fragments.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/actionbar"
             android:layout_width="match_parent"
             android:fitsSystemWindows="true"
@@ -20,7 +20,7 @@
             android:background="#FFF"
             android:layout_height="wrap_content">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/colasp"
                 android:layout_width="match_parent"
                 android:layout_height="420dp"
@@ -82,11 +82,11 @@
                     </LinearLayout>
 
                 </RelativeLayout>
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:clipToPadding="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/cardview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                             android:layout_height="wrap_content"
                             />
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -172,10 +172,10 @@
 
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 

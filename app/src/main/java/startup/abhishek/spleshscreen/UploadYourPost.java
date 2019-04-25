@@ -1,15 +1,17 @@
 package startup.abhishek.spleshscreen;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -17,42 +19,45 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fxn.pix.Options;
+import com.fxn.pix.Pix;
+import com.fxn.utility.ImageQuality;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UploadYourPost extends AppCompatActivity {
 
-
-    //new post
     AlertDialog alertDialog;
-
+    TextView uploadImageBtn;
     EditText title,dis,pese;
     ImageView imageView1,imageView2,imageView3;
     String mobilenumber;
-    Bitmap bitmap;
-    int PICK_IMAGE_REQUEST = 0;
     String encodedImage;
     public String photo;
     SessionManger sessionManger;
+    Bitmap bt1,bt2,bt3;
+    int imageCount=0;
     String Url="https://voulu.in/api/jobpost.php";
-
+    ArrayList<String> returnValue = new ArrayList<>();
+    final String NO_IMAGE="no_image";
     Button post;
 
 
@@ -64,25 +69,11 @@ public class UploadYourPost extends AppCompatActivity {
         sessionManger = new SessionManger( this );
         HashMap <String,String> hashMap = sessionManger.getUserDetail();
         mobilenumber= hashMap.get( SessionManger.MOBILE );
-
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
         StrictMode.VmPolicy.Builder builder= new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
         initilisation();
-        imageView1.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), PICK_IMAGE_REQUEST);
-            }
-        } );
-
-
-
         condition();
 
 
@@ -93,9 +84,7 @@ public class UploadYourPost extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-
-        if(title.getText().toString().isEmpty()){
+                if(title.getText().toString().isEmpty()){
             title.setError( "fill blanck" );
         }else if (dis.getText().toString().isEmpty()){
             dis.setError( "fill blanck"   );
@@ -106,78 +95,320 @@ public class UploadYourPost extends AppCompatActivity {
                 String diss=dis.getText().toString();
                 String paise=pese.getText().toString();
 
-            volley(mobilenumber,titles,diss,paise,getStringImage(bitmap));
+                switch (imageCount)
+                 {
+                     case 0:
+                         volleyWithOutImage(mobilenumber,titles,diss,paise,NO_IMAGE);
+                         break;
+                     case 1:
+                         volleyWithOneImage(mobilenumber,titles,diss,paise,getStringImage(bt1));
+                        break;
+                     case 2:
+                         volleyWithTwoImage(mobilenumber,titles,diss,paise,getStringImage(bt1),getStringImage(bt2));
+                         break;
+                     case 3:
+                         volleyWithThreeImage(mobilenumber,titles,diss,paise,getStringImage(bt1),getStringImage(bt2),getStringImage(bt3));
+                         break;
+
+                 }
         }
             }
         } );
 
     }
 
-     public void volley(final String mobilenumber, final String titles, final String  dis, final String paise, final String stringImage) {
+    private void volleyWithThreeImage(final String mobilenumber, final String titles, final String diss, final String paise, final String stringImage, final String stringImage1, final String stringImage2) {
+        Log.i("Method","Three");
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        UploadYourPost.this.setFinishOnTouchOutside(false);
 
-         final ProgressDialog progressDialog = new ProgressDialog(this);
-         progressDialog.setMessage("Uploading...");
-         progressDialog.setCancelable(false);
-         progressDialog.show();
-         UploadYourPost.this.setFinishOnTouchOutside(false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            Log.d("uploadchak", response);
 
-         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
-                 new Response.Listener<String>() {
-                     @Override
-                     public void onResponse(String response) {
-                         try {
-                             JSONObject jsonObject = new JSONObject(response);
-                             String success = jsonObject.getString("success");
-                             Log.d("uploadchak", response);
+                            if (success.equals("1")){
+                                Toast.makeText(UploadYourPost.this, "Success!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                Intent views = new Intent(UploadYourPost.this,Home. class);
+                                startActivity(views);
+                                finish();
 
-                             if (success.equals("1")){
-                                 Toast.makeText(UploadYourPost.this, "Success!", Toast.LENGTH_SHORT).show();
-                                 progressDialog.dismiss();
-                                 Intent views = new Intent(UploadYourPost.this,Home. class);
-                                 startActivity(views);
-                                 finish();
+                            }
+                            else
+                            {
+                                Toast.makeText(UploadYourPost.this, "Not upload", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
 
-                             }
-                             else
-                             {
-                                 Toast.makeText(UploadYourPost.this, "Not upload", Toast.LENGTH_SHORT).show();
-                                 progressDialog.dismiss();
-                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            Toast.makeText(UploadYourPost.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
+                        }
 
-                         } catch (JSONException e) {
-                             e.printStackTrace();
-                             progressDialog.dismiss();
-                             Toast.makeText(UploadYourPost.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
-                         }
-
-                     }
-                 },
-                 new Response.ErrorListener() {
-                     @Override
-                     public void onErrorResponse(VolleyError error) {
-                         progressDialog.dismiss();
-                         Toast.makeText(UploadYourPost.this, "Try Again!"+error, Toast.LENGTH_SHORT).show();
-                     }
-                 })
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(UploadYourPost.this, "Try Again!"+error, Toast.LENGTH_SHORT).show();
+                    }
+                })
         {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("title", titles);
-                    params.put("mobile", mobilenumber);
-                    params.put("des", dis);
-                    params.put("pic", stringImage);
-                    params.put("rate", paise);
-                    return params;
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", titles);
+                params.put("mobile", mobilenumber);
+                params.put("des", diss);
+                params.put("pic1", stringImage);
+                params.put("pic2", stringImage1);
+                params.put("pic3", stringImage2);
+                params.put("rate", paise);
+                params.put("image_status","3");
+
+                return params;
+
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue( this );
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        stringRequest.setShouldCache(false);
+      //  requestQueue.getCache().clear();
+        requestQueue.add( stringRequest );
+    }
+
+    private void volleyWithTwoImage(final String mobilenumber, final String titles, final String diss, final String paise, final String stringImage, final String stringImage1) {
+        Log.i("Method","two");
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        UploadYourPost.this.setFinishOnTouchOutside(false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            Log.d("uploadchak", response);
+
+                            if (success.equals("1")){
+                                Toast.makeText(UploadYourPost.this, "Success!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                Intent views = new Intent(UploadYourPost.this,Home. class);
+                                startActivity(views);
+                                finish();
+
+                            }
+                            else
+                            {
+                                Toast.makeText(UploadYourPost.this, "Not upload", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            Toast.makeText(UploadYourPost.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(UploadYourPost.this, "Try Again!"+error, Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", titles);
+                params.put("mobile", mobilenumber);
+                params.put("des", diss);
+                params.put("pic1", stringImage);
+                params.put("pic2", stringImage1);
+                params.put("pic3", "No");
+                params.put("rate", paise);
+                params.put("image_status", "2");
+                return params;
 
             }
         };
-         RequestQueue requestQueue = Volley.newRequestQueue( this );
-
-         stringRequest.setShouldCache(false);
-         requestQueue.getCache().clear();
-         requestQueue.add( stringRequest );
+        RequestQueue requestQueue = Volley.newRequestQueue( this );
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setShouldCache(false);
+       // requestQueue.getCache().clear();
+        requestQueue.add( stringRequest );
     }
+
+    private void volleyWithOneImage(final String mobilenumber, final String titles, final String diss, final String paise, final String stringImage) {
+        Log.i("Method","one");
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        UploadYourPost.this.setFinishOnTouchOutside(false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            Log.d("uploadchak", response);
+
+                            if (success.equals("1")){
+                                Toast.makeText(UploadYourPost.this, "Success!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                Intent views = new Intent(UploadYourPost.this,Home. class);
+                                startActivity(views);
+                                finish();
+
+                            }
+                            else
+                            {
+                                Toast.makeText(UploadYourPost.this, "Not upload", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            Toast.makeText(UploadYourPost.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(UploadYourPost.this, "Try Again!"+error, Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", titles);
+                params.put("mobile", mobilenumber);
+                params.put("des", diss);
+                params.put("pic1", stringImage);
+                params.put("pic2", "No");
+                params.put("pic3", "No");
+                params.put("rate", paise);
+                params.put("image_status", "1");
+
+                return params;
+
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue( this );
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setShouldCache(false);
+     //   requestQueue.getCache().clear();
+        requestQueue.add( stringRequest );
+    }
+
+    private void volleyWithOutImage(final String mobilenumber, final String titles, final String diss, final String paise, final String stringImage) {
+        Log.i("Method","zero");
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        UploadYourPost.this.setFinishOnTouchOutside(false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            Log.d("uploadchak", response);
+
+                            if (success.equals("1")){
+                                Toast.makeText(UploadYourPost.this, "Success!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                Intent views = new Intent(UploadYourPost.this,Home. class);
+                                startActivity(views);
+                                finish();
+
+                            }
+                            else
+                            {
+                                Toast.makeText(UploadYourPost.this, "Not upload", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            Toast.makeText(UploadYourPost.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(UploadYourPost.this, "Try Again!"+error, Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", titles);
+                params.put("mobile", mobilenumber);
+                params.put("des", diss);
+                params.put("pic1", "No");
+                params.put("pic2", "No");
+                params.put("pic3", "No");
+                params.put("rate", paise);
+                params.put("image_status", "0");
+
+                return params;
+
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue( this );
+
+        stringRequest.setShouldCache(false);
+        requestQueue.getCache().clear();
+        requestQueue.add( stringRequest );
+    }
+
 
     private void initilisation() {
 
@@ -188,31 +419,14 @@ public class UploadYourPost extends AppCompatActivity {
         imageView1= findViewById( R.id.iv1);
         imageView2= findViewById( R.id.iv2 );
         imageView3= findViewById( R.id.iv3 );
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult( requestCode, resultCode, data );
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath  = data.getData();
-            try {
-                //getting image from gallery
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), filePath);
-
-              photo =  getStringImage( bitmap );
-
-                //Setting image to ImageView
-                imageView1.setImageBitmap(bitmap);
-            } catch (Exception e) {
-                e.printStackTrace();
+        uploadImageBtn= findViewById( R.id.uplodImageBtn );
+        uploadImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getImage();
             }
-
-
-
-        } else {
-            Toast.makeText(this, "image error", Toast.LENGTH_SHORT).show();
-        }
+        });
     }
-
 
     public String getStringImage(Bitmap bmp) {
 
@@ -222,5 +436,84 @@ public class UploadYourPost extends AppCompatActivity {
         encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
 
+    }
+
+    public void getImage() {
+        Options options = Options.init()
+                .setRequestCode(100)                                                 //Request code for activity results
+                .setCount(3)                                                         //Number of images to restict selection count
+                .setFrontfacing(true)                                                //Front Facing camera on start
+                .setImageQuality(ImageQuality.HIGH)                                  //Image Quality
+                .setImageResolution(1024, 800)                                       //Custom Resolution
+                .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
+                .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)   //Orientaion
+                .setPath("/pix/images");                                             //Custom Path For Image Storage
+
+        Pix.start(UploadYourPost.this, options);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Log.e("val", "requestCode ->  " + requestCode+"  resultCode "+resultCode);
+        switch (requestCode) {
+            case (100): {
+                if (resultCode == Activity.RESULT_OK) {
+                    returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+
+                    Log.e("val", " ->  " + returnValue.get(0));
+                    int i = returnValue.size();
+                    File f1,f2,f3;
+                    switch (i) {
+                        case 1 :
+                            f1 = new File(returnValue.get(0));
+                            bt1  = new BitmapDrawable(this.getResources(), f1.getAbsolutePath()).getBitmap();
+                             bt1=com.fxn.utility.Utility.getScaledBitmap(512, bt1);
+                             imageView1.setImageBitmap(bt1);
+                             imageCount=1;
+                        break;
+
+
+                        case 2 :
+                             f1 = new File(returnValue.get(0));
+                            bt1  = new BitmapDrawable(this.getResources(), f1.getAbsolutePath()).getBitmap();
+                            bt1=com.fxn.utility.Utility.getScaledBitmap(512, bt1);
+                            imageView1.setImageBitmap(bt1);
+
+                            imageCount=2;
+
+                            f2 = new File(returnValue.get(1));
+                            bt2  = new BitmapDrawable(this.getResources(), f2.getAbsolutePath()).getBitmap();
+                            bt2=com.fxn.utility.Utility.getScaledBitmap(512, bt2);
+                            imageView2.setImageBitmap(bt2);
+                            break;
+
+
+
+                        case 3:
+                            f1 = new File(returnValue.get(0));
+                            bt1  = new BitmapDrawable(this.getResources(), f1.getAbsolutePath()).getBitmap();                        bt1=com.fxn.utility.Utility.getScaledBitmap(512, bt1);
+                            bt1=com.fxn.utility.Utility.getScaledBitmap(512, bt1);
+                            imageView1.setImageBitmap(bt1);
+
+                            imageCount=3;
+
+                            f2 = new File(returnValue.get(1));
+                            bt2  = new BitmapDrawable(this.getResources(), f2.getAbsolutePath()).getBitmap();
+                            bt2=com.fxn.utility.Utility.getScaledBitmap(512, bt2);
+                            imageView2.setImageBitmap(bt2);
+
+                            f3 = new File(returnValue.get(2));
+                            bt3  = new BitmapDrawable(this.getResources(), f3.getAbsolutePath()).getBitmap();
+                            bt3=com.fxn.utility.Utility.getScaledBitmap(512, bt3);
+                            imageView3.setImageBitmap(bt3);
+                            break;
+
+                    }
+
+                }
+            }
+            break;
+        }
     }
 }
