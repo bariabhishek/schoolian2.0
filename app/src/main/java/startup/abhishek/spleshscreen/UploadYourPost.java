@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UploadYourPost extends AppCompatActivity {
+public class UploadYourPost extends  AppCompatActivity {
 
     AlertDialog alertDialog;
     TextView uploadImageBtn;
