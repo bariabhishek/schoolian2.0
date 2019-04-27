@@ -84,7 +84,7 @@ public class JobConfirm extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("message", "Your Commented job has been accepted by "+job_giver_name);
+                params.put("message", "Your Commented task has accepted by "+job_giver_name);
                 params.put("title", "Job Accepted");
                 params.put("mobile", job_seeker_mobile);
                 return params;

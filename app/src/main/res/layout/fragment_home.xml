@@ -49,6 +49,17 @@
 
     <include layout="@layout/content_scrolling_activity_home" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Data Available"
+        android:textSize="20sp"
+        android:id="@+id/noData"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

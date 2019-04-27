@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:id="@+id/postCardMain">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,35 +18,63 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:civ_border_color="#000"
+            app:civ_border_width="1dp"
             android:src="@drawable/sch"
-            android:layout_margin="5dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/userProfileCard"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:layout_weight=".5">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
-            android:textSize="17sp"
-            android:text="name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Username"
+            android:id="@+id/userNameCard"
             android:layout_marginHorizontal="20dp"/>
         <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:id="@+id/timeCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="job"
+            android:text="Time"
             android:layout_marginHorizontal="20dp"
             android:textSize="16sp" />
         </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/option"
+           android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp"/>
     </LinearLayout>
-
         <TextView
-            android:id="@+id/dis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Title"
+            android:id="@+id/titleCard"
+            android:layout_marginHorizontal="20dp"/>
+        <TextView
+            android:id="@+id/disCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/large_text"
@@ -53,9 +82,9 @@
             android:textSize="15sp" />
 
         <ImageView
-            android:id="@+id/photo"
+            android:id="@+id/photoCard"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/logo"/>
         <LinearLayout
@@ -63,14 +92,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <ImageView
+            <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/like"/>
+            android:src="@drawable/like"
+                android:id="@+id/likeBtn"/>
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:id="@+id/shareButton"
                 android:layout_marginHorizontal="20dp"
                 android:src="@drawable/ic_menu_share"/>
 
@@ -80,16 +111,16 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/pese"
+                android:id="@+id/peseCard"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:textStyle="bold"
-                android:text=" ₹ pesa"
+                android:scaleY="1.5"
+                android:text=" ₹"
                 android:textSize="18sp"
                 android:textColor="#0E0D0D"
                 android:gravity="center"
                 android:layout_margin="5dp"
-
                 />
 
         </LinearLayout>

@@ -9,6 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ public class HomeFragment extends Fragment {
     List<ModelList> list;
     ImageButton imageButton;
     View view;
+    TextView noData;
     private TextView mTextMessage;
 
     String Url="https://voulu.in/api/getJobPost.php";
@@ -55,31 +57,6 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         // Required empty public constructor
     }
-  /*  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    //   mTextMessage.setText( R.string.title_home );
-                    return true;
-                case R.id.inbox:
-                    //   mTextMessage.setText("demo" );
-                    return true;
-                case R.id.profile:
-                    //    mTextMessage.setText( R.string.title_notifications );
-                    return true;
-                case R.id.notification:
-                    //    mTextMessage.setText( R.string.title_notifications );
-                    return true;
-                case R.id.follower:
-                    //    mTextMessage.setText( R.string.title_notifications );
-                    return true;
-            }
-            return false;
-        }
-    };*/
     private void arraydata() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
@@ -104,8 +81,11 @@ public class HomeFragment extends Fragment {
                                     String img = object.getString("img").trim();
                                     String id = object.getString("id").trim();
                                     String time = object.getString("time").trim();
-//                                    Toast.makeText(getActivity(), ""+title+mobile+des, Toast.LENGTH_SHORT).show();
-                                    list.add( new ModelList(img,title,des,rate,id,time,mobile ) );
+                                    String profile = object.getString("profile").trim();
+                                    String username = object.getString("username").trim();
+                                    String like = object.getString("like").trim();
+                                    String share = object.getString("share").trim();
+                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share) );
 
                                 }
                                 setupRecycle(list);
@@ -113,13 +93,13 @@ public class HomeFragment extends Fragment {
                             }
                             else
                             {
-                              //  Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                              noData.setVisibility(View.VISIBLE);
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                            // Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
-
+                          //  noData.setVisibility(View.VISIBLE);
 
                         }
                     }
@@ -128,7 +108,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                        /// Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
-
+                       // noData.setVisibility(View.VISIBLE);
                     }
                 })
         {
@@ -141,12 +121,13 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        stringRequest.setShouldCache(false);
+       stringRequest.setShouldCache(true);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
         requestQueue.add(stringRequest);
 
 
@@ -161,6 +142,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
          view = inflater.inflate( R.layout.fragment_home, container, false );
             imageButton=view.findViewById(R.id.uplodButton);
+            noData=view.findViewById(R.id.noData);
         list = new ArrayList <>(  );
         arraydata();
 
@@ -187,7 +169,7 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setHasFixedSize( true );
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2) );
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()) );
         recyclerView.setAdapter( a );
     }
 }

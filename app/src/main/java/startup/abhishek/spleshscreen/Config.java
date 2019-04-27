@@ -42,7 +42,6 @@ public class Config {
                 context.startActivity(in);
                 ((Activity) context).finish();
             }
-            return;
         }
     }
 
