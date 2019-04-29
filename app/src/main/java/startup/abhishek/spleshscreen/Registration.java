@@ -202,8 +202,9 @@ public class Registration extends AppCompatActivity {
                             String phone = object.getString("mobile").trim();
                             String gender = object.getString("gender").trim();
                             String verfied_status = object.getString("verfied_status").trim();
+                            String location = object.getString("address").trim();
 
-                            sessionManger.createSession(name, email, photo, verfied_status, phone, gender);
+                            sessionManger.createSession(name, email, photo, verfied_status, phone, gender,location);
                             Intent intent = new Intent(Registration.this, Home.class);
                             startActivity(intent);
                             finish();
@@ -239,7 +240,7 @@ public class Registration extends AppCompatActivity {
                 params.put("name", sname);
                 params.put("mobile", smobile);
                 params.put("gender", gender);
-                params.put("email", "");
+                params.put("email", "NA");
                 params.put("verfiedStatus", "");
                 params.put("usertype", "");
                 params.put("password", spassword);
@@ -296,8 +297,9 @@ public class Registration extends AppCompatActivity {
                                     String phone = object.getString("mobile").trim();
                                     String gender = object.getString("gender").trim();
                                     String verfied_status = object.getString("verfied_status").trim();
+                                    String location = object.getString("address").trim();
 
-                                    sessionManger.createSession(name, email, photo, verfied_status, phone, gender);
+                                    sessionManger.createSession(name, email, photo, verfied_status, phone, gender,location);
                                     Intent intent = new Intent(Registration.this, Home.class);
                                     startActivity(intent);
                                     finish();
@@ -329,7 +331,7 @@ public class Registration extends AppCompatActivity {
                 params.put("name", sname);
                 params.put("mobile", smobile);
                 params.put("gender", gender);
-                params.put("email", "");
+                params.put("email", "NA");
                 params.put("verfiedStatus", "");
                 params.put("usertype", "");
                 params.put("password", spassword);

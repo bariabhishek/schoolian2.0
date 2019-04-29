@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfile">
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/actionBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
         <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="#fff"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/toolbarEdit">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -20,6 +22,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Save"
+                    android:id="@+id/saveButton"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
@@ -35,8 +38,9 @@
     android:id="@+id/imageviewedit"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    app:srcCompat="@drawable/abc"
-    android:layout_below="@id/actionBar"/>
+    android:layout_below="@id/actionBar"
+    app:srcCompat="@drawable/person_24dp"
+    android:layout_marginTop="10dp"/>
     <RelativeLayout
         android:id="@+id/bg_round"
         android:layout_width="70dp"
@@ -50,6 +54,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="5dp"
+            android:id="@+id/imageUploadBtn"
             app:srcCompat="@drawable/ic_camera_alt_black_24dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
@@ -77,6 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
+                android:id="@+id/nameUser"
+                android:textColor="#000"
                 android:layout_marginRight="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +108,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Phone"
+                android:textColor="#000"
+                android:hint="Mobile"
+                android:id="@+id/mobileNumber"
                 android:inputType="number"
                 android:layout_marginRight="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -127,9 +136,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#000"
                 android:hint="Email"
                 android:inputType="textWebEmailAddress"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:id="@+id/emailEdit"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -154,10 +165,12 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Address"
+                android:hint="Location"
+                android:textColor="#000"
                 android:maxLines="5"
                 android:inputType="textWebEmailAddress"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:id="@+id/location"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

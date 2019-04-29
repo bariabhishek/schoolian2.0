@@ -247,14 +247,15 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/editProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginTop="25dp"
                     android:background="@drawable/bg_capsule_for_message"
-                    android:text="Follow"
-                    android:textStyle="bold"
+                    android:text="Edit Profile"
                     android:textColor="@color/colorPrimary"
-                    android:layout_gravity="center"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

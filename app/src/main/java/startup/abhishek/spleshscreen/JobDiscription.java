@@ -29,6 +29,7 @@ public class JobDiscription extends AppCompatActivity  {
         setContentView( R.layout.new_job_dec );
 
            id=getIntent().getExtras().getString("id");
+        Toast.makeText(this, ""+id, Toast.LENGTH_SHORT).show();
            jobdis=getIntent().getExtras().getString("des");
            usernames=getIntent().getExtras().getString("username");
            profileImage=getIntent().getExtras().getString("profile");

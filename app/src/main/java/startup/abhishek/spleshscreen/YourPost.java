@@ -1,20 +1,17 @@
-package startup.abhishek.spleshscreen.fragments;
+package startup.abhishek.spleshscreen;
 
-
-import android.content.Intent;
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import startup.abhishek.spleshscreen.Adeptor.Adeptor;
+import startup.abhishek.spleshscreen.Adeptor.ModelList;
+
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -35,30 +32,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import startup.abhishek.spleshscreen.Adeptor.Adeptor;
-import startup.abhishek.spleshscreen.Adeptor.ModelList;
-import startup.abhishek.spleshscreen.R;
-import startup.abhishek.spleshscreen.UploadYourPost;
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment extends Fragment {
-
-    RecyclerView recyclerView ;
+public class YourPost extends AppCompatActivity {
+Toolbar toolbar;
+RecyclerView recyclerView;
     List<ModelList> list;
-    ImageButton imageButton;
-    String Url="https://voulu.in/api/getJobPost.php";
-    View view;
     TextView noData;
-    private TextView mTextMessage;
+    SessionManger sessionManger;
+    String Url="https://voulu.in/api/getYouJobPost.php";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_your_post);
+        toolbar=findViewById(R.id.toolbarLayout);
+        sessionManger=new SessionManger(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Your Posts");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        recyclerView=findViewById(R.id.recycleviewYourPost);
+        noData=findViewById(R.id.noDataYourPost);
+        HashMap<String,String>user=sessionManger.getUserDetail();
+       // String Ename = user.get(sessionManger.NAME);
+        String mobile = user.get(sessionManger.MOBILE);
+        list=new ArrayList<>();
+        arraydata(mobile);
 
 
-
-    public HomeFragment() {
-        // Required empty public constructor
     }
-    private void arraydata() {
+
+    private void arraydata(final String mobile) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
@@ -94,13 +95,13 @@ public class HomeFragment extends Fragment {
                             }
                             else
                             {
-                              noData.setVisibility(View.VISIBLE);
+                                noData.setVisibility(View.VISIBLE);
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                           // Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
-                          //  noData.setVisibility(View.VISIBLE);
+                            // Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+                            //  noData.setVisibility(View.VISIBLE);
 
                         }
                     }
@@ -108,26 +109,26 @@ public class HomeFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                       /// Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
-                       // noData.setVisibility(View.VISIBLE);
+                        /// Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
+                        // noData.setVisibility(View.VISIBLE);
                     }
                 })
         {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-
                 params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
-                 return params;
+                params.put("mobile", mobile);
+                return params;
             }
         };
 
-       stringRequest.setShouldCache(true);
+        stringRequest.setShouldCache(true);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
@@ -136,41 +137,21 @@ public class HomeFragment extends Fragment {
 
 
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-         view = inflater.inflate( R.layout.fragment_home, container, false );
-            imageButton=view.findViewById(R.id.uplodButton);
-            noData=view.findViewById(R.id.noData);
-        list = new ArrayList <>(  );
-        arraydata();
-
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById( R.id.fab );
-        fab.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent vi = new Intent(getActivity(), UploadYourPost. class);
-                startActivity(vi);
-            }
-        } );
-
-
-
-
-
-        return view;
-    }
-
     public void setupRecycle(List <ModelList> list)
     {
-        Adeptor a= new Adeptor( getContext(),list );
-        recyclerView = view.findViewById( R.id.recycleview );
-
+        Adeptor a= new Adeptor( this,list );
         recyclerView.setHasFixedSize( true );
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()) );
+        recyclerView.setLayoutManager(new LinearLayoutManager(this) );
         recyclerView.setAdapter( a );
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
+
 }

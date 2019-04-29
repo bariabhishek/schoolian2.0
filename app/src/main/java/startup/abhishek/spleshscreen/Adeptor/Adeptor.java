@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -57,7 +58,8 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
         viewHolder.pese.setText("₹ "+list.get( i ).getPese() );
         viewHolder.username.setText( list.get( i ).getUsername() );
         viewHolder.time.setText( list.get( i ).getTime() );
-       // viewHolder.pese.setText( list.get( i ).getPese() );
+
+            likebutton(viewHolder,list.get(i).getId());
 
         viewHolder.postCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +75,8 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
                 context.startActivity(view);
             }
         });
+
+
     }
 
     @Override
@@ -104,5 +108,14 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
         }
     }
 
+    public  void likebutton(ViewHolder viewHolder, final String id)
+    {
+        viewHolder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, id, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }

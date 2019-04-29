@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
+import startup.abhishek.spleshscreen.EditProfile;
 import startup.abhishek.spleshscreen.R;
 import startup.abhishek.spleshscreen.SessionManger;
 
@@ -37,6 +39,7 @@ public class ProfileFragment extends Fragment {
     ImageView uploadProfile;
     int PICK_IMAGE_REQUEST = 0;
     String encodedImage;
+    Button editProfile;
 
     SessionManger sessionManger;
     TextView username,mobile,numberOfJob;
@@ -53,18 +56,25 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate( R.layout.fragment_profile, container, false );
- sessionManger=new SessionManger( getActivity() );
+        sessionManger=new SessionManger( getContext() );
 
-        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-        StrictMode.VmPolicy.Builder builder= new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
         uploadProfile = view.findViewById( R.id.profileUpload );
 
         username = view.findViewById( R.id.name );
         mobile = view.findViewById( R.id.mobile );
         numberOfJob = view.findViewById( R.id.numberOfJob );
+        editProfile = view.findViewById( R.id.editProfile );
 
+editProfile.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+       /* FullScreenDialogForEditProfile full=new FullScreenDialogForEditProfile();
+            full.show(getFragmentManager(),"TAG");*/
+       Intent intent = new Intent(getActivity(), EditProfile.class);
+       startActivity(intent);
 
+    }
+});
 
         HashMap<String,String> user=sessionManger.getUserDetail();
         String name = user.get(sessionManger.NAME);
@@ -80,15 +90,6 @@ public class ProfileFragment extends Fragment {
 
 
 
-        uploadProfile.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent( Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), PICK_IMAGE_REQUEST);
-            }
-        } );
 
 
 
@@ -96,29 +97,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult( requestCode, resultCode, data );
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath  = data.getData();
-            try {
-                //getting image from gallery
-                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
 
-                getStringImage( bitmap );
-
-                //Setting image to ImageView
-                uploadProfile.setImageBitmap(bitmap);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-
-        } else {
-            Toast.makeText(getActivity(), "image error", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
     public String getStringImage(Bitmap bmp) {

@@ -206,17 +206,21 @@ public class Home extends NavigationDrawerActivity_ {
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.jobpost:
-                Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent( this,UploadYourPost.class );
+               // Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+                 intent = new Intent( this,UploadYourPost.class );
                 startActivity( intent );
                 break;
             case R.id.yourpost:
+                intent = new Intent( this,YourPost.class );
+                startActivity( intent );
                 break;
             case R.id.wallet:
                 break;
             case R.id.follow:
+                setFragment( followersFragment );
                 break;
             case  R.id.aboutus:
                 break;

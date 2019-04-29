@@ -9,9 +9,10 @@ import java.util.HashMap;
 
 public class SessionManger {
     public static SharedPreferences sharedPref;
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences,login;
     public static SharedPreferences.Editor editorForResponse;
-    public SharedPreferences.Editor editor, editor2;
+    public SharedPreferences.Editor loginEditor;
+    public SharedPreferences.Editor updateEditor;
     public Context context;
     int Private = 0;
 
@@ -23,6 +24,7 @@ public class SessionManger {
     public static final String MOBILE = "MOBILE";
     public static final String VERIFIED = "VERIFIED";
     public static final String GENDER = "GENDER";
+    public static final String LOCATION = "LOCATION";
 
     private static final String PREFERENCE_NAME = "APP_PREFERENCE";
 
@@ -30,7 +32,9 @@ public class SessionManger {
     public SessionManger(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PRIF, Private);
-        editor = sharedPreferences.edit();
+        login = context.getSharedPreferences(PRIF, Private);
+        loginEditor = login.edit();
+        updateEditor = sharedPreferences.edit();
     }
 
     public static void putString(Context context, String key, String value) {
@@ -45,20 +49,37 @@ public class SessionManger {
         return sharedPref.getString(key, "");
     }
 
-    public void createSession(String name, String email, String photo, String verified, String mobile, String gender) {
-        editor.putBoolean(LOGIN, true);
-        editor.putString(NAME, name);
-        editor.putString(EMAIL, email);
-        editor.putString(GENDER, gender);
-        editor.putString(PROFILE_PIC, photo);
-        editor.putString(VERIFIED, verified);
-        editor.putString(MOBILE, mobile);
-        editor.apply();
+    public void createSession(String name, String email, String photo, String verified, String mobile, String gender,String location) {
+        loginEditor.putBoolean(LOGIN, true);
+        updateEditor.putString(NAME, name);
+        updateEditor.putString(EMAIL, email);
+        updateEditor.putString(GENDER, gender);
+        updateEditor.putString(PROFILE_PIC, photo);
+        updateEditor.putString(VERIFIED, verified);
+        updateEditor.putString(MOBILE, mobile);
+        updateEditor.putString(LOCATION, location);
+        loginEditor.apply();
+        updateEditor.apply();
     }
+
+    public void updateSession(String name, String email, String photo, String mobile,String location) {
+        updateEditor.putString(NAME, name);
+        updateEditor.putString(EMAIL, email);
+        updateEditor.putString(PROFILE_PIC, photo);
+        updateEditor.putString(MOBILE, mobile);
+        updateEditor.putString(LOCATION, location);
+        updateEditor.apply();
+    }
+        public void clerlast()
+        {
+            updateEditor.clear();
+            updateEditor.commit();
+        }
 
 
     public boolean isLoging() {
-        return sharedPreferences.getBoolean(LOGIN, false);
+
+        return login.getBoolean(LOGIN, false);
 
     }
 
@@ -83,12 +104,15 @@ public class SessionManger {
         user.put(MOBILE, sharedPreferences.getString(MOBILE, null));
         user.put(VERIFIED, sharedPreferences.getString(VERIFIED, null));
         user.put(GENDER, sharedPreferences.getString(GENDER, null));
+        user.put(LOCATION, sharedPreferences.getString(LOCATION, null));
         return user;
     }
 
     public void logOut() {
-        editor.clear();
-        editor.commit();
+        loginEditor.clear();
+        updateEditor.clear();
+        loginEditor.commit();
+        updateEditor.commit();
         Intent intent = new Intent(context, Login.class);
         context.startActivity(intent);
         ((Activity) context).finish();

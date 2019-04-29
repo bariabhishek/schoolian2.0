@@ -107,7 +107,7 @@ public class Login extends AppCompatActivity {
         HashMap<String,String>user=sessionManger.getUserDetail();
         String Ename = user.get(sessionManger.NAME);
         String Elastname = user.get(sessionManger.MOBILE);
-        Toast.makeText(this, ""+Elastname+" "+Ename, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, ""+Elastname+" "+Ename, Toast.LENGTH_SHORT).show();
     }
 
     private void onLogin(final String mail, final String passw) {
@@ -138,9 +138,10 @@ public class Login extends AppCompatActivity {
                                         String phone = object.getString("mobile").trim();
                                         String gender = object.getString("gender").trim();
                                         String verfied_status = object.getString("verfied_status").trim();
+                                        String location = object.getString("address").trim();
 
                                         Toast.makeText(Login.this, ""+name+email, Toast.LENGTH_LONG).show();
-                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender);
+                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender,location);
                                         Intent intent = new Intent(Login.this, Home.class);
                                         startActivity(intent);
                                         finish();
