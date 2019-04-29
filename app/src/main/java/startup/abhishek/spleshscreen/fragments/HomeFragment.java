@@ -4,6 +4,7 @@ package startup.abhishek.spleshscreen.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;
@@ -53,13 +54,14 @@ public class HomeFragment extends Fragment {
     TextView noData;
     private TextView mTextMessage;
 
+    private ShimmerFrameLayout mShimmerViewContainer;
 
 
     public HomeFragment() {
         // Required empty public constructor
     }
     private void arraydata() {
-
+        mShimmerViewContainer.startShimmerAnimation();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override
@@ -144,6 +146,8 @@ public class HomeFragment extends Fragment {
          view = inflater.inflate( R.layout.fragment_home, container, false );
             imageButton=view.findViewById(R.id.uplodButton);
             noData=view.findViewById(R.id.noData);
+
+        mShimmerViewContainer =view.findViewById(R.id.shimmer_view_container);
         list = new ArrayList <>(  );
         arraydata();
 
@@ -172,5 +176,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()) );
         recyclerView.setAdapter( a );
+        mShimmerViewContainer.stopShimmerAnimation();
+        mShimmerViewContainer.setVisibility(View.GONE);
     }
 }

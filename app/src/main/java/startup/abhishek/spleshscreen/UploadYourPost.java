@@ -416,9 +416,9 @@ public class UploadYourPost extends  AppCompatActivity {
         title = findViewById( R.id.title );
         dis = findViewById( R.id.discription );
         pese = findViewById( R.id.dealpese );
-        imageView1= findViewById( R.id.iv1);
-        imageView2= findViewById( R.id.iv2 );
-        imageView3= findViewById( R.id.iv3 );
+        imageView1= findViewById( R.id.imageOne);
+        imageView2= findViewById( R.id.imageTwo);
+        imageView3= findViewById( R.id.imageThree );
         uploadImageBtn= findViewById( R.id.uplodImageBtn );
         uploadImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
