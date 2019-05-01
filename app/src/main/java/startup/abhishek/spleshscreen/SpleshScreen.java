@@ -12,14 +12,10 @@ import android.widget.TextView;
 
 public class SpleshScreen extends AppCompatActivity {
     int versionCode = BuildConfig.VERSION_CODE;
-    String versionName = BuildConfig.VERSION_NAME;
     SessionManger sessionManger;
     ProgressBar progressBar;
-    ImageView retry,logopic,sclfont;
-    TextView tapto, pst;
-    AlertDialog.Builder builder;
+    ImageView logopic;
     Config    config;
-    public  static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +24,6 @@ public class SpleshScreen extends AppCompatActivity {
         logopic = findViewById(R.id.logo);
         sessionManger = new SessionManger(this);
         progressBar = findViewById(R.id.progressBar);
-
-        config=new Config(this);
-
-        config.CheckConnection();
-
 
     }
 
@@ -50,12 +41,12 @@ public class SpleshScreen extends AppCompatActivity {
                  @Override
                  public void run() {
                     // logopic.animate().alpha(1f).setDuration(3000);
-
+                     getUpdate(versionCode);
                      Intent intent = new Intent(SpleshScreen.this, Login.class);
                      startActivity(intent);
                      finish();
                  }
-             },3000);
+             },4000);
 
             }
             else
@@ -69,8 +60,9 @@ public class SpleshScreen extends AppCompatActivity {
 
     }
 
-    private void updateApp() {
+    private void getUpdate(int versionCode) {
 
 
     }
+
 }

@@ -2,10 +2,13 @@ package startup.abhishek.spleshscreen;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -40,7 +43,7 @@ public class Home extends NavigationDrawerActivity_ {
 // dusra update agya
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
-
+    BroadcastReceiver broadcastReceiver;
     HomeFragment homeFragment;
     InboxFragment inboxFragment;
     NotificationFragment notificationFragment;
@@ -258,5 +261,28 @@ public class Home extends NavigationDrawerActivity_ {
     }
 ///////////////////Navigation Drawer finish //////////
 
+public void checkIntenet()
+{
+    IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+    broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+            if(ConnectivityReceiver.isNetworkAvailable(context,type))
+            {
+                return;
+            }
+            else {
+                Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+    registerReceiver(broadcastReceiver,intentFilter);
+}
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
+    }
 }
