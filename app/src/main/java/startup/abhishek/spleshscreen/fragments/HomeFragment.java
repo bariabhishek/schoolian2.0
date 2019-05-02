@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -56,7 +57,7 @@ public class HomeFragment extends Fragment {
     VolleyRequest volleyRequest;
     Map<String, String> params;
     private TextView mTextMessage;
-
+    private RequestQueue requestQueue;
     private ShimmerFrameLayout mShimmerViewContainer;
 
 
@@ -64,43 +65,75 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
     private void arraydata() {
+
+
         mShimmerViewContainer.startShimmerAnimation();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
-        try {
-            JSONObject jsonObject = new JSONObject(volleyRequest.getMainResponse());
-            String success = jsonObject.getString("success");
-            JSONArray jsonArray = jsonObject.getJSONArray("allPost");
-            if (success.equals("1")){
-                Log.d("Response", volleyRequest.getMainResponse());
-                for (int i = 0; i < jsonArray.length(); i++) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("allPost");
+                            if (success.equals("1")){
+                                Log.d("Response", volleyRequest.getMainResponse());
+                                for (int i = 0; i < jsonArray.length(); i++) {
 
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    String title = object.getString("title").trim();
-                    String mobile = object.getString("mobile").trim();
-                    String des = object.getString("des").trim();
-                    String rate = object.getString("rate").trim();
-                    String img = object.getString("img").trim();
-                    String id = object.getString("id").trim();
-                    String time = object.getString("time").trim();
-                    String profile = object.getString("profile").trim();
-                    String username = object.getString("username").trim();
-                    String like = object.getString("like").trim();
-                    String share = object.getString("share").trim();
-                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share) );
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String title = object.getString("title").trim();
+                                    String mobile = object.getString("mobile").trim();
+                                    String des = object.getString("des").trim();
+                                    String rate = object.getString("rate").trim();
+                                    String img = object.getString("img").trim();
+                                    String id = object.getString("id").trim();
+                                    String time = object.getString("time").trim();
+                                    String profile = object.getString("profile").trim();
+                                    String username = object.getString("username").trim();
+                                    String like = object.getString("like").trim();
+                                    String share = object.getString("share").trim();
+                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share) );
 
-                }
-                setupRecycle(list);
+                                }
+                                setupRecycle(list);
 
+                            }
+                            else
+                            {
+                                noData.setVisibility(View.VISIBLE);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
+                        // noData.setVisibility(View.VISIBLE);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                return params;
             }
-            else
-            {
-                noData.setVisibility(View.VISIBLE);
-            }
+        };
+        stringRequest.setShouldCache(true);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue=Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
 
-        } catch (JSONException e) {
-            e.printStackTrace();
 
-        }
+
 
 
 
@@ -122,6 +155,7 @@ public class HomeFragment extends Fragment {
         params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
         volleyRequest=new VolleyRequest(getContext(),params,Url);
         volleyRequest.stringRequests(true);
+        response=volleyRequest.getMainResponse();
         arraydata();
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById( R.id.fab );
@@ -144,7 +178,6 @@ public class HomeFragment extends Fragment {
     {
         Adeptor a= new Adeptor( getContext(),list );
         recyclerView = view.findViewById( R.id.recycleview );
-
         recyclerView.setHasFixedSize( true );
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()) );

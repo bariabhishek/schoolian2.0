@@ -26,17 +26,10 @@ public class VolleyRequest {
     public Context context;
    private RequestQueue requestQueue;// = Volley.newRequestQueue(getActivity());
 
-    public String getMainResponse() {
-        return mainResponse;
-    }
-
-    public void setMainResponse(String mainResponse) {
-        this.mainResponse = mainResponse;
-    }
-
-    private String mainResponse;
+       private String mainResponse;
    private String Url;
    private Map<String, String> params;
+
 
     public VolleyRequest(Context context, Map<String, String> params,String Url) {
         this.context = context;
@@ -75,12 +68,18 @@ public class VolleyRequest {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue=Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
-
+        requestQueue.getCache().clear();
         if (clear) {
                 requestQueue.getCache().clear();
             }
 
 
         }
+    public String getMainResponse() {
+        return mainResponse;
+    }
 
+    public void setMainResponse(String mainResponse) {
+        this.mainResponse = mainResponse;
+    }
 }
