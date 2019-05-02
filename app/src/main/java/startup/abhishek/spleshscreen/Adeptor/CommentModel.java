@@ -6,16 +6,18 @@ public class CommentModel {
     public String username;
     public String userpic;
     public String time;
+    public String commenter_mobile;
 
     public CommentModel() {
     }
 
-    public CommentModel(String comment_id, String comment, String username, String userpic, String time) {
+    public CommentModel(String comment_id, String comment, String username, String userpic, String time, String commenter_mobile) {
         this.comment_id = comment_id;
         this.comment = comment;
         this.username = username;
         this.userpic = userpic;
         this.time = time;
+        this.commenter_mobile = commenter_mobile;
     }
 
     public String getComment_id() {
@@ -56,5 +58,8 @@ public class CommentModel {
 
     public void setTime(String time) {
         this.time = time;
+    }
+    public String getCommenter_mobile() {
+        return commenter_mobile;
     }
 }

@@ -205,44 +205,24 @@ public class Login extends AppCompatActivity {
     private void getPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            if (ContextCompat.checkSelfPermission(Login.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
-                    .checkSelfPermission(Login.this,
-                            Manifest.permission.CAMERA)
+            if (ContextCompat.checkSelfPermission(Login.this, Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
+                    .checkSelfPermission(Login.this, Manifest.permission.CAMERA)+ ContextCompat
+                    .checkSelfPermission(Login.this, Manifest.permission.CALL_PHONE)
                     != PackageManager.PERMISSION_GRANTED) {
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale
-                        (Login.this, Manifest.permission.READ_EXTERNAL_STORAGE) ||
-                        ActivityCompat.shouldShowRequestPermissionRationale
-                                (Login.this, Manifest.permission.CAMERA)) {
 
-                    Snackbar.make(Login.this.findViewById(android.R.id.content),
-                            "Please Grant Permissions to upload profile photo",
-                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
-                            new View.OnClickListener() {
-                                @TargetApi(Build.VERSION_CODES.M)
-                                @Override
-                                public void onClick(View v) {
-                                    requestPermissions(
-                                            new String[]{Manifest.permission
-                                                    .READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                                            PERMISSIONS_MULTIPLE_REQUEST);
-                                }
-                            }).show();
-                } else {
                     requestPermissions(
-                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                            new String[]{
                                     Manifest.permission.READ_EXTERNAL_STORAGE,
-                                    Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.MEDIA_CONTENT_CONTROL,
+                                    Manifest.permission.CAMERA,
                                     Manifest.permission.INTERNET,
+                                    Manifest.permission.CALL_PHONE,
                                     Manifest.permission.ACCESS_NETWORK_STATE},
-                            PERMISSIONS_MULTIPLE_REQUEST);
-                }
-            } else {
-                // write your logic code if permission already granted
-                // Toast.makeText(this, "Permission Granted...", Toast.LENGTH_SHORT).show();
+                                     PERMISSIONS_MULTIPLE_REQUEST);
+
+            }
+            else {
+                finish();
             }
         }
 
@@ -261,20 +241,7 @@ public class Login extends AppCompatActivity {
                     if (cameraPermission && readExternalFile) {
                         // write your logic here
                     } else {
-                        Snackbar.make(Login.this.findViewById(android.R.id.content),
-                                "Please Grant Permissions to upload profile photo",
-                                Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
-                                new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                            requestPermissions(
-                                                    new String[]{Manifest.permission
-                                                            .READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                                                    PERMISSIONS_MULTIPLE_REQUEST);
-                                        }
-                                    }
-                                }).show();
+
                     }
                 }
                 break;

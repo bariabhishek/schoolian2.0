@@ -3,13 +3,17 @@ package startup.abhishek.spleshscreen.Adeptor;
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,7 +87,10 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                 deletComment(list.get(i).getComment_id(),i);
             }
         });
-
+        if(list.get(i).getCommenter_mobile().equals(userMobile))
+        {
+            viewHolder.giverOptions.setVisibility(View.GONE);
+        }
 
 
 
@@ -159,14 +166,21 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                               //  JSONArray jsonArray = jsonObject.getJSONArray("getmobile");
                                 if (success.equals("1")){
 
-                                            viewHolder.giverOptions.setVisibility(View.VISIBLE);
-                                            viewHolder.accept.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    confirmTask(postId,list.get(position).getComment_id(),jobTitle);
-                                                }
-                                            });
+                                    if(!list.get(position).getCommenter_mobile().equals(userMobile)) {
+                                        viewHolder.giverOptions.setVisibility(View.VISIBLE);
+                                        viewHolder.accept.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                confirmTask(postId, list.get(position).getComment_id(), jobTitle);
+                                            }
+                                        });
+                                    }
+                                   else
+                                    {
+                                        viewHolder.giverOptions.setVisibility(View.INVISIBLE);
+                                        viewHolder.comnetCard.setBackground(ContextCompat.getDrawable(context, R.drawable.background_rounded_for_giver));
 
+                                    }
                                 }
 
                             } catch (JSONException e) {
@@ -220,6 +234,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
         Button accept,reject;
         TextView comment, time , username;
         LinearLayout giverOptions;
+        RelativeLayout comnetCard;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -231,6 +246,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
             giverOptions=itemView.findViewById(R.id.giverOptions);
             accept=itemView.findViewById(R.id.btnAccept);
             reject=itemView.findViewById(R.id.btnReject);
+            comnetCard=itemView.findViewById(R.id.comnetCard);
 
         }
     }

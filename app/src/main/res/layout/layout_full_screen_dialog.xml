@@ -1,89 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/tools"
     android:background="@color/colorWhite">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary">
         </androidx.appcompat.widget.Toolbar>
 
-    </com.google.android.material.appbar.AppBarLayout>
-    <FrameLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
+        android:layout_below="@+id/toolbar"
         android:layout_height="match_parent"
+        shimmer:duration="500"
+        android:id="@+id/shimmer_view_container_for_Commnet"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <!-- YOUR CUSTOM VIEWS HERE -->
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<ProgressBar
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:backgroundTintMode="src_atop"
-    android:backgroundTint="@color/colorPrimary"
-    android:id="@+id/progressComment"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
-    android:layout_centerInParent="true"
-    android:visibility="gone"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+        <include layout="@layout/recipe_placeholder_item_for_comment" />
+        <include layout="@layout/recipe_placeholder_item_for_comment" />
+        <include layout="@layout/recipe_placeholder_item_for_comment" />
+        <include layout="@layout/recipe_placeholder_item_for_comment" />
 
-    <androidx.recyclerview.widget.RecyclerView
+</LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+        <RelativeLayout
+            android:layout_below="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
 
-        android:id="@+id/recycleviewComment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottomEdit">
+                android:id="@+id/recycleviewComment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottomEdit">
 
-    </androidx.recyclerview.widget.RecyclerView>
-    <LinearLayout
+            </androidx.recyclerview.widget.RecyclerView>
 
-        android:id="@+id/bottomEdit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:elevation="5dp"
-        android:layout_margin="5dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom">
+            <LinearLayout
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight=".8"
-            android:lines="5"
-            android:maxLength="220"
-            android:inputType="text"
-            android:hint="Type your comment..."
-            android:gravity="center"
-            android:textColorHint="#8F8E8E"
-            android:textColor="#090808"
-            android:padding="5dp"
-            android:background="@drawable/bg_edittext"
-            android:id="@+id/CommenBox"/>
-        <TextView
-            android:layout_weight=".2"
-            android:id="@+id/sedCommentButton"
-            android:layout_width="0dp"
+                android:id="@+id/bottomEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:elevation="5dp"
+                android:layout_margin="5dp"
+                android:layout_alignParentBottom="true"
+                android:gravity="bottom">
 
-            android:padding="6dp"
-            android:text="Send"
-            android:gravity="center"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:background="@drawable/bg_edittext"
-            android:layout_height="50dp"
-           />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight=".8"
+                    android:lines="5"
+                    android:maxLength="220"
+                    android:inputType="text"
+                    android:hint="Type your comment..."
+                    android:gravity="center"
+                    android:textColorHint="#8F8E8E"
+                    android:textColor="#090808"
+                    android:padding="5dp"
+                    android:background="@drawable/bg_edittext"
+                    android:id="@+id/CommenBox"/>
+                <TextView
+                    android:layout_weight=".2"
+                    android:id="@+id/sedCommentButton"
+                    android:layout_width="0dp"
 
-    </LinearLayout>
+                    android:padding="6dp"
+                    android:text="Send"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_edittext"
+                    android:layout_height="50dp"
+                    />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+    <!-- YOUR CUSTOM VIEWS HERE -->
+
 </RelativeLayout>
-    </FrameLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

@@ -68,7 +68,7 @@ public class ProfileFragment extends Fragment {
 editProfile.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-       /* FullScreenDialogForEditProfile full=new FullScreenDialogForEditProfile();
+       /* FullScreenDialogForUpdateApp full=new FullScreenDialogForUpdateApp();
             full.show(getFragmentManager(),"TAG");*/
        Intent intent = new Intent(getActivity(), EditProfile.class);
        startActivity(intent);

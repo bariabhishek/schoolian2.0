@@ -56,6 +56,7 @@ public class Home extends NavigationDrawerActivity_ {
         super.onCreate( savedInstanceState );
      //   setContentView( R.layout.activity_home );
         getPermission();
+        checkIntenet();
         sessionManger=new SessionManger(this);
 
         final LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE);

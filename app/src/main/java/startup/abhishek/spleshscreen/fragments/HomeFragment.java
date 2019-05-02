@@ -40,6 +40,7 @@ import startup.abhishek.spleshscreen.Adeptor.Adeptor;
 import startup.abhishek.spleshscreen.Adeptor.ModelList;
 import startup.abhishek.spleshscreen.R;
 import startup.abhishek.spleshscreen.UploadYourPost;
+import startup.abhishek.spleshscreen.VolleyRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,9 +50,11 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView ;
     List<ModelList> list;
     ImageButton imageButton;
-    String Url="https://voulu.in/api/getJobPost.php";
+    String Url="https://voulu.in/api/getJobPost.php",response;
     View view;
     TextView noData;
+    VolleyRequest volleyRequest;
+    Map<String, String> params;
     private TextView mTextMessage;
 
     private ShimmerFrameLayout mShimmerViewContainer;
@@ -62,77 +65,42 @@ public class HomeFragment extends Fragment {
     }
     private void arraydata() {
         mShimmerViewContainer.startShimmerAnimation();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //    progressDialog.dismiss();
-                        Log.i("TAG", response.toString());
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("allPost");
-                            if (success.equals("1")){
-                                Log.d("Response",response);
-                                for (int i = 0; i < jsonArray.length(); i++) {
 
-                                    JSONObject object = jsonArray.getJSONObject(i);
-                                    String title = object.getString("title").trim();
-                                    String mobile = object.getString("mobile").trim();
-                                    String des = object.getString("des").trim();
-                                    String rate = object.getString("rate").trim();
-                                    String img = object.getString("img").trim();
-                                    String id = object.getString("id").trim();
-                                    String time = object.getString("time").trim();
-                                    String profile = object.getString("profile").trim();
-                                    String username = object.getString("username").trim();
-                                    String like = object.getString("like").trim();
-                                    String share = object.getString("share").trim();
-                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share) );
+        try {
+            JSONObject jsonObject = new JSONObject(volleyRequest.getMainResponse());
+            String success = jsonObject.getString("success");
+            JSONArray jsonArray = jsonObject.getJSONArray("allPost");
+            if (success.equals("1")){
+                Log.d("Response", volleyRequest.getMainResponse());
+                for (int i = 0; i < jsonArray.length(); i++) {
 
-                                }
-                                setupRecycle(list);
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String title = object.getString("title").trim();
+                    String mobile = object.getString("mobile").trim();
+                    String des = object.getString("des").trim();
+                    String rate = object.getString("rate").trim();
+                    String img = object.getString("img").trim();
+                    String id = object.getString("id").trim();
+                    String time = object.getString("time").trim();
+                    String profile = object.getString("profile").trim();
+                    String username = object.getString("username").trim();
+                    String like = object.getString("like").trim();
+                    String share = object.getString("share").trim();
+                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share) );
 
-                            }
-                            else
-                            {
-                              noData.setVisibility(View.VISIBLE);
-                            }
+                }
+                setupRecycle(list);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                           // Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
-                          //  noData.setVisibility(View.VISIBLE);
-
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                       /// Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
-                       // noData.setVisibility(View.VISIBLE);
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-
-                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
-                 return params;
             }
-        };
+            else
+            {
+                noData.setVisibility(View.VISIBLE);
+            }
 
-       stringRequest.setShouldCache(true);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        } catch (JSONException e) {
+            e.printStackTrace();
 
-        requestQueue.add(stringRequest);
-        requestQueue.getCache().clear();
+        }
 
 
 
@@ -149,6 +117,11 @@ public class HomeFragment extends Fragment {
 
         mShimmerViewContainer =view.findViewById(R.id.shimmer_view_container);
         list = new ArrayList <>(  );
+
+        params = new HashMap<>();
+        params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
+        volleyRequest=new VolleyRequest(getContext(),params,Url);
+        volleyRequest.stringRequests(true);
         arraydata();
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById( R.id.fab );

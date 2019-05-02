@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +43,6 @@ import startup.abhishek.spleshscreen.SessionManger;
 public class FullScreenDialog extends DialogFragment {
 
     EditText commentBox;
-    ProgressBar progressBar;
     TextView sendBtn;
     SessionManger sessionManger;
     final String Url="http://voulu.in/api/sendComment.php";
@@ -49,6 +50,7 @@ public class FullScreenDialog extends DialogFragment {
     String postId,title;
     List <CommentModel> list;
     RecyclerView recyclerView;
+ShimmerFrameLayout mShimmerViewContainer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,10 +68,10 @@ public class FullScreenDialog extends DialogFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.layout_full_screen_dialog, container, false);
         setToolbar(view);
+        mShimmerViewContainer =view.findViewById(R.id.shimmer_view_container_for_Commnet);
         recyclerView = view.findViewById( R.id.recycleviewComment );
         sessionManger =new SessionManger(getActivity());
         sendBtn=view.findViewById(R.id.sedCommentButton);
-        progressBar=view.findViewById(R.id.progressComment);
         commentBox=view.findViewById(R.id.CommenBox);
         getComment(postId);
         HashMap<String,String> user=sessionManger.getUserDetail();
@@ -176,9 +178,10 @@ public class FullScreenDialog extends DialogFragment {
         requestQueue.getCache().clear();
     }
     public void getComment(final String post_id){
+        mShimmerViewContainer.startShimmerAnimation();
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.getCache().clear();
-        progressBar.setVisibility(View.VISIBLE);
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url2,
                 new Response.Listener<String>()
                 {
@@ -201,11 +204,12 @@ public class FullScreenDialog extends DialogFragment {
                                     String commentId = object.getString("commentId").trim();
                                     String userPic = object.getString("userPic").trim();
                                     String time = object.getString("time").trim();
+                                    String commenter_mobile = object.getString("mobile").trim();
                                    //(String comment_id, String comment, String username, String userpic, String time)
-                                    list.add(new CommentModel(commentId,comment,username,userPic,time) );
+                                    list.add(new CommentModel(commentId,comment,username,userPic,time,commenter_mobile) );
 
                                 }
-                                progressBar.setVisibility(View.GONE);
+
 
                                 setupRecycle(list);
 
@@ -213,7 +217,7 @@ public class FullScreenDialog extends DialogFragment {
                             else
                             {
                                 Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.GONE);
+
                                 Log.d("Response", response);
 
 
@@ -232,7 +236,6 @@ public class FullScreenDialog extends DialogFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity(), "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
                         Log.d("Response", error.toString());
 
 
@@ -261,6 +264,8 @@ public class FullScreenDialog extends DialogFragment {
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) );
         recyclerView.setAdapter( a );
+        mShimmerViewContainer.stopShimmerAnimation();
+        mShimmerViewContainer.setVisibility(View.GONE);
 
     }
 }

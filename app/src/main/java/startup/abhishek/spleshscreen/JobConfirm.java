@@ -191,7 +191,7 @@ public class JobConfirm extends AppCompatActivity {
                                 Bundle bundle=new Bundle();
                                 bundle.putString("otp",OTP);
                                 bundle.putString("seekerName",job_seeker_name);
-                                bundle.putString("seekerMobile",job_giver_mobile);
+                                bundle.putString("seekerMobile",job_seeker_mobile);
                                 bottomSheetFragmentui.setArguments(bundle);
                                 bottomSheetFragmentui.show(getSupportFragmentManager(),"bottomSheet");
                                 volleywork();
