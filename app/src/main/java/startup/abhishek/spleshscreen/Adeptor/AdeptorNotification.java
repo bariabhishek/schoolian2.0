@@ -35,7 +35,7 @@ public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotificatio
     @Override
     public void onBindViewHolder(@NonNull Hold hold, int i) {
 
-        hold.photo.setImageResource( list.get( i ).getNotiImage() );
+
         hold.notification.setText( list.get( i ).getNotification() );
         hold.time.setText( list.get( i ).getTime() );
 

@@ -88,14 +88,7 @@ public class Registration extends AppCompatActivity {
         female = findViewById( R.id.female );
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                 newToken = instanceIdResult.getToken();
-                Log.e("newToken",newToken);
 
-            }
-        });
 
 
 
@@ -146,9 +139,11 @@ public class Registration extends AppCompatActivity {
     }
 
     private void signCondition() {
-         String sname=name.getText().toString();
-         String spassword=password.getText().toString();
-         String smobile=mobile.getText().toString();
+
+
+         final String sname=name.getText().toString();
+         final String spassword=password.getText().toString();
+         final String smobile=mobile.getText().toString();
 
 
                 if(sname.isEmpty() && spassword.isEmpty()&&smobile.isEmpty()){
@@ -162,11 +157,27 @@ public class Registration extends AppCompatActivity {
                                                                             }
                               else {
                                   if (isImageset) {
-                                      uploadDataWithImage(sname, smobile, spassword, Gender, getStringImage(profileImage),newToken);
+                                      FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+                                          @Override
+                                          public void onSuccess(InstanceIdResult instanceIdResult) {
+                                              newToken = instanceIdResult.getToken();
+                                              Log.e("newToken",newToken);
+                                              uploadDataWithImage(sname, smobile, spassword, Gender, getStringImage(profileImage),newToken);
+
+                                          }
+                                      });
 
                                   } else
                                       {
-                                      uploadDataWithOutImage(sname, smobile, spassword, Gender, simage,newToken);
+                                          FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+                                              @Override
+                                              public void onSuccess(InstanceIdResult instanceIdResult) {
+                                                  newToken = instanceIdResult.getToken();
+                                                  Log.e("newToken",newToken);
+                                                  uploadDataWithOutImage(sname, smobile, spassword, Gender, simage,newToken);
+
+                                              }
+                                          });
 
                                      }
                         }

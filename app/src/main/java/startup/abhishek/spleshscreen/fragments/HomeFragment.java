@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import startup.abhishek.spleshscreen.AboutUs;
 import startup.abhishek.spleshscreen.Adeptor.Adeptor;
 import startup.abhishek.spleshscreen.Adeptor.ModelList;
 import startup.abhishek.spleshscreen.R;
@@ -78,7 +79,7 @@ public class HomeFragment extends Fragment {
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("allPost");
                             if (success.equals("1")){
-                                Log.d("Response", volleyRequest.getMainResponse());
+                                Log.d("Response", response);
                                 for (int i = 0; i < jsonArray.length(); i++) {
 
                                     JSONObject object = jsonArray.getJSONObject(i);
@@ -166,8 +167,6 @@ public class HomeFragment extends Fragment {
                 startActivity(vi);
             }
         } );
-
-
 
 
 

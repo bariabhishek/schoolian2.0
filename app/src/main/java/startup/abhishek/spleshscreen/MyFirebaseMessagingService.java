@@ -43,7 +43,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(false)
-                .setSound(soundUrl)
                 .setContentIntent(pendingIntent);
 
 

@@ -194,7 +194,7 @@ public class JobConfirm extends AppCompatActivity {
                                 bundle.putString("seekerMobile",job_seeker_mobile);
                                 bottomSheetFragmentui.setArguments(bundle);
                                 bottomSheetFragmentui.show(getSupportFragmentManager(),"bottomSheet");
-                                volleywork();
+
 
                             }
                             else
@@ -228,6 +228,9 @@ public class JobConfirm extends AppCompatActivity {
                 params.put("postId",postId);
                 params.put("jobseeker",job_seeker_mobile);
                 params.put("jobgiver",job_giver_mobile);
+                params.put("message", "Your Commented task has accepted by "+job_giver_name);
+                params.put("title", "Job Accepted");
+
                 return params;
             }
         };

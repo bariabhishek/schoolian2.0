@@ -1,21 +1,21 @@
 package startup.abhishek.spleshscreen.Adeptor;
 
 public class DataForNotification {
-    private int notiImage;
+    private String notiImage;
     private String notification;
     private String time;
 
-    public DataForNotification(int notiImage, String notification, String time) {
+    public DataForNotification(String  notiImage, String notification, String time) {
         this.notiImage = notiImage;
         this.notification = notification;
         this.time = time;
     }
 
-    public int getNotiImage() {
+    public String getNotiImage() {
         return notiImage;
     }
 
-    public void setNotiImage(int notiImage) {
+    public void setNotiImage(String  notiImage) {
         this.notiImage = notiImage;
     }
 

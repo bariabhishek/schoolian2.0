@@ -53,10 +53,9 @@ public class NotificationFragment extends Fragment {
     }
 
     private void data() {
-        arrayList.add( new DataForNotification( R.drawable.logonewcolor,"shivam","tattu") );
-        arrayList.add( new DataForNotification( R.drawable.logo,"amit","jhandu" ) );
-        arrayList.add( new DataForNotification( R.drawable.sch,"rajat","kallu" ) );
-        arrayList.add( new DataForNotification( R.drawable.logonewcolor,"vijay","pappu") );
+        //    public DataForNotification(String  notiImage, String notification, String time) {
+     //   arrayList.add( new DataForNotification( );
+
     }
 
 }

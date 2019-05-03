@@ -56,6 +56,7 @@ public class Login extends AppCompatActivity {
         setContentView( R.layout.activity_login );
         config=new Config(this);
         getPermission();
+        Log.i("LoginCall","LoginCall");
         etEmail=findViewById(R.id.etEmail);
         progressBar=findViewById(R.id.progress);
         etPass=findViewById(R.id.etPass);
@@ -103,11 +104,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        config.CheckConnection();
-        HashMap<String,String>user=sessionManger.getUserDetail();
-        String Ename = user.get(sessionManger.NAME);
-        String Elastname = user.get(sessionManger.MOBILE);
-       // Toast.makeText(this, ""+Elastname+" "+Ename, Toast.LENGTH_SHORT).show();
     }
 
     private void onLogin(final String mail, final String passw) {
@@ -222,7 +218,7 @@ public class Login extends AppCompatActivity {
 
             }
             else {
-                finish();
+               // finish();
             }
         }
 

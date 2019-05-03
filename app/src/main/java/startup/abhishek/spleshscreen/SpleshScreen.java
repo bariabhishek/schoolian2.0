@@ -34,10 +34,7 @@ public class SpleshScreen extends AppCompatActivity {
     Config    config;
     boolean isUpdateAvailable =false;
     String Url="https://voulu.in/api/getAppUpdate.php";
-    String Url2="https://voulu.in/api/getJobPost.php";
     public  static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
-    VolleyRequest volleyRequest;
-    Map<String, String> params;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -46,25 +43,8 @@ public class SpleshScreen extends AppCompatActivity {
         sessionManger = new SessionManger(this);
         progressBar = findViewById(R.id.progressBar);
 
-        params = new HashMap<>();
-        params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
-        volleyRequest=new VolleyRequest(this,params,Url2);
-       // Log.i("HomeTAG",  );
-        volleyRequest.stringRequests(false);
+
         getUpdate(versionCode);
-    }
-
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-
-
-
-
     }
 
     private void getUpdate(final int versionCode) {
@@ -90,7 +70,7 @@ public class SpleshScreen extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            isUpdateAvailable=true ;
+                            isUpdateAvailable=false ;
                             intents(isUpdateAvailable);
                             Toast.makeText(SpleshScreen.this, "Something went wrong"+e, Toast.LENGTH_SHORT).show();
                              }
@@ -99,7 +79,7 @@ public class SpleshScreen extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        isUpdateAvailable=true ;
+                        isUpdateAvailable=false ;
                         intents(isUpdateAvailable);
                         Toast.makeText(SpleshScreen.this, "Something went wrong"+error, Toast.LENGTH_SHORT).show();
 
@@ -132,24 +112,24 @@ public class SpleshScreen extends AppCompatActivity {
 
 
 
-            Handler  handler=new Handler();
+           /* Handler  handler=new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(isUpdateAvailable)
-                    {
-                        FullScreenDialogForUpdateApp full=new FullScreenDialogForUpdateApp();
 
-                        full.show(getSupportFragmentManager(),"show");
-                    }
-                    else {
-                        Intent intent = new Intent(SpleshScreen.this, Login.class);
-                        startActivity(intent);
-                        finish();
-                    }
                 }
-            },2000);
+            },2000);*/
 
+            if(isUpdateAvailable)
+            {
+                FullScreenDialogForUpdateApp full=new FullScreenDialogForUpdateApp();
+                full.show(getSupportFragmentManager(),"show");
+            }
+            else {
+                Intent intent = new Intent(SpleshScreen.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
         }
         else
         {
