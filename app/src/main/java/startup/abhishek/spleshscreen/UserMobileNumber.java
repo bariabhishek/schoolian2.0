@@ -2,22 +2,27 @@ package startup.abhishek.spleshscreen;
 
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserMobileNumber extends AppCompatActivity {
 
     TextInputLayout textInputLayout;
     EditText no;
+
     Button number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_user_mobile_number );
         textInputLayout = findViewById( R.id.etno );
+
         no = findViewById( R.id.editnumber );
         number = findViewById( R.id.nobtn );
         btnclick();
@@ -32,6 +37,11 @@ public class UserMobileNumber extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText( getApplicationContext(),"succesful",Toast.LENGTH_LONG ).show();
+
+                    Intent i = new Intent(getApplicationContext(),OTP.class);
+                    i.putExtra("mobile",no.getText().toString());
+                    Toast.makeText(getApplicationContext(),no.toString(),Toast.LENGTH_SHORT).show();
+                    startActivity(i);
                 }
             }
         } );

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "704944224597-vgu541pd654ggfn7i0g5g5arcseqkg8k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "startup.abhishek.spleshscreen",
+            "certificate_hash": "ed0c7b1f684f70db42f859a89f9d9d0cda24c401"
+          }
+        },
+        {
           "client_id": "704944224597-rq88umgs4io59of8imdrd53ads5uhd31.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
