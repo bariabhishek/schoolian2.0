@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 public class Config {
 
         private Context context;
+        private Context contet;
 ///mera code test okkk
         public Config(Context context)
         {
