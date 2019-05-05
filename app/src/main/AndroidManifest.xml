@@ -17,22 +17,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MobileNumber">
-
-        </activity>
-        <activity android:name=".AboutUs"></activity>
-        <activity android:name=".EditProfile"></activity>
-        <activity android:name=".JobConfirmActivity" />
-        <activity android:name=".Wallet" />
-        <activity android:name=".JobConfirm" />
-        <activity android:name=".OTP" />
-        <activity android:name=".JobGiver" />
-        <activity android:name=".UserMobileNumber" >
+        <activity android:name=".NotificationManager">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MobileNumber"></activity>
+        <activity android:name=".AboutUs" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".JobConfirmActivity" />
+        <activity android:name=".Wallet" />
+        <activity android:name=".JobConfirm" />
+        <activity android:name=".OTP" />
+        <activity android:name=".JobGiver" />
+        <activity android:name=".UserMobileNumber">
+
         </activity>
         <activity
             android:name=".ScrollingActivityHome"
@@ -53,7 +54,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Login" />
-        <activity android:name=".Registration"></activity>
+        <activity android:name=".Registration" />
         <activity android:name=".SpleshScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
