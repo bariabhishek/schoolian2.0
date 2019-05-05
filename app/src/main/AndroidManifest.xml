@@ -18,8 +18,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MobileNumber">
-        </activity>
-            <activity android:name=".Commented">
 
         </activity>
         <activity android:name=".AboutUs"></activity>
@@ -30,15 +28,17 @@
         <activity android:name=".OTP" />
         <activity android:name=".JobGiver" />
         <activity android:name=".UserMobileNumber" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ScrollingActivityHome"
             android:label="@string/title_activity_scrolling_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".JobDiscription" >
-
-        </activity>
+        <activity android:name=".JobDiscription" />
         <activity android:name=".UploadYourPost" />
         <activity
             android:name=".NavigationDrawerActivity_"

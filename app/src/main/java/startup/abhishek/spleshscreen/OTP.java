@@ -3,13 +3,22 @@ package startup.abhishek.spleshscreen;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -22,6 +31,12 @@ import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class OTP extends AppCompatActivity {
@@ -29,8 +44,10 @@ public class OTP extends AppCompatActivity {
     TextView txtVerify;
     private FirebaseAuth mAuth;
     EditText editText;
+    final  String Url="https://voulu.in/api/login.php";
     boolean verificationStatus = false;
     private String mVerificationId;
+    SessionManger sessionManger;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -39,11 +56,11 @@ public class OTP extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         editText =findViewById(R.id.editotp);
-
+sessionManger=new SessionManger(this);
 
        mob= getIntent().getStringExtra("mobile");
        sendVerificationCode(mob);
-         FirebaseAuthSettings firebaseAuthSettings = firebaseAuth.getFirebaseAuthSettings();
+       FirebaseAuthSettings firebaseAuthSettings = firebaseAuth.getFirebaseAuthSettings();
 
 
 
@@ -53,7 +70,6 @@ public class OTP extends AppCompatActivity {
                if(verificationStatus == true){
                    Intent i = new Intent(getApplicationContext(),Home.class);
                    startActivity(i);
-
                }
            }
        });
@@ -95,6 +111,8 @@ public class OTP extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
+                Log.d("Kya",e.getMessage());
+
                 Toast.makeText(OTP.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
@@ -122,14 +140,10 @@ public class OTP extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent i = new Intent(getApplicationContext(),Home.class);
-                                startActivity(i);
-                                Toast.makeText(getApplicationContext(),"Verifyed",Toast.LENGTH_SHORT).show();
                                 verificationStatus = true;
-                                //verification successful we will start the profile activity
-//                            Intent intent = new Intent(VerifyPhoneActivity.this, ProfileActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            startActivity(intent);
+                                checkLoin(mob);
+
+                                Toast.makeText(getApplicationContext(),"Verifyed",Toast.LENGTH_SHORT).show();
 
                             } else {
 
@@ -154,5 +168,103 @@ public class OTP extends AppCompatActivity {
                     });
         }
 
+        void checkLoin(final String mail)
+        {   /*final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        UploadYourPost.this.setFinishOnTouchOutside(false);*/
+        final ProgressDialog progressDialog= new ProgressDialog(OTP.this);
+            progressDialog.setMessage("Checking your number...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+           OTP.this.setFinishOnTouchOutside(false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                    new Response.Listener<String>()
+                    {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                String success = jsonObject.getString("success");
+                                JSONArray jsonArray = jsonObject.getJSONArray("login");
+                                // Toast.makeText(Login.this, mail+" "+passw+" "+ success, Toast.LENGTH_SHORT).show();
+                                switch (success) {
+                                    case "1":
+                                        progressDialog.dismiss();
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                                            JSONObject object = jsonArray.getJSONObject(i);
+                                            String name = object.getString("name").trim();
+                                            String email = object.getString("email").trim();
+                                            String photo = object.getString("profile_pic").trim();
+                                            String phone = object.getString("mobile").trim();
+                                            String gender = object.getString("gender").trim();
+                                            String verfied_status = object.getString("verfied_status").trim();
+                                            String location = object.getString("address").trim();
+
+                                            Toast.makeText(OTP.this, "Logged In", Toast.LENGTH_LONG).show();
+                                            sessionManger.createSession(name, email, photo, verfied_status, phone, gender,location);
+                                            Intent in = new Intent(getApplicationContext(),Home.class);
+                                            in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(in);
+                                            finish();
+                                        }
+
+                                        break;
+
+
+                                    case "2":
+                                        progressDialog.dismiss();
+
+                                        Intent in = new Intent(getApplicationContext(),Registration.class);
+                                        in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(in);
+                                        finish();
+                                        break;
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                // email_hint.setError("Invalid Mobile no. or Password");
+                                progressDialog.dismiss();
+
+                                Toast.makeText(OTP.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+
+                            }
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            progressDialog.dismiss();
+                            Toast.makeText(OTP.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    params.put("mobile", mail);
+
+                    return params;
+                }
+            };
+            stringRequest.setShouldCache(false);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    30000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+            requestQueue.getCache().clear();
+
+        }
 
 }

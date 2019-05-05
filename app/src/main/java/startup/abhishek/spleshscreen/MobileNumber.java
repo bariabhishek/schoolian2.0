@@ -13,12 +13,13 @@ EditText editText ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_number);
+
     }
 
     public void  sendToOtp(View view){
 
         Intent i = new Intent(this,OTP.class);
-        i.putExtra("mobile","8561843188");
+        i.putExtra("mobile","8952896895");
         startActivity(i);
     }
 }

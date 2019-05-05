@@ -51,8 +51,9 @@
     <com.facebook.shimmer.ShimmerFrameLayout xmlns:shimmer="http://schemas.android.com/apk/res-auto"
         android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
-        android:layout_height="375dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical"
         shimmer:duration="500"
         >
