@@ -18,6 +18,9 @@ import startup.abhishek.spleshscreen.fragments.FullScreenDialog;
 
 public class JobDiscription extends AppCompatActivity  {
 
+    ViewPager viewPager;
+    CoustomSwipeAdeptor coustomSwipeAdeptor;
+
     Button showComment;
     CircleImageView profile;
     ImageView mainImage;
@@ -28,7 +31,14 @@ public class JobDiscription extends AppCompatActivity  {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.new_job_dec );
 
-           id=getIntent().getExtras().getString("id");
+        viewPager = findViewById( R.id.viewpagerjob );
+
+        coustomSwipeAdeptor = new CoustomSwipeAdeptor( this);
+
+        viewPager.setAdapter( coustomSwipeAdeptor );
+
+
+        id=getIntent().getExtras().getString("id");
         Toast.makeText(this, ""+id, Toast.LENGTH_SHORT).show();
            jobdis=getIntent().getExtras().getString("des");
            usernames=getIntent().getExtras().getString("username");

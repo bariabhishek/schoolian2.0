@@ -15,11 +15,11 @@ import startup.abhishek.spleshscreen.R;
 
 public class CoustomSwipeAdeptor extends PagerAdapter {
 
-    private int[] image ;
+    private int[] image ={R.drawable.logo,R.drawable.boy};
     private Context context;
     LayoutInflater layoutInflater;
 
-    public CoustomSwipeAdeptor(Context context,int[] image) {
+    public CoustomSwipeAdeptor(Context context) {
         this.context = context;
         this.image = image;
     }

@@ -213,8 +213,8 @@ public class Home extends NavigationDrawerActivity_ {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.jobpost:
-               // Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
-                 intent = new Intent( this,UploadYourPost.class );
+                // Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+                intent = new Intent( Home.this,UploadYourPost.class );
                 startActivity( intent );
                 break;
             case R.id.yourpost:
@@ -227,8 +227,12 @@ public class Home extends NavigationDrawerActivity_ {
                 setFragment( followersFragment );
                 break;
             case  R.id.aboutus:
+                intent = new Intent( this,AboutUs.class );
+                startActivity( intent );
                 break;
             case  R.id.help:
+//                intent = new Intent( this,Help.class );
+//                startActivity( intent );
                 break;
             case R.id.logout:
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Home.this);

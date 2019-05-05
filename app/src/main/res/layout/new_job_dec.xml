@@ -6,103 +6,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".fragments.ProfileFragment">
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/actionbar"
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:fitsSystemWindows="true"
-            android:theme="@style/AppTheme"
-            android:background="#FFF"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/colasp"
-                android:layout_width="match_parent"
-                android:layout_height="420dp"
-                android:fitsSystemWindows="true"
-                app:contentScrim="@color/colorPrimaryDark"
-                app:expandedTitleTextAppearance="@android:color/transparent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:alpha="7"
-                        android:contentDescription="@string/title_home"
-                        android:fitsSystemWindows="true"
-                        android:scaleType="fitXY"
-                        android:id="@+id/postMainImage"
-                        android:src="@drawable/backg"
-                        android:layout_above="@id/userBox"/>
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_alignParentBottom="true"
-                        android:id="@+id/userBox"
-                        android:orientation="horizontal">
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="56dp"
-                            android:layout_height="56dp"
-                            android:layout_margin="5dp"
-                            android:padding="2dp"
-                            android:src="@drawable/sch"
-                            android:id="@+id/postProfile"
-                            app:civ_border_color="@color/colorPrimaryDark"
-                            app:civ_border_width="1dp"/>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:id="@+id/postUsername"
-                                android:text="Name"
-                                android:layout_weight=".3"
-                                android:textColor="#000"
-
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight=".9"
-                                android:text=""
-                                android:id="@+id/paisePost"
-                                android:textColor="#000"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:clipToPadding="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpagerjob"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+            </androidx.viewpager.widget.ViewPager>
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:alpha="7"
+                android:contentDescription="@string/title_home"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
+                android:id="@+id/postMainImage"
+                android:visibility="gone"
+                android:src="@drawable/backg"
+                android:layout_above="@id/userBox"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/userBox"
+                android:orientation="horizontal">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_margin="5dp"
+                    android:padding="2dp"
+                    android:src="@drawable/sch"
+                    android:id="@+id/postProfile"
+                    app:civ_border_color="@color/colorPrimaryDark"
+                    app:civ_border_width="1dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:id="@+id/postUsername"
+                        android:text="Name"
+                        android:layout_weight=".3"
+                        android:textColor="#000"
+
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight=".9"
+                        android:text=""
+                        android:id="@+id/paisePost"
+                        android:textColor="#000"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,36 +101,36 @@
                     android:layout_marginHorizontal="20dp">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:orientation="horizontal">
                         <TextView
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight=".2"
                             android:textColor="#000"
                             android:text="Rating"
                             android:textSize="18sp"
                             android:textAlignment="center"
+                            android:layout_marginHorizontal="@dimen/padding_10"
                             android:gravity="center"/>
                         <RatingBar
                             android:numStars="5"
                             android:stepSize="1.0"
-                            android:layout_weight=".4"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/postJobTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Job Title"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp"
                     android:layout_gravity="center"
-                    android:id="@+id/postJobTitle"
-                    android:textStyle="bold"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:text="Job Title"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -178,23 +162,19 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/bg_capsule_for_message"
                     android:text="Comments"
-                    android:textStyle="bold"
+
                     android:textColor="@color/colorPrimary"
                     android:layout_gravity="center"
                     android:id="@+id/showComment"
-                  />
-
-
+                    />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
 
+        </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
+    </ScrollView>
 
 
 </RelativeLayout>
