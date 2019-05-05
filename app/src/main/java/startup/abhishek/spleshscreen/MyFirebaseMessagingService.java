@@ -32,7 +32,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void genereteNotification(String body, String title) {
 
-        Intent intent = new Intent(this,Home.class);
+        Intent intent = new Intent(this, startup.abhishek.spleshscreen.NotificationManager.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
 
