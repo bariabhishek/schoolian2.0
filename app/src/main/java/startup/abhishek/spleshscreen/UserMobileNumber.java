@@ -1,15 +1,23 @@
 package startup.abhishek.spleshscreen;
 
 import com.google.android.material.textfield.TextInputLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import static startup.abhishek.spleshscreen.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 
 public class UserMobileNumber extends AppCompatActivity {
 
@@ -26,9 +34,11 @@ public class UserMobileNumber extends AppCompatActivity {
         no = findViewById( R.id.editnumber );
         number = findViewById( R.id.nobtn );
         btnclick();
+
     }
 
     private void btnclick() {
+
         number.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,14 +46,46 @@ public class UserMobileNumber extends AppCompatActivity {
                     textInputLayout.setError( "Somthing Wrong" );
                 }
                 else {
-                    Toast.makeText( getApplicationContext(),"succesful",Toast.LENGTH_LONG ).show();
+                   // Toast.makeText(UserMobileNumber.this,"succesful",Toast.LENGTH_LONG ).show();
+                    getPermission();
 
-                    Intent i = new Intent(getApplicationContext(),OTP.class);
-                    i.putExtra("mobile",no.getText().toString());
-                    Toast.makeText(getApplicationContext(),no.toString(),Toast.LENGTH_SHORT).show();
-                    startActivity(i);
                 }
             }
         } );
     }
+    private void getPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(UserMobileNumber.this, Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
+                    .checkSelfPermission(UserMobileNumber.this, Manifest.permission.CAMERA)+ ContextCompat
+                    .checkSelfPermission(UserMobileNumber.this, Manifest.permission.CALL_PHONE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+
+                requestPermissions(
+                        new String[]{
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA,
+                                Manifest.permission.INTERNET,
+                                Manifest.permission.CALL_PHONE,
+                                Manifest.permission.ACCESS_NETWORK_STATE},
+                        PERMISSIONS_MULTIPLE_REQUEST);
+
+
+
+            }
+            else {
+                Intent i = new Intent(UserMobileNumber.this,OTP.class);
+                i.putExtra("mobile",no.getText().toString());
+                Log.d("Kya",no.getText().toString());
+                Toast.makeText(UserMobileNumber.this,no.getText().toString(),Toast.LENGTH_SHORT).show();
+                startActivity(i);
+            }
+        }
+
+
+
+    }
+
+
 }

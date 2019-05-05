@@ -18,7 +18,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MobileNumber">
-
         </activity>
         <activity android:name=".AboutUs"></activity>
         <activity android:name=".EditProfile"></activity>
@@ -27,12 +26,8 @@
         <activity android:name=".JobConfirm" />
         <activity android:name=".OTP" />
         <activity android:name=".JobGiver" />
-        <activity android:name=".UserMobileNumber" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".UserMobileNumber"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".ScrollingActivityHome"

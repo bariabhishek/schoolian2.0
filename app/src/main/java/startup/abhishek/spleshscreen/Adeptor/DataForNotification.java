@@ -4,11 +4,31 @@ public class DataForNotification {
     private String notiImage;
     private String notification;
     private String time;
+    private String intent;
+    private String userProfile;
 
-    public DataForNotification(String  notiImage, String notification, String time) {
+
+    public DataForNotification(String  notiImage, String notification,String intent, String time) {
         this.notiImage = notiImage;
         this.notification = notification;
         this.time = time;
+        this.intent=intent;
+    }
+
+    public String getIntent() {
+        return intent;
+    }
+
+    public void setIntent(String intent) {
+        this.intent = intent;
+    }
+
+    public String getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(String userProfile) {
+        this.userProfile = userProfile;
     }
 
     public String getNotiImage() {

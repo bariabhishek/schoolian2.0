@@ -62,7 +62,7 @@ public class SpleshScreen extends AppCompatActivity {
                                isUpdateAvailable=true ;
                                 intents(isUpdateAvailable);
                             }
-                            else
+                            else if(success.equals("0"))
                             {
                                 isUpdateAvailable=false;
                                 intents(isUpdateAvailable);
@@ -97,7 +97,7 @@ public class SpleshScreen extends AppCompatActivity {
 
         stringRequest.setShouldCache(false);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                0,
+                5000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -111,27 +111,18 @@ public class SpleshScreen extends AppCompatActivity {
         if (!sessionManger.isLoging()) {
 
 
-
-           /* Handler  handler=new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            },2000);*/
-
             if(isUpdateAvailable)
             {
                 FullScreenDialogForUpdateApp full=new FullScreenDialogForUpdateApp();
                 full.show(getSupportFragmentManager(),"show");
             }
             else {
-                Intent intent = new Intent(SpleshScreen.this, Login.class);
+                Intent intent = new Intent(SpleshScreen.this, UserMobileNumber.class);
                 startActivity(intent);
                 finish();
             }
         }
-        else
+        /*else
         {
             if(isUpdateAvailable)
             {
@@ -144,7 +135,7 @@ public class SpleshScreen extends AppCompatActivity {
                 finish();
             }
 
-        }
+        }*/
     }
 
     @Override

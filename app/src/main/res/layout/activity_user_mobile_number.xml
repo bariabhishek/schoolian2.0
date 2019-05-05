@@ -4,24 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserMobileNumber">
+    tools:context=".UserMobileNumber"
+    android:background="#E8F5FF">
 
-
+<pl.droidsonroids.gif.GifImageView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/figImage"
+    android:src="@drawable/phone"
+    android:scaleType="centerCrop"/>
+    <LinearLayout
+        android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/figImage"
+        android:layout_marginTop="-120dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etno"
+        android:layout_below="@id/figImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_edittext"
+        android:textColorHint="@color/colorPrimary"
+
+        android:background="@drawable/background_rounded"
         android:padding="10dp"
+
+        android:elevation="8dp"
         android:layout_marginTop="15dp">
         <EditText
+            app:backgroundTint="@color/colorPrimary"
             android:id="@+id/editnumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Number"
+            android:hint="Type mobile number"
+            android:maxLength="10"
             android:inputType="number"
             android:drawableRight="@drawable/ic_phone_android_black_24dp"
             android:drawablePadding="20dp"
@@ -34,12 +55,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_follower_btn"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_below="@id/etno"
-        android:text="next"
+        android:text="get otp"
         android:textColor="#fff"
         android:textSize="18sp"
         android:padding="10dp"
         android:layout_marginVertical="20dp"/>
-
+    </LinearLayout>
 </RelativeLayout>

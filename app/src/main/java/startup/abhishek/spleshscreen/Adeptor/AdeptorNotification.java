@@ -19,7 +19,7 @@ public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotificatio
     Context context;
     List<DataForNotification> list;
 
-    public AdeptorNotification(FragmentActivity activity, ArrayList <DataForNotification> arrayList) {
+    public AdeptorNotification(FragmentActivity activity, List <DataForNotification> arrayList) {
         context = activity;
         list = arrayList;
     }
