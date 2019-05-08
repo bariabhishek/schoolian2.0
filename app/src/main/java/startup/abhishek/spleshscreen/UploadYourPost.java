@@ -4,14 +4,18 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -42,6 +46,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static startup.abhishek.spleshscreen.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 
 public class UploadYourPost extends  AppCompatActivity {
 
@@ -423,7 +429,7 @@ public class UploadYourPost extends  AppCompatActivity {
         uploadImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getImage();
+                getPermission();
             }
         });
     }
@@ -438,19 +444,6 @@ public class UploadYourPost extends  AppCompatActivity {
 
     }
 
-    public void getImage() {
-        Options options = Options.init()
-                .setRequestCode(100)                                                 //Request code for activity results
-                .setCount(3)                                                         //Number of images to restict selection count
-                .setFrontfacing(true)                                                //Front Facing camera on start
-                .setImageQuality(ImageQuality.HIGH)                                  //Image Quality
-                .setImageResolution(1024, 800)                                       //Custom Resolution
-                .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
-                .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)   //Orientaion
-                .setPath("/pix/images");                                             //Custom Path For Image Storage
-
-        Pix.start(UploadYourPost.this, options);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -515,5 +508,40 @@ public class UploadYourPost extends  AppCompatActivity {
             }
             break;
         }
+    }
+    private void getPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(UploadYourPost.this, Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
+                    .checkSelfPermission(UploadYourPost.this, Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+
+                requestPermissions(
+                        new String[]{
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA},
+                        PERMISSIONS_MULTIPLE_REQUEST);
+
+
+
+            }
+            else {
+                Options options = Options.init()
+                        .setRequestCode(100)                                                 //Request code for activity results
+                        .setCount(3)                                                         //Number of images to restict selection count
+                        .setFrontfacing(true)                                                //Front Facing camera on start
+                        .setImageQuality(ImageQuality.HIGH)                                  //Image Quality
+                        .setImageResolution(1024, 800)                                       //Custom Resolution
+                        .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
+                        .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)   //Orientaion
+                        .setPath("/pix/images");                                             //Custom Path For Image Storage
+
+                Pix.start(UploadYourPost.this, options);
+            }
+        }
+
+
+
     }
 }

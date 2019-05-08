@@ -81,13 +81,15 @@ RecyclerView recyclerView;
                                     String des = object.getString("des").trim();
                                     String rate = object.getString("rate").trim();
                                     String img = object.getString("img").trim();
+                                    String img2 = object.getString("img2").trim();
+                                    String img3 = object.getString("img3").trim();
                                     String id = object.getString("id").trim();
                                     String time = object.getString("time").trim();
                                     String profile = object.getString("profile").trim();
                                     String username = object.getString("username").trim();
                                     String like = object.getString("like").trim();
                                     String share = object.getString("share").trim();
-                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share) );
+                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share,img2,img3) );
 
                                 }
                                 setupRecycle(list);

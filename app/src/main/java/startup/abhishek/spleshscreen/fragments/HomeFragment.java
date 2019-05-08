@@ -88,13 +88,15 @@ public class HomeFragment extends Fragment {
                                     String des = object.getString("des").trim();
                                     String rate = object.getString("rate").trim();
                                     String img = object.getString("img").trim();
+                                    String img2 = object.getString("img2").trim();
+                                    String img3 = object.getString("img3").trim();
                                     String id = object.getString("id").trim();
                                     String time = object.getString("time").trim();
                                     String profile = object.getString("profile").trim();
                                     String username = object.getString("username").trim();
                                     String like = object.getString("like").trim();
                                     String share = object.getString("share").trim();
-                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share) );
+                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share,img2,img3) );
 
                                 }
                                 setupRecycle(list);
@@ -120,7 +122,10 @@ public class HomeFragment extends Fragment {
                     }
                 }) {
             @Override
-            protected Map<String, String> getParams() {
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
                 return params;
             }
         };

@@ -54,16 +54,14 @@ public class Home extends NavigationDrawerActivity_ {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-     //   setContentView( R.layout.activity_home );
-        getPermission();
-        checkIntenet();
+       // Toast.makeText(this, "kya he", Toast.LENGTH_SHORT).show();
         sessionManger=new SessionManger(this);
 
         final LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_home, null, false);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.addView(contentView, 0);
-
+        checkIntenet();
 
 
         bottomNavigationView = findViewById( R.id.navigation );

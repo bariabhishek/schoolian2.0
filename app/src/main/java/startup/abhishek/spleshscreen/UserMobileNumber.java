@@ -56,18 +56,12 @@ public class UserMobileNumber extends AppCompatActivity {
     private void getPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            if (ContextCompat.checkSelfPermission(UserMobileNumber.this, Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
-                    .checkSelfPermission(UserMobileNumber.this, Manifest.permission.CAMERA)+ ContextCompat
-                    .checkSelfPermission(UserMobileNumber.this, Manifest.permission.CALL_PHONE)
-                    != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(UserMobileNumber.this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
 
 
                 requestPermissions(
                         new String[]{
-                                Manifest.permission.READ_EXTERNAL_STORAGE,
-                                Manifest.permission.CAMERA,
                                 Manifest.permission.INTERNET,
-                                Manifest.permission.CALL_PHONE,
                                 Manifest.permission.ACCESS_NETWORK_STATE},
                         PERMISSIONS_MULTIPLE_REQUEST);
 

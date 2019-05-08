@@ -11,17 +11,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.util.List;
+
 import startup.abhishek.spleshscreen.R;
 
 public class CoustomSwipeAdeptor extends PagerAdapter {
 
     private int[] image ={R.drawable.logo,R.drawable.boy};
     private Context context;
+    List <String> imageArry;
     LayoutInflater layoutInflater;
 
-    public CoustomSwipeAdeptor(Context context) {
+    public CoustomSwipeAdeptor(Context context,List <String> imageArry) {
         this.context = context;
-        this.image = image;
+        this.imageArry = imageArry;
     }
 
     @Override
@@ -43,7 +48,7 @@ public class CoustomSwipeAdeptor extends PagerAdapter {
         ImageView imageView = itemView.findViewById( R.id.imageViewdisp );
         TextView textView = itemView.findViewById( R.id.tvdisp );
 
-        imageView.setImageResource( image[position] );
+        Glide.with(context).load(imageArry.get(position)).into(imageView);
         textView.setText("← or →" );
         container.addView( itemView );
 

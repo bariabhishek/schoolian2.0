@@ -1,12 +1,18 @@
 package startup.abhishek.spleshscreen;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.Nullable;
 
+import com.fxn.pix.Options;
+import com.fxn.pix.Pix;
+import com.fxn.utility.ImageQuality;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +49,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.core.content.ContextCompat;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static startup.abhishek.spleshscreen.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 
 public class Registration extends AppCompatActivity {
 
@@ -95,7 +104,7 @@ public class Registration extends AppCompatActivity {
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseFile();
+                getPermission();
             }
         });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -369,10 +378,7 @@ public class Registration extends AppCompatActivity {
 
     public void chooseFile()
     {
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setAspectRatio(1, 1)
-                .start(Registration.this);
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -397,7 +403,34 @@ public class Registration extends AppCompatActivity {
             }
         }
     }
+    private void getPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
+            if (ContextCompat.checkSelfPermission(Registration.this, Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
+                    .checkSelfPermission(Registration.this, Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+
+                requestPermissions(
+                        new String[]{
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA},
+                        PERMISSIONS_MULTIPLE_REQUEST);
+
+
+
+            }
+            else {
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1, 1)
+                        .start(Registration.this);
+            }
+        }
+
+
+
+    }
 
 
 }

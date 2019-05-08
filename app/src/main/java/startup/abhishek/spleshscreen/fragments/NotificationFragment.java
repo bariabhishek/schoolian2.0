@@ -102,12 +102,17 @@ public class NotificationFragment extends Fragment {
                             if (success.equals("1")){
                                 Log.d("Response",response);
                                 for (int i = 0; i < jsonArray.length(); i++) {
+
+
                                     JSONObject object = jsonArray.getJSONObject(i);
-                                    String notification = object.getString("notification").trim();
-                                    String senderImage = object.getString("senderImage").trim();
+                                    String notification = object.getString("metter").trim();
+                                    String senderImage = object.getString("sender_image").trim();
                                     String intent = object.getString("intent").trim();
                                     String time = object.getString("time").trim();
-                                   arrayList.add(new DataForNotification(senderImage,notification,intent,time));
+                                    String status = object.getString("status").trim();
+                                    String notId = object.getString("not_id").trim();
+                                    String postId = object.getString("post_id").trim();
+                                   arrayList.add(new DataForNotification(senderImage,notification,intent,time,status,notId,postId));
                                     }
 
 

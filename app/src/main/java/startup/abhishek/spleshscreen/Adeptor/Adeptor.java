@@ -99,6 +99,8 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
                 view.putExtra("profile",list.get( i ).getProfilePic());
                 view.putExtra("paise",list.get( i ).getPese());
                 view.putExtra("img",list.get( i ).getImage());
+                view.putExtra("img2",list.get( i ).getImg2());
+                view.putExtra("img3",list.get( i ).getImg3());
                 context.startActivity(view);
             }
         });

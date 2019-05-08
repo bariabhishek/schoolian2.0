@@ -28,11 +28,7 @@
         <activity android:name=".OTP" />
         <activity android:name=".JobGiver" />
         <activity android:name=".UserMobileNumber" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ScrollingActivityHome"
@@ -40,6 +36,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".JobDiscription" />
         <activity android:name=".UploadYourPost" />
+        <activity android:name=".JobDiscriptionForNotification" />
         <activity
             android:name=".NavigationDrawerActivity_"
             android:label="@string/title_activity_navigation_drawer_"

@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import startup.abhishek.spleshscreen.Adeptor.CoustomSwipeAdeptor;
 import startup.abhishek.spleshscreen.fragments.FullScreenDialog;
@@ -20,7 +23,7 @@ public class JobDiscription extends AppCompatActivity  {
 
     ViewPager viewPager;
     CoustomSwipeAdeptor coustomSwipeAdeptor;
-
+    List<String> imageArry;
     Button showComment;
     CircleImageView profile;
     ImageView mainImage;
@@ -30,23 +33,39 @@ public class JobDiscription extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.new_job_dec );
-
+            imageArry=new ArrayList<>();
         viewPager = findViewById( R.id.viewpagerjob );
 
-        coustomSwipeAdeptor = new CoustomSwipeAdeptor( this);
 
-        viewPager.setAdapter( coustomSwipeAdeptor );
+
+
 
 
         id=getIntent().getExtras().getString("id");
-        Toast.makeText(this, ""+id, Toast.LENGTH_SHORT).show();
            jobdis=getIntent().getExtras().getString("des");
            usernames=getIntent().getExtras().getString("username");
            profileImage=getIntent().getExtras().getString("profile");
            image=getIntent().getExtras().getString("img");
+          String img2=getIntent().getExtras().getString("img2"),
+         img3=getIntent().getExtras().getString("img3");
            pese=getIntent().getExtras().getString("paise");
          title=getIntent().getExtras().getString("title");
+         if(!image.equals("NO"))
+         {
+             imageArry.add(image);
+             if(!img2.equals("NO"))
+             {
+                 imageArry.add(img2);
+                 if (!img3.equals("NO")) {
+                     imageArry.add(img3);
+                 }
+             }
+         }
 
+
+
+        coustomSwipeAdeptor = new CoustomSwipeAdeptor( this,imageArry);
+        viewPager.setAdapter( coustomSwipeAdeptor );
        profile = findViewById( R.id.postProfile );
        mainImage = findViewById( R.id.postMainImage );
        username = findViewById( R.id.postUsername );
@@ -57,9 +76,9 @@ public class JobDiscription extends AppCompatActivity  {
        showComment = findViewById( R.id.showComment );
 
        Glide.with(this).load(profileImage).into(profile);
-      if (!image.equals("NO")) {
+      /*if (!image.equals("NO")) {
           Glide.with(this).load(image).into(mainImage);
-      }
+      }*/
       username.setText(usernames);
       jobtTitle.setText(title);
       jobdes.setText(jobdis);

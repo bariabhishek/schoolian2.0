@@ -107,7 +107,8 @@ public class SpleshScreen extends AppCompatActivity {
 
     }
     public  void  intents(final boolean isUpdateAvailable)
-    {
+    {             //   Toast.makeText(this, "login check", Toast.LENGTH_SHORT).show();
+
         if (!sessionManger.isLoging()) {
 
 
@@ -117,12 +118,13 @@ public class SpleshScreen extends AppCompatActivity {
                 full.show(getSupportFragmentManager(),"show");
             }
             else {
+                Toast.makeText(this, "ok he", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SpleshScreen.this, UserMobileNumber.class);
                 startActivity(intent);
                 finish();
             }
         }
-        /*else
+        else
         {
             if(isUpdateAvailable)
             {
@@ -135,7 +137,7 @@ public class SpleshScreen extends AppCompatActivity {
                 finish();
             }
 
-        }*/
+        }
     }
 
     @Override
