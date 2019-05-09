@@ -18,9 +18,9 @@ Fragment freg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_manager);
+        //setContentView(R.layout.activity_notification_manager);
 
-        notification_Option ="2";
+        notification_Option ="3";
 
         switch(notification_Option){
 

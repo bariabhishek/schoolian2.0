@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class MobileNumber extends AppCompatActivity {
+public class AcceptedListActivity extends AppCompatActivity {
 EditText editText ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

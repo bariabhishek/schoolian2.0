@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,22 +28,21 @@ import java.util.List;
 import java.util.Map;
 
 import startup.abhishek.spleshscreen.Adeptor.AdeptorFollower;
+import startup.abhishek.spleshscreen.Adeptor.CommentedPostAdaptor;
 import startup.abhishek.spleshscreen.Adeptor.DataModelFollower;
+import startup.abhishek.spleshscreen.Adeptor.ModelList;
 import startup.abhishek.spleshscreen.R;
 import startup.abhishek.spleshscreen.SessionManger;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FollowersFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
 
     RecyclerView recyclerView;
-    List<DataModelFollower> arrayList;
-SessionManger sessionManger;
-    String Url="https://voulu.in/api/getJobPostCommented.php";
+    List<ModelList> arrayList;
+    SessionManger sessionManger;
+    TextView noDataFavPost;
+    String Url="https://voulu.in/api/getFavoriteJobPost.php";
 
-    public FollowersFragment() {
+    public FavoriteFragment() {
         // Required empty public constructor
     }
 
@@ -53,6 +53,7 @@ SessionManger sessionManger;
         // Inflate the layout for this fragment
         View view = inflater.inflate( R.layout.fragment_followers, container, false );
         recyclerView = view.findViewById( R.id.recycleviewfollower );
+        noDataFavPost = view.findViewById( R.id.noDataFavPost );
         sessionManger=new SessionManger(getActivity());
         HashMap<String,String> getUser=sessionManger.getUserDetail();
        String  userMobile=getUser.get(sessionManger.MOBILE);
@@ -72,7 +73,7 @@ SessionManger sessionManger;
                     @Override
                     public void onResponse(String response) {
                         //    progressDialog.dismiss();
-                        Log.i("TAG", response.toString());
+                        Log.i("RESPO", response.toString());
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
@@ -80,30 +81,35 @@ SessionManger sessionManger;
                             if (success.equals("1")){
                                 Log.d("Response",response);
                                 for (int i = 0; i < jsonArray.length(); i++) {
-
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String title = object.getString("title").trim();
                                     String mobile = object.getString("mobile").trim();
                                     String des = object.getString("des").trim();
                                     String rate = object.getString("rate").trim();
                                     String img = object.getString("img").trim();
+                                    String img2 = object.getString("img2").trim();
+                                    String img3 = object.getString("img3").trim();
                                     String id = object.getString("id").trim();
                                     String time = object.getString("time").trim();
-//                                    Toast.makeText(getActivity(), ""+title+mobile+des, Toast.LENGTH_SHORT).show();
-                                    arrayList.add( new DataModelFollower(img,title,des,rate,id,time,mobile ) );
-
+                                    String profile = object.getString("profile").trim();
+                                    String username = object.getString("username").trim();
+                                    String like = object.getString("like").trim();
+                                    String share = object.getString("share").trim();
+                                    arrayList.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share,img2,img3) );
                                 }
                                 setupRecycle(arrayList);
 
                             }
                             else
+
                             {
-                               // Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                                recyclerView.setVisibility(View.GONE);
+                                noDataFavPost.setVisibility(View.VISIBLE);
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                          //  Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+                            //  Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
 
 
                         }
@@ -112,7 +118,7 @@ SessionManger sessionManger;
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                    ///    Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
+                        ///    Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
 
                     }
                 })
@@ -122,7 +128,7 @@ SessionManger sessionManger;
                 Map<String, String> params = new HashMap<>();
 
                 params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
-                params.put("mobile", Mobile);
+                params.put("mobile",Mobile);
                 return params;
             }
         };
@@ -134,14 +140,15 @@ SessionManger sessionManger;
 
 
 
+
+
     }
     public  void setupRecycle(List list)
     {
 
         recyclerView.setHasFixedSize( true );
         recyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
-
-        AdeptorFollower follower = new AdeptorFollower(getContext(),list);
+        CommentedPostAdaptor follower = new CommentedPostAdaptor(getContext(),list);
         recyclerView.setAdapter( follower );
     }
 }

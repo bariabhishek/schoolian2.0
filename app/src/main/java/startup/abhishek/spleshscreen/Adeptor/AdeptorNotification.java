@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import startup.abhishek.spleshscreen.AcceptedActivity;
 import startup.abhishek.spleshscreen.ExampleDialog;
 import startup.abhishek.spleshscreen.JobDiscriptionForNotification;
 import startup.abhishek.spleshscreen.R;
@@ -102,9 +103,10 @@ public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotificatio
                             if (success.equals("1")){
 
                                 if(list.get(i).getIntent().equals("accept")) {
-                                    ExampleDialog exampleDialog =new ExampleDialog();
-                                    exampleDialog.show(((AppCompatActivity)context).getSupportFragmentManager() ,"exampleDiloge" );
-                                }
+                                    Intent view = new Intent(context, AcceptedActivity.class);
+                                    view.putExtra("id",list.get(i).getPostId());
+                                    context.startActivity(view);
+                                     }
                                 else
                                     {
                                         Toast.makeText(context, ""+list.get(i).getPostId(), Toast.LENGTH_SHORT).show();
@@ -115,7 +117,7 @@ public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotificatio
                             }
                             else
                             {
-                                Toast.makeText(context, "Something went wrong...", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context,"Something went wrong...", Toast.LENGTH_LONG).show();
 
                                 Log.d("Response", response);
 

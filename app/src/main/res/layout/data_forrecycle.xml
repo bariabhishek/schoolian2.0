@@ -51,14 +51,30 @@
                     android:text="Time"
                     android:layout_marginHorizontal="10dp" />
             </LinearLayout>
-            <ImageView
+          <!--  <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:id="@+id/option"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"
                 android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/ic_more_vert_black_24dp"/>
+                app:srcCompat="@drawable/ic_more_vert_black_24dp"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/deletePost"
+                android:text="Delete"
+                android:visibility="invisible"
+                android:textSize="18dp"
+                android:background="@drawable/background_rounded"
+                android:textColor="#000"
+                android:padding="8sp"
+                android:textStyle="bold"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+               />
+
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

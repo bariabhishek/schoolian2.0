@@ -47,6 +47,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
     SessionManger sessionManger;
     String job_giver_mobile;
     String Url="https://voulu.in/api/addToFavorite.php";
+    String UrlDelete="https://voulu.in/api/deleteJobPost.php";
     public Adeptor(Context context, List <ModelList> list) {
         this.context = context;
         this.list = list;
@@ -69,7 +70,17 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+        if(job_giver_mobile.equals(list.get(i).getMobile()))
+        {
+            viewHolder.deletePost.setVisibility(View.VISIBLE);
+            viewHolder.deletePost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                  deletePOST(list.get(i).getId(),i) ;
+                }
+            });
 
+        }
         if(list.get(i).getImage().equals("NO"))
         {
             viewHolder.mainImage.setVisibility(View.GONE);
@@ -122,6 +133,8 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return list.size();
@@ -129,8 +142,8 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView mainImage,option,share,like;
-        TextView title, pese , dis,username,time;
+        ImageView mainImage,share,like;
+        TextView title, pese ,deletePost, dis,username,time;
         CardView postCard;
         CircleImageView profile;
 
@@ -143,7 +156,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
             dis = itemView.findViewById( R.id.disCard );
             pese = itemView.findViewById( R.id.peseCard );
             postCard=itemView.findViewById(R.id.postCardMain);
-            option=itemView.findViewById(R.id.option);
+            deletePost=itemView.findViewById(R.id.deletePost);
             share=itemView.findViewById(R.id.shareButton);
             like=itemView.findViewById(R.id.likeBtn);
             username=itemView.findViewById(R.id.userNameCard);
@@ -217,6 +230,60 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
     }
+    private void deletePOST(final String id,final int i) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UrlDelete,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            if (success.equals("1"))
+                            {
+                                list.remove(i);
+                                notifyItemRemoved(i);
+                                notifyItemRangeChanged(i,list.size());
+                                Toast.makeText(context, "Deleted Your post", Toast.LENGTH_LONG).show();
 
+                            }
+                            else {
+                                Toast.makeText(context, "Something went wrong...", Toast.LENGTH_LONG).show();
+                                Log.d("OtpRes","lastCondirion"+id+"  =  "+job_giver_mobile);
+                            }
+
+                        } catch (JSONException e) {
+                            Log.d("OtpRes",e.getMessage());
+                            e.printStackTrace();
+                            Toast.makeText(context, "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("OtpRes",error.toString());
+                        Toast.makeText(context, "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("postId",id);
+                params.put("mobile",job_giver_mobile);
+                return params;
+            }
+        };
+        stringRequest.setShouldCache(false);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
+    }
 
 }

@@ -42,7 +42,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(title)
                 .setContentText(body)
-                .setAutoCancel(false)
                 .setContentIntent(pendingIntent);
 
 

@@ -12,11 +12,15 @@
         <item
             android:id="@+id/yourpost"
             android:icon="@drawable/letter"
-            android:title="Your Post" />
+            android:title="Your Posts" />
         <item
-            android:id="@+id/wallet"
+            android:id="@+id/commentedPost"
             android:icon="@drawable/purse"
-            android:title="Wallet" />
+            android:title="Commented" />
+        <item
+            android:id="@+id/acceptedComment"
+            android:icon="@drawable/purse"
+            android:title="Accepted Posts" />
         <item
             android:id="@+id/follow"
             android:icon="@drawable/follower1"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FollowersFragment">
+    tools:context=".fragments.FavoriteFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/tabl"
@@ -17,7 +17,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FOLLOWER"
+                android:text="Favorite Posts"
                 android:textColor="#fff"
                 android:textSize="22sp"
                 android:layout_gravity="center"
@@ -35,4 +35,12 @@
        android:layout_height="match_parent">
 
    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:visibility="gone"
+        android:id="@+id/noDataFavPost"
+        android:text="You haven't added any post"/>
 </RelativeLayout>

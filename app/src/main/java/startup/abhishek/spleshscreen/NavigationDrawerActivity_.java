@@ -15,7 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import startup.abhishek.spleshscreen.fragments.FollowersFragment;
+import startup.abhishek.spleshscreen.fragments.FavoriteFragment;
 import startup.abhishek.spleshscreen.fragments.HomeFragment;
 import startup.abhishek.spleshscreen.fragments.InboxFragment;
 import startup.abhishek.spleshscreen.fragments.NotificationFragment;
@@ -28,7 +28,7 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
     HomeFragment homeFragment;
     InboxFragment inboxFragment ;
     NotificationFragment notificationFragment ;
-    FollowersFragment followersFragment ;
+    FavoriteFragment favoriteFragment;
     ProfileFragment profileFragment ;
 
     @Override
@@ -41,7 +41,7 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
         homeFragment = new HomeFragment();
         inboxFragment = new InboxFragment();
         notificationFragment = new NotificationFragment();
-        followersFragment = new FollowersFragment();
+        favoriteFragment = new FavoriteFragment();
         profileFragment = new ProfileFragment();
 
 
@@ -97,7 +97,7 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
 
         } else if (id == R.id.yourpost) {
 
-        } else if (id == R.id.wallet) {
+        } else if (id == R.id.commentedPost) {
 
         } else if (id == R.id.follow) {
 

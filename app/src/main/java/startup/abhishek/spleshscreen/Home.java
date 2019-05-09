@@ -29,7 +29,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 
-import startup.abhishek.spleshscreen.fragments.FollowersFragment;
+import startup.abhishek.spleshscreen.fragments.FavoriteFragment;
 import startup.abhishek.spleshscreen.fragments.HomeFragment;
 import startup.abhishek.spleshscreen.fragments.InboxFragment;
 import startup.abhishek.spleshscreen.fragments.NotificationFragment;
@@ -47,7 +47,7 @@ public class Home extends NavigationDrawerActivity_ {
     HomeFragment homeFragment;
     InboxFragment inboxFragment;
     NotificationFragment notificationFragment;
-    FollowersFragment followersFragment;
+    FavoriteFragment favoriteFragment;
     ProfileFragment profileFragment;
     SessionManger sessionManger;
 
@@ -70,7 +70,7 @@ public class Home extends NavigationDrawerActivity_ {
         homeFragment = new HomeFragment();
         inboxFragment = new InboxFragment();
         notificationFragment =new  NotificationFragment();
-        followersFragment = new FollowersFragment();
+        favoriteFragment = new FavoriteFragment();
         profileFragment = new ProfileFragment();
         setFragment( homeFragment );
 
@@ -92,7 +92,7 @@ public class Home extends NavigationDrawerActivity_ {
                         return true;
 
                     case R.id.Fevrate :
-                        setFragment( followersFragment );
+                        setFragment(favoriteFragment);
                        return true;
 
                     case R.id.profile :
@@ -219,10 +219,16 @@ public class Home extends NavigationDrawerActivity_ {
                 intent = new Intent( this,YourPost.class );
                 startActivity( intent );
                 break;
-            case R.id.wallet:
+            case R.id.commentedPost:
+                intent = new Intent( this,CommentedActivity.class );
+                startActivity( intent );
+                break;
+                case R.id.acceptedComment:
+                intent = new Intent( this,AcceptedActivity.class );
+                startActivity( intent );
                 break;
             case R.id.follow:
-                setFragment( followersFragment );
+                setFragment(favoriteFragment);
                 break;
             case  R.id.aboutus:
                 intent = new Intent( this,AboutUs.class );
