@@ -20,7 +20,8 @@
         <activity android:name=".MobileNumber">
 
         </activity>
-        <activity android:name=".AboutUs"></activity>
+        <activity android:name=".AboutUs"
+            android:theme="@style/Theme.AppCompat.Light"></activity>
         <activity android:name=".EditProfile"></activity>
         <activity android:name=".JobConfirmActivity" />
         <activity android:name=".Wallet" />
@@ -35,7 +36,8 @@
             android:label="@string/title_activity_scrolling_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".JobDiscription" />
-        <activity android:name=".UploadYourPost" />
+        <activity android:name=".UploadYourPost"
+            android:theme="@style/Theme.AppCompat.Light"/>
         <activity android:name=".JobDiscriptionForNotification" />
         <activity
             android:name=".NavigationDrawerActivity_"
@@ -50,6 +52,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Login" />
+        <activity android:name=".YourPost" />
         <activity android:name=".Registration"></activity>
         <activity android:name=".SpleshScreen">
             <intent-filter>
@@ -70,6 +73,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

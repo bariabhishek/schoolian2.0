@@ -66,6 +66,7 @@ public class JobDiscription extends AppCompatActivity  {
 
         coustomSwipeAdeptor = new CoustomSwipeAdeptor( this,imageArry);
         viewPager.setAdapter( coustomSwipeAdeptor );
+
        profile = findViewById( R.id.postProfile );
        mainImage = findViewById( R.id.postMainImage );
        username = findViewById( R.id.postUsername );

@@ -1,6 +1,7 @@
 package startup.abhishek.spleshscreen;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,11 +15,13 @@ import android.provider.MediaStore;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +75,9 @@ public class UploadYourPost extends  AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_upload_your_post );
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle( "Upload Your Job" );
+
         sessionManger = new SessionManger( this );
         HashMap <String,String> hashMap = sessionManger.getUserDetail();
         mobilenumber= hashMap.get( SessionManger.MOBILE );
@@ -83,6 +89,16 @@ public class UploadYourPost extends  AppCompatActivity {
         condition();
 
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void condition() {

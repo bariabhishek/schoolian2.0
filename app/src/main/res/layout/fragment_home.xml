@@ -30,8 +30,15 @@
                 android:src="@drawable/download"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
+                android:visibility="gone"
                 android:contentDescription="@string/title_home"
                 android:id="@+id/uplodButton"/>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPagerHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.viewpager.widget.ViewPager>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
