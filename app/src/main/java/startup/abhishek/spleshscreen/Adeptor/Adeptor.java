@@ -152,7 +152,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
             dis = itemView.findViewById( R.id.disCard );
             pese = itemView.findViewById( R.id.peseCard );
             postCard=itemView.findViewById(R.id.postCardMain);
-            deletePost=itemView.findViewById(R.id.deletePost);
+         //   deletePost=itemView.findViewById(R.id.deletePost);
             share=itemView.findViewById(R.id.shareButton);
             like=itemView.findViewById(R.id.likeBtn);
             username=itemView.findViewById(R.id.userNameCard);
