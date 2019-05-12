@@ -116,9 +116,9 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
         return true;
     }
 
-    private void setFregment(Fragment ragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace( R.id.frame,ragment );
-        transaction.commit();
-    }
+//    private void setFregment(Fragment ragment) {
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace( R.id.frame,ragment );
+//        transaction.commit();
+//    }
 }

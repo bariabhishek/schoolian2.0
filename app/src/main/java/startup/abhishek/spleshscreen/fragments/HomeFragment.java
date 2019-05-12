@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +41,8 @@ import java.util.Map;
 
 import startup.abhishek.spleshscreen.AboutUs;
 import startup.abhishek.spleshscreen.Adeptor.Adeptor;
+import startup.abhishek.spleshscreen.Adeptor.CoustomSwipeAdeptor;
+import startup.abhishek.spleshscreen.Adeptor.CoustomSwipeAdeptorForHome;
 import startup.abhishek.spleshscreen.Adeptor.ModelList;
 import startup.abhishek.spleshscreen.R;
 import startup.abhishek.spleshscreen.UploadYourPost;
@@ -48,6 +52,10 @@ import startup.abhishek.spleshscreen.VolleyRequest;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
+
+    ViewPager viewPager;
+    CoustomSwipeAdeptorForHome coustomSwipeAdeptorForHome;
+    int [] imageArry ={R.drawable.logo,R.drawable.boy};
 
     RecyclerView recyclerView ;
     List<ModelList> list;
@@ -153,6 +161,13 @@ public class HomeFragment extends Fragment {
          view = inflater.inflate( R.layout.fragment_home, container, false );
             imageButton=view.findViewById(R.id.uplodButton);
             noData=view.findViewById(R.id.noData);
+
+     //   imageArry=new ArrayList<>();
+        viewPager = view.findViewById( R.id.viewPagerHome );
+
+        coustomSwipeAdeptorForHome = new CoustomSwipeAdeptorForHome( getActivity(),imageArry);
+        viewPager.setAdapter( coustomSwipeAdeptorForHome );
+
 
         mShimmerViewContainer =view.findViewById(R.id.shimmer_view_container);
         list = new ArrayList <>(  );

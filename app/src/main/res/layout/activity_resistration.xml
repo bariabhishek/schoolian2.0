@@ -44,14 +44,14 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civ"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
             android:layout_centerHorizontal="true"
             app:civ_border_color="#000"
             app:civ_border_width="1dp"
-            android:src="@drawable/boy"/>
+            android:src="@drawable/person"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_below="@id/civ"
-            android:layout_marginTop="10dp">
+           >
             <EditText
                 android:id="@+id/edittextname"
                 android:layout_width="match_parent"
@@ -84,7 +84,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_below="@id/etname"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="15dp">
+           >
             <EditText
                 android:id="@+id/edittextMobile"
                 android:layout_width="match_parent"
@@ -104,7 +104,7 @@
             android:layout_below="@id/etMobile"
             android:layout_marginBottom="10dp"
             app:passwordToggleEnabled="true"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="5dp">
             <EditText
                 android:id="@+id/edittextpassword1"
                 android:layout_width="match_parent"
@@ -155,7 +155,6 @@
     <ProgressBar
         android:id="@+id/progressBarReg"
         android:visibility="gone"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
@@ -171,15 +170,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:id="@+id/llcreateone"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="30dp"
         android:orientation="horizontal" >
 <TextView
     android:layout_centerHorizontal="true"
     android:id="@+id/createtext"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="You have already sign up -"
-      android:textSize="17sp"
-
+    android:text="You have already sign up-"
     />
     <TextView
         android:id="@+id/createOne"
@@ -188,28 +187,11 @@
         android:text="Login"
         android:textColor="#2196F3"
         android:layout_below="@id/createtext"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:layout_marginLeft="10dp"
         />
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/llcreateone"
-        android:layout_marginTop="5dp"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginHorizontal="10dp"
-        android:src="@drawable/facebook"/>
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginHorizontal="10dp"
-        android:src="@drawable/search"/>
-    </LinearLayout>
+
 </RelativeLayout>
 </ScrollView>

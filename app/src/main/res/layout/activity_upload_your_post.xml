@@ -7,10 +7,11 @@
     android:orientation="vertical"
     tools:context=".UploadYourPost">
 
-    <com.google.android.material.appbar.AppBarLayout
+   <!-- <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_uploadpost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -21,7 +22,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"/>
         </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +32,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <TextView
+  <!--  <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -39,7 +40,7 @@
         android:textColor="#000"
         android:textSize="20sp"
         android:layout_marginTop="30dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"/>-->
     <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -48,7 +49,7 @@
         android:padding="10dp"
         android:background="@drawable/bg_edittext"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="30dp"/>
     <EditText
         android:id="@+id/discription"
 
@@ -73,6 +74,7 @@
              android:layout_marginTop="20dp"
              android:background="@drawable/bg_edittext"
              android:hint="Payment"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,9 +83,9 @@
         android:text="Upload Images"
         android:textColor="#00BCD4"
         android:background="@drawable/bg_capsule_for_message"
-        android:textSize="18sp"
+
         android:id="@+id/uplodImageBtn"
-        android:padding="5dp"
+        android:padding="10dp"
         android:layout_marginTop="30dp"
         android:textStyle="bold|italic"/>
         <LinearLayout
