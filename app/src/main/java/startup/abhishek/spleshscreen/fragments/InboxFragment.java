@@ -57,10 +57,10 @@ public class InboxFragment extends Fragment {
     }
 
     private void data() {
-        arrayList.add( new JobSeeker( R.drawable.logonewcolor,"workshop","500",R.drawable.ic_star_black_24dp) );
-        arrayList.add( new JobSeeker( R.drawable.logonewcolor,"workshop","366",R.drawable.ic_star_black_24dp ) );
-        arrayList.add( new JobSeeker( R.drawable.logonewcolor,"workshop","678",R.drawable.ic_star_black_24dp ) );
-        arrayList.add( new JobSeeker( R.drawable.logonewcolor,"workshop","234",R.drawable.ic_star_black_24dp) );
+        arrayList.add( new JobSeeker( R.drawable.logonewwhitecolor,"workshop","500",R.drawable.ic_star_black_24dp) );
+        arrayList.add( new JobSeeker( R.drawable.logonewwhitecolor,"workshop","366",R.drawable.ic_star_black_24dp ) );
+        arrayList.add( new JobSeeker( R.drawable.logonewwhitecolor,"workshop","678",R.drawable.ic_star_black_24dp ) );
+        arrayList.add( new JobSeeker( R.drawable.logonewwhitecolor,"workshop","234",R.drawable.ic_star_black_24dp) );
     }
 
 }

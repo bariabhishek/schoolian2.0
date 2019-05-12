@@ -169,11 +169,7 @@ sessionManger=new SessionManger(this);
         }
 
         void checkLoin(final String mail)
-        {   /*final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        UploadYourPost.this.setFinishOnTouchOutside(false);*/
+        {
         final ProgressDialog progressDialog= new ProgressDialog(OTP.this);
             progressDialog.setMessage("Checking your number...");
             progressDialog.setCancelable(false);
@@ -220,6 +216,7 @@ sessionManger=new SessionManger(this);
                                         progressDialog.dismiss();
 
                                         Intent in = new Intent(getApplicationContext(),Registration.class);
+                                        in.putExtra("mobile",mob);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(in);
                                         finish();

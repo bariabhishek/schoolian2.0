@@ -6,14 +6,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,38 +42,35 @@ import static startup.abhishek.spleshscreen.SpleshScreen.PERMISSIONS_MULTIPLE_RE
 
 public class Login extends AppCompatActivity {
 
-   private TextInputLayout etEmail, etPass;
+    final String Url = "https://voulu.in/api/login2.php";
+    SessionManger sessionManger;
+    Config config;
+    private TextInputLayout etEmail, etPass;
     private EditText email, pass;
     private Button login_btn;
-    SessionManger sessionManger;
-    final  String Url="https://voulu.in/api/login2.php";
     private ProgressBar progressBar;
-    Config config;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_login );
-        config=new Config(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        config = new Config(this);
         getPermission();
-        Log.i("LoginCall","LoginCall");
-        etEmail=findViewById(R.id.etEmail);
-        progressBar=findViewById(R.id.progress);
-        etPass=findViewById(R.id.etPass);
-        email=findViewById(R.id.edittextemail);
-       pass=findViewById(R.id.edittextpass);
-        login_btn =findViewById(R.id.login_btn);
-        sessionManger= new SessionManger(this);
+        Log.i("LoginCall", "LoginCall");
+        etEmail = findViewById(R.id.etEmail);
+        progressBar = findViewById(R.id.progress);
+        etPass = findViewById(R.id.etPass);
+        email = findViewById(R.id.edittextemail);
+        pass = findViewById(R.id.edittextpass);
+        login_btn = findViewById(R.id.login_btn);
+        sessionManger = new SessionManger(this);
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 etEmail.setErrorEnabled(false);
             }
         });
-       pass.setOnClickListener(new View.OnClickListener() {
+        pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 etPass.setErrorEnabled(false);
@@ -79,11 +79,11 @@ public class Login extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String mail = email.getText().toString();
+                final String mail  = email.getText().toString();
                 final String passw = pass.getText().toString();
 
 
-                if (mail.isEmpty()&& passw.isEmpty()) {
+                if (mail.isEmpty() && passw.isEmpty()) {
                     etEmail.setError("Please Enter Mobile Number and Password");
                 } else {
                     onLogin(mail, passw);
@@ -111,12 +111,11 @@ public class Login extends AppCompatActivity {
         login_btn.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Log.d("Response", response+" "+mail+" "+passw);
+                        Log.d("Response", response + " " + mail + " " + passw);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
@@ -135,9 +134,8 @@ public class Login extends AppCompatActivity {
                                         String gender = object.getString("gender").trim();
                                         String verfied_status = object.getString("verfied_status").trim();
                                         String location = object.getString("address").trim();
-
-                                        Toast.makeText(Login.this, ""+name+email, Toast.LENGTH_LONG).show();
-                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender,location);
+                                        Toast.makeText(Login.this, "" + name + email, Toast.LENGTH_LONG).show();
+                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location);
                                         Intent intent = new Intent(Login.this, Home.class);
                                         startActivity(intent);
                                         finish();
@@ -179,9 +177,8 @@ public class Login extends AppCompatActivity {
                 }
         ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("mobile", mail);
                 params.put("pass", passw);
 
@@ -202,29 +199,28 @@ public class Login extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             if (ContextCompat.checkSelfPermission(Login.this, Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
-                    .checkSelfPermission(Login.this, Manifest.permission.CAMERA)+ ContextCompat
+                    .checkSelfPermission(Login.this, Manifest.permission.CAMERA) + ContextCompat
                     .checkSelfPermission(Login.this, Manifest.permission.CALL_PHONE)
                     != PackageManager.PERMISSION_GRANTED) {
 
 
-                    requestPermissions(
-                            new String[]{
-                                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                                    Manifest.permission.CAMERA,
-                                    Manifest.permission.INTERNET,
-                                    Manifest.permission.CALL_PHONE,
-                                    Manifest.permission.ACCESS_NETWORK_STATE},
-                                     PERMISSIONS_MULTIPLE_REQUEST);
+                requestPermissions(
+                        new String[]{
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA,
+                                Manifest.permission.INTERNET,
+                                Manifest.permission.CALL_PHONE,
+                                Manifest.permission.ACCESS_NETWORK_STATE},
+                        PERMISSIONS_MULTIPLE_REQUEST);
 
-            }
-            else {
-               // finish();
+            } else {
+                // finish();
             }
         }
 
 
+    }
 
-        }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -251,7 +247,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void createOne(View view) {
-        Intent views = new Intent(Login.this,Registration. class);
+        Intent views = new Intent(Login.this, Registration.class);
         startActivity(views);
     }
 }

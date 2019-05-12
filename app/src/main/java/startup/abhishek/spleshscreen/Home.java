@@ -224,7 +224,7 @@ public class Home extends NavigationDrawerActivity_ {
                 startActivity( intent );
                 break;
                 case R.id.acceptedComment:
-                intent = new Intent( this,AcceptedActivity.class );
+                intent = new Intent( this,AcceptedListActivity.class );
                 startActivity( intent );
                 break;
             case R.id.follow:

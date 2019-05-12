@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,11 +33,9 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import startup.abhishek.spleshscreen.JobConfirm;
 import startup.abhishek.spleshscreen.JobDiscription;
 import startup.abhishek.spleshscreen.R;
 import startup.abhishek.spleshscreen.SessionManger;
-import startup.abhishek.spleshscreen.fragments.BottomSheetFragmentui;
 
 public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
     Context context;
@@ -119,7 +115,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
         viewHolder.share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Uri imageUri = Uri.parse(MediaStore.Images.Media.insertImage(context.getContentResolver(), BitmapFactory.decodeResource(context.getResources(), R.drawable.logonewcolor), null, null));
+              Uri imageUri = Uri.parse(MediaStore.Images.Media.insertImage(context.getContentResolver(), BitmapFactory.decodeResource(context.getResources(), R.drawable.logonewwhitecolor), null, null));
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey, i am adding a task on VOULU APP, you install this app and complete that task and get money instantly. Its Amazing i love it. Voulu.in");

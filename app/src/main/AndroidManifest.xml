@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="startup.abhishek.spleshscreen">
 
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -17,24 +18,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MobileNumber">
-
+        <activity android:name=".AcceptedActivity"/>
+        <activity android:name=".AcceptedListActivity">
+            <intent-filter >
+                <action android:name="startup.abhishek.spleshscreen.accepetFromNotification"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
         </activity>
-        <activity android:name=".AboutUs"></activity>
-        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".AboutUs" />
+        <activity android:name=".YourPost" />
+        <activity android:name=".EditProfile" />
         <activity android:name=".JobConfirmActivity" />
         <activity android:name=".Wallet" />
         <activity android:name=".JobConfirm" />
         <activity android:name=".OTP" />
         <activity android:name=".JobGiver" />
-        <activity android:name=".UserMobileNumber" >
-
-        </activity>
+        <activity android:name=".UserMobileNumber"/>
         <activity
             android:name=".ScrollingActivityHome"
             android:label="@string/title_activity_scrolling_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".JobDiscription" />
+        <activity android:name=".NotificationManager"> <intent-filter >
+            <action android:name="startup.abhishek.spleshscreen.FromNotification"></action>
+            <category android:name="android.intent.category.DEFAULT"></category>
+        </intent-filter></activity>
+        <activity android:name=".CommentedActivity" />
         <activity android:name=".UploadYourPost" />
         <activity android:name=".JobDiscriptionForNotification" />
         <activity
@@ -49,16 +58,20 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Login" />
-        <activity android:name=".Registration"></activity>
-        <activity android:name=".SpleshScreen">
+        <activity android:name=".Login"> </activity>
+        <activity android:name=".Registration" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+        <activity android:name=".SpleshScreen">
 
+        </activity>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id"/>
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -113,7 +113,7 @@ public class SessionManger {
         updateEditor.clear();
         loginEditor.commit();
         updateEditor.commit();
-        Intent intent = new Intent(context, Login.class);
+        Intent intent = new Intent(context, UserMobileNumber.class);
         context.startActivity(intent);
         ((Activity) context).finish();
     }

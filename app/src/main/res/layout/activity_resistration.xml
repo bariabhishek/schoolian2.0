@@ -19,7 +19,7 @@
             android:layout_height="130dp"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/logonewcolor"/>
+            android:src="@drawable/logonewwhitecolor"/>
 
         <TextView
             android:id="@+id/tvvoulu"

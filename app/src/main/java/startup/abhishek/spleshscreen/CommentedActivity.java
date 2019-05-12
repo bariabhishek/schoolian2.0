@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,7 @@ public class CommentedActivity extends AppCompatActivity {
     List <ModelList> commentList;
     SessionManger sessionManger;
     Toolbar toolbar;
+    ShimmerFrameLayout mShimmer;
     TextView noDataCommentedPost;
     String Url="https://voulu.in/api/getJobPostCommented.php";
 
@@ -49,6 +51,7 @@ public class CommentedActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Your Commented Posts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView = findViewById( R.id.commentedRecycleview );
+        mShimmer = findViewById( R.id.shimmer_view_container );
         noDataCommentedPost = findViewById( R.id.noDataCommentedPost );
         commentList = new ArrayList <>(  );
         sessionManger=new SessionManger(this);
@@ -66,9 +69,12 @@ public class CommentedActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()) );
         CommentedPostAdaptor commentedAdaptor = new CommentedPostAdaptor( getApplicationContext(), commentList);
         recyclerView.setAdapter( commentedAdaptor );
+        mShimmer.stopShimmerAnimation();
+        mShimmer.setVisibility(View.GONE);
     }
 
     private void data(final String userMobile) {
+        mShimmer.startShimmerAnimation();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override
@@ -106,6 +112,8 @@ public class CommentedActivity extends AppCompatActivity {
                             {
                                 recyclerView.setVisibility(View.GONE);
                                 noDataCommentedPost.setVisibility(View.VISIBLE);
+                                mShimmer.stopShimmerAnimation();
+                                mShimmer.setVisibility(View.GONE);
                             }
 
                         } catch (JSONException e) {

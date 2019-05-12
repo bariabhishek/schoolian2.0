@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,7 @@ Toolbar toolbar;
 RecyclerView recyclerView;
     List<ModelList> list;
     TextView noData;
+    private ShimmerFrameLayout mShimmerViewContainer;
     SessionManger sessionManger;
     String Url="https://voulu.in/api/getYouJobPost.php";
     @Override
@@ -46,6 +48,7 @@ RecyclerView recyclerView;
         toolbar=findViewById(R.id.toolbarLayout);
         sessionManger=new SessionManger(this);
         setSupportActionBar(toolbar);
+        mShimmerViewContainer=findViewById(R.id.shimmer_view_container);
         getSupportActionBar().setTitle("Your Posts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView=findViewById(R.id.recycleviewYourPost);
@@ -60,7 +63,7 @@ RecyclerView recyclerView;
     }
 
     private void arraydata(final String mobile) {
-
+        mShimmerViewContainer.startShimmerAnimation();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override
@@ -98,6 +101,8 @@ RecyclerView recyclerView;
                             else
                             {
                                 noData.setVisibility(View.VISIBLE);
+                                mShimmerViewContainer.stopShimmerAnimation();
+                                mShimmerViewContainer.setVisibility(View.GONE);
                             }
 
                         } catch (JSONException e) {
@@ -146,6 +151,8 @@ RecyclerView recyclerView;
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new LinearLayoutManager(this) );
         recyclerView.setAdapter( a );
+        mShimmerViewContainer.stopShimmerAnimation();
+        mShimmerViewContainer.setVisibility(View.GONE);
     }
 
     @Override

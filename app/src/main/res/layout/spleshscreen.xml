@@ -13,7 +13,7 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:elevation="15dp"
-    android:src="@drawable/logonewcolor"
+    android:src="@drawable/logonewwhitecolor"
     android:id="@+id/logo"
      />
     <ProgressBar
