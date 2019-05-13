@@ -91,7 +91,7 @@ RecyclerView recyclerView;
                                     String profile = object.getString("profile").trim();
                                     String username = object.getString("username").trim();
                                     String like = object.getString("like").trim();
-                                    String share = object.getString("share").trim();
+                                    String share = object.getString("status").trim();
                                     list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share,img2,img3) );
 
                                 }

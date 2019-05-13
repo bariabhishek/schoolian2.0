@@ -12,11 +12,11 @@ public class ModelList {
     String like;
     String profilePic;
     String username;
-    String share;
+    String status;
     String img2,img3;
 
     public ModelList(String image, String title, String dis, String pese, String id, String time, String mobile, String like,
-                     String profilePic, String username, String share,String img2,String img3)
+                     String profilePic, String username, String status, String img2, String img3)
     {
         Image = image;
         this.title = title;
@@ -28,7 +28,7 @@ public class ModelList {
         this.like = like;
         this.profilePic = profilePic;
         this.username = username;
-        this.share = share;
+        this.status = status;
         this.img2 = img2;
         this.img3 = img3;
     }
@@ -65,12 +65,12 @@ public class ModelList {
         this.username = username;
     }
 
-    public String getShare() {
-        return share;
+    public String getStatus() {
+        return status;
     }
 
-    public void setShare(String share) {
-        this.share = share;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 

@@ -51,14 +51,7 @@
                     android:text="Time"
                     android:layout_marginHorizontal="10dp" />
             </LinearLayout>
-          <!--  <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:id="@+id/option"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center"
-                android:layout_marginEnd="10dp"
-                app:srcCompat="@drawable/ic_more_vert_black_24dp"/>-->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

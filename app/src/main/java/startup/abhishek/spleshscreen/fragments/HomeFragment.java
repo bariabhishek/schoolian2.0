@@ -103,8 +103,9 @@ public class HomeFragment extends Fragment {
                                     String profile = object.getString("profile").trim();
                                     String username = object.getString("username").trim();
                                     String like = object.getString("like").trim();
-                                    String share = object.getString("share").trim();
-                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share,img2,img3) );
+                                   // String share = object.getString("share").trim();
+                                    String status = object.getString("status").trim();
+                                    list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,status,img2,img3) );
 
                                 }
                                 setupRecycle(list);

@@ -53,7 +53,7 @@ public class AcceptedListActivity extends AppCompatActivity {
         mShimmerViewContainer=findViewById(R.id.shimmer_view_container);
         getSupportActionBar().setTitle("Accepted List");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        recyclerView=findViewById(R.id.recycleviewYourPost);
+        recyclerView=findViewById(R.id.recycleviewAccepted);
         noData=findViewById(R.id.noDataYourPost);
         HashMap<String,String> user=sessionManger.getUserDetail();
         // String Ename = user.get(sessionManger.NAME);
@@ -93,7 +93,7 @@ public class AcceptedListActivity extends AppCompatActivity {
                                     String profile = object.getString("profile").trim();
                                     String username = object.getString("username").trim();
                                     String like = object.getString("like").trim();
-                                    String share = object.getString("share").trim();
+                                    String share = object.getString("status").trim();
                                     list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share,img2,img3) );
 
                                 }
