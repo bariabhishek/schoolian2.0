@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="startup.abhishek.spleshscreen">
 
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -18,11 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".JobConfirmLayout"></activity>
         <activity android:name=".AcceptedActivity" />
         <activity android:name=".AcceptedListActivity">
             <intent-filter>
-                <action android:name="startup.abhishek.spleshscreen.accepetFromNotification"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
+                <action android:name="startup.abhishek.spleshscreen.accepetFromNotification" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".AboutUs" />
@@ -39,8 +40,7 @@
             android:label="@string/title_activity_scrolling_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".JobDiscription" />
-        <activity android:name=".NotificationManager">
-        </activity>
+        <activity android:name=".NotificationManager"></activity>
         <activity android:name=".CommentedActivity" />
         <activity android:name=".UploadYourPost" />
         <activity android:name=".JobDiscriptionForNotification" />
@@ -56,14 +56,13 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Registration">
-
-        </activity>
+        <activity android:name=".Login" />
+        <activity android:name=".Registration"></activity>
         <activity android:name=".SpleshScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="startup.abhishek.spleshscreen.FromNotification"></action>
+                <action android:name="startup.abhishek.spleshscreen.FromNotification" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -71,6 +70,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
+
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
