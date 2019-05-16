@@ -22,14 +22,14 @@ import startup.abhishek.spleshscreen.R;
 
 public class CoustomSwipeAdeptorForHome extends PagerAdapter {
 
-    private int[] image2 ;
+
     private Context context;
-    int [] imageArry;
+    List <String> imageArry;
     LayoutInflater layoutInflater;
 
 
 
-    public CoustomSwipeAdeptorForHome(FragmentActivity activity, int[] imageArry) {
+    public CoustomSwipeAdeptorForHome(FragmentActivity activity, List <String> imageArry) {
         this.context = activity;
         this.imageArry = imageArry;
         layoutInflater=LayoutInflater.from( activity );
@@ -38,9 +38,7 @@ public class CoustomSwipeAdeptorForHome extends PagerAdapter {
     @Override
     public int getCount() {
 
-//        Log.e( "chack", String.valueOf( image2.length ) );
-
-        return imageArry.length;
+        return imageArry.size();
     }
 
     @Override
@@ -58,9 +56,9 @@ public class CoustomSwipeAdeptorForHome extends PagerAdapter {
         ImageView imageView = itemView.findViewById( R.id.imageViewdisphome );
         TextView textView = itemView.findViewById( R.id.tvdisphome );
 
-        imageView.setImageResource( imageArry[position] );
+        Glide.with(context).load(imageArry.get(position)).into(imageView);
         textView.setText("← or →" );
-       container.addView( itemView );
+        container.addView( itemView );
 
 
         return itemView;

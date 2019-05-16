@@ -33,13 +33,27 @@
                 android:visibility="gone"
                 android:contentDescription="@string/title_home"
                 android:id="@+id/uplodButton"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:id="@+id/adtext"
+                android:text="ADS"
+
+                android:visibility="gone"
+                android:gravity="center"/>
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPagerHome"
+                android:layout_marginTop="-10dp"
+                android:layout_below="@+id/adtext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             </androidx.viewpager.widget.ViewPager>
-
+            </RelativeLayout>
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"

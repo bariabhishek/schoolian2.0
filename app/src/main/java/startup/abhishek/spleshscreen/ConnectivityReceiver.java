@@ -25,6 +25,7 @@ public  class ConnectivityReceiver extends BroadcastReceiver {
             Toast.makeText(context, "Not Connected", Toast.LENGTH_LONG).show();
         }
     }
+
     public static boolean isNetworkAvailable(Context context, int[] typeNetworks)
     {
        try {

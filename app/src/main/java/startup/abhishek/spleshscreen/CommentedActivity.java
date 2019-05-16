@@ -1,5 +1,10 @@
 package startup.abhishek.spleshscreen;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +36,7 @@ import startup.abhishek.spleshscreen.Adeptor.Adeptor;
 import startup.abhishek.spleshscreen.Adeptor.CommentAdaptor;
 import startup.abhishek.spleshscreen.Adeptor.CommentedPostAdaptor;
 import startup.abhishek.spleshscreen.Adeptor.ModelList;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
 
 public class CommentedActivity extends AppCompatActivity {
 
@@ -41,6 +47,7 @@ public class CommentedActivity extends AppCompatActivity {
     ShimmerFrameLayout mShimmer;
     TextView noDataCommentedPost;
     String Url="https://voulu.in/api/getJobPostCommented.php";
+    BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,7 @@ public class CommentedActivity extends AppCompatActivity {
         sessionManger=new SessionManger(this);
         HashMap<String,String> getUser=sessionManger.getUserDetail();
         String  userMobile=getUser.get(sessionManger.MOBILE);
-
+        checkIntenet();
         data(userMobile);
 
 
@@ -149,5 +156,30 @@ public class CommentedActivity extends AppCompatActivity {
 
 
 
+    }
+    public void checkIntenet()
+    {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if(ConnectivityReceiver.isNetworkAvailable(context,type))
+                {
+                    return;
+                }
+                else {
+                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(),"show");
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver,intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 }

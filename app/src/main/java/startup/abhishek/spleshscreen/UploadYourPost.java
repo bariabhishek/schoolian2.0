@@ -4,19 +4,26 @@ import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
 
 import android.os.Bundle;
 import android.util.Base64;
@@ -64,19 +71,23 @@ public class UploadYourPost extends  AppCompatActivity {
     SessionManger sessionManger;
     Bitmap bt1,bt2,bt3;
     int imageCount=0;
+    Toolbar toolbar;
     String Url="https://voulu.in/api/jobpost.php";
     ArrayList<String> returnValue = new ArrayList<>();
     final String NO_IMAGE="no_image";
     Button post;
+    BroadcastReceiver broadcastReceiver;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_upload_your_post );
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar=findViewById(R.id.toolbar_uplod);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle( "Upload Your Job" );
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        checkIntenet();
 
         sessionManger = new SessionManger( this );
         HashMap <String,String> hashMap = sessionManger.getUserDetail();
@@ -95,6 +106,7 @@ public class UploadYourPost extends  AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                finish();
                 return true;
         }
 
@@ -559,5 +571,30 @@ public class UploadYourPost extends  AppCompatActivity {
 
 
 
+    }
+    public void checkIntenet()
+    {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if(ConnectivityReceiver.isNetworkAvailable(context,type))
+                {
+                    return;
+                }
+                else {
+                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(),"show");
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver,intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 }

@@ -131,8 +131,9 @@ public class EditProfile extends AppCompatActivity {
         else
         {
             if (isNewImageSet)
-            {
+            {   isNewImageSet=false;
                 uplaodData(Name,Email,Phone,Location,getStringImage(newImage));
+                return;
             }
             else
             {

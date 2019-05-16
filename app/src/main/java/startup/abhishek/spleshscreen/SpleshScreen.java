@@ -1,10 +1,15 @@
 package startup.abhishek.spleshscreen;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
 import startup.abhishek.spleshscreen.fragments.FullScreenDialogForUpdateApp;
 
 import android.util.Log;
@@ -31,7 +36,8 @@ public class SpleshScreen extends AppCompatActivity {
     SessionManger sessionManger;
     ProgressBar progressBar;
     ImageView logopic;
-    Config    config;
+    BroadcastReceiver broadcastReceiver;
+
     boolean isUpdateAvailable =false;
     String Url="https://voulu.in/api/getAppUpdate.php";
     public  static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
@@ -42,8 +48,7 @@ public class SpleshScreen extends AppCompatActivity {
         logopic = findViewById(R.id.logo);
         sessionManger = new SessionManger(this);
         progressBar = findViewById(R.id.progressBar);
-
-
+checkIntenet();
         getUpdate(versionCode);
     }
 
@@ -118,7 +123,7 @@ public class SpleshScreen extends AppCompatActivity {
                 full.show(getSupportFragmentManager(),"show");
             }
             else {
-                Toast.makeText(this, "ok he", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "ok he", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SpleshScreen.this, UserMobileNumber.class);
                 startActivity(intent);
                 finish();
@@ -144,5 +149,30 @@ public class SpleshScreen extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+    public void checkIntenet()
+    {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if(ConnectivityReceiver.isNetworkAvailable(context,type))
+                {
+                    return;
+                }
+                else {
+                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(),"show");
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver,intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 }

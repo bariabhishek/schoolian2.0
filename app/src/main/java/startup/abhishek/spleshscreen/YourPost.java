@@ -7,7 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import startup.abhishek.spleshscreen.Adeptor.Adeptor;
 import startup.abhishek.spleshscreen.Adeptor.ModelList;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -35,6 +41,7 @@ import java.util.Map;
 
 public class YourPost extends AppCompatActivity {
 Toolbar toolbar;
+    BroadcastReceiver broadcastReceiver;
 RecyclerView recyclerView;
     List<ModelList> list;
     TextView noData;
@@ -162,5 +169,29 @@ RecyclerView recyclerView;
         }
         return true;
     }
+    public void checkIntenet()
+    {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if(ConnectivityReceiver.isNetworkAvailable(context,type))
+                {
+                    return;
+                }
+                else {
+                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(),"show");
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver,intentFilter);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
+    }
 }

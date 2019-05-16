@@ -18,14 +18,14 @@
          />
 
     <Button
-
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-
+        android:id="@+id/retryBtn"
         android:onClick="retry"
         android:padding="5dp"
+        android:layout_gravity="bottom"
         android:text="Retry"
         android:textColor="#ffffff"
         android:textSize="20dp"

@@ -61,7 +61,7 @@ public class JobConfirm extends AppCompatActivity {
 
         });
     }
-    private void volleywork() {
+   /* private void volleywork() {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url3,
                 new Response.Listener<String>()
@@ -95,7 +95,7 @@ public class JobConfirm extends AppCompatActivity {
         requestQueue.getCache().clear();
 
 
-    }
+    }*/
 
     private void initiliaze() {
         tvJobGiver=findViewById(R.id.jobGiverNameConfirm);
@@ -186,7 +186,7 @@ public class JobConfirm extends AppCompatActivity {
                             if (success.equals("1")){
                                 Log.d("OtpRes",response);
 
-                                   String  OTP = jsonObject.getString("getOtp").trim();
+                                String  OTP = jsonObject.getString("getOtp").trim();
                                 BottomSheetFragmentui bottomSheetFragmentui=new BottomSheetFragmentui();
                                 Bundle bundle=new Bundle();
                                 bundle.putString("otp",OTP);
@@ -194,7 +194,7 @@ public class JobConfirm extends AppCompatActivity {
                                 bundle.putString("seekerMobile",job_seeker_mobile);
                                 bottomSheetFragmentui.setArguments(bundle);
                                 bottomSheetFragmentui.show(getSupportFragmentManager(),"bottomSheet");
-
+                                sendSms();
 
                             }
                             else
@@ -228,8 +228,8 @@ public class JobConfirm extends AppCompatActivity {
                 params.put("postId",postId);
                 params.put("jobseeker",job_seeker_mobile);
                 params.put("jobgiver",job_giver_mobile);
-                params.put("message", "Your CommentedActivity task has accepted by "+job_giver_name);
-                params.put("title", "Job Accepted");
+                params.put("message", "Your Commented task has accepted by "+job_giver_name);
+                params.put("title", "Task Accepted");
 
                 return params;
             }
@@ -237,5 +237,10 @@ public class JobConfirm extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(JobConfirm.this);
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
+    }
+    private void sendSms() {
+        String msg="Hello "+job_seeker_name+", your comment on this '"+titile +"' task has been accepted by "+job_giver_name +" to be completed. Please open Voulu app and click on task accepted notification";
+        SendSms sendSms=new SendSms(job_seeker_mobile,msg);
+        sendSms.send();
     }
 }

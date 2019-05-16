@@ -1,9 +1,13 @@
 package startup.abhishek.spleshscreen;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,11 +58,12 @@ import java.util.Map;
 
 import androidx.core.content.ContextCompat;
 import de.hdodenhof.circleimageview.CircleImageView;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
 
 import static startup.abhishek.spleshscreen.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 
 public class Registration extends AppCompatActivity {
-
+    BroadcastReceiver broadcastReceiver;
     CircleImageView circleImageView;
     Button signin;
     TextInputLayout username, userpassword, usermobile;
@@ -93,12 +98,10 @@ public class Registration extends AppCompatActivity {
         radioGroup = findViewById(R.id.redoigroup);
         male = findViewById(R.id.male);
         female = findViewById(R.id.female);
-       /* mob = getIntent().getStringExtra("mobile");
-
+        checkIntenet();
+        mob = getIntent().getStringExtra("mobile");
         mobile.setText(mob);
-        mobile.setEnabled(false);*/
-
-
+        mobile.setEnabled(false);
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -411,5 +414,27 @@ public class Registration extends AppCompatActivity {
 
     }
 
+    public void checkIntenet() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int[] type = {ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if (ConnectivityReceiver.isNetworkAvailable(context, type)) {
+                    return;
+                } else {
+                    FullScreenDialogForNoInternet full = new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(), "show");
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
+    }
 
 }

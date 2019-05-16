@@ -14,14 +14,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AlertDialog;
 
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +33,8 @@ import android.widget.Toast;
 
 
 import startup.abhishek.spleshscreen.fragments.FavoriteFragment;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForUpdateApp;
 import startup.abhishek.spleshscreen.fragments.HomeFragment;
 import startup.abhishek.spleshscreen.fragments.InboxFragment;
 import startup.abhishek.spleshscreen.fragments.NotificationFragment;
@@ -118,93 +123,6 @@ public class Home extends NavigationDrawerActivity_ {
         fragmentTransaction.commit();
     }
 
-    private void getPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            if (ContextCompat.checkSelfPermission(Home.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
-                    .checkSelfPermission(Home.this,
-                            Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                if (ActivityCompat.shouldShowRequestPermissionRationale
-                        (Home.this, Manifest.permission.READ_EXTERNAL_STORAGE) ||
-                        ActivityCompat.shouldShowRequestPermissionRationale
-                                (Home.this, Manifest.permission.CAMERA)) {
-
-                    Snackbar.make(Home.this.findViewById(android.R.id.content),
-                            "Please Grant Permissions to upload profile photo",
-                            Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
-                            new View.OnClickListener() {
-                                @TargetApi(Build.VERSION_CODES.M)
-                                @Override
-                                public void onClick(View v) {
-                                    requestPermissions(
-                                            new String[]{Manifest.permission
-                                                    .READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                                            PERMISSIONS_MULTIPLE_REQUEST);
-                                }
-                            }).show();
-
-
-
-
-
-
-
-
-                } else {
-                    requestPermissions(
-                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                                    Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.MEDIA_CONTENT_CONTROL,
-                                    Manifest.permission.INTERNET,
-                                    Manifest.permission.ACCESS_NETWORK_STATE},
-                            PERMISSIONS_MULTIPLE_REQUEST);
-                }
-            } else {
-                // write your logic code if permission already granted
-                // Toast.makeText(this, "Permission Granted...", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-
-
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        switch (requestCode) {
-            case PERMISSIONS_MULTIPLE_REQUEST:
-                if (grantResults.length > 0) {
-                    boolean cameraPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    boolean readExternalFile = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-                    if (cameraPermission && readExternalFile) {
-                        // write your logic here
-                    } else {
-                        Snackbar.make(Home.this.findViewById(android.R.id.content),
-                                "Please Grant Permissions to upload profile photo",
-                                Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
-                                new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                            requestPermissions(
-                                                    new String[]{Manifest.permission
-                                                            .READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
-                                                    PERMISSIONS_MULTIPLE_REQUEST);
-                                        }
-                                    }
-                                }).show();
-                    }
-                }
-                break;
-        }
-    }
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -282,7 +200,8 @@ public void checkIntenet()
                 return;
             }
             else {
-                Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
+                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                full.show(getSupportFragmentManager(),"show");
             }
         }
     };
