@@ -38,6 +38,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 import startup.abhishek.spleshscreen.AcceptedActivity;
 import startup.abhishek.spleshscreen.ExampleDialog;
+import startup.abhishek.spleshscreen.JobConfirmActivity;
 import startup.abhishek.spleshscreen.JobDiscriptionForNotification;
 import startup.abhishek.spleshscreen.R;
 
@@ -103,7 +104,7 @@ public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotificatio
                             if (success.equals("1")){
 
                                 if(list.get(i).getIntent().equals("accept")) {
-                                    Intent view = new Intent(context, AcceptedActivity.class);
+                                    Intent view = new Intent(context, JobConfirmActivity.class);
                                     view.putExtra("id",list.get(i).getPostId());
                                     context.startActivity(view);
                                      }
@@ -168,7 +169,6 @@ public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotificatio
         LinearLayout layout;
         public Hold(@NonNull View itemView) {
             super( itemView );
-
             photo = itemView.findViewById( R.id.notificationimg );
             layout = itemView.findViewById( R.id.notificationLayout );
             notification = itemView.findViewById( R.id.notificationtext );

@@ -56,7 +56,7 @@ HashMap<String,String> get=sessionManger.getUserDetail();
             }
         });
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
+        if (SDK_INT > 7)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();

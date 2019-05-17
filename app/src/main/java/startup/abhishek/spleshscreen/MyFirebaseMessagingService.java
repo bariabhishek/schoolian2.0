@@ -34,26 +34,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void genereteNotification(String body, String title, String in, String clickAction) {
 
-       /* Intent intent = new Intent(this, startup.abhishek.spleshscreen.NotificationManager.class);
-        intent.putExtra("intent",in);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
-*/
-       /* Uri soundUrl = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_stat_name)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setContentIntent(pendingIntent);
-
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if(NOTIFICATION_ID > 1073741824){
-            NOTIFICATION_ID=0;
-            }*/
-        //    notificationManager.notify(NOTIFICATION_ID++,notificationBuilder.build());
         NotificationCompat.Builder noti = new NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
                 .setContentTitle(title)
                 .setContentText(body)
@@ -61,8 +42,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
         Intent intent = new Intent(clickAction);
-        intent.putExtra("intent", in);
-
         PendingIntent resultPending =
                 PendingIntent.getActivity(
                         this,

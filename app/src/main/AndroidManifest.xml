@@ -20,16 +20,12 @@
         <activity android:name=".JobConfirmLayout"></activity>
         <activity android:name=".AcceptedActivity" />
         <activity android:name=".AcceptedListActivity">
-            <intent-filter>
-                <action android:name="startup.abhishek.spleshscreen.accepetFromNotification" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
         <activity android:name=".AboutUs" />
         <activity android:name=".YourPost" />
         <activity android:name=".EditProfile" />
-        <activity android:name=".JobConfirmActivity" />
+        <activity android:name=".JobConfirmActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".Wallet" />
         <activity android:name=".JobConfirm" />
         <activity android:name=".OTP" />
@@ -51,7 +47,12 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+            <intent-filter>
+            <action android:name="startup.abhishek.spleshscreen.accepetFromNotification" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter></activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -61,7 +62,6 @@
         <activity android:name=".SpleshScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="startup.abhishek.spleshscreen.FromNotification" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

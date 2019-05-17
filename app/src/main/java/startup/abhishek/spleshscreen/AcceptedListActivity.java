@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import startup.abhishek.spleshscreen.Adeptor.AcceptedListAdaptor;
 import startup.abhishek.spleshscreen.Adeptor.Adeptor;
+import startup.abhishek.spleshscreen.Adeptor.AdeptorForJobConfirmTask;
 import startup.abhishek.spleshscreen.Adeptor.ModelList;
 
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -40,9 +42,10 @@ public class AcceptedListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<ModelList> list;
     TextView noData;
+    String type;
     private ShimmerFrameLayout mShimmerViewContainer;
     SessionManger sessionManger;
-    String Url="https://voulu.in/api/getAcceptedJobPost.php";
+    String Url="https://voulu.in/api/getAcceptedJobPostTest.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +75,11 @@ public class AcceptedListActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         //    progressDialog.dismiss();
                         Log.i("TAG", response.toString());
+
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
+                             type = jsonObject.getString("type");
                             JSONArray jsonArray = jsonObject.getJSONArray("allPost");
                             if (success.equals("1")){
                                 Log.d("Response",response);
@@ -97,7 +102,7 @@ public class AcceptedListActivity extends AppCompatActivity {
                                     list.add( new ModelList(img,title,des,rate,id,time,mobile,like,profile,username,share,img2,img3) );
 
                                 }
-                                setupRecycle(list);
+                                setupRecycle(list,type);
 
                             }
                             else
@@ -143,15 +148,29 @@ public class AcceptedListActivity extends AppCompatActivity {
         requestQueue.getCache().clear();
 }
 
-    public void setupRecycle(List <ModelList> list)
+    public void setupRecycle(List<ModelList> list, String type)
     {
-        AcceptedListAdaptor a= new AcceptedListAdaptor( this,list );
-        recyclerView.setHasFixedSize( true );
-        recyclerView.setItemAnimator( new DefaultItemAnimator() );
-        recyclerView.setLayoutManager(new LinearLayoutManager(this) );
-        recyclerView.setAdapter( a );
-        mShimmerViewContainer.stopShimmerAnimation();
-        mShimmerViewContainer.setVisibility(View.GONE);
+        Toast.makeText(this, type, Toast.LENGTH_SHORT).show();
+        if (type.equals("job_giver")) {
+            AcceptedListAdaptor a= new AcceptedListAdaptor( this,list );
+            recyclerView.setHasFixedSize( true );
+            recyclerView.setItemAnimator( new DefaultItemAnimator() );
+            recyclerView.setLayoutManager(new LinearLayoutManager(this) );
+            recyclerView.setAdapter( a );
+            mShimmerViewContainer.stopShimmerAnimation();
+            mShimmerViewContainer.setVisibility(View.GONE);
+        }
+       else if(type.equals("job_seeker"))
+        {
+            AdeptorForJobConfirmTask a= new AdeptorForJobConfirmTask( this,list );
+            recyclerView.setHasFixedSize( true );
+            recyclerView.setItemAnimator( new DefaultItemAnimator() );
+            recyclerView.setLayoutManager(new LinearLayoutManager(this) );
+            recyclerView.setAdapter( a );
+            mShimmerViewContainer.stopShimmerAnimation();
+            mShimmerViewContainer.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

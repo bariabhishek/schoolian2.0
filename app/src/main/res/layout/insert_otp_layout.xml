@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
@@ -57,11 +59,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/deletePost"
-                android:text="Delete"
-                android:visibility="invisible"
+                android:text="Call"
                 android:textSize="18dp"
                 android:background="@drawable/background_rounded"
                 android:textColor="#000"
+                android:elevation="2dp"
                 android:padding="8sp"
                 android:textStyle="bold"
                 android:scaleType="centerCrop"
@@ -82,12 +84,23 @@
             android:layout_marginHorizontal="10dp"/>
 
 
-       <EditText
-           android:id="@+id/edittextforotp"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="@dimen/padding_10"
-           android:layout_marginHorizontal="70dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_marginRight="@dimen/padding_10"
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/edittextforotp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type OTP of this job"
+                android:inputType="number"
+                android:drawablePadding="20dp"
+                android:paddingRight="10dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     <LinearLayout
@@ -102,22 +115,38 @@
         android:orientation="horizontal">
         <TextView
             android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textSize="16sp"
+            android:id="@+id/jobDone"
+            android:padding="@dimen/padding_10"
+            android:layout_marginHorizontal="10dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:background="@drawable/background_btn_right"
+            android:text="Click to Task Done"/>
+        <TextView
+            android:gravity="center"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:id="@+id/accept"
             android:padding="@dimen/padding_10"
             android:layout_marginHorizontal="10dp"
             android:textStyle="bold"
+
             android:background="@drawable/background_btn_right"
             android:text="Accept"/>
         <TextView
+
             android:gravity="center"
             android:layout_weight="1"
             android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_10"
+            android:id="@+id/decline"
             android:layout_marginHorizontal="10dp"
             android:textStyle="bold"
             android:background="@drawable/background_btn_wrong"

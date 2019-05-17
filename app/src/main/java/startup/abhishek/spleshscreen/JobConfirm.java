@@ -2,6 +2,7 @@ package startup.abhishek.spleshscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -51,7 +52,15 @@ public class JobConfirm extends AppCompatActivity {
         job_giver_profile=getUser.get(sessionManger.PROFILE_PIC);
         job_giver_name=getUser.get(sessionManger.NAME);
         getJobSeekerDetail(comment_id);
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 7)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
 
+        }
         sendDatabtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,7 +248,7 @@ public class JobConfirm extends AppCompatActivity {
         requestQueue.getCache().clear();
     }
     private void sendSms() {
-        String msg="Hello "+job_seeker_name+", your comment on this '"+titile +"' task has been accepted by "+job_giver_name +" to be completed. Please open Voulu app and click on task accepted notification";
+        String msg="Hello "+job_seeker_name+", your comment on this '"+title +"' task has been accepted by "+job_giver_name +" to be completed. Please open Voulu app and click on task accepted notification";
         SendSms sendSms=new SendSms(job_seeker_mobile,msg);
         sendSms.send();
     }

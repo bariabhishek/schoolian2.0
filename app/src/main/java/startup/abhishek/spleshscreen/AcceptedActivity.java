@@ -28,18 +28,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AcceptedActivity extends AppCompatActivity {
-    String Url="https://voulu.in/api/getSiglePost.php";
-    String id,title,jobGiverMobile,jobdis,jobGIverName,time,image,jobGiverProfile,pese,img2,img3;
+    String Url = "https://voulu.in/api/getSiglePost.php";
+    String id, title, jobGiverMobile, jobdis, jobGIverName, time, image, jobGiverProfile, pese, img2, img3;
     BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accepted);
-        id=getIntent().getStringExtra("id");
+        setContentView(R.layout.activity_job_confirm_layout);
+        id = getIntent().getStringExtra("id");
         checkIntenet();
         getPost(id);
     }
+
     private void getPost(final String id) {
         RequestQueue requestQueue;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
@@ -57,18 +58,18 @@ public class AcceptedActivity extends AppCompatActivity {
 
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     title = object.getString("title").trim();
-                                     jobGiverMobile = object.getString("mobile").trim();
+                                    jobGiverMobile = object.getString("mobile").trim();
                                     jobdis = object.getString("des").trim();
-                                   pese = object.getString("rate").trim();
+                                    pese = object.getString("rate").trim();
                                     image = object.getString("img").trim();
-                                   img2 = object.getString("img2").trim();
-                                     img3 = object.getString("img3").trim();
-                                     time = object.getString("time").trim();
+                                    img2 = object.getString("img2").trim();
+                                    img3 = object.getString("img3").trim();
+                                    time = object.getString("time").trim();
                                     jobGiverProfile = object.getString("profile").trim();
-                                   jobGIverName = object.getString("username").trim();
-                                    String like = object.getString("like").trim();
-                                    String share = object.getString("share").trim();
-                                                                  }
+                                    jobGIverName = object.getString("username").trim();
+                                    String status = object.getString("status").trim();
+
+                                }
 
 
                             }
@@ -90,8 +91,9 @@ public class AcceptedActivity extends AppCompatActivity {
                 }) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("podtId", id);
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("postId", id);
+                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
                 return params;
             }
         };
@@ -105,24 +107,22 @@ public class AcceptedActivity extends AppCompatActivity {
         requestQueue.getCache().clear();
 
     }
-    public void checkIntenet()
-    {
+
+    public void checkIntenet() {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
-                if(ConnectivityReceiver.isNetworkAvailable(context,type))
-                {
+                int[] type = {ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if (ConnectivityReceiver.isNetworkAvailable(context, type)) {
                     return;
-                }
-                else {
-                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
-                    full.show(getSupportFragmentManager(),"show");
+                } else {
+                    FullScreenDialogForNoInternet full = new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(), "show");
                 }
             }
         };
-        registerReceiver(broadcastReceiver,intentFilter);
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
     @Override

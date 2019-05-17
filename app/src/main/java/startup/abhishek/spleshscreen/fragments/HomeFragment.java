@@ -224,7 +224,7 @@ imageArry=new ArrayList<>();
                                     imageArry.add( img );
 
                                 }
-                                Toast.makeText(getActivity(), ""+imageArry.size(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getActivity(), ""+imageArry.size(), Toast.LENGTH_SHORT).show();
                                 coustomSwipeAdeptorForHome = new CoustomSwipeAdeptorForHome( getActivity(),imageArry);
                                 viewPager.setAdapter( coustomSwipeAdeptorForHome );
                                 adtext.setVisibility(View.VISIBLE);
@@ -240,7 +240,7 @@ imageArry=new ArrayList<>();
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
                         // noData.setVisibility(View.VISIBLE);
                     }
                 }) {
@@ -252,7 +252,6 @@ imageArry=new ArrayList<>();
             }
         };
         stringRequest.setShouldCache(true);
-
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -266,7 +265,8 @@ imageArry=new ArrayList<>();
             public void run() {
                 if (currentPage == imageArry.size()) {
                     currentPage = 0;
-                }else
+                }
+                else
                 {
                     currentPage++;
                 }
