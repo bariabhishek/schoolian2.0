@@ -70,41 +70,6 @@ public class JobConfirm extends AppCompatActivity {
 
         });
     }
-   /* private void volleywork() {
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url3,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.e( "NotificationChack", response  );
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(JobConfirm.this, "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
-
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("message", "Your CommentedActivity task has accepted by "+job_giver_name);
-                params.put("title", "Job Accepted");
-                params.put("mobile", job_seeker_mobile);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(JobConfirm.this);
-        requestQueue.add(stringRequest);
-        requestQueue.getCache().clear();
-
-
-    }*/
 
     private void initiliaze() {
         tvJobGiver=findViewById(R.id.jobGiverNameConfirm);

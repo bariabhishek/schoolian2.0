@@ -3,6 +3,7 @@ package startup.abhishek.spleshscreen;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class JobConfirmLayout extends AppCompatActivity {
 
@@ -11,4 +12,6 @@ public class JobConfirmLayout extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_job_confirm_layout );
     }
+
+
 }
