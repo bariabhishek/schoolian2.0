@@ -66,7 +66,7 @@ public class Home extends NavigationDrawerActivity_ {
         View contentView = inflater.inflate(R.layout.activity_home, null, false);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.addView(contentView, 0);
-        checkIntenet();
+       checkIntenet();
 
 
         bottomNavigationView = findViewById( R.id.navigation );
@@ -145,9 +145,9 @@ public class Home extends NavigationDrawerActivity_ {
                 intent = new Intent( this,AcceptedListActivity.class );
                 startActivity( intent );
                 break;
-            case R.id.follow:
+            /*case R.id.follow:
                 setFragment(favoriteFragment);
-                break;
+                break;*/
             case  R.id.aboutus:
                 intent = new Intent( this,AboutUs.class );
                 startActivity( intent );
@@ -200,6 +200,7 @@ public void checkIntenet()
                 return;
             }
             else {
+                Toast.makeText(context, "Toast", Toast.LENGTH_SHORT).show();
                 FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
                 full.show(getSupportFragmentManager(),"show");
             }
@@ -209,8 +210,8 @@ public void checkIntenet()
 }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         unregisterReceiver(broadcastReceiver);
     }
 }

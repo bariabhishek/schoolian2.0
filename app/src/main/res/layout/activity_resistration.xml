@@ -163,7 +163,7 @@
         android:layout_below="@id/login_btn"/>
 
 
- <!--   <LinearLayout
+    <LinearLayout
         android:layout_below="@id/login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -173,25 +173,31 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="30dp"
         android:orientation="horizontal" >
+        <CheckBox
+            android:id="@+id/checkOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#2196F3"
+
+            />
 <TextView
     android:layout_centerHorizontal="true"
     android:id="@+id/createtext"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="You have already sign up-"
+    android:text="I agree to"
+    /><TextView
+    android:layout_centerHorizontal="true"
+    android:id="@+id/terms"
+        android:onClick="trems"
+        android:textColor="@color/colorPrimary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=" terms &amp; conditions"
     />
-    <TextView
-        android:id="@+id/createOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:textColor="#2196F3"
-        android:layout_below="@id/createtext"
-        android:textSize="15sp"
-        android:layout_marginLeft="10dp"
-        />
 
-    </LinearLayout>-->
+
+    </LinearLayout>
 
 </RelativeLayout>
 </ScrollView>

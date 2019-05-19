@@ -99,9 +99,9 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
 
         } else if (id == R.id.commentedPost) {
 
-        } else if (id == R.id.follow) {
+        } /*else if (id == R.id.follow) {
 
-        } else if (id == R.id.aboutus) {
+        }*/ else if (id == R.id.aboutus) {
 
         }
         else if (id == R.id.help) {

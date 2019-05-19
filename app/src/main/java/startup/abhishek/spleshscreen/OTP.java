@@ -2,16 +2,23 @@ package startup.abhishek.spleshscreen;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
 
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,8 +52,11 @@ import java.util.concurrent.TimeUnit;
 
 public class OTP extends AppCompatActivity {
     final String Url = "https://voulu.in/api/login.php";
+
+    BroadcastReceiver broadcastReceiver;
     String mob;
-    TextView txtVerify, timer;
+    Button txtVerify;
+    TextView timer;
     EditText editText;
     boolean verificationStatus = false;
     SessionManger sessionManger;
@@ -59,6 +69,7 @@ public class OTP extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
         txtVerify = findViewById(R.id.verify);
+        txtVerify.setEnabled(false);
         timer = findViewById(R.id.timer);
         mAuth = FirebaseAuth.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -68,7 +79,7 @@ public class OTP extends AppCompatActivity {
         setTimer();
         sendVerificationCode(mob);
         FirebaseAuthSettings firebaseAuthSettings = firebaseAuth.getFirebaseAuthSettings();
-
+        checkIntenet();
 
         txtVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +89,9 @@ public class OTP extends AppCompatActivity {
                 }
                 else
                 {
-                    verifyVerificationCode(editText.getText().toString());
+                    if(!editText.getText().toString().equals("")) {
+                        verifyVerificationCode(editText.getText().toString());
+                    }
                 }
             }
         });
@@ -152,6 +165,7 @@ public class OTP extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             verificationStatus = true;
                             newTime.cancel();
+                            txtVerify.setEnabled(true);
                            // Toast.makeText(getApplicationContext(), "Verifyed", Toast.LENGTH_SHORT).show();
                         } else {
 
@@ -277,7 +291,7 @@ public class OTP extends AppCompatActivity {
 
             public void onFinish() {
                 Snackbar.make(OTP.this.findViewById(android.R.id.content),
-                        "Mobile number invalid or not reachable at this time",
+                        Html.fromHtml("<font color=\"#ffffff\">Mobile number invalid or not reachable at this time</font>"),
                         Snackbar.LENGTH_LONG).show();
                 timer.setClickable(true);
                 timer.setText("Check and Resend OTP");
@@ -290,5 +304,30 @@ public class OTP extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+    }
+    public void checkIntenet()
+    {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if(ConnectivityReceiver.isNetworkAvailable(context,type))
+                {
+                    return;
+                }
+                else {
+                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(),"show");
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver,intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 }

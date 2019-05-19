@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".AboutUs">
 
-  <!--  <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayuotAboutUs"
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="60dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -17,9 +17,10 @@
             android:layout_height="match_parent">
         </androidx.appcompat.widget.Toolbar>
 
-    </com.google.android.material.appbar.AppBarLayout>-->
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
+        android:layout_below="@+id/appBarLayuotAboutUs"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">

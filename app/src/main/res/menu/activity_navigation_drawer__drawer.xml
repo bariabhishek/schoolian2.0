@@ -21,10 +21,10 @@
             android:id="@+id/acceptedComment"
             android:icon="@drawable/purse"
             android:title="Accepted Posts" />
-        <item
+       <!-- <item
             android:id="@+id/follow"
             android:icon="@drawable/follower1"
-            android:title="Favorites" />
+            android:title="Favorites" />-->
     </group>
 
     <item android:title="Communicate" >

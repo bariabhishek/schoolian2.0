@@ -179,6 +179,8 @@
                             android:textStyle="bold"
                             android:textSize="20sp"/>
                         <TextView
+                            android:id="@+id/numPost"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="100"
@@ -195,10 +197,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Accepeted"
+                            android:text="You Accept"
                             android:textStyle="bold"
                             android:textSize="20sp"/>
                         <TextView
+                            android:id="@+id/youaccept"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="100"
@@ -215,10 +219,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Completed"
+                            android:text="Your Accept"
                             android:textStyle="bold"
                             android:textSize="20sp"/>
                         <TextView
+                            android:id="@+id/youraccept"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="100"

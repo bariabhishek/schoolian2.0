@@ -3,11 +3,16 @@ package startup.abhishek.spleshscreen;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
 import startup.abhishek.spleshscreen.fragments.ProfileFragment;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -45,6 +50,7 @@ public class EditProfile extends AppCompatActivity {
     private ImageView editImage,imageUploadBtn;
     private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation;
     private SessionManger sessionManger;
+    BroadcastReceiver broadcastReceiver;
     boolean isNewImageSet = false;
     Bitmap newImage;
     final String Url="https://voulu.in/api/updateProfile.php";
@@ -61,6 +67,7 @@ public class EditProfile extends AppCompatActivity {
         sessionLocation = user.get( sessionManger.LOCATION );
         toolbar=findViewById(R.id.toolbarEdit);
         setToolbar();
+        checkIntenet();
         name=findViewById(R.id.nameUser);
         email=findViewById(R.id.emailEdit);
         phone=findViewById(R.id.mobileNumber);
@@ -242,5 +249,28 @@ public class EditProfile extends AppCompatActivity {
         byte[] imageByteArray = byteArrayOutputStream.toByteArray();
         String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
         return encodedImage;
+    }
+    public void checkIntenet() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int[] type = {ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if (ConnectivityReceiver.isNetworkAvailable(context, type)) {
+                    return;
+                } else {
+                    FullScreenDialogForNoInternet full = new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(), "show");
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+
     }
 }

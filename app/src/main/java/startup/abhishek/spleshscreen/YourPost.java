@@ -66,7 +66,7 @@ RecyclerView recyclerView;
         list=new ArrayList<>();
         arraydata(mobile);
 
-
+       checkIntenet();
     }
 
     private void arraydata(final String mobile) {
@@ -190,8 +190,14 @@ RecyclerView recyclerView;
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+
+    }
+
+   /* @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
-    }
+    }*/
 }

@@ -27,6 +27,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -76,6 +77,7 @@ public class Registration extends AppCompatActivity {
     String Gender = "male";
     String simage = Gender;
     String newToken, mob;
+    CheckBox chkIos;
     SessionManger sessionManger;
     String Url = "https://voulu.in/api/register.php";
     Uri resultUri;
@@ -84,6 +86,7 @@ public class Registration extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_resistration);
         sessionManger = new SessionManger(this);
         circleImageView = findViewById(R.id.civ);
@@ -92,6 +95,8 @@ public class Registration extends AppCompatActivity {
         mobile = findViewById(R.id.edittextMobile);
         password = findViewById(R.id.edittextpassword1);
         signin = findViewById(R.id.login_btn);
+        signin.setEnabled(false);
+        addListenerOnChkIos();
         username = findViewById(R.id.etname);
         userpassword = findViewById(R.id.etEmail);
         usermobile = findViewById(R.id.etMobile);
@@ -115,9 +120,9 @@ public class Registration extends AppCompatActivity {
                 if (checkedId == R.id.male) {
                     final String gender = "male";
                     if (!isImageset) {
-                        circleImageView.setImageResource(R.drawable.boy);
+                       // circleImageView.setImageResource(R.drawable.boy);
                         Gender = gender;
-                        Toast.makeText(Registration.this, "" + Gender, Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(Registration.this, "" + Gender, Toast.LENGTH_SHORT).show();
                     } else {
                         Gender = gender;
                     }
@@ -125,11 +130,11 @@ public class Registration extends AppCompatActivity {
                 } else if (checkedId == R.id.female) {
                     final String gender = "female";
                     if (!isImageset) {
-                        circleImageView.setImageResource(R.drawable.girl);
+                      //  circleImageView.setImageResource(R.drawable.girl);
                         Gender = gender;
-                        Toast.makeText(Registration.this, "" + Gender, Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(Registration.this, "" + Gender, Toast.LENGTH_SHORT).show();
                     } else {
-                        Gender = gender;
+                      Gender = gender;
                     }
                 }
 
@@ -360,9 +365,6 @@ public class Registration extends AppCompatActivity {
     }
 
 
-    public void chooseFile() {
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -432,9 +434,38 @@ public class Registration extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         unregisterReceiver(broadcastReceiver);
+
     }
 
+    public void trems(View view) {
+        String url = "http://voulu.in/terms.php";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+    public void addListenerOnChkIos() {
+
+        chkIos = (CheckBox) findViewById(R.id.checkOne);
+
+        chkIos.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //is chkIos checked?
+                if (((CheckBox) v).isChecked()) {
+                //    Toast.makeText(Registration.this, "ehch", Toast.LENGTH_SHORT).show();
+                    signin.setEnabled(true);
+                }
+                else
+                {
+                    signin.setEnabled(false);
+                }
+
+            }
+        });
+
+    }
 }

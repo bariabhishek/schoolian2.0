@@ -53,17 +53,19 @@
             android:textSize="18sp"
             android:layout_gravity="center"
             android:textColor="#2196F3"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VERIFY"
+        <Button
 
             android:id="@+id/verify"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:gravity="center"
+            android:elevation="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_follower_btn"
             android:layout_gravity="center"
-            android:layout_marginVertical="35dp"
-            android:textColor="#FFF"/>
+            android:layout_below="@id/etno"
+            android:text="Verify"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:layout_marginVertical="20dp"/>
     </LinearLayout>
 </RelativeLayout>

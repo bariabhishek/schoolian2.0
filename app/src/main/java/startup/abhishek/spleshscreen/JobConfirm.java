@@ -1,6 +1,12 @@
 package startup.abhishek.spleshscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -26,6 +32,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import startup.abhishek.spleshscreen.fragments.BottomSheetFragmentui;
+import startup.abhishek.spleshscreen.fragments.FullScreenDialogForNoInternet;
 
 public class JobConfirm extends AppCompatActivity {
 
@@ -37,6 +44,7 @@ public class JobConfirm extends AppCompatActivity {
     TextView tvJobSeekr,tvJobGiver,yourChoosingLine,titile;
     CircleImageView jobGiverImage,jobSeekerImage;
     Button sendDatabtn;
+    BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,7 @@ public class JobConfirm extends AppCompatActivity {
         job_giver_profile=getUser.get(sessionManger.PROFILE_PIC);
         job_giver_name=getUser.get(sessionManger.NAME);
         getJobSeekerDetail(comment_id);
+        checkIntenet();
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 7)
         {
@@ -216,5 +225,31 @@ public class JobConfirm extends AppCompatActivity {
         String msg="Hello "+job_seeker_name+", your comment on this '"+title +"' task has been accepted by "+job_giver_name +" to be completed. Please open Voulu app and click on task accepted notification";
         SendSms sendSms=new SendSms(job_seeker_mobile,msg);
         sendSms.send();
+    }
+    public void checkIntenet()
+    {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+                if(ConnectivityReceiver.isNetworkAvailable(context,type))
+                {
+                    return;
+                }
+                else {
+                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                    full.show(getSupportFragmentManager(),"show");
+                }
+            }
+        };
+        registerReceiver(broadcastReceiver,intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+
     }
 }

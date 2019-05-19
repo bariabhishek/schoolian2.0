@@ -593,6 +593,12 @@ public class UploadYourPost extends  AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        BroadcastReceiver broadcastReceiver;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);

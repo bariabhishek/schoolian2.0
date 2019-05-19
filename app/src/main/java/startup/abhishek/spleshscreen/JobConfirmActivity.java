@@ -188,9 +188,9 @@ public class JobConfirmActivity extends AppCompatActivity {
             registerReceiver(broadcastReceiver,intentFilter);
         }
 
-        @Override
-        protected void onDestroy() {
-            super.onDestroy();
-            unregisterReceiver(broadcastReceiver);
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
+    }
 }

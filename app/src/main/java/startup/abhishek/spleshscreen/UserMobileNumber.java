@@ -149,9 +149,10 @@ public class UserMobileNumber extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         unregisterReceiver(broadcastReceiver);
+
     }
 
     public void loginwithpass(View view) {

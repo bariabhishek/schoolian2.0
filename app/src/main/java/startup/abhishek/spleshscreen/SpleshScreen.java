@@ -48,8 +48,7 @@ public class SpleshScreen extends AppCompatActivity {
         logopic = findViewById(R.id.logo);
         sessionManger = new SessionManger(this);
         progressBar = findViewById(R.id.progressBar);
-checkIntenet();
-        getUpdate(versionCode);
+        checkIntenet();
     }
 
     private void getUpdate(final int versionCode) {
@@ -159,7 +158,7 @@ checkIntenet();
                 int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
                 if(ConnectivityReceiver.isNetworkAvailable(context,type))
                 {
-                    return;
+                    getUpdate(versionCode);
                 }
                 else {
                     FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
@@ -173,6 +172,5 @@ checkIntenet();
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
     }
 }

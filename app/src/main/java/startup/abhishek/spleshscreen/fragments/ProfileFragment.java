@@ -2,6 +2,7 @@ package startup.abhishek.spleshscreen.fragments;
 
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -59,9 +60,9 @@ public class ProfileFragment extends Fragment {
     String phone;
     Button editProfile;
     Button logout;
-String addImageUrl="";
+String addImageUrl="https://voulu.in/api/profileData.php";
     SessionManger sessionManger;
-    TextView username,mobile,email;
+    TextView username,mobile,email,yourpost,youpost,nopost;
     ImageView imageView;
 
     public ProfileFragment() {
@@ -80,6 +81,9 @@ String addImageUrl="";
         uploadProfile = view.findViewById( R.id.profileUpload );
 
         username = view.findViewById( R.id.name );
+        nopost = view.findViewById( R.id.numPost );
+        youpost = view.findViewById( R.id.youaccept );
+        yourpost = view.findViewById( R.id.youraccept );
         mobile = view.findViewById( R.id.mobile );
         email = view.findViewById( R.id.email );
        // numberOfJob = view.findViewById( R.id.numberOfJob );
@@ -135,7 +139,7 @@ editProfile.setOnClickListener(new View.OnClickListener() {
                 .into(uploadProfile);
 
 
-
+        profileData();
 
 
 
@@ -163,7 +167,9 @@ editProfile.setOnClickListener(new View.OnClickListener() {
                                     String yourAccepted = object.getString("job_seeker").trim();
                                     String youAccepted = object.getString("job_giver").trim();
                                     String donePosts = object.getString("job_done").trim();
-
+                                    youpost.setText(youAccepted);
+                                    nopost.setText(noOfPost);
+                                    yourpost.setText(yourAccepted);
 
                                 }
 //
@@ -200,4 +206,6 @@ editProfile.setOnClickListener(new View.OnClickListener() {
         // requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
     }
+
+
 }
