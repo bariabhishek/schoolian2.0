@@ -94,28 +94,9 @@
             android:indeterminateTintMode="src_atop"
             android:indeterminateTint="@color/colorPrimary"
             android:layout_below="@id/etPass"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/login_btn"
-            android:layout_marginTop="5dp"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginHorizontal="10dp"
-                android:src="@drawable/facebook"
-                android:id="@+id/faceLogin"/>
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginHorizontal="10dp"
-                android:src="@drawable/search"
-                android:id="@+id/gLogin"/>
-        </LinearLayout>
+
     </RelativeLayout>
-<TextView
+<!--<TextView
     android:layout_centerHorizontal="true"
     android:id="@+id/createtext"
     android:layout_width="wrap_content"
@@ -137,5 +118,5 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:onClick="createOne"
-        />
+        />-->
 </RelativeLayout>

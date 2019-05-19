@@ -7,23 +7,20 @@
     tools:context=".OTP">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/otp"
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_marginTop="50dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/otp_image"
         android:layout_gravity="center"
+        android:scaleType="centerCrop"
         />
-        <View
-            android:layout_width="200dp"
-            android:layout_height="4dp"
-            android:background="#03A9F4"
-            android:layout_gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,28 +32,38 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:background="@drawable/background_rounded"
             android:orientation="horizontal">
 
         <EditText
             android:layout_width="150dp"
             android:id="@+id/editotp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginHorizontal="3dp"
-            android:layout_height="wrap_content" />
-
-
+            android:maxLength="6"
+            android:layout_height="match_parent" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VERIFY"
-            android:id="@+id/verify"
+            android:text="00:00"
+            android:id="@+id/timer"
+            android:layout_marginTop="@dimen/padding_10"
+            android:textSize="18sp"
             android:layout_gravity="center"
-            android:layout_marginVertical="30dp"
             android:textColor="#2196F3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VERIFY"
+
+            android:id="@+id/verify"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginVertical="35dp"
+            android:textColor="#FFF"/>
     </LinearLayout>
 </RelativeLayout>

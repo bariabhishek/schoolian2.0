@@ -16,6 +16,8 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,25 +41,58 @@ public class UserMobileNumber extends AppCompatActivity {
         checkIntenet();
         no = findViewById( R.id.editnumber );
         number = findViewById( R.id.nobtn );
-        btnclick();
+        no.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            textInputLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        number.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnclick();
+
+            }
+        } );
     }
 
     private void btnclick() {
 
-        number.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(no.getText().toString().isEmpty()&&no.getText().toString().length()<10){
-                    textInputLayout.setError( "Somthing Wrong" );
-                }
-                else {
-                   // Toast.makeText(UserMobileNumber.this,"succesful",Toast.LENGTH_LONG ).show();
-                    getPermission();
+        if(no.getText().toString().isEmpty()){
+            textInputLayout.setError( "Please enter mobile" );
+        }
+        else {
+            if(no.getText().toString().length()>=10)
+            {
+                 String phoneNumber=no.getText().toString();
+                int initialPart = Integer.parseInt(phoneNumber.substring(0,2));
 
+                if(initialPart>=60)
+                {
+                    getPermission();
+                }
+                else
+                {
+                    textInputLayout.setError( "Mobile invalid" );
                 }
             }
-        } );
+            else {
+                textInputLayout.setError( "Mobile no. too short" );
+            }
+
+        }
+
+
     }
     private void getPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -78,7 +113,7 @@ public class UserMobileNumber extends AppCompatActivity {
                 Intent i = new Intent(UserMobileNumber.this,OTP.class);
                 i.putExtra("mobile",no.getText().toString());
                 Log.d("Kya",no.getText().toString());
-                Toast.makeText(UserMobileNumber.this,no.getText().toString(),Toast.LENGTH_SHORT).show();
+               // Toast.makeText(UserMobileNumber.this,no.getText().toString(),Toast.LENGTH_SHORT).show();
                 startActivity(i);
             }
         }
@@ -86,6 +121,13 @@ public class UserMobileNumber extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void checkIntenet()
     {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -112,4 +154,8 @@ public class UserMobileNumber extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
+    public void loginwithpass(View view) {
+        Intent visew = new Intent(this,Login. class);
+        startActivity(visew);
+    }
 }

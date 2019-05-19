@@ -110,7 +110,6 @@ public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotificatio
                                      }
                                 else
                                     {
-                                        Toast.makeText(context, ""+list.get(i).getPostId(), Toast.LENGTH_SHORT).show();
                                     Intent view = new Intent(context, JobDiscriptionForNotification.class);
                                     view.putExtra("id",list.get(i).getPostId());
                                     context.startActivity(view);

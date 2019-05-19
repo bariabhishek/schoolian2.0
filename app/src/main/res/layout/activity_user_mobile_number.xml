@@ -63,5 +63,12 @@
         android:textSize="18sp"
         android:padding="10dp"
         android:layout_marginVertical="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login with password"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:onClick="loginwithpass"/>
     </LinearLayout>
 </RelativeLayout>

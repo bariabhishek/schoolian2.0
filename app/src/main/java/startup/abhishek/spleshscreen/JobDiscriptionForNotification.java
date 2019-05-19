@@ -42,17 +42,16 @@ public class JobDiscriptionForNotification extends AppCompatActivity  {
     CircleImageView profile;
     ImageView mainImage;
     TextView username,jobtTitle,jobdes,paise;
-    String Url="https://voulu.in/api/getSiglePost.php";
-    String id,title,jobdis,usernames,image,profileImage,pese,img2,img3;
+    String Url="https://voulu.in/api/getSinglePostForjobDes.php";
+    String id,title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.new_job_dec );
             imageArry=new ArrayList<>();
 
-
             id=getIntent().getExtras().getString("id");
-
         initilization();
         getPost(id);
 
@@ -74,35 +73,28 @@ public class JobDiscriptionForNotification extends AppCompatActivity  {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Log.d("FullRes", response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("Post");
                             if (success.equals("1")) {
-                                Log.d("Response", response);
+                                Log.d("FullRes", response);
                                 for (int i = 0; i < jsonArray.length(); i++) {
 
                                     JSONObject object = jsonArray.getJSONObject(i);
-                                    String title = object.getString("title").trim();
-                                    String mobile = object.getString("mobile").trim();
-                                    String des = object.getString("des").trim();
-                                    String rate = object.getString("rate").trim();
-                                    String img = object.getString("img").trim();
+                                    String  title = object.getString("title").trim();
+                                    String jobdis = object.getString("des").trim();
+                                    String  pese = object.getString("rate").trim();
+                                    String  image = object.getString("img").trim();
                                     String img2 = object.getString("img2").trim();
                                     String img3 = object.getString("img3").trim();
-                                    String id = object.getString("id").trim();
-                                    String time = object.getString("time").trim();
-                                    String profile = object.getString("profile").trim();
-                                    String username = object.getString("username").trim();
-                                    String like = object.getString("like").trim();
-                                    String share = object.getString("share").trim();
-                                    setValues(profile,username,title,des,rate,img,img2,img3);
-
-
+                                    String jobstatus = object.getString("status").trim();
+                                    String jobGiverProfile = object.getString("profile").trim();
+                                    String obGIverName = object.getString("username").trim();
+                                    setValues(jobGiverProfile,obGIverName,title,jobdis,pese,image,img2,img3,jobstatus);
 
                                 }
-
 
                             }
 
@@ -124,11 +116,12 @@ public class JobDiscriptionForNotification extends AppCompatActivity  {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("podtId", id);
+                params.put("postId", id);
+                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
                 return params;
             }
         };
-        stringRequest.setShouldCache(true);
+        stringRequest.setShouldCache(false);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -140,13 +133,7 @@ public class JobDiscriptionForNotification extends AppCompatActivity  {
     }
 
 
-
-
-
-
-
-
-    private void setValues(String profile, String username, String title, String des, String rate, String img, String img2, String img3) {
+    private void setValues(String profile, String username, String title, String des, String rate, String img, String img2, String img3, String jobstatus) {
         Glide.with(this).load(profile).into(this.profile);
         this.title=title;
         this.username.setText(username);
