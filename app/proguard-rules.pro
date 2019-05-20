@@ -21,5 +21,4 @@
 #-renamesourcefileattribute SourceFile
 -dontwarn okhttp3.**
 -dontwarn okio.**
--keepclassmembers class com.wikav.goIndividual.studentapp.models.** { *; }
--keepclassmembers class com.wikav.goIndividual.studentapp.individual.chatting.modal.** { *; }
+-keepclassmembers class com.wikav.voulu.Adeptor.** { *; }

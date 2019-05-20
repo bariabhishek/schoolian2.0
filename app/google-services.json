@@ -3,19 +3,19 @@
     "project_number": "704944224597",
     "firebase_url": "https://spleshscreen.firebaseio.com",
     "project_id": "spleshscreen",
-    "storage_bucket": "com.wikav.voulu"
+    "storage_bucket": "spleshscreen.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:704944224597:android:4a2ffa2be095cc1f",
+        "mobilesdk_app_id": "1:704944224597:android:8082ae30f9878589",
         "android_client_info": {
           "package_name": "com.wikav.voulu"
         }
       },
       "oauth_client": [
         {
-          "client_id": "704944224597-kpv13hhbjg4ub40imh6ptjmgd261aoq6.apps.googleusercontent.com",
+          "client_id": "704944224597-862n4u7n6evfuc8scgq2l4hcpkhnhlia.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.wikav.voulu",
@@ -23,10 +23,47 @@
           }
         },
         {
+          "client_id": "704944224597-oghg378l6o6jeiiphva8p0vtnupo68mt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsjWwYYrLxgM1wt0fhktOgwUCaDYjkw24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704944224597-oghg378l6o6jeiiphva8p0vtnupo68mt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704944224597:android:4a2ffa2be095cc1f",
+        "android_client_info": {
+          "package_name": "startup.abhishek.spleshscreen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704944224597-kpv13hhbjg4ub40imh6ptjmgd261aoq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "startup.abhishek.spleshscreen",
+            "certificate_hash": "11b279b287ab11c885c13d73a37b7f8ebd48ff61"
+          }
+        },
+        {
           "client_id": "704944224597-vgu541pd654ggfn7i0g5g5arcseqkg8k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.wikav.voulu",
+            "package_name": "startup.abhishek.spleshscreen",
             "certificate_hash": "ed0c7b1f684f70db42f859a89f9d9d0cda24c401"
           }
         },
@@ -34,7 +71,7 @@
           "client_id": "704944224597-rq88umgs4io59of8imdrd53ads5uhd31.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.wikav.voulu",
+            "package_name": "startup.abhishek.spleshscreen",
             "certificate_hash": "df4fbf9999a2dff8abd95091ce594474e09a8456"
           }
         },
