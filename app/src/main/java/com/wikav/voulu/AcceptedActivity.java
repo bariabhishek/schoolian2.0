@@ -39,6 +39,7 @@ public class AcceptedActivity extends AppCompatActivity {
     TextView job_status,jobGiverName,jobSekerName,jobTitle,jobDis,jobTime,contactNumber;
     ImageView jobGiverPro,jobSeekerPro,statusMrk;
     String Url2="https://voulu.in/api/sendDataCompleteTaskAcceptePost.php";
+    //push Test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
