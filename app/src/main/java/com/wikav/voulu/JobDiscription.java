@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.CoustomSwipeAdeptor;
 import com.wikav.voulu.fragments.FullScreenDialog;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
@@ -35,6 +38,7 @@ public class JobDiscription extends AppCompatActivity  {
     CircleImageView profile;
     ImageView mainImage;
     TextView username,jobtTitle,jobdes,paise;
+    Snackbar snackbar;
     String id,title,jobdis,usernames,image,profileImage,pese;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +47,10 @@ public class JobDiscription extends AppCompatActivity  {
             imageArry=new ArrayList<>();
         viewPager = findViewById( R.id.viewpagerjob );
 
+        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
 
 
-        checkIntenet();
+        checkInptenet();
 
 
         id=getIntent().getExtras().getString("id");
@@ -114,32 +119,31 @@ public class JobDiscription extends AppCompatActivity  {
 
     }
 
-    public void checkIntenet()
-    {
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+    public void checkInptenet() {
+        IntentFilter  intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
-                if(ConnectivityReceiver.isNetworkAvailable(context,type))
-                {
-                    return;
+                int[] type = {ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+
+
+                if (ConnectivityReceiver.isNetworkAvailable(getApplicationContext(), type)) {
+                    if (snackbar.isShown())
+                        snackbar.dismiss();
+                } else {
+                    //Toast.makeText(context, "Toast", Toast.LENGTH_SHORT).show();
+                /*FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                full.show(ft,"show");*/
+
+                    snackbar.show();
+
+
                 }
-                else {
-                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
-                    full.show(getSupportFragmentManager(),"show");
-                }
+
             }
         };
-        registerReceiver(broadcastReceiver,intentFilter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (broadcastReceiver!= null)
-            unregisterReceiver(broadcastReceiver);
-
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
 

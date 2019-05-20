@@ -10,6 +10,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <supports-screens
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,6 +37,7 @@
         <activity android:name="com.wikav.voulu.Wallet" />
         <activity android:name="com.wikav.voulu.JobConfirm" />
         <activity android:name="com.wikav.voulu.OTP" />
+        <activity android:name="com.wikav.voulu.NewOTP" />
         <activity android:name="com.wikav.voulu.UserMobileNumber" />
         <activity
             android:name="com.wikav.voulu.ScrollingActivityHome"

@@ -5,6 +5,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.Adeptor;
 import com.wikav.voulu.Adeptor.ModelList;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
@@ -15,6 +17,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,11 +50,16 @@ RecyclerView recyclerView;
     TextView noData;
     private ShimmerFrameLayout mShimmerViewContainer;
     SessionManger sessionManger;
+    Snackbar snackbar;
     String Url="https://voulu.in/api/getYouJobPost.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_your_post);
+        snackbar=  Snackbar.make(YourPost.this.findViewById(android.R.id.content),
+                Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"),
+                Snackbar.LENGTH_INDEFINITE);
+
         toolbar=findViewById(R.id.toolbarLayout);
         sessionManger=new SessionManger(this);
         setSupportActionBar(toolbar);
@@ -65,8 +73,9 @@ RecyclerView recyclerView;
         String mobile = user.get(sessionManger.MOBILE);
         list=new ArrayList<>();
         arraydata(mobile);
+        checkInptenet();
+      // checkIntenet();
 
-       checkIntenet();
     }
 
     private void arraydata(final String mobile) {
@@ -169,37 +178,44 @@ RecyclerView recyclerView;
         }
         return true;
     }
-    public void checkIntenet()
-    {
+    public void checkInptenet() {
         intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
-                if(ConnectivityReceiver.isNetworkAvailable(context,type))
-                {
-                    return;
+                int[] type = {ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+
+
+                if (ConnectivityReceiver.isNetworkAvailable(getApplicationContext(), type)) {
+                    if (snackbar.isShown())
+                        snackbar.dismiss();
+                } else {
+                    //Toast.makeText(context, "Toast", Toast.LENGTH_SHORT).show();
+                /*FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                full.show(ft,"show");*/
+
+                    snackbar.show();
+
+
                 }
-                else {
-                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
-                    full.show(getSupportFragmentManager(),"show");
-                }
+
             }
         };
-        registerReceiver(broadcastReceiver,intentFilter);
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(broadcastReceiver,intentFilter);
+      //  registerReceiver(broadcastReceiver,intentFilter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (broadcastReceiver!= null)
-            unregisterReceiver(broadcastReceiver);
+        //if (broadcastReceiver!= null)
+        //    unregisterReceiver(broadcastReceiver);
 
     }
 

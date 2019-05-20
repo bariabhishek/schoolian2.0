@@ -29,6 +29,7 @@
         android:text="Update App"
         android:textColor="#FFF"
         android:textSize="20sp"
+        android:id="@+id/updateBtn"
         android:layout_alignParentBottom="true"
         />
 

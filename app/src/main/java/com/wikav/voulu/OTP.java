@@ -66,7 +66,7 @@ public class OTP extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
         txtVerify = findViewById(R.id.verify);
-        txtVerify.setEnabled(false);
+
         timer = findViewById(R.id.timer);
         mAuth = FirebaseAuth.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -74,9 +74,9 @@ public class OTP extends AppCompatActivity {
         sessionManger = new SessionManger(this);
         mob = getIntent().getStringExtra("mobile");
         setTimer();
-        sendVerificationCode(mob);
+        //sendVerificationCode(mob);
         FirebaseAuthSettings firebaseAuthSettings = firebaseAuth.getFirebaseAuthSettings();
-        checkIntenet();
+       // checkIntenet();
 
         txtVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +87,7 @@ public class OTP extends AppCompatActivity {
                 else
                 {
                     if(!editText.getText().toString().equals("")) {
+                      //  Toast.makeText(OTP.this, editText.getText().toString(), Toast.LENGTH_SHORT).show();
                         verifyVerificationCode(editText.getText().toString());
                     }
                 }
@@ -162,7 +163,7 @@ public class OTP extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             verificationStatus = true;
                             newTime.cancel();
-                            txtVerify.setEnabled(true);
+                          //  txtVerify.setEnabled(true);
                            // Toast.makeText(getApplicationContext(), "Verifyed", Toast.LENGTH_SHORT).show();
                         } else {
 
@@ -174,7 +175,7 @@ public class OTP extends AppCompatActivity {
                                 message = "Invalid code entered...";
                             }
 
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
+                            Snackbar snackbar = Snackbar.make(OTP.this.findViewById(R.id.content), message, Snackbar.LENGTH_LONG);
                             snackbar.setAction("Dismiss", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -302,7 +303,7 @@ public class OTP extends AppCompatActivity {
     public void onBackPressed() {
         moveTaskToBack(true);
     }
-    public void checkIntenet()
+   /* public void checkIntenet()
     {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
@@ -327,5 +328,5 @@ public class OTP extends AppCompatActivity {
         super.onPause();
         if (broadcastReceiver!= null)
             unregisterReceiver(broadcastReceiver);
-    }
+    }*/
 }

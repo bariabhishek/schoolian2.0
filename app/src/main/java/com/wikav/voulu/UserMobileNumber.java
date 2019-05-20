@@ -36,7 +36,7 @@ public class UserMobileNumber extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_user_mobile_number );
         textInputLayout = findViewById( R.id.etno );
-        checkIntenet();
+       // checkIntenet();
         no = findViewById( R.id.editnumber );
         number = findViewById( R.id.nobtn );
         no.addTextChangedListener(new TextWatcher() {
@@ -108,7 +108,7 @@ public class UserMobileNumber extends AppCompatActivity {
 
             }
             else {
-                Intent i = new Intent(UserMobileNumber.this,OTP.class);
+                Intent i = new Intent(UserMobileNumber.this,NewOTP.class);
                 i.putExtra("mobile",no.getText().toString());
                 Log.d("Kya",no.getText().toString());
                // Toast.makeText(UserMobileNumber.this,no.getText().toString(),Toast.LENGTH_SHORT).show();
@@ -126,7 +126,7 @@ public class UserMobileNumber extends AppCompatActivity {
         finish();
     }
 
-    public void checkIntenet()
+    public void checkItenet()
     {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
@@ -146,13 +146,13 @@ public class UserMobileNumber extends AppCompatActivity {
         registerReceiver(broadcastReceiver,intentFilter);
     }
 
-    @Override
+  /*  @Override
     protected void onPause() {
         super.onPause();
         if (broadcastReceiver!= null)
             unregisterReceiver(broadcastReceiver);
 
-    }
+    }*/
 
     public void loginwithpass(View view) {
         Intent visew = new Intent(this,Login. class);

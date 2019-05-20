@@ -3,6 +3,7 @@ package com.wikav.voulu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
 
 import android.app.ProgressDialog;
@@ -15,6 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +54,7 @@ public class EditProfile extends AppCompatActivity {
     BroadcastReceiver broadcastReceiver;
     boolean isNewImageSet = false;
     Bitmap newImage;
+    Snackbar snackbar;
     final String Url="https://voulu.in/api/updateProfile.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +64,13 @@ public class EditProfile extends AppCompatActivity {
         HashMap<String,String> user=sessionManger.getUserDetail();
         sessionName = user.get(sessionManger.NAME);
         sessionPhone = user.get(sessionManger.MOBILE);
+        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
         sessionImage = user.get( sessionManger.PROFILE_PIC );
         sessionEmail = user.get( sessionManger.EMAIL );
         sessionLocation = user.get( sessionManger.LOCATION );
         toolbar=findViewById(R.id.toolbarEdit);
         setToolbar();
-        checkIntenet();
+        checkInptenet();
         name=findViewById(R.id.nameUser);
         email=findViewById(R.id.emailEdit);
         phone=findViewById(R.id.mobileNumber);
@@ -249,28 +253,31 @@ public class EditProfile extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
         return encodedImage;
     }
-    public void checkIntenet() {
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+    public void checkInptenet() {
+        IntentFilter  intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 int[] type = {ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
-                if (ConnectivityReceiver.isNetworkAvailable(context, type)) {
-                    return;
+
+
+                if (ConnectivityReceiver.isNetworkAvailable(getApplicationContext(), type)) {
+                    if (snackbar.isShown())
+                        snackbar.dismiss();
                 } else {
-                    FullScreenDialogForNoInternet full = new FullScreenDialogForNoInternet();
-                    full.show(getSupportFragmentManager(), "show");
+                    //Toast.makeText(context, "Toast", Toast.LENGTH_SHORT).show();
+                /*FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                full.show(ft,"show");*/
+
+                    snackbar.show();
+
+
                 }
+
             }
         };
         registerReceiver(broadcastReceiver, intentFilter);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (broadcastReceiver!= null)
-            unregisterReceiver(broadcastReceiver);
-
-    }
 }

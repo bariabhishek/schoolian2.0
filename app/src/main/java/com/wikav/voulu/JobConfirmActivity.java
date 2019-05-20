@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.AdeptorForJobConfirmTask;
 import com.wikav.voulu.Adeptor.ModelList;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
@@ -16,6 +17,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,13 +49,16 @@ public class JobConfirmActivity extends AppCompatActivity {
     TextView noData;
     private ShimmerFrameLayout mShimmerViewContainer;
     SessionManger sessionManger;
+    Snackbar snackbar;
     String Url = "https://voulu.in/api/getDataForOtp.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_confirm_for_job_seeker);
             toolbar = findViewById(R.id.toolbarLayout);
-        checkIntenet();
+        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
+
+        checkInptenet();
             sessionManger = new SessionManger(this);
             setSupportActionBar(toolbar);
             mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
@@ -168,30 +173,31 @@ public class JobConfirmActivity extends AppCompatActivity {
             }
             return true;
         }
-        public void checkIntenet()
-        {
-            IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-            broadcastReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
-                    if(ConnectivityReceiver.isNetworkAvailable(context,type))
-                    {
-                        return;
-                    }
-                    else {
-                        FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
-                        full.show(getSupportFragmentManager(),"show");
-                    }
-                }
-            };
-            registerReceiver(broadcastReceiver,intentFilter);
-        }
+    public void checkInptenet() {
+        IntentFilter  intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int[] type = {ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (broadcastReceiver!= null)
-            unregisterReceiver(broadcastReceiver);
+
+                if (ConnectivityReceiver.isNetworkAvailable(getApplicationContext(), type)) {
+                    if (snackbar.isShown())
+                        snackbar.dismiss();
+                } else {
+                    //Toast.makeText(context, "Toast", Toast.LENGTH_SHORT).show();
+                /*FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                full.show(ft,"show");*/
+
+                    snackbar.show();
+
+
+                }
+
+            }
+        };
+        registerReceiver(broadcastReceiver, intentFilter);
     }
+
 }

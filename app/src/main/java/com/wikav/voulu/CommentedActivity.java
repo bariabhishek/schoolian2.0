@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.CommentedPostAdaptor;
 import com.wikav.voulu.Adeptor.ModelList;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
@@ -46,7 +49,7 @@ public class CommentedActivity extends AppCompatActivity {
     TextView noDataCommentedPost;
     String Url="https://voulu.in/api/getJobPostCommented.php";
     BroadcastReceiver broadcastReceiver;
-
+Snackbar snackbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -59,10 +62,11 @@ public class CommentedActivity extends AppCompatActivity {
         mShimmer = findViewById( R.id.shimmer_view_container );
         noDataCommentedPost = findViewById( R.id.noDataCommentedPost );
         commentList = new ArrayList <>(  );
+        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
         sessionManger=new SessionManger(this);
         HashMap<String,String> getUser=sessionManger.getUserDetail();
         String  userMobile=getUser.get(sessionManger.MOBILE);
-        checkIntenet();
+        checkInptenet();
         data(userMobile);
 
 
@@ -76,6 +80,13 @@ public class CommentedActivity extends AppCompatActivity {
         recyclerView.setAdapter( commentedAdaptor );
         mShimmer.stopShimmerAnimation();
         mShimmer.setVisibility(View.GONE);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 
     private void data(final String userMobile) {
@@ -155,31 +166,31 @@ public class CommentedActivity extends AppCompatActivity {
 
 
     }
-    public void checkIntenet()
-    {
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+    public void checkInptenet() {
+        IntentFilter  intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
-                if(ConnectivityReceiver.isNetworkAvailable(context,type))
-                {
-                    return;
+                int[] type = {ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
+
+
+                if (ConnectivityReceiver.isNetworkAvailable(getApplicationContext(), type)) {
+                    if (snackbar.isShown())
+                        snackbar.dismiss();
+                } else {
+                    //Toast.makeText(context, "Toast", Toast.LENGTH_SHORT).show();
+                /*FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+                full.show(ft,"show");*/
+
+                    snackbar.show();
+
+
                 }
-                else {
-                    FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
-                    full.show(getSupportFragmentManager(),"show");
-                }
+
             }
         };
-        registerReceiver(broadcastReceiver,intentFilter);
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-            if (broadcastReceiver!= null)
-            unregisterReceiver(broadcastReceiver);
-
-    }
 }

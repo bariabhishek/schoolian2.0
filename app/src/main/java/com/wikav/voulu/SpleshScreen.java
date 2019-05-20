@@ -158,7 +158,7 @@ public class SpleshScreen extends AppCompatActivity {
                 int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
                 if(ConnectivityReceiver.isNetworkAvailable(context,type))
                 {
-
+            return;
                 }
                 else {
                     FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
@@ -169,8 +169,10 @@ public class SpleshScreen extends AppCompatActivity {
         registerReceiver(broadcastReceiver,intentFilter);
     }
 
-    @Override
+   /* @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
+        if (broadcastReceiver!= null)
+            unregisterReceiver(broadcastReceiver);
+    }*/
 }

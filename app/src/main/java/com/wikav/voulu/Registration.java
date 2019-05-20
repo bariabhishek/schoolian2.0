@@ -78,7 +78,7 @@ public class Registration extends AppCompatActivity {
     String Url = "https://voulu.in/api/register.php";
     Uri resultUri;
 
-
+    IntentFilter intentFilter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -413,7 +413,7 @@ public class Registration extends AppCompatActivity {
     }
 
     public void checkIntenet() {
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+         intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -430,11 +430,25 @@ public class Registration extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver, intentFilter);
+
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         if (broadcastReceiver!= null)
             unregisterReceiver(broadcastReceiver);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (broadcastReceiver!= null)
+            unregisterReceiver(broadcastReceiver);
     }
 
     public void trems(View view) {

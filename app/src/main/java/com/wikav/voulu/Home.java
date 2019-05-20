@@ -18,12 +18,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
 
+import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.fragments.FavoriteFragment;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
 import com.wikav.voulu.fragments.HomeFragment;
@@ -33,8 +35,6 @@ import com.wikav.voulu.fragments.ProfileFragment;
 
 
 public class Home extends NavigationDrawerActivity_ {
-    //abhi push kiaa h
-// dusra update agya
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
     BroadcastReceiver broadcastReceiver;
@@ -45,6 +45,7 @@ public class Home extends NavigationDrawerActivity_ {
     ProfileFragment profileFragment;
     SessionManger sessionManger;
 IntentFilter intentFilter;
+    Snackbar snackbar=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -55,6 +56,10 @@ IntentFilter intentFilter;
         View contentView = inflater.inflate(R.layout.activity_home, null, false);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.addView(contentView, 0);
+
+        snackbar=  Snackbar.make(Home.this.findViewById(android.R.id.content),
+                Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"),
+                Snackbar.LENGTH_INDEFINITE);
        checkIntenet();
 
 
@@ -186,13 +191,18 @@ public void checkIntenet()
             int [] type={ ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI};
             if(ConnectivityReceiver.isNetworkAvailable(getApplicationContext(),type))
             {
-                return;
+                if(snackbar.isShown())
+                snackbar.dismiss();
+
             }
             else {
                 //Toast.makeText(context, "Toast", Toast.LENGTH_SHORT).show();
-                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
-                full.show(ft,"show");
+//                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+//                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
+//                full.show(ft,"show");
+
+             snackbar.show();
+//
 
             }
         }
@@ -202,7 +212,7 @@ public void checkIntenet()
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(broadcastReceiver,intentFilter);
+       // registerReceiver(broadcastReceiver,intentFilter);
     }
     @Override
     protected void onDestroy() {
@@ -213,8 +223,8 @@ public void checkIntenet()
  @Override
     protected void onPause() {
         super.onPause();
-        if (broadcastReceiver!= null)
-            unregisterReceiver(broadcastReceiver);
+        /*if (broadcastReceiver!= null)
+            unregisterwwwwwwwwwwwwwwwwww2Receiver(broadcastReceiver);*/
         //unregisterReceiver(broadcastReceiver);
     }
 }

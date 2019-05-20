@@ -19,6 +19,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
 
 import android.os.Bundle;
@@ -587,15 +589,5 @@ public class UploadYourPost extends  AppCompatActivity {
         registerReceiver(broadcastReceiver,intentFilter);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        BroadcastReceiver broadcastReceiver;
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
-    }
 }
