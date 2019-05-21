@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +50,8 @@ public class CommentedActivity extends AppCompatActivity {
     TextView noDataCommentedPost;
     String Url="https://voulu.in/api/getJobPostCommented.php";
     BroadcastReceiver broadcastReceiver;
-Snackbar snackbar;
+    Snackbar snackbar;
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -60,15 +62,25 @@ Snackbar snackbar;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView = findViewById( R.id.commentedRecycleview );
         mShimmer = findViewById( R.id.shimmer_view_container );
+        swipeRefreshLayout = findViewById( R.id.commentedSwipe );
         noDataCommentedPost = findViewById( R.id.noDataCommentedPost );
         commentList = new ArrayList <>(  );
         snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
         sessionManger=new SessionManger(this);
         HashMap<String,String> getUser=sessionManger.getUserDetail();
-        String  userMobile=getUser.get(sessionManger.MOBILE);
+        final String  userMobile=getUser.get(sessionManger.MOBILE);
         checkInptenet();
-        data(userMobile);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                commentList.clear();
+                data(userMobile);
 
+            }
+        });
+
+
+        data(userMobile);
 
 
     }
@@ -80,6 +92,10 @@ Snackbar snackbar;
         recyclerView.setAdapter( commentedAdaptor );
         mShimmer.stopShimmerAnimation();
         mShimmer.setVisibility(View.GONE);
+        if(swipeRefreshLayout.isRefreshing())
+        {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -130,13 +146,24 @@ Snackbar snackbar;
                                 noDataCommentedPost.setVisibility(View.VISIBLE);
                                 mShimmer.stopShimmerAnimation();
                                 mShimmer.setVisibility(View.GONE);
+                                if(swipeRefreshLayout.isRefreshing())
+                                {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             //  Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
 
-
+                            recyclerView.setVisibility(View.GONE);
+                            noDataCommentedPost.setVisibility(View.VISIBLE);
+                            mShimmer.stopShimmerAnimation();
+                            mShimmer.setVisibility(View.GONE);
+                            if(swipeRefreshLayout.isRefreshing())
+                            {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
                         }
                     }
                 },
@@ -144,7 +171,14 @@ Snackbar snackbar;
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         ///    Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
-
+                        recyclerView.setVisibility(View.GONE);
+                        noDataCommentedPost.setVisibility(View.VISIBLE);
+                        mShimmer.stopShimmerAnimation();
+                        mShimmer.setVisibility(View.GONE);
+                        if(swipeRefreshLayout.isRefreshing())
+                        {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
                     }
                 })
         {

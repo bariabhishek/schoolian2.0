@@ -26,8 +26,35 @@
                 android:textStyle="bold"/>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+    <com.facebook.shimmer.ShimmerFrameLayout xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        shimmer:duration="500"
+        android:layout_below="@+id/tabl"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <include layout="@layout/recipe_placeholder_item" />
+
+            <include layout="@layout/recipe_placeholder_item" />
+
+            <include layout="@layout/recipe_placeholder_item" />
+
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_below="@+id/tabl"
+    android:id="@+id/favSwipe"
+    android:layout_height="wrap_content">
     <!-- TODO: Update blank fragment layout -->
+
    <androidx.recyclerview.widget.RecyclerView
        android:layout_below="@id/tabl"
        android:id="@+id/recycleviewfollower"
@@ -35,6 +62,7 @@
        android:layout_height="match_parent">
 
    </androidx.recyclerview.widget.RecyclerView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

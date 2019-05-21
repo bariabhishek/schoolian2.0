@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
@@ -73,7 +74,7 @@ public class HomeFragment extends Fragment {
     private TextView mTextMessage;
     private RequestQueue requestQueue;
     private ShimmerFrameLayout mShimmerViewContainer;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -118,7 +119,14 @@ public class HomeFragment extends Fragment {
                             }
                             else
                             {
+                                recyclerView.setVisibility(View.GONE);
                                 noData.setVisibility(View.VISIBLE);
+                                mShimmerViewContainer.stopShimmerAnimation();
+                                mShimmerViewContainer.setVisibility(View.GONE);
+                                if(swipeRefreshLayout.isRefreshing())
+                                {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
                             }
 
                         } catch (JSONException e) {
@@ -168,11 +176,12 @@ public class HomeFragment extends Fragment {
             imageButton=view.findViewById(R.id.uplodButton);
             noData=view.findViewById(R.id.noData);
             adtext=view.findViewById(R.id.adtext);
+            swipeRefreshLayout=view.findViewById(R.id.homeSwipe);
 
      //   imageArry=new ArrayList<>();
         viewPager = view.findViewById( R.id.viewPagerHome );
 
-imageArry=new ArrayList<>();
+        imageArry=new ArrayList<>();
 
 
         mShimmerViewContainer =view.findViewById(R.id.shimmer_view_container);
@@ -194,7 +203,13 @@ imageArry=new ArrayList<>();
             }
         } );
 
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list.clear();
+                arraydata();
+            }
+        });
 
         return view;
     }
@@ -290,5 +305,9 @@ imageArry=new ArrayList<>();
         recyclerView.setAdapter( a );
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);
+        if(swipeRefreshLayout.isRefreshing())
+        {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

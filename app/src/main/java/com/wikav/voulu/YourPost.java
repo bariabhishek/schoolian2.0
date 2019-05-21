@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.Adeptor;
@@ -50,6 +51,7 @@ RecyclerView recyclerView;
     TextView noData;
     private ShimmerFrameLayout mShimmerViewContainer;
     SessionManger sessionManger;
+    SwipeRefreshLayout swipeRefreshLayout;
     Snackbar snackbar;
     String Url="https://voulu.in/api/getYouJobPost.php";
     @Override
@@ -64,6 +66,7 @@ RecyclerView recyclerView;
         sessionManger=new SessionManger(this);
         setSupportActionBar(toolbar);
         mShimmerViewContainer=findViewById(R.id.shimmer_view_container);
+        swipeRefreshLayout=findViewById(R.id.youPostSwipe);
         getSupportActionBar().setTitle("Your Posts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView=findViewById(R.id.recycleviewYourPost);
@@ -119,12 +122,23 @@ RecyclerView recyclerView;
                                 noData.setVisibility(View.VISIBLE);
                                 mShimmerViewContainer.stopShimmerAnimation();
                                 mShimmerViewContainer.setVisibility(View.GONE);
+                                if(swipeRefreshLayout.isRefreshing())
+                                {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
                             //  noData.setVisibility(View.VISIBLE);
+                            noData.setVisibility(View.VISIBLE);
+                            mShimmerViewContainer.stopShimmerAnimation();
+                            mShimmerViewContainer.setVisibility(View.GONE);
+                            if(swipeRefreshLayout.isRefreshing())
+                            {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
 
                         }
                     }
@@ -134,6 +148,13 @@ RecyclerView recyclerView;
                     public void onErrorResponse(VolleyError error) {
                         /// Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
                         // noData.setVisibility(View.VISIBLE);
+                        noData.setVisibility(View.VISIBLE);
+                        mShimmerViewContainer.stopShimmerAnimation();
+                        mShimmerViewContainer.setVisibility(View.GONE);
+                        if(swipeRefreshLayout.isRefreshing())
+                        {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
                     }
                 })
         {
@@ -169,6 +190,10 @@ RecyclerView recyclerView;
         recyclerView.setAdapter( a );
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);
+        if(swipeRefreshLayout.isRefreshing())
+        {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.wikav.voulu.Adeptor.CommentedPostAdaptor;
 import com.wikav.voulu.Adeptor.ModelList;
 import com.wikav.voulu.R;
@@ -39,7 +42,9 @@ public class FavoriteFragment extends Fragment {
     SessionManger sessionManger;
     TextView noDataFavPost;
     String Url="https://voulu.in/api/getFavoriteJobPost.php";
-
+    @SuppressWarnings("unchecked")
+    private ShimmerFrameLayout mShimmerViewContainer;
+    SwipeRefreshLayout swipeRefreshLayout;
     public FavoriteFragment() {
         // Required empty public constructor
     }
@@ -51,21 +56,29 @@ public class FavoriteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate( R.layout.fragment_followers, container, false );
         recyclerView = view.findViewById( R.id.recycleviewfollower );
+        swipeRefreshLayout = view.findViewById( R.id.favSwipe );
         noDataFavPost = view.findViewById( R.id.noDataFavPost );
         sessionManger=new SessionManger(getActivity());
         HashMap<String,String> getUser=sessionManger.getUserDetail();
-       String  userMobile=getUser.get(sessionManger.MOBILE);
-        arraydata(userMobile);
+       final String  userMobile=getUser.get(sessionManger.MOBILE);
 
+        mShimmerViewContainer =view.findViewById(R.id.shimmer_view_container);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+              arrayList.clear();
+                arraydata(userMobile);
+            }
+        });
         arrayList =new ArrayList<>(  );
-
+        arraydata(userMobile);
         return view;
     }
 
 
     private void arraydata(final String Mobile) {
-
+        mShimmerViewContainer.startShimmerAnimation();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override
@@ -103,6 +116,12 @@ public class FavoriteFragment extends Fragment {
                             {
                                 recyclerView.setVisibility(View.GONE);
                                 noDataFavPost.setVisibility(View.VISIBLE);
+                                mShimmerViewContainer.stopShimmerAnimation();
+                                mShimmerViewContainer.setVisibility(View.GONE);
+                                if(swipeRefreshLayout.isRefreshing())
+                                {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
                             }
 
                         } catch (JSONException e) {
@@ -148,5 +167,11 @@ public class FavoriteFragment extends Fragment {
         recyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
         CommentedPostAdaptor follower = new CommentedPostAdaptor(getContext(),list);
         recyclerView.setAdapter( follower );
+        mShimmerViewContainer.stopShimmerAnimation();
+        mShimmerViewContainer.setVisibility(View.GONE);
+        if(swipeRefreshLayout.isRefreshing())
+        {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

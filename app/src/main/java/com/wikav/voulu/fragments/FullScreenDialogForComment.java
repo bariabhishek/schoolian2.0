@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +40,7 @@ import com.wikav.voulu.Adeptor.CommentModel;
 import com.wikav.voulu.R;
 import com.wikav.voulu.SessionManger;
 
-public class FullScreenDialog extends DialogFragment {
+public class FullScreenDialogForComment extends DialogFragment {
 
     EditText commentBox;
     TextView sendBtn;
@@ -49,6 +51,7 @@ public class FullScreenDialog extends DialogFragment {
     List <CommentModel> list;
     RecyclerView recyclerView;
 ShimmerFrameLayout mShimmerViewContainer;
+SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,15 +70,23 @@ ShimmerFrameLayout mShimmerViewContainer;
         View view = inflater.inflate(R.layout.layout_full_screen_dialog, container, false);
         setToolbar(view);
         mShimmerViewContainer =view.findViewById(R.id.shimmer_view_container_for_Commnet);
+        swipeRefreshLayout =view.findViewById(R.id.commentSwipe);
         recyclerView = view.findViewById( R.id.recycleviewComment );
         sessionManger =new SessionManger(getActivity());
         sendBtn=view.findViewById(R.id.sedCommentButton);
         commentBox=view.findViewById(R.id.CommenBox);
-        getComment(postId);
+
         HashMap<String,String> user=sessionManger.getUserDetail();
         final String mobile = user.get(sessionManger.MOBILE);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list.clear();
+                getComment(postId);
 
+            }
+        });
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +102,7 @@ ShimmerFrameLayout mShimmerViewContainer;
                 }
             }
         });
-
+        getComment(postId);
         return view;
     }
 
@@ -139,6 +150,7 @@ ShimmerFrameLayout mShimmerViewContainer;
                             }
                             else
                             {
+
                                 Toast.makeText(getActivity(), "Not Send", Toast.LENGTH_SHORT).show();
                             }
 
@@ -214,10 +226,12 @@ ShimmerFrameLayout mShimmerViewContainer;
                             }
                             else
                             {
-                                Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
-
-                                Log.d("Response", response);
-
+                                mShimmerViewContainer.stopShimmerAnimation();
+                                mShimmerViewContainer.setVisibility(View.GONE);
+                                if(swipeRefreshLayout.isRefreshing())
+                                {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
 
                             }
 
@@ -225,6 +239,12 @@ ShimmerFrameLayout mShimmerViewContainer;
                             e.printStackTrace();
                             Toast.makeText(getContext(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
                             Log.d("Response", e.getMessage());
+                            mShimmerViewContainer.stopShimmerAnimation();
+                            mShimmerViewContainer.setVisibility(View.GONE);
+                            if(swipeRefreshLayout.isRefreshing())
+                            {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
 
                         }
 
@@ -236,7 +256,12 @@ ShimmerFrameLayout mShimmerViewContainer;
                         Toast.makeText(getActivity(), "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
                         Log.d("Response", error.toString());
 
-
+                        mShimmerViewContainer.stopShimmerAnimation();
+                        mShimmerViewContainer.setVisibility(View.GONE);
+                        if(swipeRefreshLayout.isRefreshing())
+                        {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
 
                     }
                 }
@@ -264,6 +289,10 @@ ShimmerFrameLayout mShimmerViewContainer;
         recyclerView.setAdapter( a );
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);
+        if(swipeRefreshLayout.isRefreshing())
+        {
+            swipeRefreshLayout.setRefreshing(false);
+        }
 
     }
 }

@@ -11,12 +11,12 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
         android:resizeable="true"
         android:smallScreens="true"
-        android:normalScreens="true"
-        android:largeScreens="true"
-        android:xlargeScreens="true"
-        android:anyDensity="true"/>
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -25,48 +25,46 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name="com.wikav.voulu.AcceptedActivity" />
-        <activity android:name="com.wikav.voulu.AcceptedListActivity">
-        </activity>
-        <activity android:name="com.wikav.voulu.AboutUs" />
-        <activity android:name="com.wikav.voulu.YourPost" />
-        <activity android:name="com.wikav.voulu.EditProfile" />
-        <activity android:name="com.wikav.voulu.JobConfirmActivity"
+        <activity android:name=".AcceptedActivity" />
+        <activity android:name=".AcceptedListActivity"></activity>
+        <activity android:name=".AboutUs" />
+        <activity android:name=".YourPost" />
+        <activity android:name=".EditProfile" />
+        <activity
+            android:name=".JobConfirmActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name="com.wikav.voulu.Wallet" />
-        <activity android:name="com.wikav.voulu.JobConfirm" />
-        <activity android:name="com.wikav.voulu.OTP" />
-        <activity android:name="com.wikav.voulu.NewOTP" />
-        <activity android:name="com.wikav.voulu.UserMobileNumber" />
+        <activity android:name=".Wallet" />
+        <activity android:name=".JobConfirm" />
+        <activity android:name=".OTP" />
+        <activity android:name=".NewOTP" />
+        <activity android:name=".UserMobileNumber" />
         <activity
-            android:name="com.wikav.voulu.ScrollingActivityHome"
-            android:label="@string/title_activity_scrolling_home"
-            />
-        <activity android:name="com.wikav.voulu.JobDiscription" />
-        <activity android:name="com.wikav.voulu.NotificationManager"></activity>
-        <activity android:name="com.wikav.voulu.CommentedActivity" />
-        <activity android:name="com.wikav.voulu.UploadYourPost" />
-        <activity android:name="com.wikav.voulu.JobDiscriptionForNotification" />
+            android:name=".ScrollingActivityHome"
+            android:label="@string/title_activity_scrolling_home" />
+        <activity android:name=".JobDiscription" />
+        <activity android:name=".NotificationManager" />
+        <activity android:name=".CommentedActivity" />
+        <activity android:name=".UploadYourPost" />
+        <activity android:name=".JobDiscriptionForNotification" />
         <activity
-            android:name="com.wikav.voulu.NavigationDrawerActivity_"
-            android:label="@string/title_activity_navigation_drawer_"
-           />
+            android:name=".NavigationDrawerActivity_"
+            android:label="@string/title_activity_navigation_drawer_" />
         <activity
-            android:name="com.wikav.voulu.Home"
+            android:name=".Home"
             android:label="@string/title_activity_home"
-            android:windowSoftInputMode="adjustNothing" >
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
-            <action android:name="startup.abhishek.spleshscreen.accepetFromNotification" />
+                <action android:name="startup.abhishek.spleshscreen.accepetFromNotification" />
 
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter></activity>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name="com.wikav.voulu.Login" />
-        <activity android:name="com.wikav.voulu.Registration"></activity>
-        <activity android:name="com.wikav.voulu.SpleshScreen">
+        <activity android:name=".Login" />
+        <activity android:name=".Registration" />
+        <activity android:name=".SpleshScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -78,18 +76,18 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <service android:name="com.wikav.voulu.MyFirebaseMessagingService">
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <receiver
-            android:name="com.wikav.voulu.ConnectivityReceivers"
+            android:name=".ConnectivityReceivers"
             android:enabled="true">
             <intent-filter>
-                <action android:name = "android.net.conn.CONNECTIVITY_ACTION" />
-                <action android:name = "android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.conn.CONNECTIVITY_ACTION" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
         </receiver>
     </application>

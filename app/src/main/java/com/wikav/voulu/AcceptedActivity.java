@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Html;
@@ -138,7 +139,16 @@ public class AcceptedActivity extends AppCompatActivity {
     private void setValue(String title, String jobGiverMobile,
                           String jobsekerName, String jobGIverName,
                           String jobSeker_mobile, String jobdis, String time, String jobstatus, String jobGiverProfile, String jobsekerProfile) {
-    job_status.setText(jobstatus);
+
+   if(jobstatus.equals("Done")||jobstatus.equals("done"))
+        {
+            job_status.setText(jobstatus);
+        }
+        else {
+            statusMrk.setImageResource(R.drawable.ic_info_black_24dp);
+            job_status.setTextColor(Color.parseColor("#FFB45A"));
+       job_status.setText(jobstatus);
+   }
     jobTitle.setText(title);
     jobTime.setText(time);
     contactNumber.setText(jobSeker_mobile);

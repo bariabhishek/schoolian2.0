@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.AcceptedListAdaptor;
@@ -54,6 +55,7 @@ public class AcceptedListActivity extends AppCompatActivity {
     private ShimmerFrameLayout mShimmerViewContainer;
     SessionManger sessionManger;
     Snackbar snackbar;
+    SwipeRefreshLayout swipeRefreshLayout;
     String Url="https://voulu.in/api/getAcceptedJobPostTest.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,14 +68,22 @@ public class AcceptedListActivity extends AppCompatActivity {
         sessionManger=new SessionManger(this);
         setSupportActionBar(toolbar);
         mShimmerViewContainer=findViewById(R.id.shimmer_view_container);
+        swipeRefreshLayout=findViewById(R.id.acceptListSwipe);
         getSupportActionBar().setTitle("Accepted List");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView=findViewById(R.id.recycleviewAccepted);
         noData=findViewById(R.id.noDataYourPost);
         HashMap<String,String> user=sessionManger.getUserDetail();
         // String Ename = user.get(sessionManger.NAME);
-        String mobile = user.get(sessionManger.MOBILE);
+        final String mobile = user.get(sessionManger.MOBILE);
         list=new ArrayList<>();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                list.clear();
+                arraydata(mobile);
+            }
+        });
         arraydata(mobile);
 
 
@@ -122,13 +132,23 @@ public class AcceptedListActivity extends AppCompatActivity {
                                 noData.setVisibility(View.VISIBLE);
                                 mShimmerViewContainer.stopShimmerAnimation();
                                 mShimmerViewContainer.setVisibility(View.GONE);
+                                if(swipeRefreshLayout.isRefreshing())
+                                {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
                             //  noData.setVisibility(View.VISIBLE);
-
+                            noData.setVisibility(View.VISIBLE);
+                            mShimmerViewContainer.stopShimmerAnimation();
+                            mShimmerViewContainer.setVisibility(View.GONE);
+                            if(swipeRefreshLayout.isRefreshing())
+                            {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
                         }
                     }
                 },
@@ -137,6 +157,13 @@ public class AcceptedListActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         /// Toast.makeText(getActivity(), "Something went wrong..."+error, Toast.LENGTH_LONG).show();
                         // noData.setVisibility(View.VISIBLE);
+                        noData.setVisibility(View.VISIBLE);
+                        mShimmerViewContainer.stopShimmerAnimation();
+                        mShimmerViewContainer.setVisibility(View.GONE);
+                        if(swipeRefreshLayout.isRefreshing())
+                        {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
                     }
                 })
         {
@@ -171,6 +198,10 @@ public class AcceptedListActivity extends AppCompatActivity {
             recyclerView.setAdapter( a );
             mShimmerViewContainer.stopShimmerAnimation();
             mShimmerViewContainer.setVisibility(View.GONE);
+            if(swipeRefreshLayout.isRefreshing())
+            {
+                swipeRefreshLayout.setRefreshing(false);
+            }
         }
        else if(type.equals("job_seeker"))
         {
@@ -181,6 +212,10 @@ public class AcceptedListActivity extends AppCompatActivity {
             recyclerView.setAdapter( a );
             mShimmerViewContainer.stopShimmerAnimation();
             mShimmerViewContainer.setVisibility(View.GONE);
+            if(swipeRefreshLayout.isRefreshing())
+            {
+                swipeRefreshLayout.setRefreshing(false);
+            }
         }
 
     }

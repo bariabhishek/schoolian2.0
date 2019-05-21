@@ -25,8 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.CoustomSwipeAdeptor;
-import com.wikav.voulu.fragments.FullScreenDialog;
-import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
+import com.wikav.voulu.fragments.FullScreenDialogForComment;
 
 public class JobDiscription extends AppCompatActivity  {
     BroadcastReceiver broadcastReceiver;
@@ -79,6 +78,7 @@ public class JobDiscription extends AppCompatActivity  {
         coustomSwipeAdeptor = new CoustomSwipeAdeptor( this,imageArry);
         viewPager.setAdapter( coustomSwipeAdeptor );
 
+
        profile = findViewById( R.id.postProfile );
        mainImage = findViewById( R.id.postMainImage );
        username = findViewById( R.id.postUsername );
@@ -110,7 +110,7 @@ public class JobDiscription extends AppCompatActivity  {
 
     public void click() {
 
-        FullScreenDialog dialog =new FullScreenDialog();
+        FullScreenDialogForComment dialog =new FullScreenDialogForComment();
         Bundle b=new Bundle();
         b.putString("id",id);
         b.putString("title",title);

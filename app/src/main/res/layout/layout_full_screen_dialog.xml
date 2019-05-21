@@ -33,19 +33,25 @@
 
 </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
         <RelativeLayout
             android:layout_below="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:id="@+id/commentSwipe"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottomEdit">
             <androidx.recyclerview.widget.RecyclerView
 
                 android:id="@+id/recycleviewComment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/bottomEdit">
+               >
 
             </androidx.recyclerview.widget.RecyclerView>
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             <LinearLayout
 
                 android:id="@+id/bottomEdit"
@@ -65,7 +71,6 @@
                     android:maxLength="220"
                     android:inputType="text"
                     android:hint="Type your comment..."
-                    android:gravity="center"
                     android:textColorHint="#8F8E8E"
                     android:textColor="#090808"
                     android:padding="5dp"

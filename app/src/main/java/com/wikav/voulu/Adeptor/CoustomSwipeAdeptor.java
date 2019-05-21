@@ -2,8 +2,11 @@ package com.wikav.voulu.Adeptor;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +16,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.wikav.voulu.R;
+import com.wikav.voulu.fragments.FullScreenDialogForFullPager;
+import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
 
 public class CoustomSwipeAdeptor extends PagerAdapter {
 
@@ -48,6 +54,17 @@ public class CoustomSwipeAdeptor extends PagerAdapter {
         ImageView imageView = itemView.findViewById( R.id.imageViewdisp );
         TextView textView = itemView.findViewById( R.id.tvdisp );
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                FullScreenDialogForFullPager full=new FullScreenDialogForFullPager();
+                Bundle b=new Bundle();
+                b.putStringArrayList("array", (ArrayList<String>) imageArry);
+                full.setArguments(b);
+                full.show(ft,"show");
+            }
+        });
         Glide.with(context).load(imageArry.get(position)).into(imageView);
         textView.setText("← or →" );
         container.addView( itemView );

@@ -39,8 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.CoustomSwipeAdeptor;
-import com.wikav.voulu.fragments.FullScreenDialog;
-import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
+import com.wikav.voulu.fragments.FullScreenDialogForComment;
 
 public class JobDiscriptionForNotification extends AppCompatActivity  {
 
@@ -183,7 +182,7 @@ checkInptenet();
 
     public void click() {
 
-        FullScreenDialog dialog =new FullScreenDialog();
+        FullScreenDialogForComment dialog =new FullScreenDialogForComment();
         Bundle b=new Bundle();
         b.putString("id",id);
         b.putString("title",title);

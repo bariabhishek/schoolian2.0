@@ -429,7 +429,7 @@ public class Registration extends AppCompatActivity {
         registerReceiver(broadcastReceiver, intentFilter);
     }
 
-    @Override
+  /*  @Override
     protected void onResume() {
         super.onResume();
         registerReceiver(broadcastReceiver, intentFilter);
@@ -449,7 +449,7 @@ public class Registration extends AppCompatActivity {
         super.onDestroy();
         if (broadcastReceiver!= null)
             unregisterReceiver(broadcastReceiver);
-    }
+    }*/
 
     public void trems(View view) {
         String url = "http://voulu.in/terms.php";
