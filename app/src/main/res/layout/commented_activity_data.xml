@@ -62,9 +62,11 @@
                     android:layout_marginHorizontal="10dp"/>
                 <TextView
                     android:id="@+id/timeCard"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Time"
+                    android:textSize="@dimen/_10ssp"
+                    android:padding="@dimen/_3sdp"
                     android:layout_marginHorizontal="10dp" />
             </LinearLayout>
             <ImageView

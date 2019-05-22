@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.JobDiscription;
 import com.wikav.voulu.R;
 import com.wikav.voulu.SessionManger;
@@ -221,7 +223,8 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
                             if (success.equals("1"))
                             {
                                 Toast.makeText(context, "Added to favorites", Toast.LENGTH_LONG).show();
-
+                          //      Snackbar.make(this,"Added to favorites", Snackbar.LENGTH_SHORT)
+                            //            .show();
                             }
                             else if(success.equals("2"))
                             {
