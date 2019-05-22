@@ -50,12 +50,9 @@ public class CoustomSwipeAdeptorForFullImage extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         View itemView = layoutInflater.inflate( R.layout.view_pager_layout_for_full,container,false );
-
         PhotoView imageView = itemView.findViewById( R.id.imageViewForFull );
         Glide.with(context).load(imageArry.get(position)).into(imageView);
         container.addView( itemView );
-
-
         return itemView;
     }
 

@@ -140,14 +140,11 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
             viewHolder.share.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Uri imageUri = Uri.parse(MediaStore.Images.Media.insertImage(context.getContentResolver(), BitmapFactory.decodeResource(context.getResources(), R.drawable.logonewwhitecolor), null, null));
+                    String url = "https://play.google.com/store/apps/details?id=com.wikav.voulu";
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey, i am adding a task on VOULU APP, you install this app and complete that task and get money instantly. Its Amazing i love it. Voulu.in");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey, i am adding a task on VOULU APP, you install this app and complete that task and get money instantly. Its Amazing i love it. "+url);
                     sendIntent.setType("text/plain");
-                    sendIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                    sendIntent.setType("image/jpeg");
-                    sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     context.startActivity(sendIntent);
                 }
             });
@@ -167,8 +164,8 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView mainImage,share,like,main_image_thumb;
-        TextView title,title_thumb, pese,rate_thumb ,deletePost, dis_tumb,dis,username_thumb,username,time_thumb,time;
+        ImageView mainImage,share,like,deletePost,main_image_thumb;
+        TextView title,title_thumb, pese,rate_thumb , dis_tumb,dis,username_thumb,username,time_thumb,time;
         CardView postCard;
         CircleImageView profile,profile_thumb;
         RelativeLayout accept_thumb;
