@@ -172,7 +172,7 @@
                             android:layout_height="wrap_content"
                             android:text="Posts"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_15ssp"/>
+                            android:textSize="@dimen/_10ssp"/>
                         <TextView
                             android:id="@+id/numPost"
 
@@ -194,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:text="You Accept"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_15ssp"/>
+                            android:textSize="@dimen/_10ssp"/>
                         <TextView
                             android:id="@+id/youaccept"
                             android:layout_width="wrap_content"
@@ -215,7 +215,7 @@
                             android:layout_height="wrap_content"
                             android:text="Your Accept"
                             android:textStyle="bold"
-                            android:textSize="@dimen/_15ssp"/>
+                            android:textSize="@dimen/_10ssp"/>
                         <TextView
                             android:id="@+id/youraccept"
                             android:layout_width="wrap_content"
