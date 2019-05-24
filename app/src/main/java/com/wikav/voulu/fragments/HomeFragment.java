@@ -1,7 +1,12 @@
 package com.wikav.voulu.fragments;
 
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -49,8 +54,11 @@ import java.util.TimerTask;
 import com.wikav.voulu.Adeptor.Adeptor;
 import com.wikav.voulu.Adeptor.CoustomSwipeAdeptorForHome;
 import com.wikav.voulu.Adeptor.ModelList;
+import com.wikav.voulu.DatabaseHelper;
+import com.wikav.voulu.JobSchedulerService;
 import com.wikav.voulu.R;
 import com.wikav.voulu.UploadYourPost;
+import com.wikav.voulu.UserMobileNumber;
 import com.wikav.voulu.VolleyRequest;
 
 /**
@@ -58,9 +66,10 @@ import com.wikav.voulu.VolleyRequest;
  */
 public class HomeFragment extends Fragment {
 
-    final long DELAY_MS = 3000;//delay in milliseconds before task is to be executed
-    final long PERIOD_MS = 4000;
+    final long DELAY_MS = 4000;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 5000;
     ViewPager viewPager;
+    DatabaseHelper mydb;
     CoustomSwipeAdeptorForHome coustomSwipeAdeptorForHome;
     // int [] imageArry ={R.drawable.logo,R.drawable.boy};
     int currentPage = 0;
@@ -86,7 +95,7 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private int requestCount = 1;
     private LinearLayoutManager layoutManager;
-    long currentVisiblePosition;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -103,6 +112,7 @@ public class HomeFragment extends Fragment {
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("allPost");
                             if (success.equals("1")) {
+
                                 Log.d("Response", response);
                                 for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -121,10 +131,22 @@ public class HomeFragment extends Fragment {
                                     String like = object.getString("like").trim();
                                     // String share = object.getString("share").trim();
                                     String status = object.getString("status").trim();
-                                    list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
+                                   boolean db= mydb.insertData(username,profile,title,des,time,id,img,like,img2,img3,status,mobile,rate);
+                                   // list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
+                                    if(db)
+                                    {
+                                        Log.i("data",""+i);
+                                    }
+                                    else {
+                                        Log.i("No",""+i);
 
+                                    }
                                 }
-                                setupRecycle(list);
+                                if (swipeRefreshLayout.isRefreshing()) {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+
+                           //     setupRecycle(list);
 
                             } else {
                                 noData.setVisibility(View.VISIBLE);
@@ -165,7 +187,7 @@ public class HomeFragment extends Fragment {
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
 
-
+        setupRecycle(mydb.getdata());
     }
 
 
@@ -253,8 +275,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getAdImage();
+                         getAdImage();
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        mydb=new DatabaseHelper(getActivity());
         imageButton = view.findViewById(R.id.uplodButton);
         noData = view.findViewById(R.id.noData);
         adtext = view.findViewById(R.id.adtext);
@@ -262,12 +285,12 @@ public class HomeFragment extends Fragment {
         progressBar = view.findViewById(R.id.homeProgess);
         layoutManager = new LinearLayoutManager(getActivity());
         //   imageArry=new ArrayList<>();
+        imageArry = new ArrayList<>();
+
+
         viewPager = view.findViewById(R.id.viewPagerHome);
         recyclerView = view.findViewById(R.id.recycleview);
-        imageArry = new ArrayList<>();
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setLayoutManager(layoutManager);
+
 
         mShimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
         list = new ArrayList<>();
@@ -292,8 +315,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onRefresh() {
                 list.clear();
-               // newArraydata(requestCount);
                 arraydata();
+                setupRecycle(mydb.getdata());
 
             }
         });
@@ -307,10 +330,9 @@ public class HomeFragment extends Fragment {
             mShimmerViewContainer.startShimmerAnimation();
 
         }
+            mydb.getdata();
 
-
-            arraydata();
-
+        setupRecycle(mydb.getdata());
        // newArraydata(requestCount);
 
       //  Toast.makeText(getActivity(), "Toast "+state, Toast.LENGTH_SHORT).show();
@@ -441,7 +463,11 @@ public class HomeFragment extends Fragment {
     }
 
     public void setupRecycle(List<ModelList> list) {
+        mShimmerViewContainer.startShimmerAnimation();
         Adeptor a = new Adeptor(getContext(), list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(a);
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);

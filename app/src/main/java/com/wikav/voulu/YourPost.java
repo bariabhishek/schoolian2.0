@@ -231,6 +231,14 @@ RecyclerView recyclerView;
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (broadcastReceiver!= null)
+           unregisterReceiver(broadcastReceiver);
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
       //  registerReceiver(broadcastReceiver,intentFilter);

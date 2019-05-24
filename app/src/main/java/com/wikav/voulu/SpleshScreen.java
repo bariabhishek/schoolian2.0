@@ -49,6 +49,9 @@ public class SpleshScreen extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
       //  checkIntenet();
         getUpdate(versionCode);
+
+
+
     }
 
     private void getUpdate(final int versionCode) {

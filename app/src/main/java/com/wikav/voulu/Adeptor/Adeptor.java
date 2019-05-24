@@ -37,6 +37,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.wikav.voulu.DatabaseHelper;
 import com.wikav.voulu.JobDiscription;
 import com.wikav.voulu.R;
 import com.wikav.voulu.SessionManger;
@@ -46,6 +47,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
     List<ModelList> list ;
     SessionManger sessionManger;
     String job_giver_mobile;
+    DatabaseHelper myDB;
     String Url="https://voulu.in/api/addToFavorite.php";
     String UrlDelete="https://voulu.in/api/deleteJobPost.php";
     public Adeptor(Context context, List <ModelList> list) {
@@ -70,7 +72,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-
+        myDB=new DatabaseHelper(context);
 
         if(list.get(i).getStatus().equals("2")){
 
@@ -163,6 +165,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+
 
         ImageView mainImage,share,like,deletePost,main_image_thumb;
         TextView title,title_thumb, pese,rate_thumb , dis_tumb,dis,username_thumb,username,time_thumb,time;
@@ -265,59 +268,66 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
         requestQueue.getCache().clear();
     }
     private void deletePOST(final String id,final int i) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UrlDelete,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            if (success.equals("1"))
-                            {
-                                list.remove(i);
-                                notifyItemRemoved(i);
-                                notifyItemRangeChanged(i,list.size());
-                                Toast.makeText(context, "Deleted Your post", Toast.LENGTH_LONG).show();
+       int row=myDB.deleteData(id);
+       if(row>0)
+       {
+           list.remove(i);
+           notifyItemRemoved(i);
+           notifyItemRangeChanged(i,list.size());
 
-                            }
-                            else {
-                                Toast.makeText(context, "Something went wrong...", Toast.LENGTH_LONG).show();
-                                Log.d("OtpRes","lastCondirion"+id+"  =  "+job_giver_mobile);
-                            }
+           StringRequest stringRequest = new StringRequest(Request.Method.POST, UrlDelete,
+                   new Response.Listener<String>()
+                   {
+                       @Override
+                       public void onResponse(String response) {
+                           // response
+                           try {
+                               JSONObject jsonObject = new JSONObject(response);
+                               String success = jsonObject.getString("success");
+                               if (success.equals("1"))
+                               {
 
-                        } catch (JSONException e) {
-                            Log.d("OtpRes",e.getMessage());
-                            e.printStackTrace();
-                            Toast.makeText(context, "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+                                   Toast.makeText(context, "Deleted Your post", Toast.LENGTH_LONG).show();
+
+                               }
+                               else {
+                                   Toast.makeText(context, "Something went wrong...", Toast.LENGTH_LONG).show();
+                                   Log.d("OtpRes","lastCondirion"+id+"  =  "+job_giver_mobile);
+                               }
+
+                           } catch (JSONException e) {
+                               Log.d("OtpRes",e.getMessage());
+                               e.printStackTrace();
+                               Toast.makeText(context, "Something went wrong..."+e, Toast.LENGTH_LONG).show();
 
 
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("OtpRes",error.toString());
-                        Toast.makeText(context, "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
+                           }
+                       }
+                   },
+                   new Response.ErrorListener() {
+                       @Override
+                       public void onErrorResponse(VolleyError error) {
+                           Log.d("OtpRes",error.toString());
+                           Toast.makeText(context, "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
 
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("postId",id);
-                params.put("mobile",job_giver_mobile);
-                return params;
-            }
-        };
-        stringRequest.setShouldCache(false);
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(stringRequest);
-        requestQueue.getCache().clear();
+                       }
+                   }
+           ) {
+               @Override
+               protected Map<String, String> getParams()
+               {
+                   Map<String, String>  params = new HashMap<String, String>();
+                   params.put("postId",id);
+                   params.put("mobile",job_giver_mobile);
+                   return params;
+               }
+           };
+           stringRequest.setShouldCache(false);
+           RequestQueue requestQueue = Volley.newRequestQueue(context);
+           requestQueue.add(stringRequest);
+           requestQueue.getCache().clear();
+       }
+
     }
 
 }

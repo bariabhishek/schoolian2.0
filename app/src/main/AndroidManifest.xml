@@ -4,6 +4,7 @@
     package="com.wikav.voulu">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,6 +18,7 @@
         android:resizeable="true"
         android:smallScreens="true"
         android:xlargeScreens="true" />
+
 
     <application
         android:allowBackup="true"
@@ -76,12 +78,15 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service
+            android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
+        <service android:name=".JobSchedulerService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"/>
         <receiver
             android:name=".ConnectivityReceivers"
             android:enabled="true">
