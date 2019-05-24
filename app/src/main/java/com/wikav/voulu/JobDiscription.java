@@ -1,5 +1,7 @@
 package com.wikav.voulu;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,11 +26,21 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.wikav.voulu.Adeptor.CommentAdaptor;
+import com.wikav.voulu.Adeptor.CommentModel;
+import com.wikav.voulu.Adeptor.CommentOnDisAdeptor;
+import com.wikav.voulu.Adeptor.CommentedPostAdaptor;
 import com.wikav.voulu.Adeptor.CoustomSwipeAdeptor;
+import com.wikav.voulu.Adeptor.JobDisCommentData;
+import com.wikav.voulu.Adeptor.ModelList;
 import com.wikav.voulu.fragments.FullScreenDialogForComment;
 
 public class JobDiscription extends AppCompatActivity  {
     BroadcastReceiver broadcastReceiver;
+
+    RecyclerView recyclerView;
+
+    List<JobDisCommentData> lists;
 
     ViewPager viewPager;
     CoustomSwipeAdeptor coustomSwipeAdeptor;
@@ -45,6 +57,14 @@ public class JobDiscription extends AppCompatActivity  {
         setContentView( R.layout.new_job_dec );
             imageArry=new ArrayList<>();
         viewPager = findViewById( R.id.viewpagerjob );
+
+        recyclerView = findViewById( R.id.commenteRecycleview );
+        lists = new ArrayList <>(  );
+        data();
+        recyclerView.setHasFixedSize( true );
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()) );
+        CommentOnDisAdeptor commentedAdaptor = new CommentOnDisAdeptor(getApplicationContext(),lists);
+        recyclerView.setAdapter( commentedAdaptor );
 
         snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
 
@@ -71,6 +91,8 @@ public class JobDiscription extends AppCompatActivity  {
                      imageArry.add(img3);
                  }
              }
+         }else {
+             viewPager.setVisibility( View.GONE );
          }
 
 
@@ -107,6 +129,13 @@ public class JobDiscription extends AppCompatActivity  {
         });
 
     }
+
+    private void data() {
+
+        lists.add( new JobDisCommentData("yaha deta set krna h","getter setter me dekh lio teri mrji se jo or kya kya lena h api kec acoording"));
+
+    }
+
 
     public void click() {
 

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin=".5dp"
+    android:id="@+id/comnetCard"
+
+    android:background="@drawable/background_rounded"
+    android:elevation="2dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_46sdp"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_2sdp"
+                android:src="@drawable/sch"
+                app:civ_border_color="#000"
+                app:civ_border_width=".5dp"
+                android:id="@+id/commentProfile"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_2sdp"
+                    android:textSize="@dimen/_17ssp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:text="Uername"
+                    android:id="@+id/commentUsernamejob"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_2sdp"
+                    android:text="Time"
+                    android:id="@+id/commentTime"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_2sdp"
+                    android:textColor="#000"
+                    android:text="Comment"
+                    android:maxLength="220"
+                    android:id="@+id/MainCommentjob"/>
+
+            </LinearLayout>
+            <!--  <View
+                  android:layout_width="0dp"
+                  android:layout_height="0dp"
+                  android:layout_weight="1"/>
+             -->
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="visible"
+            android:id="@+id/giverOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:layout_margin="@dimen/_3sdp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnAccept"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:text="Confirm"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/background_btn_right"/>
+            <Button
+                android:id="@+id/btnReject"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:text="Decline"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/background_btn_wrong"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

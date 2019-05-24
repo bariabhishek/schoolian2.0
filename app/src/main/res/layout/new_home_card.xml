@@ -115,13 +115,16 @@
                     <ImageView
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:src="@drawable/like"
+                        android:src="@drawable/bookmark"
+
+                        android:tint="#7E7D7D"
                         android:id="@+id/likeBtn"/>
 
                     <ImageView
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:id="@+id/shareButton"
+                        android:tint="#7E7D7D"
                         android:layout_marginHorizontal="@dimen/_20sdp"
                         android:src="@drawable/ic_menu_share"/>
 
@@ -137,6 +140,7 @@
                         android:scaleY="1.5"
                         android:text=" ₹"
                         android:textSize="@dimen/_15ssp"
+                        android:tint="#7E7D7D"
                         android:textColor="#C60E0D0D"
                         />
 
