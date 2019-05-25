@@ -92,6 +92,23 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
             viewHolder.rate_thumb.setText("₹ "+list.get( i ).getPese() );
             viewHolder.username_thumb.setText( list.get( i ).getUsername() );
             viewHolder.time_thumb.setText( list.get( i ).getTime() );
+            viewHolder.postCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent view = new Intent(context, JobDiscription. class);
+                    view.putExtra("id",list.get( i ).getId());
+                    view.putExtra("title",list.get( i ).getTitle());
+                    view.putExtra("des",list.get( i ).getDis());
+                    view.putExtra("username",list.get( i ).getUsername());
+                    view.putExtra("profile",list.get( i ).getProfilePic());
+                    view.putExtra("paise",list.get( i ).getPese());
+                    view.putExtra("img",list.get( i ).getImage());
+                    view.putExtra("img2",list.get( i ).getImg2());
+                    view.putExtra("img3",list.get( i ).getImg3());
+                    view.putExtra("status",list.get( i ).getStatus());
+                    context.startActivity(view);
+                }
+            });
         }
         else {
             if(list.get(i).getImage().equals("NO"))
@@ -136,6 +153,7 @@ public class Adeptor extends RecyclerView.Adapter<Adeptor.ViewHolder> {
                     view.putExtra("img",list.get( i ).getImage());
                     view.putExtra("img2",list.get( i ).getImg2());
                     view.putExtra("img3",list.get( i ).getImg3());
+                    view.putExtra("status",list.get( i ).getStatus());
                     context.startActivity(view);
                 }
             });

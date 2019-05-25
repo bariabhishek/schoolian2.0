@@ -58,7 +58,7 @@ public class JobConfirmActivity extends AppCompatActivity {
             toolbar = findViewById(R.id.toolbarLayout);
         snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
 
-        checkInptenet();
+            checkInptenet();
             sessionManger = new SessionManger(this);
             setSupportActionBar(toolbar);
             mShimmerViewContainer = findViewById(R.id.shimmer_view_container);

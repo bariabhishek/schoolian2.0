@@ -22,6 +22,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.Driver;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -70,9 +78,10 @@ public class Home extends NavigationDrawerActivity_ {
     IntentFilter intentFilter;
     Snackbar snackbar = null;
     DatabaseHelper mydb;
-    long currentVisiblePosition;
-    int JOB_ID = 101;
+    long currentVisiblePosition;    int JOB_ID = 101;
+    private static final String TAG = "MainActivity";
     JobInfo jobInfo;
+    private FirebaseJobDispatcher jobDispatcher;
     private  final int INTERVEL=10*1000;
     JobScheduler mJobScheduler;
     String Url = "https://voulu.in/api/getJobPost.php";
@@ -87,20 +96,23 @@ public class Home extends NavigationDrawerActivity_ {
         View contentView = inflater.inflate(R.layout.activity_home, null, false);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.addView(contentView, 0);
+        Driver driver = new GooglePlayDriver(this);
+       jobDispatcher = new FirebaseJobDispatcher(driver);
 
-        ComponentName componentName = new ComponentName(this, JobSchedulerService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID,componentName);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            builder.setPeriodic(15*60*1000);
-        } else {
+        service();
+/*
+            ComponentName componentName = new ComponentName(this, JobSchedulerService.class);
+            JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, componentName);
             builder.setPeriodic(INTERVEL);
-        }
 
-        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
-        //builder.setPersisted(true);
-        jobInfo=builder.build();
-        mJobScheduler = (JobScheduler)getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        mJobScheduler.schedule(jobInfo);
+
+            builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+            //builder.setPersisted(true);
+            jobInfo = builder.build();
+            mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            mJobScheduler.schedule(jobInfo);*/
+
+       // job();
 
         arraydata();
 
@@ -266,7 +278,7 @@ public class Home extends NavigationDrawerActivity_ {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       /* mJobScheduler.cancel(JOB_ID);*/
+        jobDispatcher.cancel("MyJobTag");
         if (broadcastReceiver != null)
             unregisterReceiver(broadcastReceiver);
     }
@@ -355,5 +367,50 @@ public class Home extends NavigationDrawerActivity_ {
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
 
+    }
+    private  void job()
+    {
+
+       /* Job myJob = jobDispatcher.newJobBuilder()
+                // the JobService that will be called
+                .setService(MyService.class)
+                // uniquely identifies the job
+                // one-off job
+                .setRecurring(false)
+                // don't persist past a device reboot
+                .setLifetime(Lifetime.FOREVER)
+                .setTag(JOB_ID)
+                // start between 0 and 60 seconds from now
+                .setTrigger(Trigger.executionWindow(10,15)).
+                setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL).
+                setReplaceCurrent(false).
+                setConstraints(Constraint.ON_ANY_NETWORK)
+                .build();*/
+        Job myJob = jobDispatcher.newJobBuilder()
+                .setService(MyService.class) // the JobService that will be called
+                .setTag("MyTag")        // uniquely identifies the job
+                .build();
+
+        jobDispatcher.mustSchedule(myJob);
+
+
+        //jobDispatcher.mustSchedule(myJob);
+        Toast.makeText(this, "calll", Toast.LENGTH_SHORT).show();
+    }
+    private void service()
+    {
+        ComponentName componentName = new ComponentName(this, JobSchedulerService.class);
+        JobInfo info = new JobInfo.Builder(JOB_ID, componentName)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPersisted(true)
+                .setPeriodic(15 * 60 * 1000)
+                .build();
+        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        int resultCode = scheduler.schedule(info);
+        if (resultCode == JobScheduler.RESULT_SUCCESS) {
+            Log.d(TAG, "Job scheduled");
+        } else {
+            Log.d(TAG, "Job scheduling failed");
+        }
     }
 }

@@ -20,13 +20,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Mexecuter extends AsyncTask<Void,Void,String> {
+public class Mexecudter extends AsyncTask<Void,Void,String> {
     DatabaseHelper mydb;
     String Url = "https://voulu.in/api/getJobPost.php";
 
    private Context context;
 
-    public Mexecuter(Context context) {
+    public Mexecudter(Context context) {
         this.context = context;
         mydb=new DatabaseHelper(context);
     }
@@ -37,11 +37,6 @@ public class Mexecuter extends AsyncTask<Void,Void,String> {
         return arraydata();
     }
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-
-    }
 
 
     private String arraydata() {

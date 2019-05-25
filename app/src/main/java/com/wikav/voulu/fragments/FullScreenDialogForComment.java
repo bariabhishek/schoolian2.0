@@ -50,8 +50,8 @@ public class FullScreenDialogForComment extends DialogFragment {
     String postId,title;
     List <CommentModel> list;
     RecyclerView recyclerView;
-ShimmerFrameLayout mShimmerViewContainer;
-SwipeRefreshLayout swipeRefreshLayout;
+    ShimmerFrameLayout mShimmerViewContainer;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
