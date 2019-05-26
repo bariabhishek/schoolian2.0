@@ -399,7 +399,6 @@
     android:layout_marginTop="@dimen/_23sdp"
     android:layout_gravity="center"
     android:gravity="center"
-    android:layout_marginBottom="@dimen/_35sdp"
     android:orientation="horizontal">
             <Button
                android:visibility="gone"
