@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
     ImageView uploadProfile;
     int PICK_IMAGE_REQUEST = 0;
     String phone;
-    Button editProfile;
+    ImageView editProfile;
     Button logout;
 String addImageUrl="https://voulu.in/api/profileData.php";
     SessionManger sessionManger;
