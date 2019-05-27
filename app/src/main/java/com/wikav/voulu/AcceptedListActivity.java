@@ -253,4 +253,6 @@ public class AcceptedListActivity extends AppCompatActivity {
         };
         registerReceiver(broadcastReceiver, intentFilter);
     }
+
+
 }

@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.wikav.voulu.R;
 import com.wikav.voulu.SessionManger;
 
@@ -71,11 +72,11 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                 viewHolder.otpEdit.setVisibility(View.VISIBLE);
                 viewHolder.accept.setVisibility(View.VISIBLE);
                 viewHolder.decline.setVisibility(View.VISIBLE);
-            } else if (list.get(i).getStatus().equals("underprocess")) {
-                viewHolder.jobdone.setVisibility(View.VISIBLE);
-                viewHolder.otpEdit.setVisibility(View.GONE);
+            } else if (list.get(i).getStatus().equals("under process")) {
+                viewHolder.etOtp.setVisibility(View.GONE);
                 viewHolder.accept.setVisibility(View.GONE);
                 viewHolder.decline.setVisibility(View.GONE);
+                viewHolder.jobdone.setVisibility(View.VISIBLE);
             }
             Glide.with(context).load(list.get(i).getProfilePic()).into(viewHolder.profile);
             viewHolder.title.setText(list.get(i).getTitle());
@@ -260,12 +261,13 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             if (success.equals("1")){
-                                viewHolder.jobdone.setVisibility(View.VISIBLE);
-                                viewHolder.otpEdit.setVisibility(View.GONE);
+                                viewHolder.etOtp.setVisibility(View.GONE);
                                 viewHolder.accept.setVisibility(View.GONE);
                                 viewHolder.decline.setVisibility(View.GONE);
+                                viewHolder.jobdone.setVisibility(View.VISIBLE);
+
                                 progressDialog.dismiss();
-                                 notifyDataSetChanged();
+
                             }
                             else
                             {
@@ -327,11 +329,13 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
         TextView title, accept, decline, call, username, time,jobdone;
         CircleImageView profile;
         EditText otpEdit;
+        TextInputEditText etOtp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profile = itemView.findViewById(R.id.userProfileCard);
             accept = itemView.findViewById(R.id.accept);
+            etOtp = itemView.findViewById(R.id.etEmail);
             jobdone = itemView.findViewById(R.id.jobDone);
             decline = itemView.findViewById(R.id.decline);
             call = itemView.findViewById(R.id.deletePost);

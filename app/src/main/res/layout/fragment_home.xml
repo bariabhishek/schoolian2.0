@@ -68,6 +68,11 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      >
 
     <com.facebook.shimmer.ShimmerFrameLayout xmlns:shimmer="http://schemas.android.com/apk/res-auto"
         android:id="@+id/shimmer_view_container"
@@ -75,7 +80,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
 
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical"
         shimmer:duration="500"
         >
@@ -109,6 +113,7 @@
         android:gravity="center"
         />
 
+  </RelativeLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -118,5 +123,6 @@
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_dialog_email"
         />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

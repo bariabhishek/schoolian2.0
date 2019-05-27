@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 import android.text.Html;
@@ -46,9 +48,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.fragments.FavoriteFragment;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
@@ -61,11 +65,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Home extends NavigationDrawerActivity_ {
+    private static final String TAG = "MainActivity";
+    private final int INTERVEL = 10 * 1000;
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
     BroadcastReceiver broadcastReceiver;
@@ -78,26 +87,28 @@ public class Home extends NavigationDrawerActivity_ {
     IntentFilter intentFilter;
     Snackbar snackbar = null;
     DatabaseHelper mydb;
-    long currentVisiblePosition;    int JOB_ID = 101;
-    private static final String TAG = "MainActivity";
+    LinearLayout tasknote;
+    CircleImageView closeTaskNote;
+    long currentVisiblePosition;
+    int JOB_ID = 101;
     JobInfo jobInfo;
-    private FirebaseJobDispatcher jobDispatcher;
-    private  final int INTERVEL=10*1000;
     JobScheduler mJobScheduler;
     String Url = "https://voulu.in/api/getJobPost.php";
+    private FirebaseJobDispatcher jobDispatcher;
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Toast.makeText(this, "kya he", Toast.LENGTH_SHORT).show();
         sessionManger = new SessionManger(this);
-        mydb=new DatabaseHelper(this);
+        mydb = new DatabaseHelper(this);
         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_home, null, false);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.addView(contentView, 0);
         Driver driver = new GooglePlayDriver(this);
-       jobDispatcher = new FirebaseJobDispatcher(driver);
+        jobDispatcher = new FirebaseJobDispatcher(driver);
 
         service();
 /*
@@ -112,20 +123,21 @@ public class Home extends NavigationDrawerActivity_ {
             mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
             mJobScheduler.schedule(jobInfo);*/
 
-       // job();
+        // job();
 
         arraydata();
-
-
-
+        SharedPreferences sharedPref = getSharedPreferences("MyJobWork",Context.MODE_PRIVATE);
+        String jobId=sharedPref.getString("jobId",null);
+        boolean showNote=sharedPref.getBoolean("showNote",false);
         snackbar = Snackbar.make(Home.this.findViewById(android.R.id.content),
-                Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"),
-                Snackbar.LENGTH_INDEFINITE);
+                Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), BaseTransientBottomBar.LENGTH_INDEFINITE);
         checkIntenet();
 
-
+        timeConverter();
         bottomNavigationView = findViewById(R.id.navigation);
         frameLayout = findViewById(R.id.frame);
+        tasknote = findViewById(R.id.slideUp);
+       // closeTaskNote = findViewById(R.id.clickTask);
 
         homeFragment = new HomeFragment();
         inboxFragment = new InboxFragment();
@@ -133,6 +145,25 @@ public class Home extends NavigationDrawerActivity_ {
         favoriteFragment = new FavoriteFragment();
         profileFragment = new ProfileFragment();
         setFragment(homeFragment);
+        if (showNote)
+        {
+          tasknote.setVisibility(View.VISIBLE);
+        }
+        else {
+            tasknote.setVisibility(View.GONE);
+        }
+        tasknote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        /*closeTaskNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tasknote.setVisibility(View.GONE);
+            }
+        });*/
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -322,14 +353,12 @@ public class Home extends NavigationDrawerActivity_ {
                                     String like = object.getString("like").trim();
                                     // String share = object.getString("share").trim();
                                     String status = object.getString("status").trim();
-                                    boolean db= mydb.insertData(username,profile,title,des,time,id,img,like,img2,img3,status,mobile,rate);
+                                    boolean db = mydb.insertData(username, profile, title, des, time, id, img, like, img2, img3, status, mobile, rate);
                                     // list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
-                                    if(db)
-                                    {
-                                        Log.i("data",""+i);
-                                    }
-                                    else {
-                                        Log.i("No",""+i);
+                                    if (db) {
+                                        Log.i("data", "" + i);
+                                    } else {
+                                        Log.i("No", "" + i);
 
                                     }
                                 }
@@ -363,13 +392,13 @@ public class Home extends NavigationDrawerActivity_ {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-      RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
 
     }
-    private  void job()
-    {
+
+    private void job() {
 
        /* Job myJob = jobDispatcher.newJobBuilder()
                 // the JobService that will be called
@@ -397,8 +426,8 @@ public class Home extends NavigationDrawerActivity_ {
         //jobDispatcher.mustSchedule(myJob);
         Toast.makeText(this, "calll", Toast.LENGTH_SHORT).show();
     }
-    private void service()
-    {
+
+    private void service() {
         ComponentName componentName = new ComponentName(this, JobSchedulerService.class);
         JobInfo info = new JobInfo.Builder(JOB_ID, componentName)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
@@ -411,6 +440,37 @@ public class Home extends NavigationDrawerActivity_ {
             Log.d(TAG, "Job scheduled");
         } else {
             Log.d(TAG, "Job scheduling failed");
+        }
+    }
+
+
+    public void timeConverter() {
+        try {
+
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            cal.setTime(sdf.parse("2019-05-21 05:28:36"));
+
+            Calendar calendar = Calendar.getInstance();
+            long now = calendar.getTimeInMillis();
+            long time = cal.getTimeInMillis();
+
+            long diff = now - time;
+
+            int seconds = (int) (diff / 1000) % 60;
+            int minutes = (int) ((diff / (1000 * 60)) % 60);
+            int hours = (int) ((diff / (1000 * 60 * 60)) % 24);
+            int days = (int) (diff / (1000 * 60 * 60 * 24));
+
+            Log.i("myTime", time + " " + now);
+            Log.i("myTime", hours + " hours ago");
+            Log.i("myTime", minutes + " minutes ago");
+            Log.i("myTime", seconds + " seconds ago");
+            Log.i("myTime", days + " days ago");
+
+
+        } catch (ParseException e) {
+            System.out.println(e.toString());
         }
     }
 }

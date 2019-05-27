@@ -104,11 +104,11 @@
 
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:id="@+id/acceptbtnlayout"
         android:layout_marginTop="@dimen/padding_10"
         android:layout_marginHorizontal="@dimen/padding_10"
         android:weightSum="2"
@@ -130,7 +130,6 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:id="@+id/accept"
             android:padding="@dimen/padding_10"
             android:layout_marginHorizontal="@dimen/_10sdp"

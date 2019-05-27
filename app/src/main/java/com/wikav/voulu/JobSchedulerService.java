@@ -3,6 +3,7 @@ package com.wikav.voulu;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -34,31 +35,37 @@ import androidx.annotation.NonNull;
 public class JobSchedulerService extends JobService {
     String TAG = "myJob";
     String Url = "https://voulu.in/api/getJobPost.php";
+    String Url2 = "https://voulu.in/api/pendingTask.php";
     DatabaseHelper mydb;
     boolean reponseHit = true;
     boolean jobCancelled = false;
+    String JobWork="MyJobWork";
+SharedPreferences sharedpreferences;
+    public String getJobWork() {
+        return JobWork;
+    }
 
+
+
+    CountDownTimer newTime;
     @Override
     public boolean onStartJob(final JobParameters params) {
-        // Log.d(TAG, "Job started");
         mydb = new DatabaseHelper(getApplicationContext());
         doBackgroundWork(params);
         return true;
-       /* mexecuter= new Mexecudter(getApplicationContext())
-        { @Override
-            protected void onPostExecute(String s) {
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-            jobFinished(params,false);
-            }
-        };
-        mexecuter.execute();
-        return true;*/
     }
 
     private void doBackgroundWork(final JobParameters params) {
+        SessionManger sessionManger = new SessionManger(this);
+        HashMap<String,String> user=sessionManger.getUserDetail();
+        final String  phone = user.get(sessionManger.MOBILE);
+
+
         if (!jobCancelled) {
-            CountDownTimer newTime = new CountDownTimer(15 * 60 * 1000, 10000) {
+
+            newTime = new CountDownTimer(15 * 60 * 1000, 10000) {
                 public void onTick(long millisUntilFinished) {
+                    checkPendingTask(phone);
                     arraydata();
                     Log.d(TAG, "00:" + millisUntilFinished / 10000);
 
@@ -70,6 +77,10 @@ public class JobSchedulerService extends JobService {
                 }
             }.start();
         }
+        else
+        {
+            newTime.cancel();
+        }
         Log.d(TAG, "JobStop");
         jobFinished(params, false);
 
@@ -80,10 +91,15 @@ public class JobSchedulerService extends JobService {
     public boolean onStopJob(JobParameters params) {
         Log.i(TAG, "onStopJob:");
         jobCancelled = true;
+        newTime.cancel();
         return false;
     }
 
     private void arraydata() {
+      /*  sharedpreferences = getSharedPreferences(JobWork, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedpreferences.edit();
+        editor.putString("mywork","job");
+        editor.apply();*/
         Log.d(TAG, "JabStart");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
@@ -157,6 +173,66 @@ public class JobSchedulerService extends JobService {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
        // requestQueue.getCache().clear();
+
+    }
+    private void checkPendingTask(final String phone) {
+
+        sharedpreferences = getSharedPreferences(JobWork, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor= sharedpreferences.edit();
+
+        Log.d(TAG, "JabStart");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url2,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("task");
+                            if (success.equals("1")) {
+                                Log.d("JOB_Response", response);
+
+                                for (int i = 0; i < jsonArray.length(); i++) {
+
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String taskId = object.getString("complete_id").trim();
+                                    editor.putString("taskId",taskId);
+                                    editor.putBoolean("showNote",true);
+                                    editor.apply();
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // noData.setVisibility(View.VISIBLE);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mobile", phone);
+                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
+                return params;
+            }
+        };
+        stringRequest.setShouldCache(false);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+        // requestQueue.getCache().clear();
 
     }
 }

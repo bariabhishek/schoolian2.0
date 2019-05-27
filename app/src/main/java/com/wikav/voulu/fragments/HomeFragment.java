@@ -6,6 +6,7 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -287,7 +288,7 @@ public class HomeFragment extends Fragment {
         //   imageArry=new ArrayList<>();
         imageArry = new ArrayList<>();
 
-
+      //  Toast.makeText(getActivity(), my, Toast.LENGTH_SHORT).show();
         viewPager = view.findViewById(R.id.viewPagerHome);
         recyclerView = view.findViewById(R.id.recycleview);
 

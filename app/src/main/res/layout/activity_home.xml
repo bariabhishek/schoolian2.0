@@ -7,23 +7,92 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".Home">
-    <FrameLayout
+
+    <!--<FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/navigation"
-        android:id="@+id/frame">
+        android:layout_above="@id/coordinator"
+        android:layout_marginBottom="0dp">
 
-    </FrameLayout>
+    </FrameLayout>-->
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation"
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:labelVisibilityMode="labeled"
-        app:itemHorizontalTranslationEnabled="false"
-        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+       android:id="@+id/coordinator"
+        android:layout_alignParentBottom="true">
+        <FrameLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp">
+            <LinearLayout
+                android:id="@+id/slideUp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_above="@id/coordinator"
+                android:background="#8C9EFF"
+                android:elevation="1dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2">
 
-        android:background="@drawable/background_layout_white"
-        app:menu="@menu/navigation" />
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:src="@drawable/ic_event_available_black_24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="You are running a task"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="bottom"
+            app:fabAlignmentMode="center"
+            app:fabAttached="true"
+            app:fabCradleDiameter="80dp"
+            app:fabCradleRoundedCornerRadius="15dp"
+            app:hideOnScroll="true"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:id="@+id/navBar">
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/navigation"
+                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+               />
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            app:layout_anchor="@id/navBar"
+            android:backgroundTint="@color/colorPrimary"
+            />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 
 </RelativeLayout>
