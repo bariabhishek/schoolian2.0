@@ -68,16 +68,10 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
 
         if(!list.get(i).getStatus().equals("Done")) {
             if (list.get(i).getStatus().equals("accepted")) {
-                viewHolder.jobdone.setVisibility(View.GONE);
                 viewHolder.otpEdit.setVisibility(View.VISIBLE);
                 viewHolder.accept.setVisibility(View.VISIBLE);
                 viewHolder.decline.setVisibility(View.VISIBLE);
-            } else if (list.get(i).getStatus().equals("under process")) {
-                viewHolder.etOtp.setVisibility(View.GONE);
-                viewHolder.accept.setVisibility(View.GONE);
-                viewHolder.decline.setVisibility(View.GONE);
-                viewHolder.jobdone.setVisibility(View.VISIBLE);
-            }
+
             Glide.with(context).load(list.get(i).getProfilePic()).into(viewHolder.profile);
             viewHolder.title.setText(list.get(i).getTitle());
             viewHolder.username.setText(list.get(i).getUsername());
@@ -115,6 +109,7 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                     doneTask(viewHolder.otpEdit.getText().toString(), list.get(i).getId(), i, viewHolder);
                 }
             });
+            }
         }
         else
         {
@@ -335,8 +330,7 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
             super(itemView);
             profile = itemView.findViewById(R.id.userProfileCard);
             accept = itemView.findViewById(R.id.accept);
-            etOtp = itemView.findViewById(R.id.etEmail);
-            jobdone = itemView.findViewById(R.id.jobDone);
+            etOtp = itemView.findViewById(R.id.etEmailForotp);
             decline = itemView.findViewById(R.id.decline);
             call = itemView.findViewById(R.id.deletePost);
             title = itemView.findViewById(R.id.titleCard);
