@@ -8,91 +8,92 @@
     android:fitsSystemWindows="true"
     tools:context=".Home">
 
-    <!--<FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/coordinator"
-        android:layout_marginBottom="0dp">
-
-    </FrameLayout>-->
-
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       android:id="@+id/coordinator"
         android:layout_alignParentBottom="true">
+
         <FrameLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="60dp">
-            <LinearLayout
-                android:id="@+id/slideUp"
+            android:layout_marginBottom="60dp"/>
+
+        <LinearLayout
+            android:id="@+id/slideUp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/coordinator"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="75dp"
+            android:background="#8FE62C"
+            android:elevation="5dp"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_above="@id/coordinator"
-                android:background="#8C9EFF"
-                android:elevation="1dp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                android:weightSum="2">
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:gravity="center"
 
-                <ImageView
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:src="@drawable/ic_event_available_black_24dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="3"
-                    android:gravity="center"
-                    android:text="You are running a task"
-                    android:textColor="#FFF"
-                    android:textSize="16sp" />
+                android:text="You are running a task"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
 
-            </LinearLayout>
-        </FrameLayout>
+            <TextView
+                android:id="@+id/goToCheck"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="7"
+                android:background="@drawable/background_rounded"
+                android:clickable="true"
+                android:elevation="@dimen/_5sdp"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Go to check" />
+        </LinearLayout>
 
         <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/navBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:background="@color/colorPrimary"
             android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
             app:fabAlignmentMode="center"
             app:fabAttached="true"
             app:fabCradleDiameter="80dp"
             app:fabCradleRoundedCornerRadius="15dp"
             app:hideOnScroll="true"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:id="@+id/navBar">
+            app:layout_scrollFlags="scroll|enterAlways">
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelVisibilityMode="labeled"
-                app:menu="@menu/navigation"
                 app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-               />
+                app:menu="@menu/navigation" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/add"
-            app:layout_anchor="@id/navBar"
             android:backgroundTint="@color/colorPrimary"
-            />
+            android:src="@drawable/add"
+            app:layout_anchor="@id/navBar" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 
 </RelativeLayout>

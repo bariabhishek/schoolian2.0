@@ -1,7 +1,10 @@
 package com.wikav.voulu.fragments;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,12 +55,10 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
 
     String Url = "https://voulu.in/api/getSiglePost.php";
     String id, title, jobGiverMobile,jobstatus,otp,jobsekerProfile, jobdis, jobGIverName, time, image, jobGiverProfile, pese, img2, img3,jobSeker_mobile,jobsekerName;
-    BroadcastReceiver broadcastReceiver;
-    TextView job_status,jobGiverName,jobSekerName,jobTitle,jobDis,jobTime,contactNumber;
-    ImageView jobGiverPro,jobSeekerPro,statusMrk;
-    String Url2="https://voulu.in/api/sendDataCompleteTaskAcceptePost.php";
     //push Test
+    String UrlDone = "https://voulu.in/api/doneJob.php";
     Snackbar snackbar;
+    Button doneBtn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,18 +75,82 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.layout_full_screen_dialog_for_check, container, false);
-        job_status=view.findViewById(R.id.jobStatus);
-        jobGiverName=view.findViewById(R.id.jobgivername);
-        jobSekerName=view.findViewById(R.id.jobseekername);
-        jobTitle=view.findViewById(R.id.jobtitle);
-        jobDis=view.findViewById(R.id.jobdis);
-        jobTime=view.findViewById(R.id.time);
-        contactNumber=view.findViewById(R.id.contact);
-        jobGiverPro=view.findViewById(R.id.jobgiver);
-        jobSeekerPro=view.findViewById(R.id.jobseeker);
+        doneBtn=view.findViewById(R.id.doneBtn);
+        doneBtn.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View v) {
+                                                   doneJob();
+                                               }
+                                           });
         getPost(id);
         return view;
     }
+
+    private void doneJob() {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Verifying...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UrlDone,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //    progressDialog.dismiss();
+                        Log.i("TAG", response.toString());
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            if (success.equals("1")){
+                                progressDialog.dismiss();
+                                SharedPreferences sharedPref = getActivity().getSharedPreferences("MyJobWork", Context.MODE_PRIVATE);
+                                final SharedPreferences.Editor editor= sharedPref.edit();
+                                editor.clear().commit();
+                            }
+                            else
+                            {
+                                progressDialog.dismiss();
+                                Toast.makeText(getActivity(), "invalid OTP", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.setCancelable(true);
+
+                            // Toast.makeText(getActivity(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+                            //  noData.setVisibility(View.VISIBLE);
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.setCancelable(true);
+
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("postId", id);
+                return params;
+            }
+        };
+
+        stringRequest.setShouldCache(true);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
+
+    }
+
     private void getPost(final String id) {
         RequestQueue requestQueue;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
@@ -115,8 +181,7 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
                                     jobGiverProfile = object.getString("profile").trim();
                                     jobGIverName = object.getString("username").trim();
                                     otp = object.getString("otp").trim();
-                                    setValue(title,jobGiverMobile,jobsekerName,jobGIverName,jobSeker_mobile,jobdis,time,jobstatus,jobGiverProfile,jobsekerProfile);
-                                }
+                                    }
 
 
                             }
@@ -154,46 +219,7 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
         requestQueue.getCache().clear();
 
     }
-    private void setValue(String title, String jobGiverMobile, String jobsekerName, String jobGIverName, String jobSeker_mobile, String jobdis, String time, String jobstatus, String jobGiverProfile, String jobsekerProfile) {
 
-        if(jobstatus.equals("Done")||jobstatus.equals("done"))
-        {
-            job_status.setText(jobstatus);
-        }
-        else {
-            statusMrk.setImageResource(R.drawable.ic_info_black_24dp);
-            job_status.setTextColor(Color.parseColor("#FFB45A"));
-            job_status.setText(jobstatus);
-        }
-        jobTitle.setText(title);
-        jobTime.setText(time);
-        contactNumber.setText(jobSeker_mobile);
-        jobDis.setText(jobdis);
-        jobGiverName.setText(jobGIverName);
-        jobSekerName.setText(jobsekerName);
-        Glide.with(this).load(jobsekerProfile).into(jobSeekerPro);
-        Glide.with(this).load(jobGiverProfile).into(jobGiverPro);
-    }
-    public void getOtp(View view) {
-        BottomSheetFragmentui bottomSheetFragmentui=new BottomSheetFragmentui();
-        Bundle bundle=new Bundle();
-        bundle.putString("otp",otp);
-        bundle.putString("seekerName",jobGIverName);
-        bundle.putString("seekerMobile",jobGiverMobile);
-        bottomSheetFragmentui.setArguments(bundle);
-        bottomSheetFragmentui.show(getActivity().getSupportFragmentManager(),"bottomSheet");
-
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            int width = ViewGroup.LayoutParams.MATCH_PARENT;
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
-        }
-    }
 
 
 }

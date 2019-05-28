@@ -38,7 +38,7 @@
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/_16ssp"
-        android:text="You are doing your job for"/>
+        android:text="You are starting a job for"/>
     <TextView
         android:layout_below="@id/id"
         android:id="@+id/jobGiverName"
@@ -60,6 +60,7 @@
         android:layout_margin="@dimen/_15sdp"
         android:textColor="@color/colorWhite"
         android:layout_marginBottom="@dimen/_10sdp"
+     android:id="@+id/gotohome"
 
         />
 

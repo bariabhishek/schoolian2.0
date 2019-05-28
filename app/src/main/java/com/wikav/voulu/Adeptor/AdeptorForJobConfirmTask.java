@@ -29,12 +29,15 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.wikav.voulu.R;
 import com.wikav.voulu.SessionManger;
+import com.wikav.voulu.coustomDilogeClasses.CouatomDilogeLastConfirm;
 
 public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJobConfirmTask.ViewHolder> {
     Context context;
@@ -260,8 +263,10 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                                 viewHolder.accept.setVisibility(View.GONE);
                                 viewHolder.decline.setVisibility(View.GONE);
                                 viewHolder.jobdone.setVisibility(View.VISIBLE);
-
                                 progressDialog.dismiss();
+                                CouatomDilogeLastConfirm c = new CouatomDilogeLastConfirm();
+                                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+                                c.show(ft,"show" );
 
                             }
                             else
