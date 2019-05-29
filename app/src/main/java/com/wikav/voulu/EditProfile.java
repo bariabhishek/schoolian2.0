@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +54,8 @@ public class EditProfile extends AppCompatActivity {
     private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation;
     private SessionManger sessionManger;
     BroadcastReceiver broadcastReceiver;
+    RadioButton genderradioButton;
+    RadioGroup radioGroup;
     boolean isNewImageSet = false;
     Bitmap newImage;
     Snackbar snackbar;
@@ -64,7 +68,7 @@ public class EditProfile extends AppCompatActivity {
         HashMap<String,String> user=sessionManger.getUserDetail();
         sessionName = user.get(sessionManger.NAME);
         sessionPhone = user.get(sessionManger.MOBILE);
-        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
+        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"),Snackbar.LENGTH_INDEFINITE);
         sessionImage = user.get( sessionManger.PROFILE_PIC );
         sessionEmail = user.get( sessionManger.EMAIL );
         sessionLocation = user.get( sessionManger.LOCATION );
@@ -79,6 +83,7 @@ public class EditProfile extends AppCompatActivity {
         saveBtn=findViewById(R.id.saveButton);
         editImage=findViewById(R.id.imageviewedit);
         imageUploadBtn=findViewById(R.id.imageUploadBtn);
+        radioGroup=(RadioGroup)findViewById(R.id.radioGroup);
         setAllFileds();
     }
 
@@ -253,6 +258,19 @@ public class EditProfile extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
         return encodedImage;
     }
+
+    public void onclickbuttonMethod(View v){
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        genderradioButton = (RadioButton) findViewById(selectedId);
+        if(selectedId==-1){
+            Toast.makeText(getApplicationContext(),"Nothing selected", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(),genderradioButton.getText(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     public void checkInptenet() {
         IntentFilter  intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         broadcastReceiver = new BroadcastReceiver() {
