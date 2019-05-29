@@ -49,12 +49,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.fragments.FavoriteFragment;
+import com.wikav.voulu.fragments.FullScreenDialogForCheckJobDetail;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
 import com.wikav.voulu.fragments.HomeFragment;
 import com.wikav.voulu.fragments.InboxFragment;
@@ -93,6 +95,7 @@ public class Home extends NavigationDrawerActivity_ {
     int JOB_ID = 101;
     JobInfo jobInfo;
     JobScheduler mJobScheduler;
+    TextView goToCheck;
     String Url = "https://voulu.in/api/getJobPost.php";
     private FirebaseJobDispatcher jobDispatcher;
 
@@ -103,6 +106,7 @@ public class Home extends NavigationDrawerActivity_ {
         // Toast.makeText(this, "kya he", Toast.LENGTH_SHORT).show();
         sessionManger = new SessionManger(this);
         mydb = new DatabaseHelper(this);
+
         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_home, null, false);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -126,36 +130,41 @@ public class Home extends NavigationDrawerActivity_ {
         // job();
 
         arraydata();
-        SharedPreferences sharedPref = getSharedPreferences("MyJobWork",Context.MODE_PRIVATE);
-        String jobId=sharedPref.getString("jobId",null);
-        boolean showNote=sharedPref.getBoolean("showNote",false);
-        snackbar = Snackbar.make(Home.this.findViewById(android.R.id.content),
-                Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), BaseTransientBottomBar.LENGTH_INDEFINITE);
+
+        SharedPreferences sharedPref = getSharedPreferences("MyJobWork", Context.MODE_PRIVATE);
+        final String jobId = sharedPref.getString("taskId", "");
+
+        Log.d("MyToast","my"+jobId);
+
+        boolean showNote = sharedPref.getBoolean("showNote", false);
+
         checkIntenet();
 
         timeConverter();
         bottomNavigationView = findViewById(R.id.navigation);
         frameLayout = findViewById(R.id.frame);
         tasknote = findViewById(R.id.slideUp);
-       // closeTaskNote = findViewById(R.id.clickTask);
-
+        goToCheck = findViewById(R.id.goToCheck);
         homeFragment = new HomeFragment();
         inboxFragment = new InboxFragment();
         notificationFragment = new NotificationFragment();
         favoriteFragment = new FavoriteFragment();
         profileFragment = new ProfileFragment();
         setFragment(homeFragment);
-        if (showNote)
-        {
-          tasknote.setVisibility(View.VISIBLE);
-        }
-        else {
+        if (showNote) {
+            tasknote.setVisibility(View.VISIBLE);
+        } else {
             tasknote.setVisibility(View.GONE);
         }
-        tasknote.setOnClickListener(new View.OnClickListener() {
+
+        goToCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FullScreenDialogForCheckJobDetail jobDetail = new FullScreenDialogForCheckJobDetail();
+                Bundle b = new Bundle();
+                b.putString("id", jobId);
+                jobDetail.setArguments(b);
+                jobDetail.show(getSupportFragmentManager(), "show");
             }
         });
         /*closeTaskNote.setOnClickListener(new View.OnClickListener() {
@@ -198,6 +207,8 @@ public class Home extends NavigationDrawerActivity_ {
 
             }
         });
+        snackbar = Snackbar.make(Home.this.findViewById(android.R.id.content),
+                Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), BaseTransientBottomBar.LENGTH_INDEFINITE);
 
 
     }

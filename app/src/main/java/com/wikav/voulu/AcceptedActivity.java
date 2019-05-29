@@ -50,6 +50,8 @@ public class AcceptedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_confirm_layout);
         id = getIntent().getStringExtra("id");
+
+
         job_status=findViewById(R.id.jobStatus);
         jobGiverName=findViewById(R.id.jobgivername);
         jobSekerName=findViewById(R.id.jobseekername);
@@ -136,9 +138,7 @@ public class AcceptedActivity extends AppCompatActivity {
 
     }
 
-    private void setValue(String title, String jobGiverMobile,
-                          String jobsekerName, String jobGIverName,
-                          String jobSeker_mobile, String jobdis, String time, String jobstatus, String jobGiverProfile, String jobsekerProfile) {
+    private void setValue(String title, String jobGiverMobile, String jobsekerName, String jobGIverName, String jobSeker_mobile, String jobdis, String time, String jobstatus, String jobGiverProfile, String jobsekerProfile) {
 
    if(jobstatus.equals("Done")||jobstatus.equals("done"))
         {
