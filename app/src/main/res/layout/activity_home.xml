@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/colorPrimary"
+
             android:background="@color/colorWhite"
             app:fabAlignmentMode="center"
             app:fabAttached="true"
@@ -82,18 +82,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelVisibilityMode="labeled"
-                android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/bg_edittext"
+
                 app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
                 app:menu="@menu/navigation" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/uploadPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
             android:src="@drawable/add"
-            android:background="@color/trans"
             app:layout_anchor="@id/navBar" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

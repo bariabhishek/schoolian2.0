@@ -135,7 +135,7 @@
             <!--if three images slected -->
 
             <LinearLayout
-
+                android:visibility="gone"
                 android:layout_marginTop="30dp"
                 android:layout_marginHorizontal="@dimen/_5sdp"
                 android:layout_width="wrap_content"

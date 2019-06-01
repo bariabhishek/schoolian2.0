@@ -31,6 +31,7 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -83,6 +84,7 @@ public class Home extends NavigationDrawerActivity_ {
     private static final String TAG = "MainActivity";
     private final int INTERVEL = 10 * 1000;
     BottomNavigationView bottomNavigationView;
+    BottomAppBar bottomAppBar;
     FrameLayout frameLayout;
     BroadcastReceiver broadcastReceiver;
     HomeFragment homeFragment;
@@ -131,6 +133,7 @@ public class Home extends NavigationDrawerActivity_ {
         frameLayout = findViewById(R.id.frame);
         uploadPost = findViewById(R.id.uploadPost);
         goToCheck = findViewById(R.id.goToCheck);
+        bottomAppBar = findViewById( R.id.navBar );
         HashMap<String, String> user = sessionManger.getUserDetail();
         String phone = user.get(sessionManger.MOBILE);
 ///////////////////////set methods/////////////////
