@@ -31,6 +31,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,8 +61,10 @@ import static com.wikav.voulu.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 public class UploadYourPost extends  AppCompatActivity {
 
     AlertDialog alertDialog;
-    TextView uploadImageBtn;
+    LinearLayout uploadImageBtn,linearLayoutAmount,linearLayoutTitle;
+    RelativeLayout amountrl,titlerl;
     EditText title,dis,pese;
+    TextView doneAmount,doneTitle;
     ImageView imageView1,imageView2,imageView3;
     String mobilenumber;
     String encodedImage;
@@ -72,8 +76,9 @@ public class UploadYourPost extends  AppCompatActivity {
     String Url="https://voulu.in/api/jobpost.php";
     ArrayList<String> returnValue = new ArrayList<>();
     final String NO_IMAGE="no_image";
-    Button post;
+    TextView post;
     BroadcastReceiver broadcastReceiver;
+    ImageView backpress;
 
 
     @Override
@@ -83,7 +88,7 @@ public class UploadYourPost extends  AppCompatActivity {
         toolbar=findViewById(R.id.toolbar_uplod);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle( "Upload Your Job" );
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         checkIntenet();
 
         sessionManger = new SessionManger( this );
@@ -443,6 +448,8 @@ public class UploadYourPost extends  AppCompatActivity {
 
     private void initilisation() {
 
+        doneAmount = findViewById( R.id.doneamount );
+        doneTitle = findViewById( R.id.donetitle );
         post = findViewById( R.id.post );
         title = findViewById( R.id.title );
         dis = findViewById( R.id.discription );
@@ -451,6 +458,31 @@ public class UploadYourPost extends  AppCompatActivity {
         imageView2= findViewById( R.id.imageTwo);
         imageView3= findViewById( R.id.imageThree );
         uploadImageBtn= findViewById( R.id.uplodImageBtn );
+        linearLayoutTitle = findViewById( R.id.linear_layout_title );
+        linearLayoutAmount = findViewById( R.id.linear_layout_amount );
+        amountrl = findViewById( R.id.RLamount );
+        titlerl = findViewById( R.id.RLtitle );
+        backpress = findViewById( R.id.backpress );
+        linearLayoutAmount.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                amountrl.setVisibility( View.VISIBLE );
+                titlerl.setVisibility( View.GONE  );
+            }
+        } );
+        linearLayoutTitle.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                titlerl.setVisibility( View.VISIBLE );
+                amountrl.setVisibility( View.GONE );
+            }
+        } );
+        backpress.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        } );
         uploadImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

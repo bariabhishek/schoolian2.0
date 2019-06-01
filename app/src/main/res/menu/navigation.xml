@@ -4,6 +4,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/home"
+
         android:title="@string/title_home" />
   <!--  <item
         android:id="@+id/inbox"
@@ -18,7 +19,7 @@
         android:title="" />
       <item
          android:id="@+id/Fevrate"
-         android:icon="@drawable/download"
+         android:icon="@drawable/bookmark"
          android:title="@string/favorite"/>
      <item
          android:id="@+id/profile"
