@@ -93,6 +93,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
             android:src="@drawable/add"
+            android:id="@+id/uploadPost"
             app:layout_anchor="@id/navBar" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

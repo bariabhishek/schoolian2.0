@@ -48,40 +48,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean insertData(String username,String profile,String title,String dec, String time,String post_id,String image,String likes,
                               String img2,String img3,String status,String mobile,String rate) {
+        if(!status.equals("3")) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String countQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + POST_ID + " LIKE " + post_id;
+            Cursor cursor = db.rawQuery(countQuery, null);
+            int count = cursor.getCount();
+            cursor.close();
+           // Log.i("count", "" + count);
+            if (count == 0) {
+               // Log.i("count", "" + count + " " + post_id);
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(USERNAME, username);
+                contentValues.put(PROFILE, profile);
+                contentValues.put(TITLE, title);
+                contentValues.put(DEC, dec);
+                contentValues.put(TIME, time);
+                contentValues.put(POST_ID, post_id);
+                contentValues.put(IMAGE, image);
+                contentValues.put(LIKES, likes);
+                contentValues.put(IMG2, img2);
+                contentValues.put(IMG3, img3);
+                contentValues.put(STATUS, status);
+                contentValues.put(MOBILE, mobile);
+                contentValues.put(RATE, rate);
+                long result = db.insert(TABLE_NAME, null, contentValues);
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        String countQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + POST_ID + " LIKE " + post_id;
-        Cursor cursor = db.rawQuery(countQuery, null);
-        int count = cursor.getCount();
-        cursor.close();
-        Log.i("count",""+count);
-        if (count == 0) {
-            Log.i("count",""+count+" " +post_id);
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(USERNAME, username);
-            contentValues.put(PROFILE, profile);
-            contentValues.put(TITLE, title);
-            contentValues.put(DEC, dec);
-            contentValues.put(TIME, time);
-            contentValues.put(POST_ID, post_id);
-            contentValues.put(IMAGE, image);
-            contentValues.put(LIKES, likes);
-            contentValues.put(IMG2, img2);
-            contentValues.put(IMG3, img3);
-            contentValues.put(STATUS, status);
-            contentValues.put(MOBILE, mobile);
-            contentValues.put(RATE, rate);
-            long result = db.insert(TABLE_NAME, null, contentValues);
-
-            if (result == -1)
+                if (result == -1)
+                    return false;
+                else
+                    return true;
+            } else {
                 return false;
-            else
-                return true;
+            }
         }
         else
         {
-            return false;
+            SQLiteDatabase db = this.getWritableDatabase();
+            String countQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " + POST_ID + " LIKE " + post_id;
+            Cursor cursor = db.rawQuery(countQuery, null);
+            int count = cursor.getCount();
+            cursor.close();
+            // Log.i("count", "" + count);
+            if (count >0) {
+                Log.i("delete", "" + post_id);
+                deleteData(post_id);
+            }
         }
+       return false;
     }
 
     public Cursor getAllData() {
@@ -136,7 +149,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
         return true;
     }*/
-
+   public boolean updateData(String status,String id) {
+       SQLiteDatabase db = this.getWritableDatabase();
+       ContentValues contentValues = new ContentValues();
+       contentValues.put(ID,id);
+       contentValues.put(STATUS,status);
+       db.update(TABLE_NAME, contentValues, "POST_ID = ?",new String[] { id });
+       return true;
+   }
     public Integer deleteData (String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME, "POST_ID = ?" +

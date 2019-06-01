@@ -4,9 +4,12 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +34,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.AcceptedActivity;
 import com.wikav.voulu.Adeptor.CommentAdaptor;
 import com.wikav.voulu.Adeptor.CommentModel;
+import com.wikav.voulu.Home;
 import com.wikav.voulu.R;
+import com.wikav.voulu.SendSms;
 import com.wikav.voulu.SessionManger;
 
 import org.json.JSONArray;
@@ -50,15 +55,18 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FullScreenDialogForCheckJobDetail extends DialogFragment {
 
-    String Url = "https://voulu.in/api/getSiglePost.php";
-    String id, title, jobGiverMobile,jobstatus,otp,jobsekerProfile, jobdis, jobGIverName, time, image, jobGiverProfile, pese, img2, img3,jobSeker_mobile,jobsekerName;
+    private String Url = "https://voulu.in/api/getSiglePost.php";
+    private String id, title, jobGiverMobile,jobsekerProfile, jobdis, jobGIverName, time, image, jobGiverProfile, pese, img2, img3,jobSeker_mobile,jobsekerName;
     //push Test
-    String UrlDone = "https://voulu.in/api/doneJob.php";
+    private String UrlDone = "https://voulu.in/api/doneJob.php";
     Snackbar snackbar;
-    Button doneBtn;
+    private Button doneBtn;
+    private TextView jobgivername,jobgivernumber,jobdescription,jobtime,ammount,location,catagory;
+    private CircleImageView jobgiverprofile;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +75,15 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
 
 
         id=getArguments().getString("id");
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 7)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
 
+        }
 
     }
 
@@ -75,6 +91,15 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.layout_full_screen_dialog_for_check, container, false);
+        jobgivername=view.findViewById(R.id.jobgivernameLast);
+        jobgiverprofile=view.findViewById(R.id.jobGiverProfilelast);
+        jobgivernumber=view.findViewById(R.id.callLast);
+        jobdescription=view.findViewById(R.id.jobDiscrption);
+        jobgivername=view.findViewById(R.id.jobgivernameLast);
+        jobtime=view.findViewById(R.id.timeLast);
+        ammount=view.findViewById(R.id.amountLast);
+        location=view.findViewById(R.id.locationLast);
+        catagory=view.findViewById(R.id.catogryLast);
         doneBtn=view.findViewById(R.id.doneBtn);
         doneBtn.setOnClickListener(new View.OnClickListener() {
                                                @Override
@@ -105,7 +130,9 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
                                 progressDialog.dismiss();
                                 SharedPreferences sharedPref = getActivity().getSharedPreferences("MyJobWork", Context.MODE_PRIVATE);
                                 final SharedPreferences.Editor editor= sharedPref.edit();
-                                editor.clear().commit();
+                                editor.clear().apply();
+                                sendSms();
+                                getActivity().startActivity(new Intent(getActivity(), Home.class));
                             }
                             else
                             {
@@ -169,19 +196,14 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
                                     title = object.getString("title").trim();
                                     jobGiverMobile = object.getString("mobile").trim();
                                     jobsekerProfile = object.getString("seeker_profile").trim();
+                                    jobsekerName = object.getString("seeker_name").trim();
                                     jobdis = object.getString("des").trim();
                                     pese = object.getString("rate").trim();
-                                    image = object.getString("img").trim();
-                                    img2 = object.getString("img2").trim();
-                                    img3 = object.getString("img3").trim();
-                                    jobSeker_mobile = object.getString("job_seeker").trim();
-                                    jobstatus = object.getString("job_status").trim();
-                                    jobsekerName = object.getString("seeker_name").trim();
                                     time = object.getString("time").trim();
                                     jobGiverProfile = object.getString("profile").trim();
                                     jobGIverName = object.getString("username").trim();
-                                    otp = object.getString("otp").trim();
                                     }
+                                    setall();
 
 
                             }
@@ -220,6 +242,28 @@ public class FullScreenDialogForCheckJobDetail extends DialogFragment {
 
     }
 
+    private void setall() {
+        Glide.with(getActivity()).load(jobGiverProfile).into(jobgiverprofile);
+        //jobgivernumber.setText(jobGiverMobile);
+        jobgivername.setText(jobGIverName);
+        jobdescription.setText(jobdis);
+        ammount.setText(pese);
+        location.setText("Jaipur");
+        jobtime.setText(time);
+        catagory.setText("N/A");
+        jobgivernumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + jobGiverMobile));
+                startActivity(intent);
+            }
+        });
 
+    }
 
+    private void sendSms() {
+        String msg="Hello "+jobGIverName+", task named '"+title +"' is successfully completed by "+jobsekerName +". Thanks you for using Voulu app. If you have any query or feedback click- voulu.in/feedback.php";
+        SendSms sendSms=new SendSms(jobGiverMobile,msg);
+        sendSms.send();
+    }
 }

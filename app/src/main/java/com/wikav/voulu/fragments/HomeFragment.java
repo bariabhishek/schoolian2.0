@@ -56,6 +56,7 @@ import com.wikav.voulu.Adeptor.Adeptor;
 import com.wikav.voulu.Adeptor.CoustomSwipeAdeptorForHome;
 import com.wikav.voulu.Adeptor.ModelList;
 import com.wikav.voulu.DatabaseHelper;
+import com.wikav.voulu.Home;
 import com.wikav.voulu.JobSchedulerService;
 import com.wikav.voulu.R;
 import com.wikav.voulu.UploadYourPost;
@@ -132,22 +133,15 @@ public class HomeFragment extends Fragment {
                                     String like = object.getString("like").trim();
                                     // String share = object.getString("share").trim();
                                     String status = object.getString("status").trim();
-                                   boolean db= mydb.insertData(username,profile,title,des,time,id,img,like,img2,img3,status,mobile,rate);
-                                   // list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
-                                    if(db)
-                                    {
-                                        Log.i("data",""+i);
-                                    }
-                                    else {
-                                        Log.i("No",""+i);
+                                  // boolean db= mydb.insertData(username,profile,title,des,time,id,img,like,img2,img3,status,mobile,rate);
+                                   list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
 
-                                    }
                                 }
                                 if (swipeRefreshLayout.isRefreshing()) {
                                     swipeRefreshLayout.setRefreshing(false);
                                 }
 
-                           //     setupRecycle(list);
+                                setupRecycle(list);
 
                             } else {
                                 noData.setVisibility(View.VISIBLE);
@@ -188,7 +182,7 @@ public class HomeFragment extends Fragment {
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
 
-        setupRecycle(mydb.getdata());
+
     }
 
 
@@ -301,23 +295,18 @@ public class HomeFragment extends Fragment {
         volleyRequest = new VolleyRequest(getContext(), params, Url);
         volleyRequest.stringRequests(true);
         response = volleyRequest.getMainResponse();
-        // arraydata();
+         arraydata();
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent vi = new Intent(getActivity(), UploadYourPost.class);
-                startActivity(vi);
-            }
-        });
+        Home hom=new Home();
+
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 list.clear();
                 arraydata();
-                setupRecycle(mydb.getdata());
+               /* setupRecycle(mydb.getdata());*/
 
             }
         });
@@ -331,38 +320,6 @@ public class HomeFragment extends Fragment {
             mShimmerViewContainer.startShimmerAnimation();
 
         }
-            mydb.getdata();
-
-        setupRecycle(mydb.getdata());
-       // newArraydata(requestCount);
-
-      //  Toast.makeText(getActivity(), "Toast "+state, Toast.LENGTH_SHORT).show();
-
-       /* recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                    isScrolling = true;
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                // Toast.makeText(HomeMenuActivity.this, ""+dy, Toast.LENGTH_SHORT).show();
-                currentItems = layoutManager.getChildCount();
-                totalItem = layoutManager.getItemCount();
-                scrolledOutItem = layoutManager.findFirstVisibleItemPosition();
-                if (isScrolling && (currentItems + scrolledOutItem == totalItem)) {
-                    isScrolling = false;
-                    requestCount++;
-                    newArraydata(requestCount);
-
-97729931579
-                }
-            }
-        });*/
 
         return view;
     }

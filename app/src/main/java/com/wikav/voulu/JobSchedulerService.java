@@ -21,12 +21,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
+import com.wikav.voulu.Adeptor.ModelList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,9 @@ public class JobSchedulerService extends JobService {
     boolean reponseHit = true;
     boolean jobCancelled = false;
     String JobWork="MyJobWork";
+   String  phone;
+    SessionManger sessionManger;
+   List <ModelList> list;
 SharedPreferences sharedpreferences;
     public String getJobWork() {
         return JobWork;
@@ -56,16 +61,16 @@ SharedPreferences sharedpreferences;
     }
 
     private void doBackgroundWork(final JobParameters params) {
-        SessionManger sessionManger = new SessionManger(this);
+         sessionManger = new SessionManger(this);
         HashMap<String,String> user=sessionManger.getUserDetail();
-        final String  phone = user.get(sessionManger.MOBILE);
+         phone = user.get(sessionManger.MOBILE);
 
 
         if (!jobCancelled) {
 
             newTime = new CountDownTimer(15 * 60 * 1000, 10000) {
                 public void onTick(long millisUntilFinished) {
-                    checkPendingTask(phone);
+
                     arraydata();
                     Log.d(TAG, "00:" + millisUntilFinished / 10000);
 
@@ -96,10 +101,8 @@ SharedPreferences sharedpreferences;
     }
 
     private void arraydata() {
-      /*  sharedpreferences = getSharedPreferences(JobWork, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor= sharedpreferences.edit();
-        editor.putString("mywork","job");
-        editor.apply();*/
+
+
         Log.d(TAG, "JabStart");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
@@ -111,7 +114,8 @@ SharedPreferences sharedpreferences;
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("allPost");
                             if (success.equals("1")) {
-                                reponseHit = false;
+                               // SessionManger.putString(getApplicationContext(), "homeResponse", response);
+                                /*reponseHit = false;
                                 Log.d("Response", response);
                                 for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -130,15 +134,14 @@ SharedPreferences sharedpreferences;
                                     String like = object.getString("like").trim();
                                     // String share = object.getString("share").trim();
                                     String status = object.getString("status").trim();
-                                    boolean db = mydb.insertData(username, profile, title, des, time, id, img, like, img2, img3, status, mobile, rate);
-                                    // list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
-                                    if (db) {
+                                   // boolean db = mydb.insertData(username, profile, title, des, time, id, img, like, img2, img3, status, mobile, rate);
+                                     list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
+                                   *//* if (db) {
                                         Log.i("data", "" + i);
                                     } else {
                                         Log.i("No", "" + i);
 
-                                    }
-                                }
+                                    }*/
 
                             } else {
 
@@ -164,14 +167,14 @@ SharedPreferences sharedpreferences;
                 return params;
             }
         };
-        stringRequest.setShouldCache(false);
+        stringRequest.setShouldCache(true);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
+        requestQueue.getCache();
        // requestQueue.getCache().clear();
 
     }
@@ -180,12 +183,11 @@ SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(JobWork, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor= sharedpreferences.edit();
 
-        Log.d(TAG, "JabStart");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url2,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Log.d("JOB_Response", response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");

@@ -3,6 +3,7 @@ package com.wikav.voulu.Adeptor;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +36,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.wikav.voulu.R;
+import com.wikav.voulu.SendSms;
 import com.wikav.voulu.SessionManger;
 import com.wikav.voulu.coustomDilogeClasses.CouatomDilogeLastConfirm;
 
@@ -47,6 +50,8 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
     String Url = "https://voulu.in/api/verifyOtp.php";
     String UrlDelete = "https://voulu.in/api/deleteOtpPost.php";
     String UrlDone = "https://voulu.in/api/doneJob.php";
+    String JobWork = "MyJobWork";
+    SharedPreferences sharedpreferences;
 
     public AdeptorForJobConfirmTask(Context context, List<ModelList> list) {
         this.context = context;
@@ -62,19 +67,23 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
         job_giver_mobile = getUser.get(sessionManger.MOBILE);
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.insert_otp_layout, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
-
-        if(!list.get(i).getStatus().equals("Done")) {
+        if (!list.get(i).getStatus().equals("Done")) {
             if (list.get(i).getStatus().equals("accepted")) {
+                viewHolder.jobdone.setVisibility(View.GONE);
                 viewHolder.otpEdit.setVisibility(View.VISIBLE);
                 viewHolder.accept.setVisibility(View.VISIBLE);
                 viewHolder.decline.setVisibility(View.VISIBLE);
-
+            } else if (list.get(i).getStatus().equals("under process")) {
+                viewHolder.etOtp.setVisibility(View.GONE);
+                viewHolder.accept.setVisibility(View.GONE);
+                viewHolder.decline.setVisibility(View.GONE);
+                viewHolder.jobdone.setVisibility(View.VISIBLE);
+            }
             Glide.with(context).load(list.get(i).getProfilePic()).into(viewHolder.profile);
             viewHolder.title.setText(list.get(i).getTitle());
             viewHolder.username.setText(list.get(i).getUsername());
@@ -86,7 +95,6 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                     callToJobGiver(list.get(i).getMobile());
                 }
             });
-
 
 
             viewHolder.accept.setOnClickListener(new View.OnClickListener() {
@@ -112,10 +120,7 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                     doneTask(viewHolder.otpEdit.getText().toString(), list.get(i).getId(), i, viewHolder);
                 }
             });
-            }
-        }
-        else
-        {
+        } else {
             list.remove(i);
         }
     }
@@ -135,13 +140,11 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-                            if (success.equals("1")){
+                            if (success.equals("1")) {
                                 progressDialog.dismiss();
-                               list.remove(i);
-                               notifyDataSetChanged();
-                            }
-                            else
-                            {
+                                list.remove(i);
+                                notifyDataSetChanged();
+                            } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(context, "invalid OTP", Toast.LENGTH_SHORT).show();
                             }
@@ -162,8 +165,7 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                         progressDialog.setCancelable(true);
 
                     }
-                })
-        {
+                }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -172,13 +174,12 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
             }
         };
 
-        stringRequest.setShouldCache(true);
+        stringRequest.setShouldCache(false);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
     }
@@ -197,13 +198,11 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-                            if (success.equals("1")){
+                            if (success.equals("1")) {
                                 progressDialog.dismiss();
                                 list.remove(i);
                                 notifyItemRemoved(i);
-                            }
-                            else
-                            {
+                            } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(context, "invalid OTP", Toast.LENGTH_SHORT).show();
                             }
@@ -221,8 +220,7 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                         progressDialog.setCancelable(true);
 
                     }
-                })
-        {
+                }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -231,7 +229,7 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
             }
         };
 
-        stringRequest.setShouldCache(true);
+        stringRequest.setShouldCache(false);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -254,24 +252,24 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                     @Override
                     public void onResponse(String response) {
                         //    progressDialog.dismiss();
+                        CouatomDilogeLastConfirm c = new CouatomDilogeLastConfirm();
+                        FragmentTransaction ft = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
                         Log.i("TAG", response.toString());
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
-                            if (success.equals("1")){
-                                viewHolder.etOtp.setVisibility(View.GONE);
-                                viewHolder.accept.setVisibility(View.GONE);
-                                viewHolder.decline.setVisibility(View.GONE);
-                                viewHolder.jobdone.setVisibility(View.VISIBLE);
+                            if (success.equals("1")) {
                                 progressDialog.dismiss();
-                                CouatomDilogeLastConfirm c = new CouatomDilogeLastConfirm();
-                                FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                                c.show(ft,"show" );
+                                c.show(ft, "show");
+                                sharedpreferences = context.getSharedPreferences(JobWork, Context.MODE_PRIVATE);
+                                final SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.putString("taskId", id);
+                                editor.putBoolean("showNote", true);
+                                editor.apply();
 
-                            }
-                            else
-                            {
-                               progressDialog.dismiss();
+
+                            } else {
+                                progressDialog.dismiss();
                                 Toast.makeText(context, "invalid OTP", Toast.LENGTH_SHORT).show();
                             }
 
@@ -291,8 +289,7 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
                         progressDialog.setCancelable(true);
 
                     }
-                })
-        {
+                }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -302,13 +299,12 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
             }
         };
 
-        stringRequest.setShouldCache(true);
+        stringRequest.setShouldCache(false);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-
         requestQueue.add(stringRequest);
         requestQueue.getCache().clear();
     }
@@ -326,16 +322,17 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, accept, decline, call, username, time,jobdone;
+        TextView title, accept, decline, call, username, time, jobdone;
         CircleImageView profile;
         EditText otpEdit;
-        TextInputEditText etOtp;
+        TextInputLayout etOtp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profile = itemView.findViewById(R.id.userProfileCard);
             accept = itemView.findViewById(R.id.accept);
             etOtp = itemView.findViewById(R.id.etEmailForotp);
+            jobdone = itemView.findViewById(R.id.jobDone);
             decline = itemView.findViewById(R.id.decline);
             call = itemView.findViewById(R.id.deletePost);
             title = itemView.findViewById(R.id.titleCard);
@@ -344,6 +341,5 @@ public class AdeptorForJobConfirmTask extends RecyclerView.Adapter<AdeptorForJob
             time = itemView.findViewById(R.id.timeCard);
         }
     }
-
-
 }
+
