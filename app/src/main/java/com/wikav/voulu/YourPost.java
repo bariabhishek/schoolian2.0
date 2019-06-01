@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.Adeptor.Adeptor;
 import com.wikav.voulu.Adeptor.ModelList;
@@ -60,7 +61,7 @@ RecyclerView recyclerView;
         setContentView(R.layout.activity_your_post);
         snackbar=  Snackbar.make(YourPost.this.findViewById(android.R.id.content),
                 Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"),
-                Snackbar.LENGTH_INDEFINITE);
+                BaseTransientBottomBar.LENGTH_INDEFINITE);
 
         toolbar=findViewById(R.id.toolbarLayout);
         sessionManger=new SessionManger(this);

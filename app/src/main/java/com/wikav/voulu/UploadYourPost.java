@@ -46,6 +46,7 @@ import com.android.volley.toolbox.Volley;
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
 import com.fxn.utility.ImageQuality;
+import com.wikav.voulu.fragments.HomeFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static com.wikav.voulu.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 
 public class UploadYourPost extends  AppCompatActivity {
@@ -396,8 +398,10 @@ public class UploadYourPost extends  AppCompatActivity {
                                 Toast.makeText(UploadYourPost.this, "Success!", Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
                                 Intent views = new Intent(UploadYourPost.this,Home. class);
-                                startActivity(views);
+                                startActivity(new Intent(UploadYourPost.this,Home. class));
                                 finish();
+
+
 
                             }
                             else
@@ -439,7 +443,6 @@ public class UploadYourPost extends  AppCompatActivity {
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue( this );
-
         stringRequest.setShouldCache(false);
         requestQueue.getCache().clear();
         requestQueue.add( stringRequest );

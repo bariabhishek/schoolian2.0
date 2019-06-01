@@ -53,8 +53,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.wikav.voulu.Adeptor.ModelList;
 import com.wikav.voulu.fragments.FavoriteFragment;
 import com.wikav.voulu.fragments.FullScreenDialogForCheckJobDetail;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
@@ -69,8 +71,11 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -88,69 +93,56 @@ public class Home extends NavigationDrawerActivity_ {
     SessionManger sessionManger;
     IntentFilter intentFilter;
     Snackbar snackbar = null;
-    DatabaseHelper mydb;
+    String Mainresponse;
     LinearLayout tasknote;
     CircleImageView closeTaskNote;
     long currentVisiblePosition;
     int JOB_ID = 101;
-    JobInfo jobInfo;
     JobScheduler mJobScheduler;
+    FloatingActionButton uploadPost;
     TextView goToCheck;
-    String Url = "https://voulu.in/api/getJobPost.php";
+    String Url2 = "https://voulu.in/api/pendingTask.php";
+
     private FirebaseJobDispatcher jobDispatcher;
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Toast.makeText(this, "kya he", Toast.LENGTH_SHORT).show();
+        /////////initilize/////////
         sessionManger = new SessionManger(this);
-        mydb = new DatabaseHelper(this);
-
-        final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View contentView = inflater.inflate(R.layout.activity_home, null, false);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.addView(contentView, 0);
-        Driver driver = new GooglePlayDriver(this);
-        jobDispatcher = new FirebaseJobDispatcher(driver);
-
-        service();
-/*
-            ComponentName componentName = new ComponentName(this, JobSchedulerService.class);
-            JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, componentName);
-            builder.setPeriodic(INTERVEL);
-
-
-            builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
-            //builder.setPersisted(true);
-            jobInfo = builder.build();
-            mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-            mJobScheduler.schedule(jobInfo);*/
-
-        // job();
-
-        arraydata();
-
-        SharedPreferences sharedPref = getSharedPreferences("MyJobWork", Context.MODE_PRIVATE);
-        final String jobId = sharedPref.getString("taskId", "");
-
-        Log.d("MyToast","my"+jobId);
-
-        boolean showNote = sharedPref.getBoolean("showNote", false);
-
-        checkIntenet();
-
-        timeConverter();
-        bottomNavigationView = findViewById(R.id.navigation);
-        frameLayout = findViewById(R.id.frame);
-        tasknote = findViewById(R.id.slideUp);
-        goToCheck = findViewById(R.id.goToCheck);
         homeFragment = new HomeFragment();
         inboxFragment = new InboxFragment();
         notificationFragment = new NotificationFragment();
         favoriteFragment = new FavoriteFragment();
         profileFragment = new ProfileFragment();
+        Driver driver = new GooglePlayDriver(this);
+        jobDispatcher = new FirebaseJobDispatcher(driver);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        SharedPreferences sharedPref = getSharedPreferences("MyJobWork", Context.MODE_PRIVATE);
+        final String jobId = sharedPref.getString("taskId", "");
+        boolean showNote = sharedPref.getBoolean("showNote", false);
+        snackbar = Snackbar.make(Home.this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), BaseTransientBottomBar.LENGTH_INDEFINITE);
+        final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(R.layout.activity_home, null, false);
+        drawer.addView(contentView, 0);
+        bottomNavigationView = findViewById(R.id.navigation);
+        frameLayout = findViewById(R.id.frame);
+        uploadPost = findViewById(R.id.uploadPost);
+        goToCheck = findViewById(R.id.goToCheck);
+        HashMap<String, String> user = sessionManger.getUserDetail();
+        String phone = user.get(sessionManger.MOBILE);
+///////////////////////set methods/////////////////
+        checkPendingTask(phone);
+        service();
+        arraydata();
+        checkIntenet();
+        timeConverter();
         setFragment(homeFragment);
+
+///////////////// click listners///////////////////////
+        tasknote = findViewById(R.id.slideUp);
         if (showNote) {
             tasknote.setVisibility(View.VISIBLE);
         } else {
@@ -167,12 +159,13 @@ public class Home extends NavigationDrawerActivity_ {
                 jobDetail.show(getSupportFragmentManager(), "show");
             }
         });
-        /*closeTaskNote.setOnClickListener(new View.OnClickListener() {
+        uploadPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tasknote.setVisibility(View.GONE);
+                Intent vi = new Intent(Home.this, UploadYourPost.class);
+                startActivity(vi);
             }
-        });*/
+        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -182,10 +175,6 @@ public class Home extends NavigationDrawerActivity_ {
                     case R.id.navigation_home:
                         setFragment(homeFragment);
                         return true;
-
-//                    case R.id.inbox :
-//                        setFragment( inboxFragment );
-//                        return true;
 
                     case R.id.notification:
                         setFragment(notificationFragment);
@@ -207,17 +196,14 @@ public class Home extends NavigationDrawerActivity_ {
 
             }
         });
-        snackbar = Snackbar.make(Home.this.findViewById(android.R.id.content),
-                Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), BaseTransientBottomBar.LENGTH_INDEFINITE);
 
 
     }
 
-    private void setFragment(Fragment fragment) {
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame, fragment);
-        fragmentTransaction.commit();
+    public void setFragment(Fragment fragment) {
+        FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame, fragment);
+        ft.commit();
     }
 
     @Override
@@ -320,7 +306,7 @@ public class Home extends NavigationDrawerActivity_ {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        jobDispatcher.cancel("MyJobTag");
+        mJobScheduler.cancel(JOB_ID);
         if (broadcastReceiver != null)
             unregisterReceiver(broadcastReceiver);
     }
@@ -333,54 +319,16 @@ public class Home extends NavigationDrawerActivity_ {
         //unregisterReceiver(broadcastReceiver);
     }
 
-    private void arraydata() {
+    public void arraydata() {
 
+
+        String Url = "https://voulu.in/api/getJobPost.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("allPost");
-                            if (success.equals("1")) {
-
-                                Log.d("Response", response);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-
-                                    JSONObject object = jsonArray.getJSONObject(i);
-                                    String title = object.getString("title").trim();
-                                    String mobile = object.getString("mobile").trim();
-                                    String des = object.getString("des").trim();
-                                    String rate = object.getString("rate").trim();
-                                    String img = object.getString("img").trim();
-                                    String img2 = object.getString("img2").trim();
-                                    String img3 = object.getString("img3").trim();
-                                    String id = object.getString("id").trim();
-                                    String time = object.getString("time").trim();
-                                    String profile = object.getString("profile").trim();
-                                    String username = object.getString("username").trim();
-                                    String like = object.getString("like").trim();
-                                    // String share = object.getString("share").trim();
-                                    String status = object.getString("status").trim();
-                                    boolean db = mydb.insertData(username, profile, title, des, time, id, img, like, img2, img3, status, mobile, rate);
-                                    // list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
-                                    if (db) {
-                                        Log.i("data", "" + i);
-                                    } else {
-                                        Log.i("No", "" + i);
-
-                                    }
-                                }
-
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                        }
-
+                        Mainresponse=response;
+                        listParser();
                     }
                 },
                 new Response.ErrorListener() {
@@ -403,12 +351,58 @@ public class Home extends NavigationDrawerActivity_ {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        requestQueue.getCache().clear();
+        requestQueue.getCache();
+
+
+
 
     }
 
+   public List<ModelList> listParser()
+   {
+       final List<ModelList> list=new ArrayList<>();
+       try {
+           JSONObject jsonObject = new JSONObject(Mainresponse);
+           String success = jsonObject.getString("success");
+           JSONArray jsonArray = jsonObject.getJSONArray("allPost");
+           if (success.equals("1")) {
+
+               for (int i = 0; i < jsonArray.length(); i++) {
+                   JSONObject object = jsonArray.getJSONObject(i);
+                   String title = object.getString("title").trim();
+                   String mobile = object.getString("mobile").trim();
+                   String des = object.getString("des").trim();
+                   String rate = object.getString("rate").trim();
+                   String img = object.getString("img").trim();
+                   String img2 = object.getString("img2").trim();
+                   String img3 = object.getString("img3").trim();
+                   String id = object.getString("id").trim();
+                   String time = object.getString("time").trim();
+                   String profile = object.getString("profile").trim();
+                   String username = object.getString("username").trim();
+                   String like = object.getString("like").trim();
+                   // String share = object.getString("share").trim();
+                   String status = object.getString("status").trim();
+                   // boolean db = mydb.insertData(username, profile, title, des, time, id, img, like, img2, img3, status, mobile, rate);
+                   list.add(new ModelList(img, title, des, rate, id, time, mobile, like, profile, username, status, img2, img3));
+
+               }
+               Log.d("myHomeResponse",list.toString());
+
+               return list;
+
+           }
+
+       } catch (JSONException e) {
+           e.printStackTrace();
+
+       }
+       Log.d("myHomeResponse",list.toString());
+
+       return list;
+   }
     private void job() {
 
        /* Job myJob = jobDispatcher.newJobBuilder()
@@ -445,8 +439,8 @@ public class Home extends NavigationDrawerActivity_ {
                 .setPersisted(true)
                 .setPeriodic(15 * 60 * 1000)
                 .build();
-        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
-        int resultCode = scheduler.schedule(info);
+        mJobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        int resultCode = mJobScheduler.schedule(info);
         if (resultCode == JobScheduler.RESULT_SUCCESS) {
             Log.d(TAG, "Job scheduled");
         } else {
@@ -483,5 +477,65 @@ public class Home extends NavigationDrawerActivity_ {
         } catch (ParseException e) {
             System.out.println(e.toString());
         }
+    }
+
+    private void checkPendingTask(final String phone) {
+
+        SharedPreferences sharedpreferences = getSharedPreferences("MyJobWork", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url2,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("JOB_Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("task");
+                            if (success.equals("1")) {
+                                Log.d("JOB_Response", response);
+
+                                for (int i = 0; i < jsonArray.length(); i++) {
+
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String taskId = object.getString("complete_id").trim();
+                                    editor.putString("taskId", taskId);
+                                    editor.putBoolean("showNote", true);
+                                    editor.apply();
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // noData.setVisibility(View.VISIBLE);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mobile", phone);
+                params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
+                return params;
+            }
+        };
+        stringRequest.setShouldCache(false);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+        // requestQueue.getCache().clear();
+
     }
 }

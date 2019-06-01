@@ -29,27 +29,12 @@ public class CouatomDilogeLastConfirm extends AppCompatDialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
-                                          Intent view = new Intent(getActivity(), Home. class);
-                                          startActivity(view);
-                                          dismiss();
+                                          getActivity().startActivity(new Intent(getActivity(), Home. class));
                                       }
                                   }
         );
         builder.setView( view )
-                .setTitle( "" )
-                .setNegativeButton( "", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent view = new Intent(getActivity(), Home. class);
-                        startActivity(view);
-                        dismiss();
-                    }
-                } ).setPositiveButton( "", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        } );
+                .setTitle( "" ).setCancelable(false);
         return builder.create();
     }
 }
