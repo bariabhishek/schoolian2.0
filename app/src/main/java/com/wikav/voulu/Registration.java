@@ -217,8 +217,10 @@ public class Registration extends AppCompatActivity {
                             String gender = object.getString("gender").trim();
                             String verfied_status = object.getString("verfied_status").trim();
                             String location = object.getString("address").trim();
-
-                            sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location);
+                            String dob = object.getString("bio").trim();
+                            String bio = object.getString("dob").trim();
+                            String quali = object.getString("quali").trim();
+                            sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location, dob, quali, bio);
                             Intent intent = new Intent(Registration.this, Home.class);
                             startActivity(intent);
                             finish();
@@ -309,8 +311,11 @@ public class Registration extends AppCompatActivity {
                                     String gender = object.getString("gender").trim();
                                     String verfied_status = object.getString("verfied_status").trim();
                                     String location = object.getString("address").trim();
+                                    String dob = object.getString("bio").trim();
+                                    String bio = object.getString("dob").trim();
+                                    String quali = object.getString("quali").trim();
 
-                                    sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location);
+                                    sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location, dob, quali, bio);
                                     Intent intent = new Intent(Registration.this, Home.class);
                                     startActivity(intent);
                                     finish();

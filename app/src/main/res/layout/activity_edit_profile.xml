@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/actionBar"
         android:layout_width="match_parent"
@@ -177,7 +179,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/l115"
+        android:id="@+id/agedob"
         android:layout_below="@id/ll4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -203,6 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:id="@+id/dob"
 
             />
         </LinearLayout>
@@ -223,10 +226,14 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Age"/>
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/ageTv"
+                android:text="18+"
+                android:textSize="@dimen/_16sdp"
 
                 />
         </LinearLayout>
@@ -235,7 +242,7 @@
     </LinearLayout>
 
 
-    <RadioGroup
+    <!--<RadioGroup
         android:layout_below="@id/l115"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -262,13 +269,25 @@
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:checked="false"
             android:textSize="20dp" />
-    </RadioGroup>
+    </RadioGroup>-->
 
     <EditText
-        android:layout_below="@+id/radioGroup"
+        android:layout_below="@+id/agedob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:hint="Qualification"
+        android:id="@+id/quali"
         android:layout_marginHorizontal="@dimen/_10sdp"/>
-</RelativeLayout>
+    <EditText
+        android:layout_below="@+id/quali"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="About yourself"
+        android:id="@+id/aboutSelf"
+        android:lines="5"
+        android:layout_marginHorizontal="@dimen/_10sdp"/>
+    </RelativeLayout>
+
+</ScrollView>

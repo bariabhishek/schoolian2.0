@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -43,93 +45,78 @@ import com.wikav.voulu.SessionManger;
 public class ProfileFragment extends Fragment {
 
     Bitmap bitmap;
-    ImageView uploadProfile;
+    CircleImageView uploadProfile;
     int PICK_IMAGE_REQUEST = 0;
     String phone;
-    ImageView editProfile;
+
     Button logout;
-String addImageUrl="https://voulu.in/api/profileData.php";
+    String addImageUrl = "https://voulu.in/api/profileData.php";
     SessionManger sessionManger;
-    TextView username,mobile,email,yourpost,youpost,nopost;
-    ImageView imageView;
+    TextView username, mobile, email, yourpost, youpost, nopost,qualiTv,bioTv,dobTv;
+  ImageView editProfileBtn;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate( R.layout.fragment_profile, container, false );
-        sessionManger=new SessionManger( getContext() );
-
-        uploadProfile = view.findViewById( R.id.profileUpload );
-
-        username = view.findViewById( R.id.name );
-        nopost = view.findViewById( R.id.numPost );
-        youpost = view.findViewById( R.id.youaccept );
-        yourpost = view.findViewById( R.id.youraccept );
-        mobile = view.findViewById( R.id.mobile );
-        email = view.findViewById( R.id.email );
-       // numberOfJob = view.findViewById( R.id.numberOfJob );
-        editProfile = view.findViewById( R.id.editProfile );
-        logout = view.findViewById( R.id.logot );
-        logout.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        sessionManger = new SessionManger(getContext());
+        uploadProfile = view.findViewById(R.id.profileUpload);
+        qualiTv = view.findViewById(R.id.qualiTv);
+        dobTv = view.findViewById(R.id.dobTv);
+        bioTv = view.findViewById(R.id.bioTv);
+        uploadProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-                alertDialogBuilder.setMessage("Are you sure, you want to logout");
-                alertDialogBuilder.setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                sessionManger.logOut();
-                            }
-                        });
-
-                alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        alertDialogBuilder.setCancelable(true);
-                    }
-                });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();;
+                Intent view = new Intent(getActivity(),EditProfile.class);
+                startActivity(view);
             }
         });
-editProfile.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-       /* FullScreenDialogForUpdateApp full=new FullScreenDialogForUpdateApp();
-            full.show(getFragmentManager(),"TAG");*/
-       Intent intent = new Intent(getActivity(), EditProfile.class);
-       startActivity(intent);
 
-    }
-});
+        editProfileBtn= view.findViewById(R.id.myEditImage);
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("tadddd", "click work");
+                Toast.makeText(getActivity(), "jhhhh", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        HashMap<String,String> user=sessionManger.getUserDetail();
-        String name = user.get(sessionManger.NAME);
-         phone = user.get(sessionManger.MOBILE);
-        String image = user.get( sessionManger.PROFILE_PIC );
-        String email = user.get( sessionManger.EMAIL );
-
-        username.setText( name );
-        mobile.setText( phone );
-        this.email.setText( email );
-
-        Glide.with(getActivity())
-                .load(image)
-                .into(uploadProfile);
+        username = view.findViewById(R.id.name);
+        nopost = view.findViewById(R.id.numPost);
+        youpost = view.findViewById(R.id.youaccept);
+        yourpost = view.findViewById(R.id.youraccept);
+        mobile = view.findViewById(R.id.mobile);
+        email = view.findViewById(R.id.email);
 
 
         profileData();
 
 
+        HashMap<String, String> user = sessionManger.getUserDetail();
+        String name = user.get(sessionManger.NAME);
+        phone = user.get(sessionManger.MOBILE);
+        String image = user.get(sessionManger.PROFILE_PIC);
+        String email = user.get(sessionManger.EMAIL);
+       String  sessionDob = user.get( sessionManger.DOB );
+        String sessionQuali = user.get( sessionManger.QUALI );
+        String sessionAbout = user.get( sessionManger.BIO);
+
+        username.setText(name);
+        mobile.setText(phone);
+        qualiTv.setText(sessionQuali);
+        bioTv.setText(sessionAbout);
+        dobTv.setText(sessionDob);
+        this.email.setText(email);
+
+        Glide.with(getActivity())
+                .load(image)
+                .into(uploadProfile);
 
 
         return view;
@@ -190,10 +177,11 @@ editProfile.setOnClickListener(new View.OnClickListener() {
                 0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-       RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         // requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
     }
+
 
 
 }

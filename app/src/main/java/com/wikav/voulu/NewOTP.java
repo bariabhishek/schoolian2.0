@@ -21,17 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskExecutors;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthSettings;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,9 +33,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NewOTP extends AppCompatActivity {
@@ -149,10 +140,13 @@ public class NewOTP extends AppCompatActivity {
                                         String photo = object.getString("profile_pic").trim();
                                         String phone = object.getString("mobile").trim();
                                         String gender = object.getString("gender").trim();
+                                        String bio = object.getString("bio").trim();
+                                        String quali = object.getString("quali").trim();
+                                        String dob = object.getString("dob").trim();
                                         String verfied_status = object.getString("verfied_status").trim();
                                         String location = object.getString("address").trim();
                                         Toast.makeText(NewOTP.this, "Logged In", Toast.LENGTH_LONG).show();
-                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location);
+                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location, dob, quali, bio);
                                         Intent in = new Intent(getApplicationContext(), Home.class);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(in);
@@ -223,7 +217,7 @@ public class NewOTP extends AppCompatActivity {
             public void onFinish() {
                 Snackbar.make(NewOTP.this.findViewById(android.R.id.content),
                         Html.fromHtml("<font color=\"#ffffff\">Mobile number invalid or not reachable at this time</font>"),
-                        Snackbar.LENGTH_LONG).show();
+                        BaseTransientBottomBar.LENGTH_LONG).show();
                 timer.setClickable(true);
                 timer.setText("Check and Resend OTP");
             }

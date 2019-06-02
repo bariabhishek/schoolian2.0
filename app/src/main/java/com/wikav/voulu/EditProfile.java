@@ -3,8 +3,8 @@ package com.wikav.voulu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -48,10 +48,10 @@ import java.util.Map;
 
 public class EditProfile extends AppCompatActivity {
     private Toolbar toolbar;
-    private EditText name,email,phone,location;
+    private EditText name,email,phone,location,dob,quali,about;
     private TextView saveBtn;
     private ImageView editImage,imageUploadBtn;
-    private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation;
+    private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation,sessionAbout,sessionQuali,sessionDob;
     private SessionManger sessionManger;
     BroadcastReceiver broadcastReceiver;
     RadioButton genderradioButton;
@@ -59,31 +59,41 @@ public class EditProfile extends AppCompatActivity {
     boolean isNewImageSet = false;
     Bitmap newImage;
     Snackbar snackbar;
+
     final String Url="https://voulu.in/api/updateProfile.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
        setContentView( R.layout.activity_edit_profile );
         sessionManger = new SessionManger(this);
+        snackbar=  Snackbar.make(this.findViewById(android.R.id.content),
+                Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"),
+                BaseTransientBottomBar.LENGTH_INDEFINITE);
+
         HashMap<String,String> user=sessionManger.getUserDetail();
         sessionName = user.get(sessionManger.NAME);
         sessionPhone = user.get(sessionManger.MOBILE);
-        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"),Snackbar.LENGTH_INDEFINITE);
         sessionImage = user.get( sessionManger.PROFILE_PIC );
         sessionEmail = user.get( sessionManger.EMAIL );
         sessionLocation = user.get( sessionManger.LOCATION );
+        sessionDob = user.get( sessionManger.DOB );
+        sessionQuali = user.get( sessionManger.QUALI );
+        sessionAbout = user.get( sessionManger.BIO);
+
         toolbar=findViewById(R.id.toolbarEdit);
         setToolbar();
         checkInptenet();
         name=findViewById(R.id.nameUser);
         email=findViewById(R.id.emailEdit);
         phone=findViewById(R.id.mobileNumber);
-        phone.setEnabled(false);
+        quali=findViewById(R.id.quali);
+        dob=findViewById(R.id.dob);
+        about=findViewById(R.id.aboutSelf);
         location=findViewById(R.id.location);
         saveBtn=findViewById(R.id.saveButton);
         editImage=findViewById(R.id.imageviewedit);
         imageUploadBtn=findViewById(R.id.imageUploadBtn);
-        radioGroup=(RadioGroup)findViewById(R.id.radioGroup);
+        //radioGroup=(RadioGroup)findViewById(R.id.radioGroup);
         setAllFileds();
     }
 
@@ -92,6 +102,9 @@ public class EditProfile extends AppCompatActivity {
         email.setText(sessionEmail);
         phone.setText(sessionPhone);
         location.setText(sessionLocation);
+        quali.setText(sessionQuali);
+        about.setText(sessionAbout);
+        dob.setText(sessionDob);
         Glide.with(this).load(sessionImage).into(editImage);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +152,9 @@ public class EditProfile extends AppCompatActivity {
         String Email= email.getText().toString();
         String Phone= phone.getText().toString();
         String Location= location.getText().toString();
+        String Bio= about.getText().toString();
+        String Quali= quali.getText().toString();
+        String Dob= dob.getText().toString();
         if(Name.equals("")|| Email.equals("")|| Phone.equals(""))
         {
             Toast.makeText(this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
@@ -147,12 +163,12 @@ public class EditProfile extends AppCompatActivity {
         {
             if (isNewImageSet)
             {   isNewImageSet=false;
-                uplaodData(Name,Email,Phone,Location,getStringImage(newImage));
+                uplaodData(Name,Email,Phone,Location,getStringImage(newImage),Dob,Bio,Quali);
                 return;
             }
             else
             {
-                uplaodData(Name,Email,Phone,Location,sessionImage);
+                uplaodData(Name,Email,Phone,Location,sessionImage, Dob, Bio, Quali);
 
             }
 
@@ -161,7 +177,7 @@ public class EditProfile extends AppCompatActivity {
 
 
 
-    private void uplaodData(final String name, final String email, final String phone, final String location, final String stringImage)
+    private void uplaodData(final String name, final String email, final String phone, final String location, final String stringImage, final String dob, final String bio, final String quali)
     {
         Log.i("profileImage",stringImage);
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -189,8 +205,11 @@ public class EditProfile extends AppCompatActivity {
                                     String photo = object.getString("profile_pic").trim();
                                     String phone = object.getString("mobile").trim();
                                     String location = object.getString("address").trim();
+                                    String bio = object.getString("bio").trim();
+                                    String quali = object.getString("quali").trim();
+                                    String dob = object.getString("dob").trim();
                                    // sessionManger.clerlast();
-                                    sessionManger.updateSession(name, email, photo, phone,location);
+                                    sessionManger.updateSession(name, email, photo, phone,location, bio, quali, dob);
                                     progressDialog.dismiss();
                                     finish();
 
@@ -226,7 +245,9 @@ public class EditProfile extends AppCompatActivity {
                 params.put("email", email);
                 params.put("profile_pic", stringImage);
                 params.put("address", location);
-
+                params.put("quali", quali);
+                params.put("dob", dob);
+                params.put("bio", bio);
 
                 return params;
             }

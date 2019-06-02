@@ -2,14 +2,10 @@ package com.wikav.voulu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
@@ -218,8 +214,11 @@ public class OTP extends AppCompatActivity {
                                         String gender = object.getString("gender").trim();
                                         String verfied_status = object.getString("verfied_status").trim();
                                         String location = object.getString("address").trim();
+                                        String bio = object.getString("bio").trim();
+                                        String quali = object.getString("quali").trim();
+                                        String dob = object.getString("dob").trim();
                                         Toast.makeText(OTP.this, "Logged In", Toast.LENGTH_LONG).show();
-                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location);
+                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location, dob, quali, bio);
                                         Intent in = new Intent(getApplicationContext(), Home.class);
                                         in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(in);

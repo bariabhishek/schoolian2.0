@@ -25,6 +25,9 @@ public class SessionManger {
     public static final String VERIFIED = "VERIFIED";
     public static final String GENDER = "GENDER";
     public static final String LOCATION = "LOCATION";
+    public static final String QUALI = "QUALI";
+    public static final String BIO = "BIO";
+    public static final String DOB = "DOB";
 
     private static final String PREFERENCE_NAME = "APP_PREFERENCE";
 
@@ -49,24 +52,30 @@ public class SessionManger {
         return sharedPref.getString(key, "");
     }
 
-    public void createSession(String name, String email, String photo, String verified, String mobile, String gender,String location) {
+    public void createSession(String name, String email, String photo, String verified, String mobile, String gender, String location, String dob, String quali, String bio) {
         loginEditor.putBoolean(LOGIN, true);
         updateEditor.putString(NAME, name);
         updateEditor.putString(EMAIL, email);
         updateEditor.putString(GENDER, gender);
         updateEditor.putString(PROFILE_PIC, photo);
         updateEditor.putString(VERIFIED, verified);
+        updateEditor.putString(DOB, dob);
+        updateEditor.putString(QUALI, quali);
+        updateEditor.putString(BIO, bio);
         updateEditor.putString(MOBILE, mobile);
         updateEditor.putString(LOCATION, location);
         loginEditor.apply();
         updateEditor.apply();
     }
 
-    public void updateSession(String name, String email, String photo, String mobile,String location) {
+    public void updateSession(String name, String email, String photo, String mobile, String location, String bio, String quali, String dob) {
         updateEditor.putString(NAME, name);
         updateEditor.putString(EMAIL, email);
         updateEditor.putString(PROFILE_PIC, photo);
         updateEditor.putString(MOBILE, mobile);
+        updateEditor.putString(DOB, dob);
+        updateEditor.putString(QUALI, quali);
+        updateEditor.putString(BIO, bio);
         updateEditor.putString(LOCATION, location);
         updateEditor.apply();
     }
@@ -105,6 +114,9 @@ public class SessionManger {
         user.put(VERIFIED, sharedPreferences.getString(VERIFIED, null));
         user.put(GENDER, sharedPreferences.getString(GENDER, null));
         user.put(LOCATION, sharedPreferences.getString(LOCATION, null));
+        user.put(BIO, sharedPreferences.getString(BIO, null));
+        user.put(QUALI, sharedPreferences.getString(QUALI, null));
+        user.put(DOB, sharedPreferences.getString(DOB, null));
         return user;
     }
 

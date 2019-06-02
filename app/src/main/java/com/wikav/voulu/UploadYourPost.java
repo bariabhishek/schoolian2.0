@@ -63,13 +63,14 @@ import static com.wikav.voulu.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 public class UploadYourPost extends  AppCompatActivity {
 
     AlertDialog alertDialog;
-    LinearLayout uploadImageBtn,linearLayoutAmount,linearLayoutTitle;
+    LinearLayout uploadImageBtn,linearLayoutAmount,linearLayoutTitle,imageViewTwo,imageViewThree;
     RelativeLayout amountrl,titlerl;
     EditText title,dis,pese;
     TextView doneAmount,doneTitle;
-    ImageView imageView1,imageView2,imageView3;
+    ImageView imageViewOne,imageViewTwoA,imageViewTwoB,imageViewThreeA,imageViewThreeB,imageViewThreeC;
     String mobilenumber;
     String encodedImage;
+
     public String photo;
     SessionManger sessionManger;
     Bitmap bt1,bt2,bt3;
@@ -457,9 +458,15 @@ public class UploadYourPost extends  AppCompatActivity {
         title = findViewById( R.id.title );
         dis = findViewById( R.id.discription );
         pese = findViewById( R.id.dealpese );
-        imageView1= findViewById( R.id.imageOne);
-        imageView2= findViewById( R.id.imageTwo);
-        imageView3= findViewById( R.id.imageThree );
+        imageViewOne= findViewById( R.id.imageOne);
+        imageViewTwoA= findViewById( R.id.imageTwoA);
+        imageViewTwoB= findViewById( R.id.imageTwoB);
+        imageViewTwo= findViewById( R.id.imageTwo);
+        imageViewThree= findViewById( R.id.imageThree);
+        imageViewThreeA= findViewById( R.id.imageThreeA);
+        imageViewThreeB= findViewById( R.id.imageThreeB);
+        imageViewThreeC= findViewById( R.id.imageThreeC);
+
         uploadImageBtn= findViewById( R.id.uplodImageBtn );
         linearLayoutTitle = findViewById( R.id.linear_layout_title );
         linearLayoutAmount = findViewById( R.id.linear_layout_amount );
@@ -520,46 +527,57 @@ public class UploadYourPost extends  AppCompatActivity {
                     switch (i) {
                         case 1 :
                             f1 = new File(returnValue.get(0));
+
+                            imageViewOne.setVisibility(View.VISIBLE);
+                            imageViewTwo.setVisibility(View.GONE);
+                            imageViewThree.setVisibility(View.GONE);
                             bt1  = new BitmapDrawable(this.getResources(), f1.getAbsolutePath()).getBitmap();
                              bt1=com.fxn.utility.Utility.getScaledBitmap(512, bt1);
-                             imageView1.setImageBitmap(bt1);
+                            imageViewOne.setImageBitmap(bt1);
                              imageCount=1;
                         break;
 
 
                         case 2 :
+                            imageViewTwo.setVisibility(View.VISIBLE);
+                            imageViewThree.setVisibility(View.GONE);
+                            imageViewOne.setVisibility(View.GONE);
                              f1 = new File(returnValue.get(0));
+
                             bt1  = new BitmapDrawable(this.getResources(), f1.getAbsolutePath()).getBitmap();
                             bt1=com.fxn.utility.Utility.getScaledBitmap(512, bt1);
-                            imageView1.setImageBitmap(bt1);
+                            imageViewTwoA.setImageBitmap(bt1);
 
                             imageCount=2;
 
                             f2 = new File(returnValue.get(1));
                             bt2  = new BitmapDrawable(this.getResources(), f2.getAbsolutePath()).getBitmap();
                             bt2=com.fxn.utility.Utility.getScaledBitmap(512, bt2);
-                            imageView2.setImageBitmap(bt2);
+                            imageViewTwoB.setImageBitmap(bt2);
                             break;
 
 
 
                         case 3:
+                            imageViewThree.setVisibility(View.VISIBLE);
+                            imageViewTwo.setVisibility(View.GONE);
+                            imageViewOne.setVisibility(View.GONE);
                             f1 = new File(returnValue.get(0));
                             bt1  = new BitmapDrawable(this.getResources(), f1.getAbsolutePath()).getBitmap();                        bt1=com.fxn.utility.Utility.getScaledBitmap(512, bt1);
                             bt1=com.fxn.utility.Utility.getScaledBitmap(512, bt1);
-                            imageView1.setImageBitmap(bt1);
+                            imageViewThreeA.setImageBitmap(bt1);
 
                             imageCount=3;
 
                             f2 = new File(returnValue.get(1));
                             bt2  = new BitmapDrawable(this.getResources(), f2.getAbsolutePath()).getBitmap();
                             bt2=com.fxn.utility.Utility.getScaledBitmap(512, bt2);
-                            imageView2.setImageBitmap(bt2);
+                            imageViewThreeB.setImageBitmap(bt2);
 
                             f3 = new File(returnValue.get(2));
                             bt3  = new BitmapDrawable(this.getResources(), f3.getAbsolutePath()).getBitmap();
                             bt3=com.fxn.utility.Utility.getScaledBitmap(512, bt3);
-                            imageView3.setImageBitmap(bt3);
+                            imageViewThreeC.setImageBitmap(bt3);
                             break;
 
                     }

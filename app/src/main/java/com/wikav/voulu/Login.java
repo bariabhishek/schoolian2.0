@@ -131,8 +131,10 @@ public class Login extends AppCompatActivity {
                                         String gender = object.getString("gender").trim();
                                         String verfied_status = object.getString("verfied_status").trim();
                                         String location = object.getString("address").trim();
-                                        Toast.makeText(Login.this, "" + name + email, Toast.LENGTH_LONG).show();
-                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location);
+                                        String dob = object.getString("bio").trim();
+                                        String bio = object.getString("dob").trim();
+                                        String quali = object.getString("quali").trim();
+                                        sessionManger.createSession(name, email, photo, verfied_status, phone, gender, location, dob, quali, bio);
                                         Intent intent = new Intent(Login.this, Home.class);
                                         startActivity(intent);
                                         finish();
