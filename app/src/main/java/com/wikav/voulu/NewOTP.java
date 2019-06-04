@@ -21,10 +21,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthSettings;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +54,7 @@ public class NewOTP extends AppCompatActivity {
     String code;
     Random rnd;
     int i;
+    String newToken;
     CountDownTimer newTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +91,17 @@ public class NewOTP extends AppCompatActivity {
                 {
                     if(editText.getText().toString().equals(""+i))
                     {
-                        checkLoin( mob) ;
+
+
+                        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(NewOTP.this, new OnSuccessListener<InstanceIdResult>() {
+                            @Override
+                            public void onSuccess(InstanceIdResult instanceIdResult) {
+                                newToken = instanceIdResult.getToken();
+                                Log.e("newToken", newToken);
+                                checkLoin( mob,newToken) ;
+
+                            }
+                        });
                     }
                     else
                     {
@@ -112,12 +126,13 @@ public class NewOTP extends AppCompatActivity {
     }
 
 
-    void checkLoin(final String mail) {
+    void checkLoin(final String mail, final String newToken) {
         final ProgressDialog progressDialog = new ProgressDialog(NewOTP.this);
         progressDialog.setMessage("Checking your number...");
         progressDialog.setCancelable(false);
         progressDialog.show();
         NewOTP.this.setFinishOnTouchOutside(false);
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override
@@ -192,6 +207,7 @@ public class NewOTP extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mobile", mail);
+                params.put("token", newToken);
 
                 return params;
             }

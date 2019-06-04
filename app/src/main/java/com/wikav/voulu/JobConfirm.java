@@ -33,6 +33,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.wikav.voulu.fragments.BottomSheetFragmentui;
 import com.wikav.voulu.fragments.FullScreenDialogForNoInternet;
@@ -48,6 +49,7 @@ public class JobConfirm extends AppCompatActivity {
     CircleImageView jobGiverImage,jobSeekerImage;
     Button sendDatabtn;
     BroadcastReceiver broadcastReceiver;
+    BottomSheetFragmentui bottomSheetFragmentui;
 Snackbar snackbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ Snackbar snackbar;
         title=getIntent().getStringExtra("title");
         comment_id=getIntent().getStringExtra("commnet_id");
         sendDatabtn=findViewById(R.id.confirm);
-        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), Snackbar.LENGTH_INDEFINITE);
+        snackbar=  Snackbar.make(this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), BaseTransientBottomBar.LENGTH_INDEFINITE);
         sessionManger=new SessionManger(this);
         HashMap<String,String> getUser=sessionManger.getUserDetail();
         job_giver_mobile=getUser.get(sessionManger.MOBILE);
@@ -174,13 +176,15 @@ Snackbar snackbar;
                                 Log.d("OtpRes",response);
 
                                 String  OTP = jsonObject.getString("getOtp").trim();
-                                BottomSheetFragmentui bottomSheetFragmentui=new BottomSheetFragmentui();
+                                bottomSheetFragmentui=new BottomSheetFragmentui();
                                 Bundle bundle=new Bundle();
                                 bundle.putString("otp",OTP);
                                 bundle.putString("seekerName",job_seeker_name);
                                 bundle.putString("seekerMobile",job_seeker_mobile);
                                 bottomSheetFragmentui.setArguments(bundle);
                                 bottomSheetFragmentui.show(getSupportFragmentManager(),"bottomSheet");
+
+
                                 sendSms();
 
                             }
@@ -215,9 +219,8 @@ Snackbar snackbar;
                 params.put("postId",postId);
                 params.put("jobseeker",job_seeker_mobile);
                 params.put("jobgiver",job_giver_mobile);
-                params.put("message", "Your given task has accepted by "+job_giver_name);
+                params.put("message",job_giver_name+" has accepted your Bid");
                 params.put("title", "Task Accepted");
-
                 return params;
             }
         };
@@ -257,4 +260,16 @@ Snackbar snackbar;
         registerReceiver(broadcastReceiver, intentFilter);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (bottomSheetFragmentui!=null)
+        {
+            bottomSheetFragmentui.dismiss();
+            Intent view = new Intent(JobConfirm.this,Home. class);
+            view.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(view);
+        }
+        finish();
+    }
 }

@@ -77,7 +77,6 @@ SharedPreferences sharedpreferences;
                 }
 
                 public void onFinish() {
-                    doBackgroundWork(params);
                     Log.d(TAG, "JobStop");
                 }
             }.start();

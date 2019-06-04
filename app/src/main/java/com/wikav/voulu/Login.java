@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.core.content.ContextCompat;
@@ -27,6 +28,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +49,7 @@ public class Login extends AppCompatActivity {
     private EditText email, pass;
     private Button login_btn;
     private ProgressBar progressBar;
+    String newToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +87,16 @@ public class Login extends AppCompatActivity {
                 if (mail.isEmpty() && passw.isEmpty()) {
                     etEmail.setError("Please Enter Mobile Number and Password");
                 } else {
-                    onLogin(mail, passw);
+                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, new OnSuccessListener<InstanceIdResult>() {
+                        @Override
+                        public void onSuccess(InstanceIdResult instanceIdResult) {
+                            newToken = instanceIdResult.getToken();
+                            Log.e("newToken", newToken);
+                           // checkLoin( mob,newToken) ;
+                            onLogin(mail, passw,newToken);
+                        }
+                    });
+
                 }
             }
         });
@@ -103,7 +116,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    private void onLogin(final String mail, final String passw) {
+    private void onLogin(final String mail, final String passw, final String newToken) {
         config.CheckConnection();
         login_btn.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
@@ -180,6 +193,7 @@ public class Login extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("mobile", mail);
                 params.put("pass", passw);
+                params.put("token", newToken);
 
                 return params;
             }

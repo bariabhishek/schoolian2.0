@@ -268,7 +268,7 @@ public class JobDiscription extends AppCompatActivity {
     }
 
     public void setRecyclerView(List<CommentModel> list) {
-        CommentAdaptor a= new CommentAdaptor( this,list,id,title );
+        CommentAdaptor a= new CommentAdaptor( this,list,id,title,status );
         recyclerView.setHasFixedSize( true );
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new LinearLayoutManager(this) );

@@ -280,13 +280,13 @@ public class FullScreenDialogForComment extends DialogFragment {
     }
 
     private void setupRecycle(List<CommentModel> list) {
-        CommentAdaptor a= new CommentAdaptor( getContext(),list,postId,title );
+      //  CommentAdaptor a= new CommentAdaptor( getContext(),list,postId,title );
 
 
         recyclerView.setHasFixedSize( true );
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) );
-        recyclerView.setAdapter( a );
+     //   recyclerView.setAdapter( a );
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);
         if(swipeRefreshLayout.isRefreshing())

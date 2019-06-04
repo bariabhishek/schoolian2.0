@@ -138,7 +138,7 @@ public class Home extends NavigationDrawerActivity_ {
         String phone = user.get(sessionManger.MOBILE);
 ///////////////////////set methods/////////////////
         checkPendingTask(phone);
-        service();
+       // service();
         arraydata();
         checkIntenet();
         timeConverter();
@@ -151,6 +151,16 @@ public class Home extends NavigationDrawerActivity_ {
         } else {
             tasknote.setVisibility(View.GONE);
         }
+        tasknote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FullScreenDialogForCheckJobDetail jobDetail = new FullScreenDialogForCheckJobDetail();
+                Bundle b = new Bundle();
+                b.putString("id", jobId);
+                jobDetail.setArguments(b);
+                jobDetail.show(getSupportFragmentManager(), "show");
+            }
+        });
 
         goToCheck.setOnClickListener(new View.OnClickListener() {
             @Override

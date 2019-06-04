@@ -46,12 +46,14 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
     private String UrlDelet="http://voulu.in/api/deletCommentPostId.php";
     private SessionManger sessionManger;
     private String userMobile;
+    private String status;
 
-    public CommentAdaptor(Context context, List <CommentModel> list, String postId,String jobTitle) {
+    public CommentAdaptor(Context context, List<CommentModel> list, String postId, String jobTitle, String status) {
         this.context = context;
         this.list = list;
         this.postId=postId;
         this.jobTitle=jobTitle;
+        this.status=status;
     }
 
 
@@ -165,7 +167,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                               //  JSONArray jsonArray = jsonObject.getJSONArray("getmobile");
                                 if (success.equals("1")){
 
-                                    if(!list.get(position).getCommenter_mobile().equals(userMobile)) {
+                                    if(!list.get(position).getCommenter_mobile().equals(userMobile)&&!status.equals("2")) {
                                         viewHolder.giverOptions.setVisibility(View.VISIBLE);
                                         viewHolder.accept.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -176,7 +178,7 @@ public class CommentAdaptor extends RecyclerView.Adapter<CommentAdaptor.ViewHold
                                     }
                                    else
                                     {
-                                        viewHolder.giverOptions.setVisibility(View.INVISIBLE);
+                                        viewHolder.giverOptions.setVisibility(View.GONE);
                                         viewHolder.comnetCard.setBackground(ContextCompat.getDrawable(context, R.drawable.background_rounded_for_giver));
 
                                     }

@@ -71,6 +71,7 @@
             android:text="Login with password"
             android:textColor="@color/colorPrimary"
             android:gravity="center"
+            android:layout_marginTop="-10dp"
             android:onClick="loginwithpass"/>
     </LinearLayout>
     </RelativeLayout>
