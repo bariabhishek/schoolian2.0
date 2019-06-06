@@ -205,9 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/dob"
-
-            />
+            android:id="@+id/dob" />
         </LinearLayout>
         <View
             android:layout_width="@dimen/_2sdp"

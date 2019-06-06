@@ -1,6 +1,7 @@
 package com.wikav.voulu;
 
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
@@ -31,6 +32,8 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -100,6 +103,7 @@ public class Home extends NavigationDrawerActivity_ {
     CircleImageView closeTaskNote;
     long currentVisiblePosition;
     int JOB_ID = 101;
+   private static final int DIALOG_REQUEST_ERROR=9001;
     JobScheduler mJobScheduler;
     FloatingActionButton uploadPost;
     TextView goToCheck;
@@ -551,4 +555,5 @@ public class Home extends NavigationDrawerActivity_ {
         // requestQueue.getCache().clear();
 
     }
+
 }

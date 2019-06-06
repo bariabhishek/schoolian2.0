@@ -84,7 +84,7 @@ public class JobDiscription extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_job_discription);
+        setContentView(R.layout.for_job_description);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         profile = findViewById(R.id.postProfile);
@@ -314,7 +314,6 @@ public class JobDiscription extends AppCompatActivity {
         {
             bottomEdit.setVisibility(View.VISIBLE);
         }
-        getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setData();
         getCommnetData(id);

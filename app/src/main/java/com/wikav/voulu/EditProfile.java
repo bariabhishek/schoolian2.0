@@ -2,24 +2,33 @@ package com.wikav.voulu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.Manifest;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -36,6 +45,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+import com.wikav.voulu.fragments.MapFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,13 +53,17 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.wikav.voulu.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 
 public class EditProfile extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText name,email,phone,location,dob,quali,about;
-    private TextView saveBtn;
+    private TextView saveBtn,age;
     private ImageView editImage,imageUploadBtn;
     private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation,sessionAbout,sessionQuali,sessionDob;
     private SessionManger sessionManger;
@@ -58,7 +72,9 @@ public class EditProfile extends AppCompatActivity {
     RadioGroup radioGroup;
     boolean isNewImageSet = false;
     Bitmap newImage;
+    private static final int DIALOG_REQUEST_ERROR=9001;
     Snackbar snackbar;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     final String Url="https://voulu.in/api/updateProfile.php";
     @Override
@@ -88,12 +104,25 @@ public class EditProfile extends AppCompatActivity {
         phone=findViewById(R.id.mobileNumber);
         quali=findViewById(R.id.quali);
         dob=findViewById(R.id.dob);
+        age=findViewById(R.id.ageTv);
         about=findViewById(R.id.aboutSelf);
         location=findViewById(R.id.location);
         saveBtn=findViewById(R.id.saveButton);
         editImage=findViewById(R.id.imageviewedit);
         imageUploadBtn=findViewById(R.id.imageUploadBtn);
         //radioGroup=(RadioGroup)findViewById(R.id.radioGroup);
+        if(serviceCheck())
+        {
+           // Toast.makeText(this, "ho rha he sb kuch ok", Toast.LENGTH_SHORT).show();
+
+            location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus)
+                {
+                    getPermission();
+                }
+            });
+        }
         setAllFileds();
     }
 
@@ -116,10 +145,36 @@ public class EditProfile extends AppCompatActivity {
         imageUploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .setAspectRatio(1, 1)
-                        .start(EditProfile.this);
+                getCameraPermission();
+            }
+        });
+
+        dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                final Date date=new Date();
+
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(EditProfile.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                dob.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                int current_year=date.getYear()+1900;
+                                int a=current_year-year;
+                                age.setText(a+"+");
+                                Toast.makeText(EditProfile.this, ""+a, Toast.LENGTH_SHORT).show();
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
             }
         });
     }
@@ -318,5 +373,73 @@ public class EditProfile extends AppCompatActivity {
         };
         registerReceiver(broadcastReceiver, intentFilter);
     }
+    private boolean serviceCheck()
+    {
+        int result= GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(EditProfile.this);
+        if(result== ConnectionResult.SUCCESS)
+        {
+            Log.d("ConnectOk","ok hai connection");
+            return true;
+        }
+        else if (GoogleApiAvailability.getInstance().isUserResolvableError(result))
+        {
+            Log.d("ConnectOk","error he but thik hoga");
+            Dialog dialog=GoogleApiAvailability.getInstance().getErrorDialog(EditProfile.this,result,DIALOG_REQUEST_ERROR);
+            dialog.show();
+        }
+        else
+        {
+            Toast.makeText(this, "kuch nhi kar skte", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
 
+    private void getPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(EditProfile.this, Manifest.permission.ACCESS_FINE_LOCATION) + ContextCompat
+                    .checkSelfPermission(EditProfile.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+
+                requestPermissions(
+                        new String[]{
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION},
+                        PERMISSIONS_MULTIPLE_REQUEST);
+
+
+            } else {
+                MapFragment maps=new MapFragment();
+                maps.show(getSupportFragmentManager(),"show");
+            }
+        }
+
+
+    }
+    private void getCameraPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(EditProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE) + ContextCompat
+                    .checkSelfPermission(EditProfile.this, Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+
+                requestPermissions(
+                        new String[]{
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA},
+                        PERMISSIONS_MULTIPLE_REQUEST);
+
+
+            } else {
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1, 1)
+                        .start(EditProfile.this);
+            }
+        }
+
+
+    }
 }

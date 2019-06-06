@@ -164,6 +164,7 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        arrayList.clear();
         data(mobile);
     }
 }

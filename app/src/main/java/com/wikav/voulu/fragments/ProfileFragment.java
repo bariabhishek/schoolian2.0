@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,12 +49,12 @@ public class ProfileFragment extends Fragment {
     CircleImageView uploadProfile;
     int PICK_IMAGE_REQUEST = 0;
     String phone;
-
+    Date date;
     Button logout;
     String addImageUrl = "https://voulu.in/api/profileData.php";
     SessionManger sessionManger;
-    TextView username, mobile, email, yourpost, youpost, nopost,qualiTv,bioTv,dobTv;
-  ImageView editProfileBtn;
+    TextView username, mobile, email, yourpost, youpost, nopost, qualiTv, bioTv, dobTv,age;
+    ImageView editProfileBtn;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -69,16 +70,17 @@ public class ProfileFragment extends Fragment {
         uploadProfile = view.findViewById(R.id.profileUpload);
         qualiTv = view.findViewById(R.id.qualiTv);
         dobTv = view.findViewById(R.id.dobTv);
+        age = view.findViewById(R.id.agtb);
         bioTv = view.findViewById(R.id.bioTv);
         uploadProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent view = new Intent(getActivity(),EditProfile.class);
+                Intent view = new Intent(getActivity(), EditProfile.class);
                 startActivity(view);
             }
         });
 
-        editProfileBtn= view.findViewById(R.id.myEditImage);
+        editProfileBtn = view.findViewById(R.id.myEditImage);
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,14 +100,30 @@ public class ProfileFragment extends Fragment {
         profileData();
 
 
+ date=new Date();
         HashMap<String, String> user = sessionManger.getUserDetail();
         String name = user.get(sessionManger.NAME);
         phone = user.get(sessionManger.MOBILE);
         String image = user.get(sessionManger.PROFILE_PIC);
         String email = user.get(sessionManger.EMAIL);
-       String  sessionDob = user.get( sessionManger.DOB );
-        String sessionQuali = user.get( sessionManger.QUALI );
-        String sessionAbout = user.get( sessionManger.BIO);
+        String sessionDob = user.get(sessionManger.DOB);
+        String sessionQuali = user.get(sessionManger.QUALI);
+        String sessionAbout = user.get(sessionManger.BIO);
+        //Log.d("myArry", "my dob"+sessionDob);
+                if(!sessionDob.equals("")) {
+                    String[] spl = sessionDob.split("/");
+                    String num = spl[2].trim();
+                    int aa = Integer.parseInt(num);
+                    int current_year = date.getYear() + 1900;
+                    int a = current_year - aa;
+                    age.setText(a+"+");
+                    Log.d("myArry", spl[2]);
+                }
+                else
+                {
+                    age.setText(18+"+");
+                }
+
 
         username.setText(name);
         mobile.setText(phone);
@@ -182,6 +200,39 @@ public class ProfileFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        HashMap<String, String> user = sessionManger.getUserDetail();
+        String name = user.get(sessionManger.NAME);
+        phone = user.get(sessionManger.MOBILE);
+        String image = user.get(sessionManger.PROFILE_PIC);
+        String email = user.get(sessionManger.EMAIL);
+        String sessionDob = user.get(sessionManger.DOB);
+        String sessionQuali = user.get(sessionManger.QUALI);
+        String sessionAbout = user.get(sessionManger.BIO);
+        if(!sessionDob.equals("")) {
+            String[] spl = sessionDob.split("/");
+            String num = spl[2].trim();
+            int aa = Integer.parseInt(num);
+            int current_year = date.getYear() + 1900;
+            int a = current_year - aa;
+            age.setText(a+"+");
+            Log.d("myArry", spl[2]);
+        }
+        else
+        {
+            age.setText(18+"+");
+        }
+        username.setText(name);
+        mobile.setText(phone);
+        qualiTv.setText(sessionQuali);
+        bioTv.setText(sessionAbout);
+        dobTv.setText(sessionDob);
+        this.email.setText(email);
 
-
+        Glide.with(getActivity())
+                .load(image)
+                .into(uploadProfile);
+    }
 }
