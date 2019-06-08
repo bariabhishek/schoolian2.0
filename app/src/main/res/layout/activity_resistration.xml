@@ -19,7 +19,7 @@
             android:layout_height="130dp"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/logonewwhitecolor"/>
+            android:src="@drawable/sch"/>
 
         <TextView
             android:id="@+id/tvvoulu"
@@ -109,8 +109,7 @@
                 android:id="@+id/edittextpassword1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword"
+                android:hint="class"
                 android:drawableRight="@drawable/person_24dp"
                 android:drawablePadding="10dp"
                 android:paddingLeft="10dp"/>

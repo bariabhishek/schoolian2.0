@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/demo"
+    android:background="@drawable/backgrounds"
     tools:context=".SpleshScreen">
 
 <ImageView
@@ -13,7 +13,7 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:elevation="15dp"
-    android:src="@drawable/logonewwhitecolor"
+    android:src="@drawable/sch"
     android:id="@+id/logo"
      />
     <ProgressBar

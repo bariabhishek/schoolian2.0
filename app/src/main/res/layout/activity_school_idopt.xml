@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SchoolIDopt">
+
+    <RelativeLayout
+        android:id="@+id/school_otp_Rlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:textSize="@dimen/_20sdp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="Institution Verification"/>
+
+    <TextView
+        android:id="@+id/b"
+        android:layout_below="@id/a"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:layout_centerHorizontal="true"
+        android:text="Please enter your School or Institute or College Code"
+        android:textAlignment="center"
+        />
+    <ImageView
+        android:layout_below="@id/b"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_15sdp"
+        android:src="@drawable/schoolicon"/>
+
+    <EditText
+        android:id="@+id/editTextSchoolVerificatioCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_40sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_100sdp"
+        android:gravity="center"
+        android:layout_above="@id/SchoolOtpButton"/>
+
+    <Button
+        android:id="@+id/SchoolOtpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:background="@drawable/bgrecycllecapsule"
+        android:text="Next"
+        android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/school_name_Rlayout"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/school_logo"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:src="@drawable/sch"/>
+
+        <TextView
+            android:id="@+id/school_name"
+            android:layout_below="@id/school_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:textSize="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_40sdp"
+            android:textAlignment="center"
+            android:text="Welcome to MITTAl CLASSES"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A new way to find solution"
+            android:layout_below="@id/school_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_20sdp"/>
+
+        <Button
+            android:id="@+id/btnSchoolName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_50sdp"
+            android:background="@drawable/bgrecycllecapsule"
+            android:text="Next"
+            android:textColor="@color/colorWhite"
+
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
