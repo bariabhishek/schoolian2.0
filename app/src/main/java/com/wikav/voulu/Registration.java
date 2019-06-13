@@ -23,12 +23,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -74,6 +76,7 @@ public class Registration extends AppCompatActivity {
     String simage = Gender;
     String newToken, mob;
     CheckBox chkIos;
+    Spinner spinner;
     SessionManger sessionManger;
     String Url = "https://voulu.in/api/register.php";
     Uri resultUri;
@@ -89,7 +92,8 @@ public class Registration extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarReg);
         name = findViewById(R.id.edittextname);
         mobile = findViewById(R.id.edittextMobile);
-        password = findViewById(R.id.edittextpassword1);
+       // spinner = (Spinner) findViewById(R.id.spinnert);
+       // password = findViewById(R.id.edittextpassword1);
         signin = findViewById(R.id.login_btn);
         signin.setEnabled(false);
         addListenerOnChkIos();
@@ -103,6 +107,7 @@ public class Registration extends AppCompatActivity {
         mob = getIntent().getStringExtra("mobile");
         mobile.setText(mob);
         mobile.setEnabled(false);
+
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +122,7 @@ public class Registration extends AppCompatActivity {
                     final String gender = "male";
                     if (!isImageset) {
                        // circleImageView.setImageResource(R.drawable.boy);
+
                         Gender = gender;
                       //  Toast.makeText(Registration.this, "" + Gender, Toast.LENGTH_SHORT).show();
                     } else {

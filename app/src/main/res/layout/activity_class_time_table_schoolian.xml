@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ClassTimeTableSchoolian">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_barLaout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/lltimetable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:weightSum="7"
+            android:padding="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/background_time_table_cal"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:id="@+id/sun"
+                android:layout_height="wrap_content"
+                android:text="Sun"
+                android:textColor="@color/colorWhite"
+                android:padding="@dimen/_5sdp"
+                android:background="#039BE5"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/skyblue"/>
+
+            <TextView
+                android:id="@+id/Mon"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Mon"
+                android:textColor="#039BE5"
+                android:padding="@dimen/_5sdp"
+
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/skyblue"/>
+            <TextView
+                android:id="@+id/tue"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Tue"
+                android:textColor="#039BE5"
+                android:padding="@dimen/_5sdp"
+
+
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/skyblue"/>
+            <TextView
+                android:id="@+id/wed"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Wed"
+                android:textColor="#039BE5"
+                android:padding="@dimen/_5sdp"
+
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/skyblue"/>
+            <TextView
+                android:id="@+id/thu"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Thu"
+                android:textColor="#039BE5"
+                android:padding="@dimen/_5sdp"
+
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/skyblue"/>
+            <TextView
+                android:id="@+id/fri"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Fri"
+                android:textColor="#039BE5"
+                android:padding="@dimen/_5sdp" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/skyblue"/>
+            <TextView
+                android:id="@+id/sat"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Sat"
+                android:textColor="#039BE5"
+                android:padding="@dimen/_5sdp"
+
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/skyblue"/>
+
+        </LinearLayout>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_marginTop="@dimen/_20sdp"
+    android:id="@+id/recyclerViewTimeTable"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+
+</RelativeLayout>
