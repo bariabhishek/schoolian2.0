@@ -57,7 +57,8 @@
         android:id="@+id/recyclerViewAttendance"
         android:layout_width="match_parent"
         android:paddingHorizontal="@dimen/_5sdp"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
    
 <LinearLayout
     android:layout_below="@id/recyclerViewAttendance"
