@@ -50,6 +50,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_100sdp"
         android:gravity="center"
+        android:hint="Type school id"
         android:layout_above="@id/SchoolOtpButton"/>
 
     <Button

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wikav.voulu">
+    package="com.wikav.schoolian">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -27,74 +27,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Profile_Schoolian_student">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Attendance">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ClassTimeTableSchoolian">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".StudentListSchoolian">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".GridHome">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".SchoolIDopt" />
+        <activity android:name="com.wikav.schoolian.AnimeActivity"></activity>
+        <activity android:name="com.wikav.schoolian.SchoolIDopt"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".TestActivity" />
-        <activity android:name=".AcceptedActivity" />
-        <activity android:name=".AcceptedListActivity" />
-        <activity android:name=".AboutUs" />
-        <activity android:name=".YourPost" />
-        <activity android:name=".EditProfile" />
+        <activity android:name="com.wikav.schoolian.AcceptedActivity" />
+        <activity android:name="com.wikav.schoolian.AcceptedListActivity" />
+        <activity android:name="com.wikav.schoolian.AboutUs" />
+        <activity android:name="com.wikav.schoolian.YourPost" />
+        <activity android:name="com.wikav.schoolian.EditProfile" />
+        <activity android:name="com.wikav.schoolian.OTP" />
+        <activity android:name="com.wikav.schoolian.NewOTP" />
+        <activity android:name="com.wikav.schoolian.UserMobileNumber" />
         <activity
-            android:name=".JobConfirmActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".Wallet" />
-        <activity android:name=".JobConfirm" />
-        <activity android:name=".OTP" />
-        <activity android:name=".NewOTP" />
-        <activity android:name=".UserMobileNumber" />
-        <activity
-            android:name=".ScrollingActivityHome"
+            android:name="com.wikav.schoolian.ScrollingActivityHome"
             android:label="@string/title_activity_scrolling_home" />
-        <activity android:name=".JobDiscription" />
-        <activity android:name=".NotificationManager" />
-        <activity android:name=".CommentedActivity" />
-        <activity android:name=".UploadYourPost" />
-        <activity android:name=".JobDiscriptionForNotification" />
+        <activity android:name="com.wikav.schoolian.JobDiscription" />
+        <activity android:name="com.wikav.schoolian.NotificationManager" />
+        <activity android:name="com.wikav.schoolian.CommentedActivity" />
         <activity
-            android:name=".NavigationDrawerActivity_"
+            android:name="com.wikav.schoolian.NavigationDrawerActivity_"
             android:label="@string/title_activity_navigation_drawer_" />
         <activity
-            android:name=".Home"
+            android:name="com.wikav.schoolian.Home"
             android:label="@string/title_activity_home"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
@@ -106,9 +64,9 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".Login" />
-        <activity android:name=".Registration" />
-        <activity android:name=".SpleshScreen">
+        <activity android:name="com.wikav.schoolian.Login" />
+        <activity android:name="com.wikav.schoolian.Registration" />
+        <activity android:name="com.wikav.schoolian.SpleshScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -120,29 +78,22 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name="com.wikav.schoolian.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".JobSchedulerService"
+            android:name="com.wikav.schoolian.JobSchedulerService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service android:name=".MyService">
+        <service android:name="com.wikav.schoolian.MyService">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".ConnectivityReceivers"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_ACTION" />
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
+
     </application>
 
 </manifest>

@@ -8,12 +8,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:704944224597:android:3e033531f594b437",
+        "android_client_info": {
+          "package_name": "com.wikav.schoolian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704944224597-adulehvvivv4kqnm2t62nsi5dubaboij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wikav.schoolian",
+            "certificate_hash": "11b279b287ab11c885c13d73a37b7f8ebd48ff61"
+          }
+        },
+        {
+          "client_id": "704944224597-oghg378l6o6jeiiphva8p0vtnupo68mt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsjWwYYrLxgM1wt0fhktOgwUCaDYjkw24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704944224597-oghg378l6o6jeiiphva8p0vtnupo68mt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:704944224597:android:8082ae30f9878589",
         "android_client_info": {
           "package_name": "com.wikav.voulu"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "704944224597-k4pjq8olsl4u2tgqovj7lpijfrv9ka4j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wikav.voulu",
+            "certificate_hash": "e90fcd0d5c2fd0e489d26e435b941de1947bcc15"
+          }
+        },
         {
           "client_id": "704944224597-jk2vdctrnh85iva6lnonb0ep7br80ke0.apps.googleusercontent.com",
           "client_type": 1,

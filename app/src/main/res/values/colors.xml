@@ -17,5 +17,6 @@
     <color name="skyblue">#039BE5</color>
     <color name="trans">#00FDFBFB</color>
 
-
+    <color name="feed_item_bg">#ffffff</color>
+    <color name="feed_item_border">#c2c3c8</color>G
 </resources>
