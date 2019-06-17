@@ -27,32 +27,46 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.wikav.schoolian.AnimeActivity"></activity>
-        <activity android:name="com.wikav.schoolian.SchoolIDopt"></activity>
+        <activity android:name=".AttendanceLayout">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Events_Holidays">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AnimeActivity" />
+        <activity android:name=".SchoolIDopt" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.wikav.schoolian.AcceptedActivity" />
-        <activity android:name="com.wikav.schoolian.AcceptedListActivity" />
-        <activity android:name="com.wikav.schoolian.AboutUs" />
-        <activity android:name="com.wikav.schoolian.YourPost" />
-        <activity android:name="com.wikav.schoolian.EditProfile" />
-        <activity android:name="com.wikav.schoolian.OTP" />
-        <activity android:name="com.wikav.schoolian.NewOTP" />
-        <activity android:name="com.wikav.schoolian.UserMobileNumber" />
+        <activity android:name=".AcceptedActivity" />
+        <activity android:name=".AcceptedListActivity" />
+        <activity android:name=".AboutUs" />
+        <activity android:name=".YourPost" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".OTP" />
+        <activity android:name=".NewOTP" />
+        <activity android:name=".UserMobileNumber" />
         <activity
-            android:name="com.wikav.schoolian.ScrollingActivityHome"
+            android:name=".ScrollingActivityHome"
             android:label="@string/title_activity_scrolling_home" />
-        <activity android:name="com.wikav.schoolian.JobDiscription" />
-        <activity android:name="com.wikav.schoolian.NotificationManager" />
-        <activity android:name="com.wikav.schoolian.CommentedActivity" />
+        <activity android:name=".JobDiscription" />
+        <activity android:name=".NotificationManager" />
+        <activity android:name=".CommentedActivity" />
         <activity
-            android:name="com.wikav.schoolian.NavigationDrawerActivity_"
+            android:name=".NavigationDrawerActivity_"
             android:label="@string/title_activity_navigation_drawer_" />
         <activity
-            android:name="com.wikav.schoolian.Home"
+            android:name=".Home"
             android:label="@string/title_activity_home"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
@@ -64,9 +78,9 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name="com.wikav.schoolian.Login" />
-        <activity android:name="com.wikav.schoolian.Registration" />
-        <activity android:name="com.wikav.schoolian.SpleshScreen">
+        <activity android:name=".Login" />
+        <activity android:name=".Registration" />
+        <activity android:name=".SpleshScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -78,22 +92,20 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <service android:name="com.wikav.schoolian.MyFirebaseMessagingService">
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="com.wikav.schoolian.JobSchedulerService"
+            android:name=".JobSchedulerService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service android:name="com.wikav.schoolian.MyService">
+        <service android:name=".MyService">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
-
-
     </application>
 
 </manifest>
