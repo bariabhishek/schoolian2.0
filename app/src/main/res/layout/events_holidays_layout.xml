@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+   <TextView
+       android:id="@+id/textColor"
+       android:layout_width="@dimen/_10sdp"
+       android:layout_height="match_parent"
+       android:background="@color/skyblue"/>
+    <TextView
+        android:id="@+id/holidayname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        android:textSize="@dimen/_16ssp"
+        android:text="DIWALI VACATION"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/holidaydate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/skyblue"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:text="19 jan to 30 jan"/>
+
+</LinearLayout>
