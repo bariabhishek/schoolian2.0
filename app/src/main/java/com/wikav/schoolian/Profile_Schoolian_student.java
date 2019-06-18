@@ -1,8 +1,10 @@
-package com.wikav.voulu;
+package com.wikav.schoolian;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.wikav.schoolian.R;
 
 public class Profile_Schoolian_student extends AppCompatActivity {
 

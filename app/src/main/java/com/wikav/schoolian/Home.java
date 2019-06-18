@@ -31,6 +31,7 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
@@ -55,6 +56,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.wikav.schoolian.fragments.FavoriteFragment;
 import com.wikav.schoolian.fragments.FullScreenDialogForCheckJobDetail;
 import com.wikav.schoolian.fragments.HomeFragment;
+import com.wikav.schoolian.fragments.MainGridFragment;
 import com.wikav.schoolian.fragments.NotificationFragment;
 import com.wikav.schoolian.fragments.ProfileFragment;
 import com.wikav.schoolian.fragments.UplodadPic;
@@ -82,6 +84,7 @@ public class Home extends NavigationDrawerActivity_ {
     NotificationFragment notificationFragment;
     FavoriteFragment favoriteFragment;
     ProfileFragment profileFragment;
+    MainGridFragment mainGridFragment;
     SessionManger sessionManger;
     IntentFilter intentFilter;
     Snackbar snackbar = null;
@@ -95,7 +98,7 @@ public class Home extends NavigationDrawerActivity_ {
     FloatingActionButton uploadPost;
     TextView goToCheck;
     String Url2 = "https://voulu.in/api/pendingTask.php";
-
+Toolbar toolbar;
     private FirebaseJobDispatcher jobDispatcher;
 
 
@@ -106,10 +109,12 @@ public class Home extends NavigationDrawerActivity_ {
         /////////initilize/////////
         sessionManger = new SessionManger(this);
         homeFragment = new HomeFragment();
+
       //  inboxFragment = new InboxFragment();
         notificationFragment = new NotificationFragment();
         favoriteFragment = new FavoriteFragment();
         profileFragment = new ProfileFragment();
+        mainGridFragment = new MainGridFragment();
         Driver driver = new GooglePlayDriver(this);
         jobDispatcher = new FirebaseJobDispatcher(driver);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -133,7 +138,7 @@ public class Home extends NavigationDrawerActivity_ {
       //  arraydata();
         checkIntenet();
         timeConverter();
-        setFragment(homeFragment);
+        setFragment(mainGridFragment);
 
 ///////////////// click listners///////////////////////
         tasknote = findViewById(R.id.slideUp);
@@ -179,7 +184,7 @@ public class Home extends NavigationDrawerActivity_ {
 
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_home:
-                        setFragment(homeFragment);
+                        setFragment(mainGridFragment);
                         return true;
 
                     case R.id.notification:
@@ -187,7 +192,7 @@ public class Home extends NavigationDrawerActivity_ {
                         return true;
 
                     case R.id.Fevrate:
-                        setFragment(favoriteFragment);
+                        setFragment(homeFragment);
                         return true;
 
                     case R.id.profile:

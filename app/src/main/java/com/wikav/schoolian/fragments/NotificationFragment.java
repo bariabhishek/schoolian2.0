@@ -39,7 +39,7 @@ import com.wikav.schoolian.SessionManger;
 public class NotificationFragment extends Fragment {
 
     RecyclerView recyclerView;
-    String  Url="https://voulu.in/api/getNotification.php",mobile;
+    String  Url="https://schoolian.website/android/newApi/getNotification.php",mobile;
     SessionManger sessionManger;
 
     List<DataForNotification> arrayList;
@@ -58,7 +58,8 @@ public class NotificationFragment extends Fragment {
         arrayList = new ArrayList <>(  );
         sessionManger=new SessionManger(getActivity());
         HashMap<String,String> getUser=sessionManger.getUserDetail();
-            mobile=getUser.get(sessionManger.MOBILE);
+            mobile=getUser.get(sessionManger.SID);
+        Toast.makeText(getActivity(), ""+mobile, Toast.LENGTH_SHORT).show();
         data(mobile);
 
         recyclerView =view.findViewById( R.id.notificationrecycleview );
@@ -101,8 +102,6 @@ public class NotificationFragment extends Fragment {
                             if (success.equals("1")){
                                 Log.d("Response",response);
                                 for (int i = 0; i < jsonArray.length(); i++) {
-
-
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String notification = object.getString("metter").trim();
                                     String senderImage = object.getString("sender_image").trim();
@@ -120,11 +119,9 @@ public class NotificationFragment extends Fragment {
                             }
                             else
                             {
-                                Toast.makeText(getActivity(), "Something went wrong...", Toast.LENGTH_LONG).show();
+                               // Toast.makeText(getActivity(), "No data available", Toast.LENGTH_LONG).show();
 
                                 Log.d("Response", response);
-
-
                             }
 
                         } catch (JSONException e) {
@@ -151,7 +148,7 @@ public class NotificationFragment extends Fragment {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("mobile", mobile);
+                params.put("sid", mobile);
                 return params;
             }
         };

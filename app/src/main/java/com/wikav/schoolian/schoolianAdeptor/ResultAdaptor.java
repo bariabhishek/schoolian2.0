@@ -1,25 +1,28 @@
 package com.wikav.schoolian.schoolianAdeptor;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.wikav.schoolian.DataClassSchoolian.AttendanceSetGet;
+import com.wikav.schoolian.DataClassSchoolian.ResultList;
 import com.wikav.schoolian.R;
 ;
 
 import java.util.List;
 
-public class AttendanceAdaptor extends RecyclerView.Adapter<AttendanceAdaptor.ViewHolder> {
+public class ResultAdaptor extends RecyclerView.Adapter<ResultAdaptor.ViewHolder> {
     Context context;
-    List<AttendanceSetGet> list;
+    List<ResultList> list;
 
-    public AttendanceAdaptor(Context applicationContext, List <AttendanceSetGet> list) {
+    public ResultAdaptor(Context applicationContext, List <ResultList> list) {
         context = applicationContext;
         this.list = list;
     }
@@ -28,7 +31,7 @@ public class AttendanceAdaptor extends RecyclerView.Adapter<AttendanceAdaptor.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
       LayoutInflater layoutInflater = LayoutInflater.from( context );
-        View view = layoutInflater.inflate( R.layout.attendance_layout,parent,false );
+        View view = layoutInflater.inflate( R.layout.resullt_data,parent,false );
         return new ViewHolder( view );
     }
 
@@ -38,6 +41,10 @@ public class AttendanceAdaptor extends RecyclerView.Adapter<AttendanceAdaptor.Vi
         holder.marks.setText( list.get( position ).getMarks() );
         holder.grads.setText( list.get( position ).getGrads() );
         holder.sub.setText( list.get( position ).getSubject() );
+        if(list.get(position).getLength()%2==0)
+        {
+            holder.dataLinear.setBackgroundColor(Color.parseColor("#FDBDBD"));
+        }
     }
 
     @Override
@@ -47,10 +54,11 @@ public class AttendanceAdaptor extends RecyclerView.Adapter<AttendanceAdaptor.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
        TextView sub,marks,grads;
+       LinearLayout dataLinear;
         public ViewHolder(@NonNull View itemView) {
             super( itemView );
-
             sub = itemView.findViewById( R.id.Subject );
+            dataLinear = itemView.findViewById( R.id.dataLinear );
             grads = itemView.findViewById( R.id.grads );
             marks = itemView.findViewById( R.id.marks );
 
