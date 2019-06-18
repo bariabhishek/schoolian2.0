@@ -1,13 +1,15 @@
 package com.wikav.schoolian.DataClassSchoolian;
 
-public class AttendanceSetGet {
+public class ResultList {
 
     String subject,marks,grads;
+    int length;
 
-    public AttendanceSetGet(String subject, String marks, String grads) {
+    public ResultList(String subject, String marks, String grads, int i) {
         this.subject = subject;
         this.marks = marks;
         this.grads = grads;
+        length=i;
     }
 
     public String getSubject() {
@@ -32,5 +34,9 @@ public class AttendanceSetGet {
 
     public void setGrads(String grads) {
         this.grads = grads;
+    }
+
+    public int getLength() {
+        return length;
     }
 }

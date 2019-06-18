@@ -4,10 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/_5sdp"
-    tools:context=".Attendance">
+    tools:context=".Results">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toobar"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/colorWhite">
+
+    </androidx.appcompat.widget.Toolbar>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTintMode="src_atop"
+        android:id="@+id/progressBarRes"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_below="@id/toobar"
+        android:background="@drawable/background_select_exam"
+        android:id="@+id/selector"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="80dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/_14sdp"
+            android:layout_weight=".5"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:text="Select Exam"
+            android:background="@color/colorPrimary"/>
+        <Spinner
+            android:id="@+id/spinnerClass"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            />
+
+    </LinearLayout>
 
     <ScrollView
+        android:layout_below="@id/selector"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,23 +65,25 @@
     <LinearLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_30sdp"
         android:paddingHorizontal="@dimen/_5sdp"
         android:weightSum="3"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/Subject"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="2dp"
+            android:textSize="16sp"
             android:background="@drawable/examgrade_background_layout"
             android:text="Subject"/>
         <TextView
             android:id="@+id/marks"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_weight="1"
             android:background="@drawable/examgrade_background_layout"
             android:gravity="center"
@@ -43,29 +92,34 @@
         <TextView
             android:id="@+id/grads"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="2dp"
             android:background="@drawable/examgrade_background_layout"
             android:text="Grads"/>
-       
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/ll"
+        android:visibility="gone"
         android:id="@+id/recyclerViewAttendance"
         android:layout_width="match_parent"
         android:paddingHorizontal="@dimen/_5sdp"
         android:layout_height="wrap_content">
     </androidx.recyclerview.widget.RecyclerView>
-   
+
 <LinearLayout
+    android:id="@+id/marksDetail"
+    android:visibility="gone"
     android:layout_below="@id/recyclerViewAttendance"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:weightSum="3">
+    android:weightSum="3"
+    >
 
     <LinearLayout
         android:layout_width="@dimen/_80sdp"
@@ -80,10 +134,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:id="@+id/totalMarks"
         android:textColor="@color/colorWhite"
         android:layout_marginVertical="@dimen/_5sdp"
         android:textStyle="bold"
-        android:text="591"/>
+      />
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -98,7 +153,8 @@
             android:textColor="@color/colorWhite"
             android:layout_marginVertical="@dimen/_5sdp"
             android:textStyle="bold"
-            android:text="591"/>
+            android:id="@+id/obtainMarks"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="@dimen/_80sdp"
@@ -116,7 +172,7 @@
             android:layout_marginVertical="@dimen/_5sdp"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="591"/>
+            android:text="Percentage"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -127,13 +183,11 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:gravity="center"
+            android:id="@+id/percentage"
             android:textColor="@color/colorWhite"
             android:layout_marginVertical="@dimen/_5sdp"
             android:textStyle="bold"
-            android:layout_height="wrap_content"
-
-
-            android:text="591"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="@dimen/_80sdp"
@@ -151,23 +205,9 @@
             android:textColor="@color/colorWhite"
             android:layout_marginVertical="@dimen/_5sdp"
             android:textStyle="bold"
-            android:text="591"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_5sdp"
-            android:background="@color/colorWhite"/>
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:layout_marginVertical="@dimen/_5sdp"
-            android:textStyle="bold"
+            android:id="@+id/passFail"
+            android:text="Pass"/>
 
-            android:text="591"/>
     </LinearLayout>
 
    </LinearLayout>
