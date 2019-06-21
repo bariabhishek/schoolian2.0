@@ -28,18 +28,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".AttendanceLayout">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Events_Holidays">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".AnimeActivity" />
         <activity android:name=".SchoolIDopt" />
@@ -70,9 +62,9 @@
             android:label="@string/title_activity_home"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
-                <action android:name="startup.abhishek.spleshscreen.accepetFromNotification" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -81,11 +73,10 @@
         <activity android:name=".Login" />
         <activity android:name=".Registration" />
         <activity android:name=".SpleshScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".Results">
+
         </activity>
 
         <meta-data
