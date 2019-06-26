@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Voulu</string>
-    <string name="name">Voulu</string>
+    <string name="app_name">Schoolian</string>
+    <string name="name">Schoolian</string>
     <string name="dont_have_account">Dont have account</string>
     <string name="create_one"><u>Create One</u></string>
     <string name="title_activity_home">Home</string>

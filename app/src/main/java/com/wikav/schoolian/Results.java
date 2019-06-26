@@ -104,7 +104,7 @@ public class Results extends AppCompatActivity implements AdapterView.OnItemSele
         StringRequest stringRequest= new StringRequest(Request.Method.POST, JSON_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Myres",response);
+
                 int getTotalmarks=0 ;
                 int obtMarks=0  ;
                 try {

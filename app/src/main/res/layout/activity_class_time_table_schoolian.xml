@@ -16,7 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarForClassRoutine"
             android:layout_width="match_parent"
+            app:titleTextColor="@color/colorWhite"
             android:layout_height="match_parent">
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -27,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_5sdp"
             android:weightSum="7"
+            android:visibility="gone"
             android:padding="@dimen/_2sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:background="@drawable/background_time_table_cal"

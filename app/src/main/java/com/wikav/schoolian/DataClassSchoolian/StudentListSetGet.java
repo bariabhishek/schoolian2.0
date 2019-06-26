@@ -2,12 +2,13 @@ package com.wikav.schoolian.DataClassSchoolian;
 
 public class StudentListSetGet {
 
-    String name , subject;
-    int image;
-    public StudentListSetGet(String name, int image, String subject) {
+    String name , roll,mobile;
+    String  image;
+    public StudentListSetGet(String name, String  image, String roll, String mobile) {
         this.name = name;
         this.image = image;
-        this.subject = subject;
+        this.roll = roll;
+        this.mobile = mobile;
     }
 
     public String getName() {
@@ -18,19 +19,23 @@ public class StudentListSetGet {
         this.name = name;
     }
 
-    public int getImage() {
+    public String  getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String  image) {
         this.image = image;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getRoll() {
+        return roll;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setRoll(String roll) {
+        this.roll = roll;
+    }
+
+    public String getMobile() {
+        return mobile;
     }
 }

@@ -9,7 +9,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.wikav.schoolian.Adeptor.Adeptor;
 import com.wikav.schoolian.Adeptor.ModelList;
 
 import android.content.BroadcastReceiver;
@@ -183,11 +182,11 @@ RecyclerView recyclerView;
     }
     public void setupRecycle(List <ModelList> list)
     {
-        Adeptor a= new Adeptor( this,list );
+
         recyclerView.setHasFixedSize( true );
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new LinearLayoutManager(this) );
-        recyclerView.setAdapter( a );
+       // recyclerView.setAdapter(  );
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);
         if(swipeRefreshLayout.isRefreshing())

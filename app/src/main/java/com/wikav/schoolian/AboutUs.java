@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.wikav.schoolian.R;
+
 public class AboutUs extends AppCompatActivity {
 
     @Override

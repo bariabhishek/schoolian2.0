@@ -35,7 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            ></CalendarView>
+            android:id="@+id/myCal">
+
+        </CalendarView>
 
 
         <LinearLayout
@@ -63,8 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_gravity="center"
+                android:id="@+id/present"
                 android:gravity="center"
-                android:text="20"/>
+               />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,7 +93,8 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="20"/>
+                android:id="@+id/absent"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,7 +122,8 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="20"/>
+                android:id="@+id/holiday"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -145,8 +150,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_gravity="center"
+                android:id="@+id/leave"
                 android:gravity="center"
-                android:text="20"/>
+               />
         </LinearLayout>
     </LinearLayout>
 

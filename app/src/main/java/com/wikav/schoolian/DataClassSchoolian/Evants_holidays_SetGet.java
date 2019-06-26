@@ -1,12 +1,13 @@
 package com.wikav.schoolian.DataClassSchoolian;
 
 public class Evants_holidays_SetGet {
-String color,holidayname,holidaysdate;
+String color,holidayname,holidaysdate,fromDate,toDate;
 
-    public Evants_holidays_SetGet(String color, String holidayname, String holidaysdate) {
+    public Evants_holidays_SetGet(String color, String holidayname, String fromDate,String toDate) {
         this.color = color;
         this.holidayname = holidayname;
-        this.holidaysdate = holidaysdate;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
 
     public String getColor() {
@@ -31,5 +32,21 @@ String color,holidayname,holidaysdate;
 
     public void setHolidaysdate(String holidaysdate) {
         this.holidaysdate = holidaysdate;
+    }
+
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 }

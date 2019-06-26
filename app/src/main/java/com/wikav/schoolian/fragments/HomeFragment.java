@@ -45,7 +45,6 @@ import java.util.TimerTask;
 import com.wikav.schoolian.Adeptor.CoustomSwipeAdeptorForHome;
 import com.wikav.schoolian.Adeptor.MyAdeptor;
 import com.wikav.schoolian.Adeptor.MyModelList;
-import com.wikav.schoolian.DatabaseHelper;
 import com.wikav.schoolian.R;
 import com.wikav.schoolian.SessionManger;
 
@@ -57,7 +56,7 @@ public class HomeFragment extends Fragment {
     final long DELAY_MS = 4000;//delay in milliseconds before task is to be executed
     final long PERIOD_MS = 5000;
     ViewPager viewPager;
-    DatabaseHelper mydb;
+
     CoustomSwipeAdeptorForHome coustomSwipeAdeptorForHome;
     // int [] imageArry ={R.drawable.logo,R.drawable.boy};
     int currentPage = 0;
@@ -173,7 +172,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
                          getAdImage();
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        mydb=new DatabaseHelper(getActivity());
         imageButton = view.findViewById(R.id.uplodButton);
         noData = view.findViewById(R.id.noData);
         adtext = view.findViewById(R.id.adtext);

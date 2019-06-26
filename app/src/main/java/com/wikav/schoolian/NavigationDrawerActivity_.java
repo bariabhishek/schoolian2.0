@@ -21,7 +21,6 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
 
 
     HomeFragment homeFragment;
-
     NotificationFragment notificationFragment ;
     FavoriteFragment favoriteFragment;
     ProfileFragment profileFragment ;
@@ -91,7 +90,7 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
 
         } else if (id == R.id.yourpost) {
 
-        } else if (id == R.id.commentedPost) {
+        } else if (id == R.id.getclassmate) {
 
         } /*else if (id == R.id.follow) {
 

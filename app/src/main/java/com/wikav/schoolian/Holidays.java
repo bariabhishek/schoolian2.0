@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -16,8 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.wikav.schoolian.DataClassSchoolian.Evants_holidays_SetGet;
-import com.wikav.schoolian.DataClassSchoolian.StudentListSetGet;
-import com.wikav.schoolian.schoolianAdeptor.StudentListAdaptor;
+import com.wikav.schoolian.schoolianAdeptor.Evants_holidays_Adaptor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,79 +26,84 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentListSchoolian extends AppCompatActivity {
+public class Holidays extends AppCompatActivity {
+
     RecyclerView recyclerView ;
-    List<StudentListSetGet> list ;
-SessionManger sessionManger;
-String url="https://schoolian.website/android/newApi/getClassmate.php";
+    List<Evants_holidays_SetGet> list;
+    String url="https://schoolian.website/android/newApi/getHoliday.php";
+    SessionManger sessionManger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_student_list_schoolian );
+        setContentView( R.layout.holidays);
+
+        recyclerView = findViewById( R.id.recyclerViewEvants_holidays );
+        list = new ArrayList <>(  );
         sessionManger=new SessionManger(this);
 
         HashMap<String,String> user=sessionManger.getUserDetail();
         String sclId=user.get(sessionManger.SCL_ID);
-        String clas=user.get(sessionManger.CLAS);
-        recyclerView = findViewById( R.id.recyclerViewStudentListSchoolian );
-
-        list = new ArrayList <>(  );
-
-        data(sclId,clas);
+        data(sclId);
 
 
     }
 
-    private void data(final String sclId, final String clas) {
+    private void setUp(List<Evants_holidays_SetGet> list) {
+        Evants_holidays_Adaptor evants_holidays_adaptor = new Evants_holidays_Adaptor(getApplicationContext(),list);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getApplicationContext() );
+        linearLayoutManager.setOrientation( RecyclerView.VERTICAL );
+        recyclerView.setLayoutManager( linearLayoutManager );
+        recyclerView.setAdapter( evants_holidays_adaptor );
+    }
+
+    private void data(final String scl_id) {
         StringRequest stringRequest =new StringRequest(Request.Method.POST,url, new Response.Listener<String>(){
 
             @Override
             public void onResponse(String response) {
-                Log.d("Myresponse",response);
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     String success=jsonObject.getString("success");
-                    JSONArray jsonArray=jsonObject.getJSONArray("classmate");
+                    JSONArray jsonArray=jsonObject.getJSONArray("holiday");
                     if(success.equals("1")) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            String name = jsonObject1.getString("name");
-                            String profile = jsonObject1.getString("profile");
-                            String mobile = jsonObject1.getString("mobile");
-                            String roll = jsonObject1.getString("roll");
+                            String occasion = jsonObject1.getString("occasion");
+                            String from_date = jsonObject1.getString("from_date");
+                            String to_date = jsonObject1.getString("to_date");
 
-                            list.add(new StudentListSetGet(name,profile,roll,mobile));
+                            list.add(new Evants_holidays_SetGet("", occasion, from_date, to_date));
                         }
                         setUp(list);
                     }
                     else
                     {
-                        Toast.makeText(StudentListSchoolian.this, "No Data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Holidays.this, "No Data", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(StudentListSchoolian.this, "Error Hai", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Holidays.this, "Error Hai", Toast.LENGTH_SHORT).show();
 
                 }
 
             }
-        },new Response.ErrorListener()
-        {
+            },new Response.ErrorListener()
+            {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(StudentListSchoolian.this, "Error", Toast.LENGTH_SHORT).show();
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(Holidays.this, "Error", Toast.LENGTH_SHORT).show();
 
+                }
             }
-        }
         ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-                param.put("school_id", sclId);
-                param.put("cls", clas);
+                param.put("school_id", scl_id);
                 return param;
             }
 
@@ -109,14 +112,6 @@ String url="https://schoolian.website/android/newApi/getClassmate.php";
         stringRequest.setShouldCache(false);
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
-    }
 
-    private void setUp(List<StudentListSetGet> list) {
-        StudentListAdaptor studentListAdaptor = new StudentListAdaptor(getApplicationContext(),list);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getApplicationContext() );
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL );
-        recyclerView.setLayoutManager( linearLayoutManager );
-        recyclerView.setAdapter( studentListAdaptor );
     }
 }

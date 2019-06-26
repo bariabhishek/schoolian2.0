@@ -7,11 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.wikav.schoolian.AttendanceLayout;
+import com.wikav.schoolian.ClassTimeTableSchoolian;
+import com.wikav.schoolian.Holidays;
 import com.wikav.schoolian.R;
 import com.wikav.schoolian.Results;
+import com.wikav.schoolian.SchoolianWorld;
 import com.wikav.schoolian.SessionManger;
+import com.wikav.schoolian.StudentListSchoolian;
+import com.wikav.schoolian.TeacherList;
+import com.wikav.schoolian.Syllabus;
 
 import java.util.HashMap;
 
@@ -64,43 +70,49 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId())
         {
             case R.id.profileBtn:
-                Toast.makeText(getActivity(), "profile", Toast.LENGTH_SHORT).show();
+                 intent = new Intent(getActivity(), Syllabus. class);
+                startActivity(intent);
 
                 break;
                 case R.id.examBtn:
-                    Toast.makeText(getActivity(), "exam", Toast.LENGTH_SHORT).show();;
+                    intent = new Intent(getActivity(), TeacherList. class);
+                    startActivity(intent);
 
                     break;
                 case R.id.resultBtn:
-                    Toast.makeText(getActivity(), "result", Toast.LENGTH_SHORT).show();;
-                    Intent intent=new Intent(getActivity(), Results.class);
+                     intent=new Intent(getActivity(), Results.class);
                     startActivity(intent);
                     break;
                 case R.id.classRoutBtn:
-                    Toast.makeText(getActivity(), "classRoutine", Toast.LENGTH_SHORT).show();;
 
+                    intent=new Intent(getActivity(), ClassTimeTableSchoolian.class);
+                    startActivity(intent);
                     break;
                 case R.id.eventsBtn:
-                    Toast.makeText(getActivity(), "events", Toast.LENGTH_SHORT).show();;
-
+                    intent = new Intent(getActivity(), SchoolianWorld. class);
+                    startActivity(intent);
                     break;
                 case R.id.holidayBtn:
-                    Toast.makeText(getActivity(), "holiday", Toast.LENGTH_SHORT).show();;
 
+                    intent=new Intent(getActivity(), Holidays.class);
+                    startActivity(intent);
                     ;
                 break;
                 case R.id.attendanceBtn:
-                    Toast.makeText(getActivity(), "Attendence", Toast.LENGTH_SHORT).show();;
 
+                    intent=new Intent(getActivity(), AttendanceLayout.class);
+                    startActivity(intent);
                 break;
                 case R.id.messageBtn:
-                    Toast.makeText(getActivity(), "message", Toast.LENGTH_SHORT).show();
+                    intent=new Intent(getActivity(), StudentListSchoolian.class);
+                    startActivity(intent);
                     break;
                 case R.id.noticBtn:
-                    Toast.makeText(getActivity(), "notice", Toast.LENGTH_SHORT).show();;
+
 
                     break;
         }

@@ -1,21 +1,21 @@
 package com.wikav.schoolian.DataClassSchoolian;
 
 public class ClassTimeTableSetGet {
-    int image;
+    String  image;
     String startTime,endTime,subject;
 
-    public ClassTimeTableSetGet(int image, String startTime, String endTime, String subject) {
+    public ClassTimeTableSetGet(String image, String startTime, String endTime, String subject) {
         this.image = image;
         this.startTime = startTime;
         this.endTime = endTime;
         this.subject = subject;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

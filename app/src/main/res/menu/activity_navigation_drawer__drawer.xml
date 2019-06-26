@@ -14,13 +14,21 @@
             android:icon="@drawable/letter"
             android:title="Your Posts" />
         <item
-            android:id="@+id/commentedPost"
+            android:id="@+id/getclassmate"
             android:icon="@drawable/purse"
-            android:title="Commented" />
+            android:title="Classmates" />
+        <item
+            android:id="@+id/getTeacher"
+            android:icon="@drawable/purse"
+            android:title="Teachers" />
+        <item
+            android:id="@+id/schoolianBtn"
+            android:icon="@drawable/purse"
+            android:title="Schoolian World" />
         <item
             android:id="@+id/acceptedComment"
             android:icon="@drawable/purse"
-            android:title="Accepted Posts" />
+            android:title="" />
        <!-- <item
             android:id="@+id/follow"
             android:icon="@drawable/follower1"

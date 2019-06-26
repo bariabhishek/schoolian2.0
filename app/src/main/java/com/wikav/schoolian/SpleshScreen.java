@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.wikav.schoolian.fragments.FullScreenDialogForNoInternet;
 import com.wikav.schoolian.fragments.FullScreenDialogForUpdateApp;
 

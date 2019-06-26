@@ -38,8 +38,13 @@ public class Evants_holidays_Adaptor extends RecyclerView.Adapter<Evants_holiday
 
       //  holder.textcolor.setText( list.get( position ).getColor() );
         holder.holiday_name.setText( list.get( position ).getHolidayname() );
-        holder.Holiday_date.setText( list.get( position ).getHolidaysdate() );
-
+        if(!list.get( position ).getToDate().equals("NA")) {
+            holder.Holiday_date.setText(list.get(position).getFromDate() + " To " + list.get(position).getToDate());
+        }
+        else
+        {
+            holder.Holiday_date.setText(list.get(position).getFromDate());
+        }
 
 
 

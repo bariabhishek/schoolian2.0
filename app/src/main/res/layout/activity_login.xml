@@ -16,11 +16,10 @@
             android:layout_height="150dp"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/logonewwhitecolor"/>
+            android:src="@drawable/sch"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VOULU"
             android:textColor="#fff"
             android:layout_centerHorizontal="true"
             android:textSize="20sp"

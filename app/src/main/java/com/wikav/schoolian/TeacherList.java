@@ -15,9 +15,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.wikav.schoolian.DataClassSchoolian.Evants_holidays_SetGet;
 import com.wikav.schoolian.DataClassSchoolian.StudentListSetGet;
+import com.wikav.schoolian.DataClassSchoolian.TeacherSetGet;
 import com.wikav.schoolian.schoolianAdeptor.StudentListAdaptor;
+import com.wikav.schoolian.schoolianAdeptor.TeachersApdaptor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,23 +29,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentListSchoolian extends AppCompatActivity {
+public class TeacherList extends AppCompatActivity {
     RecyclerView recyclerView ;
-    List<StudentListSetGet> list ;
-SessionManger sessionManger;
-String url="https://schoolian.website/android/newApi/getClassmate.php";
+    List<TeacherSetGet> list ;
+    SessionManger sessionManger;
+    String url="https://schoolian.website/android/newApi/getTeachers.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_student_list_schoolian );
+        super.onCreate(savedInstanceState);
+        setContentView( R.layout.activity_subject_list );
+
         sessionManger=new SessionManger(this);
 
         HashMap<String,String> user=sessionManger.getUserDetail();
         String sclId=user.get(sessionManger.SCL_ID);
         String clas=user.get(sessionManger.CLAS);
-        recyclerView = findViewById( R.id.recyclerViewStudentListSchoolian );
+        recyclerView = findViewById( R.id.recycleviewTecaherList );
 
-        list = new ArrayList <>(  );
+        list = new ArrayList<>(  );
 
         data(sclId,clas);
 
@@ -61,27 +63,27 @@ String url="https://schoolian.website/android/newApi/getClassmate.php";
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     String success=jsonObject.getString("success");
-                    JSONArray jsonArray=jsonObject.getJSONArray("classmate");
+                    JSONArray jsonArray=jsonObject.getJSONArray("teachers");
                     if(success.equals("1")) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                             String name = jsonObject1.getString("name");
                             String profile = jsonObject1.getString("profile");
-                            String mobile = jsonObject1.getString("mobile");
-                            String roll = jsonObject1.getString("roll");
+                            String tid = jsonObject1.getString("tid");
+                            String subject = jsonObject1.getString("subject");
 
-                            list.add(new StudentListSetGet(name,profile,roll,mobile));
+                            list.add(new TeacherSetGet(tid,profile,name,subject));
                         }
                         setUp(list);
                     }
                     else
                     {
-                        Toast.makeText(StudentListSchoolian.this, "No Data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TeacherList.this, "No Data", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(StudentListSchoolian.this, "Error Hai", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherList.this, "Error Hai", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -91,7 +93,7 @@ String url="https://schoolian.website/android/newApi/getClassmate.php";
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(StudentListSchoolian.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TeacherList.this, "Error", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -100,7 +102,7 @@ String url="https://schoolian.website/android/newApi/getClassmate.php";
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
                 param.put("school_id", sclId);
-                param.put("cls", clas);
+                param.put("cls", "5th class");
                 return param;
             }
 
@@ -111,8 +113,8 @@ String url="https://schoolian.website/android/newApi/getClassmate.php";
         requestQueue.add(stringRequest);
     }
 
-    private void setUp(List<StudentListSetGet> list) {
-        StudentListAdaptor studentListAdaptor = new StudentListAdaptor(getApplicationContext(),list);
+    private void setUp(List<TeacherSetGet> list) {
+        TeachersApdaptor studentListAdaptor = new TeachersApdaptor(getApplicationContext(),list);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getApplicationContext() );
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL );

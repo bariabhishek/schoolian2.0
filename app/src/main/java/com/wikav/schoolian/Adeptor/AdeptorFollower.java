@@ -1,7 +1,6 @@
 package com.wikav.schoolian.Adeptor;
 
 import android.content.Context;
-import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +15,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import com.wikav.schoolian.JobDiscription;
 import com.wikav.schoolian.R;
 
 public class AdeptorFollower extends RecyclerView.Adapter<AdeptorFollower.Holder> {
@@ -45,15 +43,7 @@ public class AdeptorFollower extends RecyclerView.Adapter<AdeptorFollower.Holder
         viewHolder.title.setText( list.get( i ).getTitle());
         viewHolder.dis.setText( list.get( i ).getDis() );
         viewHolder.pese.setText( list.get( i ).getPese() );
-        viewHolder.postCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent view = new Intent(context, JobDiscription. class);
-                view.putExtra("id",list.get( i ).getId());
-                view.putExtra("title",list.get( i ).getTitle());
-                context.startActivity(view);
-            }
-        });
+
 
     }
 

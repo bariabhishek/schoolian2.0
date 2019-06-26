@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.wikav.schoolian.R;
 
-public class GridHome extends AppCompatActivity {
+public class SchoolianWorld extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_grid_home );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_schoolian_world);
     }
 }

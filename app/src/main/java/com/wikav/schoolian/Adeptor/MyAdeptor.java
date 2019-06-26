@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.wikav.schoolian.AnimeActivity;
-import com.wikav.schoolian.DatabaseHelper;
 import com.wikav.schoolian.R;
 import com.wikav.schoolian.SessionManger;
 
@@ -25,10 +24,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
     Context context;
-    List<MyModelList> mData;
+    List<MyModelList>mData;
     SessionManger sessionManger;
     String job_giver_mobile;
-    DatabaseHelper myDB;
     RequestOptions option,option2;
     String Url = "https://voulu.in/api/addToFavorite.php";
     String UrlDelete = "https://voulu.in/api/deleteJobPost.php";

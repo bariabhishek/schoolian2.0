@@ -4,12 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
+import com.bumptech.glide.Glide;
 import com.wikav.schoolian.DataClassSchoolian.StudentListSetGet;
 import com.wikav.schoolian.R;
 ;
@@ -37,9 +38,13 @@ public class StudentListAdaptor extends RecyclerView.Adapter<StudentListAdaptor.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.subjectName.setText( listSetGets.get( position ).getSubject() );
-        holder.techerName.setText( listSetGets.get( position ).getName() );
-        holder.teacherImage.setImageResource(( listSetGets.get( position ).getImage() ));
+        holder.studentRoll.setText( listSetGets.get( position ).getRoll() );
+        holder.studentName.setText( listSetGets.get( position ).getName() );
+        holder.studentMobile.setText( listSetGets.get( position ).getMobile() );
+
+        if(!listSetGets.get( position ).getImage().equals("noImage")) {
+            Glide.with(context).load(listSetGets.get(position).getImage()).into(holder.teacherImage);
+        }
     }
 
     @Override
@@ -49,15 +54,16 @@ public class StudentListAdaptor extends RecyclerView.Adapter<StudentListAdaptor.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView teacherImage;
-        TextView techerName,subjectName;
+        CircleImageView teacherImage;
+        TextView studentName,studentRoll,studentMobile;
 
         public ViewHolder(@NonNull View itemView) {
             super( itemView );
 
-            teacherImage = itemView.findViewById( R.id.subjectImage );
-            techerName = itemView.findViewById( R.id.teacherNameTextView );
-            subjectName = itemView.findViewById( R.id.subjectTextView );
+            teacherImage = itemView.findViewById( R.id.profileImage );
+            studentName = itemView.findViewById( R.id.studentName );
+            studentRoll = itemView.findViewById( R.id.roll );
+            studentMobile = itemView.findViewById( R.id.studentMobile );
         }
     }
 }

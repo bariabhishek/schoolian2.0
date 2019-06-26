@@ -45,7 +45,6 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-import com.wikav.schoolian.fragments.MapFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -410,8 +409,7 @@ public class EditProfile extends AppCompatActivity {
 
 
             } else {
-                MapFragment maps=new MapFragment();
-                maps.show(getSupportFragmentManager(),"show");
+
             }
         }
 
