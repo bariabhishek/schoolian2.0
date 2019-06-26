@@ -51,8 +51,8 @@ public class ProfileFragment extends Fragment {
     Button logout;
     String addImageUrl = "https://voulu.in/api/profileData.php";
     SessionManger sessionManger;
-    TextView username, mobile, email, yourpost, youpost, nopost, qualiTv, bioTv, dobTv,age;
-    ImageView editProfileBtn;
+    TextView username, mobile, email, yourpost, youpost, nopost, qualiTv, bioTv, dobTv,age,stream,section,parentsRelation,parentsName ;
+    TextView editProfileBtn;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -66,10 +66,10 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         sessionManger = new SessionManger(getContext());
         uploadProfile = view.findViewById(R.id.profileUpload);
-        qualiTv = view.findViewById(R.id.qualiTv);
+        qualiTv = view.findViewById(R.id.studentClass);
         dobTv = view.findViewById(R.id.dobTv);
         age = view.findViewById(R.id.agtb);
-        bioTv = view.findViewById(R.id.bioTv);
+        bioTv = view.findViewById(R.id.hobbies);
         uploadProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        editProfileBtn = view.findViewById(R.id.myEditImage);
+        editProfileBtn = view.findViewById(R.id.edit);
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,9 +90,16 @@ public class ProfileFragment extends Fragment {
         username = view.findViewById(R.id.name);
         nopost = view.findViewById(R.id.numPost);
         youpost = view.findViewById(R.id.youaccept);
-        yourpost = view.findViewById(R.id.youraccept);
+        yourpost = view.findViewById(R.id.achivement);
         mobile = view.findViewById(R.id.mobile);
-        email = view.findViewById(R.id.email);
+        email = view.findViewById(R.id.rollnumber);
+
+
+        stream = view.findViewById( R.id.stream );
+        section = view.findViewById( R.id.section );
+        ImageView parentsImage = view.findViewById( R.id.parentsimage );
+        parentsRelation = view.findViewById( R.id.parentsRelation );
+        parentsName = view.findViewById( R.id.parentsName );
 
 
         profileData();
@@ -108,6 +115,7 @@ public class ProfileFragment extends Fragment {
         String sessionQuali = user.get(sessionManger.QUALI);
         String sessionAbout = user.get(sessionManger.BIO);
         //Log.d("myArry", "my dob"+sessionDob);
+
                 if(!sessionDob.equals("")) {
                     String[] spl = sessionDob.split("/");
                     String num = spl[2].trim();
