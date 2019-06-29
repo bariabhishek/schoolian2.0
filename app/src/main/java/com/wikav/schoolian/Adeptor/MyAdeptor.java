@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -141,8 +142,9 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
         ImageView img_thumbnail;
         ImageView star, staron;
         CircleImageView tv_pro1;
-        LinearLayout view_container, answer;
+        LinearLayout  answer;
         LinearLayout getStar;
+        RelativeLayout view_container;
 
 
         public ViewHolder(View itemView) {
