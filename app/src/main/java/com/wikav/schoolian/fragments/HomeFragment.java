@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment {
     private ShimmerFrameLayout mShimmerViewContainer;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int requestCount = 1;
+    String Sid;
     private LinearLayoutManager layoutManager;
 
     public HomeFragment() {
@@ -195,6 +196,7 @@ public class HomeFragment extends Fragment {
 
         HashMap<String, String> user = sessionManger.getUserDetail();
         final String sclId = user.get(sessionManger.SCL_ID);
+       Sid = user.get(sessionManger.SID);
         arraydata(sclId);
 
 
@@ -318,7 +320,7 @@ public class HomeFragment extends Fragment {
 
     public void setupRecycle(List<MyModelList> list) {
         mShimmerViewContainer.startShimmerAnimation();
-        MyAdeptor a = new MyAdeptor(getContext(), list);
+        MyAdeptor a = new MyAdeptor(getContext(), list,Sid);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);

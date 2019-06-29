@@ -18,10 +18,13 @@ public class FullScreenDialogForUpdateApp extends DialogFragment {
 
 
 Button button;
+String url;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        url=getArguments().getString("url");
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
+
         }
 
     @Override
@@ -33,7 +36,7 @@ Button button;
                                           View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
-                                                  String url = "https://play.google.com/store/apps/details?id=com.wikav.voulu";
+                                                 // String url = "https://play.google.com/store/apps/details?id=com.wikav.voulu";
                                                   Intent i = new Intent(Intent.ACTION_VIEW);
                                                   i.setData(Uri.parse(url));
                                                   startActivity(i);

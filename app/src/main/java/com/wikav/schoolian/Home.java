@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -78,7 +79,6 @@ public class Home extends NavigationDrawerActivity_ {
         snackbar = Snackbar.make(Home.this.findViewById(android.R.id.content), Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"), BaseTransientBottomBar.LENGTH_INDEFINITE);
         final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.activity_home, null, false);
-
         drawer.addView(contentView, 0);
         bottomNavigationView = findViewById(R.id.navigation);
         frameLayout = findViewById(R.id.frame);
@@ -90,10 +90,15 @@ public class Home extends NavigationDrawerActivity_ {
 ///////////////////////set methods/////////////////
 
         checkIntenet();
+        String in=getIntent().getStringExtra("intent");
+        Toast.makeText(this, ""+in, Toast.LENGTH_LONG).show();
+        if(in!=null)
+        {
+            setFragment(homeFragment);
+        } else {
 
-        setFragment(mainGridFragment);
-
-
+            setFragment(mainGridFragment);
+        }
         uploadPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

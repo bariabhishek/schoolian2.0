@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -31,6 +32,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.wikav.schoolian.Adeptor.MyAdeptor;
+import com.wikav.schoolian.Adeptor.MyModelList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,13 +49,14 @@ Toolbar toolbar;
     BroadcastReceiver broadcastReceiver;
     IntentFilter intentFilter;
 RecyclerView recyclerView;
-    List<ModelList> list;
+    List<MyModelList> list;
     TextView noData;
+    String sid;
     private ShimmerFrameLayout mShimmerViewContainer;
     SessionManger sessionManger;
     SwipeRefreshLayout swipeRefreshLayout;
     Snackbar snackbar;
-    String Url="https://voulu.in/api/getYouJobPost.php";
+    String Url="https://schoolian.website/android/getUserPost.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,15 +76,95 @@ RecyclerView recyclerView;
         noData=findViewById(R.id.noDataYourPost);
         HashMap<String,String>user=sessionManger.getUserDetail();
        // String Ename = user.get(sessionManger.NAME);
-        String mobile = user.get(sessionManger.MOBILE);
+        String mobile = user.get(sessionManger.SCL_ID);
+         sid = user.get(sessionManger.SID);
         list=new ArrayList<>();
-        arraydata(mobile);
+        arraydata(mobile,sid);
         checkInptenet();
       // checkIntenet();
 
     }
+    private void arraydata(final String  sclId, final String sid) {
 
-    private void arraydata(final String mobile) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("MAINResponse", response+sid+sclId);
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            String success = json.getString("success");
+                            JSONArray jsonArray = json.getJSONArray("userPost");
+                            if (success.equals("1")) {
+
+
+                                for (int i = 0; i < jsonArray.length(); i++) {
+
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    MyModelList anime=new MyModelList();
+                                    anime.setName(jsonObject.getString("st_name"));
+                                    anime.setImage_url(jsonObject.getString("post_pic"));
+                                    anime.setDescription(jsonObject.getString("posts"));
+                                    anime.setPostId(jsonObject.getString("post_id"));
+                                    anime.setProfile_pic(jsonObject.getString("profile_pic"));
+                                    anime.setSid(sid);
+                                    anime.setTime(jsonObject.getString("time"));
+                                    anime.setImage_url(jsonObject.getString("post_pic"));
+                                    list.add(anime);
+
+                                }
+                                if (swipeRefreshLayout.isRefreshing()) {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+
+                                setupRecycle(list);
+
+                            } else if(success.equals("0")) {
+
+                                noData.setVisibility(View.VISIBLE);
+                                mShimmerViewContainer.stopShimmerAnimation();
+                                mShimmerViewContainer.setVisibility(View.GONE);
+                                if (swipeRefreshLayout.isRefreshing()) {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                }
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Something went wrong..." + error, Toast.LENGTH_LONG).show();
+                        // noData.setVisibility(View.VISIBLE);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                // params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
+                params.put("school_id", sclId);
+                params.put("sid", sid);
+                return params;
+            }
+        };
+        stringRequest.setShouldCache(false);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+       RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+        requestQueue.getCache().clear();
+
+
+    }
+   /* private void arraydata(final String mobile) {
         mShimmerViewContainer.startShimmerAnimation();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
@@ -179,14 +263,14 @@ RecyclerView recyclerView;
 
 
 
-    }
-    public void setupRecycle(List <ModelList> list)
+    }*/
+    public void setupRecycle(List <MyModelList> list)
     {
-
+        MyAdeptor a = new MyAdeptor(getApplicationContext(), list,sid);
         recyclerView.setHasFixedSize( true );
         recyclerView.setItemAnimator( new DefaultItemAnimator() );
         recyclerView.setLayoutManager(new LinearLayoutManager(this) );
-       // recyclerView.setAdapter(  );
+        recyclerView.setAdapter( a );
         mShimmerViewContainer.stopShimmerAnimation();
         mShimmerViewContainer.setVisibility(View.GONE);
         if(swipeRefreshLayout.isRefreshing())

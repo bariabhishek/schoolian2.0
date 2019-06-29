@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    >
 
     <EditText
         android:id="@+id/postText"
@@ -13,9 +13,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
-        android:hint="Write your query here.. "
+        android:hint="@string/write_your_query_here"
         android:maxLength="250"
-        android:textColor="#000" />
+        android:elevation="5dp"
+        android:background="@drawable/background_rounded"
+        android:textColor="#000"
+        android:textColorHint="#3E000000"
+        android:inputType="text" />
 
     <ImageView
         android:id="@+id/postImage2"

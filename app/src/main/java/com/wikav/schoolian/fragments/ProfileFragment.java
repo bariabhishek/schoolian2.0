@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
     Button logout;
     String addImageUrl = "https://voulu.in/api/profileData.php";
     SessionManger sessionManger;
-    TextView username, mobile, email, yourpost, youpost, nopost, qualiTv, bioTv, dobTv,age,stream,section,parentsRelation,parentsName ;
+    TextView username, mobile, email, achivment, qualiTv, bioTv, dobTv,age,stream,section,parentsRelation,parentsName ;
     TextView editProfileBtn;
 
     public ProfileFragment() {
@@ -88,9 +88,9 @@ public class ProfileFragment extends Fragment {
         });
 
         username = view.findViewById(R.id.name);
-        nopost = view.findViewById(R.id.numPost);
-        youpost = view.findViewById(R.id.youaccept);
-        yourpost = view.findViewById(R.id.achivement);
+       /* nopost = view.findViewById(R.id.numPost);
+        youpost = view.findViewById(R.id.youaccept);*/
+        achivment = view.findViewById(R.id.achivement);
         mobile = view.findViewById(R.id.mobile);
         email = view.findViewById(R.id.rollnumber);
 
@@ -116,7 +116,7 @@ public class ProfileFragment extends Fragment {
         String sessionAbout = user.get(sessionManger.BIO);
         //Log.d("myArry", "my dob"+sessionDob);
 
-                if(!sessionDob.equals("")) {
+               /* if(!sessionDob.equals("")) {
                     String[] spl = sessionDob.split("/");
                     String num = spl[2].trim();
                     int aa = Integer.parseInt(num);
@@ -128,7 +128,7 @@ public class ProfileFragment extends Fragment {
                 else
                 {
                     age.setText(18+"+");
-                }
+                }*/
 
 
         username.setText(name);
@@ -166,9 +166,9 @@ public class ProfileFragment extends Fragment {
                                     String yourAccepted = object.getString("job_seeker").trim();
                                     String youAccepted = object.getString("job_giver").trim();
                                     String donePosts = object.getString("job_done").trim();
-                                    youpost.setText(youAccepted);
+                                   /* youpost.setText(youAccepted);
                                     nopost.setText(noOfPost);
-                                    yourpost.setText(yourAccepted);
+                                    yourpost.setText(yourAccepted);*/
 
                                 }
 //
@@ -217,7 +217,7 @@ public class ProfileFragment extends Fragment {
         String sessionDob = user.get(sessionManger.DOB);
         String sessionQuali = user.get(sessionManger.QUALI);
         String sessionAbout = user.get(sessionManger.BIO);
-        if(!sessionDob.equals("")) {
+        /*if(!sessionDob.equals("")) {
             String[] spl = sessionDob.split("/");
             String num = spl[2].trim();
             int aa = Integer.parseInt(num);
@@ -229,7 +229,7 @@ public class ProfileFragment extends Fragment {
         else
         {
             age.setText(18+"+");
-        }
+        }*/
         username.setText(name);
         mobile.setText(phone);
         qualiTv.setText(sessionQuali);

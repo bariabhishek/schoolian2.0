@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,12 +33,13 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import com.wikav.schoolian.AnimeActivity;
 import com.wikav.schoolian.R;
 
 public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotification.Hold> {
     Context context;
     List<DataForNotification> list;
-    String  Url="https://voulu.in/api/setNotificationStatus.php";
+    String  Url="https://schoolian.website/android/newApi/setNotificationStatus.php";
 
 
     public AdeptorNotification(FragmentActivity activity, List <DataForNotification> arrayList) {
@@ -88,24 +90,15 @@ public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotificatio
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Log.d("Response",response);
+                        Log.d("Response",response+notId);
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
                             if (success.equals("1")){
-
-                                if(list.get(i).getIntent().equals("accept")) {
-                                   /* Intent view = new Intent(context, JobConfirmActivity.class);
-                                    view.putExtra("id",list.get(i).getPostId());
-                                    context.startActivity(view);*/
-                                     }
-                                else
-                                    {
-                                    /*Intent view = new Intent(context, JobDiscriptionForNotification.class);
-                                    view.putExtra("id",list.get(i).getPostId());
-                                    context.startActivity(view);*/
-                                }
+                                Intent view = new Intent(context, AnimeActivity.class);
+                                view.putExtra("intent",list.get(i).getPostId());
+                                context.startActivity(view);
                             }
                             else
                             {

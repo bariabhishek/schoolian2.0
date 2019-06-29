@@ -13,6 +13,7 @@ import com.wikav.schoolian.fragments.FullScreenDialogForNoInternet;
 import com.wikav.schoolian.fragments.FullScreenDialogForUpdateApp;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class SpleshScreen extends AppCompatActivity {
     BroadcastReceiver broadcastReceiver;
 
     boolean isUpdateAvailable =false;
-    String Url="https://voulu.in/api/getAppUpdate.php";
+    String Url="https://schoolian.website/android/getAppUpdate.php";
     public  static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class SpleshScreen extends AppCompatActivity {
     }
 
     private void getUpdate(final int versionCode) {
-
+        progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override
@@ -66,20 +67,27 @@ public class SpleshScreen extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
+                            String link = jsonObject.getString("message");
                             if (success.equals("1")){
                                isUpdateAvailable=true ;
-                                intents(isUpdateAvailable);
+                                intents(isUpdateAvailable,link);
+                                progressBar.setVisibility(View.INVISIBLE);
+
                             }
                             else if(success.equals("0"))
                             {
                                 isUpdateAvailable=false;
-                                intents(isUpdateAvailable);
+                                intents(isUpdateAvailable,link);
+                                progressBar.setVisibility(View.INVISIBLE);
+
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             isUpdateAvailable=false ;
-                            intents(isUpdateAvailable);
+                            intents(isUpdateAvailable,"NA");
+                            progressBar.setVisibility(View.INVISIBLE);
+
                             Toast.makeText(SpleshScreen.this, "Something went wrong"+e, Toast.LENGTH_SHORT).show();
                              }
                     }
@@ -88,7 +96,8 @@ public class SpleshScreen extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         isUpdateAvailable=false ;
-                        intents(isUpdateAvailable);
+                        intents(isUpdateAvailable,"NA");
+                        progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(SpleshScreen.this, "Something went wrong"+error, Toast.LENGTH_SHORT).show();
 
                     }
@@ -99,6 +108,7 @@ public class SpleshScreen extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("version_code", ""+versionCode);
+                params.put("app", "student");
                 return params;
             }
         };
@@ -114,7 +124,7 @@ public class SpleshScreen extends AppCompatActivity {
 
 
     }
-    public  void  intents(final boolean isUpdateAvailable)
+    public  void  intents(final boolean isUpdateAvailable,String link)
     {             //   Toast.makeText(this, "login check", Toast.LENGTH_SHORT).show();
 
         if (!sessionManger.isLoging()) {
@@ -123,6 +133,9 @@ public class SpleshScreen extends AppCompatActivity {
             if(isUpdateAvailable)
             {
                 FullScreenDialogForUpdateApp full=new FullScreenDialogForUpdateApp();
+                Bundle b=new Bundle();
+                b.putString("url",link);
+                full.setArguments(b);
                 full.show(getSupportFragmentManager(),"show");
             }
             else {
@@ -137,7 +150,11 @@ public class SpleshScreen extends AppCompatActivity {
             if(isUpdateAvailable)
             {
                 FullScreenDialogForUpdateApp full=new FullScreenDialogForUpdateApp();
+                Bundle b=new Bundle();
+                b.putString("url",link);
+                full.setArguments(b);
                 full.show(getSupportFragmentManager(),"show");
+
             }
             else {
                 Intent intent = new Intent(SpleshScreen.this, Home.class);

@@ -152,7 +152,7 @@ public class NotificationFragment extends Fragment {
                 return params;
             }
         };
-
+        stringRequest.setShouldCache(false);
         requestQueue.add(stringRequest);
 
 

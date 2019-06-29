@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.wikav.schoolian.AttendanceLayout;
 import com.wikav.schoolian.ClassTimeTableSchoolian;
@@ -55,6 +56,11 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
         notice=view.findViewById(R.id.noticBtn);
         holiday=view.findViewById(R.id.holidayBtn);
         event=view.findViewById(R.id.eventsBtn);
+       setClick();
+        return view;
+    }
+
+    private void setClick() {
         profile.setOnClickListener(this);
         exam.setOnClickListener(this);
         result.setOnClickListener(this);
@@ -64,7 +70,6 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
         notice.setOnClickListener(this);
         holiday.setOnClickListener(this);
         event.setOnClickListener(this);
-        return view;
     }
 
 
@@ -112,7 +117,7 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
                     startActivity(intent);
                     break;
                 case R.id.noticBtn:
-
+                    Toast.makeText(getActivity(), "No Notice Available", Toast.LENGTH_SHORT).show();
 
                     break;
         }

@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 import com.wikav.schoolian.Home;
 import com.wikav.schoolian.R;
 import com.wikav.schoolian.SessionManger;
@@ -156,7 +157,9 @@ public class UplodadPic extends DialogFragment {
                             if (success.equals("1")){
                                 progressDialog.dismiss();
                                 Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getActivity(),Home.class));
+                               Intent intent=new Intent(getActivity(),Home.class);
+                                intent.putExtra("intent","value");
+                                startActivity(intent);
                             }
 
                         } catch (JSONException e) {
@@ -215,6 +218,7 @@ public class UplodadPic extends DialogFragment {
                             if (success.equals("1")){
                                 Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getActivity(),Home.class);
+                                intent.putExtra("intent","value");
                                 startActivity(intent);
                             }
 
@@ -256,8 +260,8 @@ public class UplodadPic extends DialogFragment {
     public void chooseImage() {
 
         CropImage.activity()
-                /*.setGuidelines(CropImageView.Guidelines.ON)
-                .setAspectRatio(1, 1)*/
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1, 1)
                 .start(getContext(),this);
 
     }
@@ -284,7 +288,9 @@ public class UplodadPic extends DialogFragment {
 
                             if (success.equals("1")){
                                 Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
+
                                 Intent intent = new Intent(getActivity(),Home.class);
+                                intent.putExtra("intent","value");
                                 startActivity(intent);
                             }
 

@@ -10,7 +10,7 @@
     <string name="profile"><font size="13">Profile</font></string>
     <string name="favorite"><font size="13">Posts</font></string>
     <string name="title_notifications"><font size="13">Notification</font></string>
-    <string name="update_app">Please update \n the Voulu to continue</string>
+    <string name="update_app">Please update \n the app to continue</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -118,4 +118,5 @@
     <string name="title_activity_post_view">PostViewActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="write_your_query_here">Write your query here..</string>
 </resources>
