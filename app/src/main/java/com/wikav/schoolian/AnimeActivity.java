@@ -291,7 +291,7 @@ public class AnimeActivity extends AppCompatActivity {
     }
 
 
-    private void setSendCom(final String anwser, final String posId,final String userId) {
+    private void setSendCom(final String anwser , final String posId,final String userId) {
         sendCom.setText("");
         StringRequest stringRequest= new StringRequest(Request.Method.POST, JSON_URL2, new Response.Listener<String>() {
             @Override

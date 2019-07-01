@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,16 +43,17 @@ public class ClassTimeTableSchoolian extends AppCompatActivity {
     RecyclerView recyclerView;
     List<ClassTimeTableSetGet> list;
     SessionManger sessionManger;
-    Toolbar toolbar;
+    ImageView backbtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_time_table_schoolian);
-        toolbar=findViewById(R.id.toolbarForClassRoutine);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Class Routine");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        toolbar=findViewById(R.id.toolbarForClassRoutine);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("Class Routine");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initilisation();
 
         list = new ArrayList<>();
@@ -150,6 +152,13 @@ public class ClassTimeTableSchoolian extends AppCompatActivity {
 
     private void initilisation() {
 
+        backbtn=findViewById( R.id.back );
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
         recyclerView = findViewById(R.id.recyclerViewTimeTable);
         linearLayout = findViewById(R.id.lltimetable);
 

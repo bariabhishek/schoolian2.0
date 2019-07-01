@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -49,7 +50,7 @@ public class Results extends AppCompatActivity implements AdapterView.OnItemSele
     List<String> examName;
     String sclid,Sid,cls;
     String selectedSubject =null;
-    Toolbar toolbar;
+    ImageView backbtn;
     private final String JSON_URL_EXAM = "https://schoolian.website/android/newApi/getExamName.php" ;
     SessionManger sessionManger;
     private final String JSON_URL = "https://schoolian.website/android/Marks.php" ;
@@ -57,10 +58,18 @@ public class Results extends AppCompatActivity implements AdapterView.OnItemSele
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_results);
-        toolbar=findViewById(R.id.toobar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Results");
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        backbtn=findViewById( R.id.back );
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
+//        toolbar=findViewById(R.id.toobar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("Results");
+//        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         recyclerView = findViewById( R.id.recyclerViewAttendance );
         mTotal = findViewById( R.id.totalMarks );
         mObtain = findViewById( R.id.obtainMarks );

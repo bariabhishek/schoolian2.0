@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -27,11 +29,19 @@ public class AttendanceLayout extends AppCompatActivity {
     TextView abst, prst, lev, hol;
     String Url = "https://schoolian.website/android/newApi/getAttendance.php";
     SessionManger sessionManger;
+    ImageView backbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance_layout);
+        backbtn=findViewById( R.id.back );
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
         abst = findViewById(R.id.absent);
         prst = findViewById(R.id.present);
         lev = findViewById(R.id.leave);

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -36,16 +38,25 @@ public class Syllabus extends AppCompatActivity {
     private List<SyllabusList> lstAnime ;
     private RecyclerView recyclerView ;
     ProgressBar progressBar;
+    ImageView backbtn;
     private final String JSON_URL = "https://schoolian.website/android/sallybus.php" ;
 Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syllabus);
-        toolbar=findViewById(R.id.toolbarForSyllabus);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Syllabus");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        backbtn=findViewById( R.id.back );
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
+        //toolbar=findViewById(R.id.toolbarForSyllabus);
+       // setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("Syllabus");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sessionManger=new SessionManger(getApplicationContext());
         HashMap<String, String> user=sessionManger.getUserDetail();
         String Esclid = user.get(sessionManger.SCL_ID);

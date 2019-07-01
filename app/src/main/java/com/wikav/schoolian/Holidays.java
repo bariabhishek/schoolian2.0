@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -32,11 +34,20 @@ public class Holidays extends AppCompatActivity {
     List<Evants_holidays_SetGet> list;
     String url="https://schoolian.website/android/newApi/getHoliday.php";
     SessionManger sessionManger;
+    ImageView backbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.holidays);
+
+        backbtn=findViewById( R.id.back );
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
 
         recyclerView = findViewById( R.id.recyclerViewEvants_holidays );
         list = new ArrayList <>(  );

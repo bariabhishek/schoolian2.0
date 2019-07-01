@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,8 +33,9 @@ import java.util.Map;
 public class StudentListSchoolian extends AppCompatActivity {
     RecyclerView recyclerView ;
     List<StudentListSetGet> list ;
-SessionManger sessionManger;
-String url="https://schoolian.website/android/newApi/getClassmate.php";
+    SessionManger sessionManger;
+    ImageView backbtn;
+    String url="https://schoolian.website/android/newApi/getClassmate.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -42,6 +45,14 @@ String url="https://schoolian.website/android/newApi/getClassmate.php";
         HashMap<String,String> user=sessionManger.getUserDetail();
         String sclId=user.get(sessionManger.SCL_ID);
         String clas=user.get(sessionManger.CLAS);
+
+        backbtn=findViewById( R.id.back );
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
         recyclerView = findViewById( R.id.recyclerViewStudentListSchoolian );
 
         list = new ArrayList <>(  );

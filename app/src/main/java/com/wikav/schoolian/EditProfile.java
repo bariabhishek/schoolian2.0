@@ -69,6 +69,7 @@ public class EditProfile extends AppCompatActivity {
     BroadcastReceiver broadcastReceiver;
     RadioButton genderradioButton;
     RadioGroup radioGroup;
+    ImageView backbtn;
     boolean isNewImageSet = false;
     Bitmap newImage;
     private static final int DIALOG_REQUEST_ERROR=9001;
@@ -80,6 +81,15 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
        setContentView( R.layout.activity_edit_profile );
+
+        backbtn=findViewById( R.id.back );
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
+
         sessionManger = new SessionManger(this);
         snackbar=  Snackbar.make(this.findViewById(android.R.id.content),
                 Html.fromHtml("<font color=\"#ffffff\">No Internet Connection</font>"),

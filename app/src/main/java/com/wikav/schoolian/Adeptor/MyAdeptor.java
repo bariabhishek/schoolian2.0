@@ -32,7 +32,7 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
     String Url = "https://voulu.in/api/addToFavorite.php";
     String UrlDelete = "https://voulu.in/api/deleteJobPost.php";
 
-    public MyAdeptor(Context context, List<MyModelList> list) {
+    public MyAdeptor(Context context, List <MyModelList> list, String sid) {
         this.context = context;
         this.mData = list;;
         option2 = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.man).error(R.drawable.man);
@@ -150,7 +150,7 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             view_container = itemView.findViewById(R.id.containeritem);
-            answer = itemView.findViewById(R.id.answers);
+            answer = itemView.findViewById(R.id.answer);
             getStar = itemView.findViewById(R.id.setStar5);
             tv_name = itemView.findViewById(R.id.anime_name);
             ans = itemView.findViewById(R.id.answersText);
