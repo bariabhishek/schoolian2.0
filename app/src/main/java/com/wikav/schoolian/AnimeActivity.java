@@ -10,14 +10,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,7 +27,6 @@ import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.wikav.schoolian.Adeptor.AdapterForComment;
 import com.wikav.schoolian.Adeptor.CommentAnime;
-import com.wikav.schoolian.Adeptor.MyModelList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,15 +38,10 @@ import java.util.List;
 import java.util.Map;
 
 public class AnimeActivity extends AppCompatActivity {
-    private String name,posts,postPic,proPic,posId,star,sid,userId,Photo,nameCom,intent;
+    private String name,posts,postPic,proPic,posId,star,sid,userId,Photo,nameCom;
 
-    TextView tv_name;
-    TextView postss ;
-    TextView tv_rating ;
-    PhotoView img;
-    CircleImageView prof;
+
     private RecyclerView.LayoutManager layoutManager;
-    String  Url="https://schoolian.website/android/newApi/getSinglePost.php";
     private final String JSON_URL = "https://schoolian.website/android/getComments.php" ;
     private final String JSON_URL2 ="https://schoolian.website/android/comments.php" ;
     private final String Delete_URL ="https://schoolian.website/android/deletePost.php" ;
@@ -65,33 +57,52 @@ public class AnimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // hide the default actionbar
+        //  getSupportActionBar().hide();
+
+        // Recieve data
         sendCom=findViewById(R.id.sentI);
+        name  = getIntent().getExtras().getString("name");
+        posts = getIntent().getExtras().getString("posts");
+        postPic = getIntent().getExtras().getString("postPic") ;
+        proPic = getIntent().getExtras().getString("proPic");
+        posId = getIntent().getExtras().getString("posId") ;
+        star=getIntent().getExtras().getString("star") ;
+        sid=getIntent().getExtras().getString("sid");
 
-        intent  = getIntent().getExtras().getString("intent");
-        if(intent.equals("main"))
+////
+        TextView tv_name = findViewById(R.id.anime_name_on);
+        TextView postss = findViewById(R.id.post_on);
+////        TextView tv_categorie = findViewById(R.id.aa_categorie) ;
+////        TextView tv_description = findViewById(R.id.aa_description);
+        TextView tv_rating  = findViewById(R.id.starGeti) ;
+        PhotoView img = findViewById(R.id.thumbnail_on);
+        CircleImageView prof=findViewById(R.id.profile_pic_on);
+//
+//        // setting values to each view
+//
+        tv_name.setText(name);
+        postss.setText(posts);
+//        tv_description.setText(description);
+        tv_rating.setText(star);
+//        tv_studio.setText(studio);
+
+       // RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.loading_shape).error(R.drawable.loading_shape);
+        // set image using Glide
+        if(postPic.equals("")||postPic.equals("NA"))
         {
-            name  = getIntent().getExtras().getString("name");
-            posts = getIntent().getExtras().getString("posts");
-            postPic = getIntent().getExtras().getString("postPic") ;
-            proPic = getIntent().getExtras().getString("proPic");
-            posId = getIntent().getExtras().getString("posId") ;
-            star=getIntent().getExtras().getString("star") ;
-            sid=getIntent().getExtras().getString("sid");
-            setValues();
+            img.setMaxHeight(0);
+            img.setVisibility(View.GONE);
+
         }
-        else {
-            Toast.makeText(this, intent, Toast.LENGTH_SHORT).show();
-            getSingleData(intent);
-            shocoments(intent);
+        else
+        {
+            img.setVisibility(View.VISIBLE);
+
+            Glide.with(this).load(postPic).into(img);
         }
-
-        tv_name = findViewById(R.id.anime_name_on);
-       postss = findViewById(R.id.post_on);
-        tv_rating  = findViewById(R.id.starGeti) ;
-         img = findViewById(R.id.thumbnail_on);
-         prof=findViewById(R.id.profile_pic_on);
-
-
+        Glide.with(this).load(proPic).into(prof);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerviewComment);
         recyclerView.setHasFixedSize(true);
@@ -111,95 +122,13 @@ public class AnimeActivity extends AppCompatActivity {
 
 
 
-
+        shocoments(posId);
 
 
 
 
 
     }
-
-    private void getSingleData(final String intent) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try {
-                            JSONObject json = new JSONObject(response);
-                            String success = json.getString("success");
-                            JSONArray jsonArray = json.getJSONArray("userPost");
-                            if (success.equals("1")) {
-
-
-                                for (int i = 0; i < jsonArray.length(); i++) {
-
-                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    name  = jsonObject.getString("st_name");
-                                    posts = jsonObject.getString("posts");
-                                    postPic = jsonObject.getString("post_pic") ;
-                                    proPic = jsonObject.getString("profile_pic");
-                                    posId = jsonObject.getString("post_id") ;
-                                    star=jsonObject.getString("stars") ;
-                                    sid=jsonObject.getString("student_id");
-
-                                }
-                                setValues();
-                               }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Something went wrong..." + error, Toast.LENGTH_LONG).show();
-                        // noData.setVisibility(View.VISIBLE);
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                // params.put("key", "9195A3CDB388F894B3EE3BD665DFD");
-                params.put("post_id", intent);
-                return params;
-            }
-        };
-        stringRequest.setShouldCache(false);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
-        requestQueue.getCache().clear();
-    }
-
-    private void setValues() {
-        tv_name.setText(name);
-        postss.setText(posts);
-        tv_rating.setText(star);
-
-        if(postPic.equals("")||postPic.equals("NA"))
-        {
-            img.setMaxHeight(0);
-            img.setVisibility(View.GONE);
-
-        }
-        else
-        {
-            img.setVisibility(View.VISIBLE);
-
-            Glide.with(this).load(postPic).into(img);
-        }
-        Glide.with(this).load(proPic).into(prof);
-    }
-
     private void shocoments(final String posId) {
         StringRequest stringRequest= new StringRequest(Request.Method.POST, JSON_URL, new Response.Listener<String>() {
             @Override

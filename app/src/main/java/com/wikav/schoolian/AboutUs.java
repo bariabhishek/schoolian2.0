@@ -29,8 +29,6 @@ public class AboutUs extends AppCompatActivity {
         backbtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(),Home.class );
-                startActivity( intent );
                 finish();
             }
         } );

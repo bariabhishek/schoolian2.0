@@ -36,40 +36,34 @@
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-<ImageView
+<de.hdodenhof.circleimageview.CircleImageView
     android:id="@+id/imageviewedit"
-    android:layout_width="match_parent"
-    android:background="#E4E0E0"
-    android:layout_height="200dp"
+    android:layout_width="@dimen/_120sdp"
+
+    android:layout_height="@dimen/_120sdp"
     android:layout_below="@id/actionBar"
-    app:srcCompat="@drawable/person_24dp"
+    android:layout_centerHorizontal="true"
+    android:src="@drawable/logo"
     android:layout_marginTop="10dp"/>
 
 
-    <RelativeLayout
-        android:id="@+id/bg_round"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="220dp"
-        android:background="@drawable/background_camera_edit">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:padding="5dp"
             android:id="@+id/imageUploadBtn"
-            app:srcCompat="@drawable/ic_camera_alt_black_24dp"
+            android:text="Change Profile Photo"
+            android:textColor="#1E88E5"
+            android:textSize="@dimen/_20sdp"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
-
+            android:layout_below="@id/imageviewedit"
+           />
 
     <LinearLayout
         android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageviewedit"
+        android:layout_below="@id/imageUploadBtn"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
@@ -184,7 +178,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:weightSum="2"
+        android:weightSum="1"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:orientation="horizontal">
 
@@ -214,6 +208,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_3sdp"
             android:orientation="vertical">

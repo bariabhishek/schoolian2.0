@@ -165,9 +165,9 @@ public class Home extends NavigationDrawerActivity_ {
             case R.id.getclassmate:
 
                 break;
-            case R.id.acceptedComment:
-
-                break;
+//            case R.id.acceptedComment:
+//
+//                break;
             case R.id.aboutus:
                 intent = new Intent(this, AboutUs.class);
                 startActivity(intent);

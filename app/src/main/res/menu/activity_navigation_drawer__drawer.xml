@@ -15,20 +15,20 @@
             android:title="Your Posts" />
         <item
             android:id="@+id/getclassmate"
-            android:icon="@drawable/purse"
+            android:icon="@drawable/students"
             android:title="Classmates" />
         <item
             android:id="@+id/getTeacher"
-            android:icon="@drawable/purse"
+            android:icon="@drawable/teach"
             android:title="Teachers" />
         <item
             android:id="@+id/schoolianBtn"
-            android:icon="@drawable/purse"
+            android:icon="@drawable/sch"
             android:title="Schoolian World" />
-        <item
-            android:id="@+id/acceptedComment"
-            android:icon="@drawable/purse"
-            android:title="" />
+        <!--<item-->
+            <!--android:id="@+id/acceptedComment"-->
+            <!--android:icon="@drawable/purse"-->
+            <!--android:title="" />-->
        <!-- <item
             android:id="@+id/follow"
             android:icon="@drawable/follower1"
