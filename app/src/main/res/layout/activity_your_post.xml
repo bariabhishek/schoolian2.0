@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         app:titleTextColor="#fff"
@@ -12,8 +16,22 @@
         android:background="@color/colorPrimary"
         android:id="@+id/toolbarLayout">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/back"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/back"/>
+        </RelativeLayout>
+
     </androidx.appcompat.widget.Toolbar>
-    <com.facebook.shimmer.ShimmerFrameLayout xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        xmlns:shimmer="http://schemas.android.com/apk/res-auto"
         android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +39,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical"
         shimmer:duration="500"
-        android:layout_below="@id/toolbarLayout"    >
+        android:layout_below="@id/appbar"    >
 
         <!-- Adding 3 rows of placeholders -->
         <LinearLayout
@@ -52,7 +70,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbarLayout"
+        android:layout_below="@id/appbar"
         android:id="@+id/youPostSwipe">
 
     <androidx.recyclerview.widget.RecyclerView

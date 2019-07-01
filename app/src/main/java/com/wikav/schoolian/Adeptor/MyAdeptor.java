@@ -17,7 +17,6 @@ import com.wikav.schoolian.AnimeActivity;
 import com.wikav.schoolian.R;
 import com.wikav.schoolian.SessionManger;
 
-import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -32,12 +31,12 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
     RequestOptions option,option2;
     String Url = "https://voulu.in/api/addToFavorite.php";
     String UrlDelete = "https://voulu.in/api/deleteJobPost.php";
-    String sid;
-    public MyAdeptor(Context context, List<MyModelList> list,String sid) {
+
+    public MyAdeptor(Context context, List<MyModelList> list) {
         this.context = context;
         this.mData = list;;
         option2 = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.man).error(R.drawable.man);
-        this.sid=sid;
+
     }
 
 
@@ -53,13 +52,12 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position ) {
 
-        if(mData.get(position).getSid().equals(sid))
-        {
-            holder.delete.setVisibility(View.VISIBLE);
-        }
 
         final MyModelList anime = mData.get(position);
         if (!anime.getImage_url().equals("NA")) {
+//            imageLoader = CustomVolleyRequest.getInstance(mContext).getImageLoader();
+//            imageLoader.get(anime.getImage_url(),ImageLoader.getImageListener(holder.img_thumbnail,0,0));
+//            holder.img_thumbnail.setImageUrl(anime.getImage_url(),imageLoader);
             holder.img_thumbnail.setVisibility(View.VISIBLE);
             Glide.with(context).load(mData.get(position).getImage_url()).into(holder.img_thumbnail);
         } else {
@@ -67,6 +65,8 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
         }
 
         holder.tv_name.setText(mData.get(position).getName());
+        holder.ans.setText(mData.get(position).getComment());
+               //  holder.tv_studio.setText(mData.get(position).getProfilePic());
         holder.posts.setText(mData.get(position).getDescription());
         holder.tv_time.setText(mData.get(position).getTime());
 
@@ -99,7 +99,6 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
 
                 i.putExtra("sid", mData.get(position).getSid());
                 i.putExtra("postPic", mData.get(position).getImage_url());
-                i.putExtra("intent","main");
                     context.startActivity(i);
 
             }
@@ -117,7 +116,6 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
                 i.putExtra("posId", mData.get(position).getPostId());
                 i.putExtra("sid", mData.get(position).getSid());
                 i.putExtra("postPic", mData.get(position).getImage_url());
-                i.putExtra("intent","main");
                 context.startActivity(i);
 
             }
@@ -142,16 +140,17 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
         TextView tv_time;
         TextView posts, ans;
         ImageView img_thumbnail;
-        ImageView star, delete;
+        ImageView star, staron;
         CircleImageView tv_pro1;
+        LinearLayout  answer;
+        LinearLayout getStar;
         RelativeLayout view_container;
-        LinearLayout getStar, answer;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             view_container = itemView.findViewById(R.id.containeritem);
-            answer = itemView.findViewById(R.id.answer);
+            answer = itemView.findViewById(R.id.answers);
             getStar = itemView.findViewById(R.id.setStar5);
             tv_name = itemView.findViewById(R.id.anime_name);
             ans = itemView.findViewById(R.id.answersText);
@@ -159,8 +158,8 @@ public class MyAdeptor extends RecyclerView.Adapter<MyAdeptor.ViewHolder> {
             posts = itemView.findViewById(R.id.postss);
             tv_rating = itemView.findViewById(R.id.starGetss);
             tv_pro1 = itemView.findViewById(R.id.profile_pic);
-            delete = itemView.findViewById(R.id.postDelete);
             star = itemView.findViewById(R.id.starIMG2);
+            // staron=itemView.findViewById(R.id.starIMG25);
             img_thumbnail = itemView.findViewById(R.id.thumbnail);
 
         }

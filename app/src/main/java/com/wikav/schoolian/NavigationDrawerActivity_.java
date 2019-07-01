@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.wikav.schoolian.fragments.FavoriteFragment;
 import com.wikav.schoolian.fragments.HomeFragment;
@@ -24,6 +26,7 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
     NotificationFragment notificationFragment ;
     FavoriteFragment favoriteFragment;
     ProfileFragment profileFragment ;
+    ImageView drawerimageview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,11 @@ public class NavigationDrawerActivity_ extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById( R.id.nav_view );
         navigationView.setNavigationItemSelectedListener( this );
         navigationView.setItemIconTintList(null);
+
+//        View view = navigationView.getHeaderView( 0 );
+//         drawerimageview = view.findViewById( R.id.drawerimage );
+
+//        drawerimageview.setImageResource( R.drawable.sch );
     }
 
     @Override

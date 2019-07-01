@@ -21,6 +21,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ import java.util.Map;
 
 public class YourPost extends AppCompatActivity {
 Toolbar toolbar;
+    ImageView backbtn;
     BroadcastReceiver broadcastReceiver;
     IntentFilter intentFilter;
 RecyclerView recyclerView;
@@ -66,12 +68,14 @@ RecyclerView recyclerView;
                 BaseTransientBottomBar.LENGTH_INDEFINITE);
 
         toolbar=findViewById(R.id.toolbarLayout);
+        backbtn = findViewById( R.id.back );
         sessionManger=new SessionManger(this);
         setSupportActionBar(toolbar);
         mShimmerViewContainer=findViewById(R.id.shimmer_view_container);
         swipeRefreshLayout=findViewById(R.id.youPostSwipe);
-        getSupportActionBar().setTitle("Your Posts");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setTitle("Your Posts");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//
         recyclerView=findViewById(R.id.recycleviewYourPost);
         noData=findViewById(R.id.noDataYourPost);
         HashMap<String,String>user=sessionManger.getUserDetail();
@@ -82,6 +86,16 @@ RecyclerView recyclerView;
         arraydata(mobile,sid);
         checkInptenet();
       // checkIntenet();
+
+
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( getApplicationContext(),Home.class );
+                startActivity( intent );
+                finish();
+            }
+        } );
 
     }
     private void arraydata(final String  sclId, final String sid) {
