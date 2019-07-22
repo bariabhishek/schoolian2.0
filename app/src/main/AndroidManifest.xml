@@ -28,16 +28,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".Gallary">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SchoolianWorld" />
         <activity android:name=".TeacherList" />
         <activity android:name=".Syllabus" />
-        <activity android:name=".StudentListSchoolian" />
+        <activity android:name=".ClassMates" />
         <activity android:name=".AnimeActivity" />
         <activity android:name=".SchoolIDopt" />
 
@@ -68,7 +63,6 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".Login" />
-        <activity android:name=".GridHome" />
         <activity android:name=".Results" />
         <activity android:name=".Holidays" />
         <activity android:name=".ClassTimeTableSchoolian" />

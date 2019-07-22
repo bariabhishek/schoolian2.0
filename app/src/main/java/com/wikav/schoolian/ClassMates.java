@@ -17,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.wikav.schoolian.DataClassSchoolian.Evants_holidays_SetGet;
 import com.wikav.schoolian.DataClassSchoolian.StudentListSetGet;
 import com.wikav.schoolian.schoolianAdeptor.StudentListAdaptor;
 
@@ -30,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentListSchoolian extends AppCompatActivity {
+public class ClassMates extends AppCompatActivity {
     RecyclerView recyclerView ;
     List<StudentListSetGet> list ;
     SessionManger sessionManger;
@@ -87,12 +86,12 @@ public class StudentListSchoolian extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(StudentListSchoolian.this, "No Data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText( ClassMates.this, "No Data", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(StudentListSchoolian.this, "Error Hai", Toast.LENGTH_SHORT).show();
+                    Toast.makeText( ClassMates.this, "Error Hai", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -102,7 +101,7 @@ public class StudentListSchoolian extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(StudentListSchoolian.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText( ClassMates.this, "Error", Toast.LENGTH_SHORT).show();
 
             }
         }

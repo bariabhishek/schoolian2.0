@@ -6,7 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".Gallary">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarGallery"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            app:titleTextColor="#fff"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:id="@+id/toolbarLayout">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/back"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/back"/>
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/appbarGallery"
         android:id="@+id/recyclerViewGallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>

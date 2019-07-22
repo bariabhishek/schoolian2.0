@@ -70,20 +70,22 @@ public class ProfileFragment extends Fragment {
         dobTv = view.findViewById(R.id.dobTv);
         age = view.findViewById(R.id.agtb);
         bioTv = view.findViewById(R.id.hobbies);
-        uploadProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent view = new Intent(getActivity(), EditProfile.class);
-                startActivity(view);
-            }
-        });
+//        uploadProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent view = new Intent(getActivity(), EditProfile.class);
+//                startActivity(view);
+//            }
+//        });
 
-        editProfileBtn = view.findViewById(R.id.edit);
+        editProfileBtn = view.findViewById(R.id.edit1);
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("tadddd", "click work");
                 Toast.makeText(getActivity(), "jhhhh", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent( getActivity(),EditProfile.class );
+                startActivity( intent );
             }
         });
 

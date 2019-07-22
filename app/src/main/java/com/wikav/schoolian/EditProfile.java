@@ -62,8 +62,9 @@ import static com.wikav.schoolian.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 public class EditProfile extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText name,email,phone,location,dob,quali,about;
-    private TextView saveBtn,age;
-    private ImageView editImage,imageUploadBtn;
+    private TextView saveBtn,age, imageUploadBtn;
+    private ImageView editImage;
+
     private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation,sessionAbout,sessionQuali,sessionDob;
     private SessionManger sessionManger;
     BroadcastReceiver broadcastReceiver;
@@ -325,7 +326,7 @@ public class EditProfile extends AppCompatActivity {
     }
 
     private void setToolbar() {
-        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
+//        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setTitle("EditProfile");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

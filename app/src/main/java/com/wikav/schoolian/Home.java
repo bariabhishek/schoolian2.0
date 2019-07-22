@@ -64,6 +64,7 @@ public class Home extends NavigationDrawerActivity_ {
     Toolbar toolbar;
 
 
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,12 +163,22 @@ public class Home extends NavigationDrawerActivity_ {
                 intent = new Intent(this, YourPost.class);
                 startActivity(intent);
                 break;
-            case R.id.getclassmate:
-
+            case R.id.gallery:
+                intent = new Intent( getApplicationContext(),Gallary.class );
+                startActivity( intent );
                 break;
-//            case R.id.acceptedComment:
-//
-//                break;
+            case R.id.getclassmate:
+                 intent = new Intent( getApplicationContext(),ClassMates.class );
+                startActivity( intent );
+                break;
+            case R.id.getTeacher:
+                 intent = new Intent( getApplicationContext(),TeacherList.class );
+                startActivity( intent );
+                break;
+            case R.id.schoolianBtn:
+                intent = new Intent( getApplicationContext(),SchoolianWorld.class );
+                startActivity( intent );
+                break;
             case R.id.aboutus:
                 intent = new Intent(this, AboutUs.class);
                 startActivity(intent);

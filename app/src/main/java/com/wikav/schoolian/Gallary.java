@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.wikav.schoolian.Adeptor.GallaryAdaptor;
 import com.wikav.schoolian.DataClassSchoolian.GallarySetGet;
@@ -16,12 +18,22 @@ public class Gallary extends AppCompatActivity {
 
     RecyclerView recyclerView;
     List<GallarySetGet> list;
+    ImageView backbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_gallary );
 
+        backbtn=findViewById( R.id.back );
         recyclerView = findViewById( R.id.recyclerViewGallery );
+
+        backbtn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
+
         list = new ArrayList <>(  );
 
         GallaryAdaptor adaptor = new GallaryAdaptor(getApplicationContext(),list);

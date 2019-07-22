@@ -10,6 +10,10 @@
             android:icon="@drawable/send"
             android:title="Post a job" />
         <item
+            android:id="@+id/gallery"
+            android:icon="@drawable/gallery"
+            android:title="Gallary" />
+        <item
             android:id="@+id/yourpost"
             android:icon="@drawable/letter"
             android:title="Your Posts" />

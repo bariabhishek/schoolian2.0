@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class AnimeActivity extends AppCompatActivity {
     private List<CommentAnime> lstAnime ;
     private RecyclerView recyclerView ;
     EditText sendCom;
+    ImageView backdis;
     SessionManger sessionManger;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,14 @@ public class AnimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        backdis = findViewById( R.id.backdis );
+        backdis.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        } );
 
         // hide the default actionbar
         //  getSupportActionBar().hide();

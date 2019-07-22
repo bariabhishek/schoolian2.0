@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +33,7 @@ public class SchoolIDopt extends AppCompatActivity {
     EditText schoolOtpET;
     Button schoolOtpButton,schoolNamebutton;
     TextView scl_name;
+    ImageView imageView;
     private String url="https://schoolian.website/android/newApi/getSchoolName.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class SchoolIDopt extends AppCompatActivity {
         school_name_Rlayout = findViewById( R.id.school_name_Rlayout );
         scl_name = findViewById( R.id.school_name );
         schoolNamebutton = findViewById( R.id.btnSchoolName );
+        imageView = findViewById( R.id.school_logo );
 
 
         schoolOtpButton.setOnClickListener( new View.OnClickListener() {
@@ -62,9 +66,10 @@ public class SchoolIDopt extends AppCompatActivity {
 
     }
 
-    private void layoutVisible(final String sclId, String sclname) {
+    private void layoutVisible(final String sclId, String sclname , String imag,String banner) {
         scl_name.setText("Welcome to "+sclname);
-        relativeLayout.setVisibility( View.INVISIBLE );
+        Glide.with( getApplicationContext() ).load( imag ).into( imageView );
+    relativeLayout.setVisibility( View.INVISIBLE );
         school_name_Rlayout.setVisibility( View.VISIBLE );
         schoolNamebutton .setOnClickListener( new View.OnClickListener() {
             @Override
@@ -97,7 +102,9 @@ public class SchoolIDopt extends AppCompatActivity {
                                         JSONObject object = jsonArray.getJSONObject(i);
                                         String sclname = object.getString("sclName").trim();
                                         String sclId = object.getString("sclId").trim();
-                                        layoutVisible(sclId,sclname);
+                                        String pic = object.getString( "logo" ).trim();
+                                        String banner = object.getString( "bnr" ).trim();
+                                        layoutVisible(sclId,sclname,pic,banner);
                                     }
 
                                     break;

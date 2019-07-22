@@ -29,6 +29,7 @@ public class SessionManger {
     public static final String BIO = "BIO";
     public static final String DOB = "DOB";
     public static final String SID = "SID";
+    public static final String SCL_COD = "SCL_COD";
     public static final String PHOTO = "PHOTO";
     public static final String SCL_ID = "SCL_ID";
     public static final String CLAS = "CLAS";

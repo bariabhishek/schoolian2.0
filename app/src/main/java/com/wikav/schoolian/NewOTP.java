@@ -78,13 +78,13 @@ public class NewOTP extends AppCompatActivity {
             //your codes here
 
         }
-        //sendVerificationCode(mob);
+       // sendVerificationCode(mob);
         FirebaseAuthSettings firebaseAuthSettings = firebaseAuth.getFirebaseAuthSettings();
        // checkIntenet();
         rnd = new Random();
         i = rnd.nextInt(999999) + 10000;
-        Toast.makeText(this, ""+i, Toast.LENGTH_LONG).show();
-        //sendOtp(mob,i);
+       // Toast.makeText(this, ""+i, Toast.LENGTH_LONG).show();
+        sendOtp(mob,i);
         txtVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +121,7 @@ public class NewOTP extends AppCompatActivity {
     }
 
     private void sendOtp(String mob, int i) {
-        String msg=i+" is your verification code for Voulu App. Thankyou.";
+        String msg=i+" is your verification code for Schoolian App. Thankyou.";
     SendSms sendSms = new SendSms(mob,msg);
     sendSms.send();
     }

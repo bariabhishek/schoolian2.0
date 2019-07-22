@@ -17,7 +17,7 @@ public class SendSms{
     private String mobiles ;
     //Sender ID,Wh
     // ile using route4 sender id should be 6 characters long.
-    private String senderId = "MVOULU";
+    private String senderId = "SCLOTP";
     //Your message to send, Add URL encoding here.
     private String message=null;
     //define route
@@ -31,7 +31,7 @@ public class SendSms{
     //String encoded_message=URLEncoder.encode(message);
 
     //Send SMS API
-    private String mainUrl="http://api.msg91.com/api/sendhttp.php?country=91";
+    private String mainUrl="http://api.msg91.com/api/sendhttp.php?";
 
     public SendSms(String mobile, String msg)
     {
@@ -39,17 +39,21 @@ public class SendSms{
         message=msg;
     }
     //Prepare parameter string
+    /*https://api.msg91.com/api/sendhttp.php?mobiles=Mobile no.&
+    authkey=$authentication_key&route=4&sender=TESTIN&message=Hello! This is a test message&country=91*/
     public void send() {
         StringBuilder sbPostData = new StringBuilder(mainUrl);
-        sbPostData.append("&sender=" + senderId);
-        sbPostData.append("&route=" + route);
-        sbPostData.append("&mobiles=" + mobiles);
-        sbPostData.append("&authkey=" + authkey);
-        sbPostData.append("&message=" + message);
+        sbPostData.append( "mobiles=" ).append( mobiles );
+        sbPostData.append( "&authkey=" ).append( authkey );
+        sbPostData.append( "&route=" ).append( route );
+        sbPostData.append( "&sender=" ).append( senderId );
+        sbPostData.append( "&message=" ).append( message );
+        sbPostData.append("&country=91");
 
 
 //final string
         mainUrl = sbPostData.toString();
+        Log.d("RESPONSE", "" + mainUrl);
 
         try {
             //prepare connection

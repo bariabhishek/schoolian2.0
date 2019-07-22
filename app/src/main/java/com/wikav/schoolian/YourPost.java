@@ -68,7 +68,7 @@ RecyclerView recyclerView;
                 BaseTransientBottomBar.LENGTH_INDEFINITE);
 
         toolbar=findViewById(R.id.toolbarLayout);
-        backbtn = findViewById( R.id.back );
+        backbtn = findViewById( R.id.backuploadpost );
         sessionManger=new SessionManger(this);
         setSupportActionBar(toolbar);
         mShimmerViewContainer=findViewById(R.id.shimmer_view_container);
@@ -91,8 +91,6 @@ RecyclerView recyclerView;
         backbtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(),Home.class );
-                startActivity( intent );
                 finish();
             }
         } );
