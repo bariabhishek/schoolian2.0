@@ -27,8 +27,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Gallary">
-        </activity>
+        <activity android:name=".Notice"></activity>
+        <activity android:name=".Gallary"></activity>
         <activity android:name=".SchoolianWorld" />
         <activity android:name=".TeacherList" />
         <activity android:name=".Syllabus" />

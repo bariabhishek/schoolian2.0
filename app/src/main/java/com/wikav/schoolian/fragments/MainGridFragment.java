@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.wikav.schoolian.AttendanceLayout;
 import com.wikav.schoolian.ClassTimeTableSchoolian;
 import com.wikav.schoolian.Holidays;
+import com.wikav.schoolian.Notice;
 import com.wikav.schoolian.R;
 import com.wikav.schoolian.Results;
 import com.wikav.schoolian.SchoolIDopt;
@@ -105,41 +106,45 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
 
                 break;
-                case R.id.examBtn:
+
+                    case R.id.examBtn:
                     intent = new Intent(getActivity(), TeacherList. class);
                     startActivity(intent);
-
                     break;
-                case R.id.resultBtn:
-                     intent=new Intent(getActivity(), Results.class);
+
+                    case R.id.resultBtn:
+                        intent=new Intent(getActivity(), Results.class);
                     startActivity(intent);
                     break;
-                case R.id.classRoutBtn:
+
+                    case R.id.classRoutBtn:
                     intent=new Intent(getActivity(), ClassTimeTableSchoolian.class);
                     startActivity(intent);
                     break;
-                case R.id.eventsBtn:
+
+                    case R.id.eventsBtn:
                     intent = new Intent(getActivity(), SchoolianWorld. class);
                     startActivity(intent);
                     break;
-                case R.id.holidayBtn:
 
+                    case R.id.holidayBtn:
                     intent=new Intent(getActivity(), Holidays.class);
                     startActivity(intent);
-                    ;
-                break;
-                case R.id.attendanceBtn:
+                    break;
 
+                case R.id.attendanceBtn:
                     intent=new Intent(getActivity(), AttendanceLayout.class);
                     startActivity(intent);
-                break;
+                    break;
+
                 case R.id.classMateBtn:
                     intent=new Intent(getActivity(), ClassMates.class);
                     startActivity(intent);
                     break;
                 case R.id.noticBtn:
                     Toast.makeText(getActivity(), "No Notice Available", Toast.LENGTH_SHORT).show();
-
+                    intent = new Intent( getActivity(), Notice.class );
+                    startActivity( intent );
                     break;
         }
 
