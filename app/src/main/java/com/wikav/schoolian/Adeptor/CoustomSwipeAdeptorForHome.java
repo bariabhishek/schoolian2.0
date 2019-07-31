@@ -30,7 +30,9 @@ public class CoustomSwipeAdeptorForHome extends PagerAdapter {
     public CoustomSwipeAdeptorForHome(FragmentActivity activity, List <String> imageArry) {
         this.context = activity;
         this.imageArry = imageArry;
-        layoutInflater=LayoutInflater.from( activity );
+        if (activity!=null) {
+            layoutInflater = LayoutInflater.from( activity );
+        }
     }
 
     @Override

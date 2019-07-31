@@ -67,7 +67,7 @@ public class NewOTP extends AppCompatActivity {
         editText = findViewById(R.id.editotp);
         sessionManger = new SessionManger(this);
         mob = getIntent().getStringExtra("mobile");
-        scl_id = getIntent().getStringExtra("sclId");
+      //  scl_id = getIntent().getStringExtra("sclId");
         setTimer();
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 7)
@@ -176,9 +176,9 @@ public class NewOTP extends AppCompatActivity {
 
                                 case "2":
                                     progressDialog.dismiss();
-                                    Intent in = new Intent(getApplicationContext(), Registration.class);
+                                    Intent in = new Intent(getApplicationContext(), SchoolIDopt.class);
                                     in.putExtra("mobile", mob);
-                                    in.putExtra("sclId", scl_id);
+                                   // in.putExtra("sclId", scl_id);
                                     in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(in);
                                     finish();

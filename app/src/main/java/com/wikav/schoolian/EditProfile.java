@@ -61,11 +61,12 @@ import static com.wikav.schoolian.SpleshScreen.PERMISSIONS_MULTIPLE_REQUEST;
 
 public class EditProfile extends AppCompatActivity {
     private Toolbar toolbar;
-    private EditText name,email,phone,location,dob,quali,about;
+    private EditText name,email,phone,location,dob,quali,about,pName;
     private TextView saveBtn,age, imageUploadBtn;
     private ImageView editImage;
 
-    private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation,sessionAbout,sessionQuali,sessionDob;
+    private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation,sessionAbout,sessionQuali,sessionDob
+    ;
     private SessionManger sessionManger;
     BroadcastReceiver broadcastReceiver;
     RadioButton genderradioButton;
@@ -77,13 +78,14 @@ public class EditProfile extends AppCompatActivity {
     Snackbar snackbar;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    final String Url="https://voulu.in/api/updateProfile.php";
+    final String Url= "https://schoolian.website/android/newApi/editProfile.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
        setContentView( R.layout.activity_edit_profile );
 
         backbtn=findViewById( R.id.back );
+
         backbtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +111,7 @@ public class EditProfile extends AppCompatActivity {
         toolbar=findViewById(R.id.toolbarEdit);
         setToolbar();
         checkInptenet();
+        pName = findViewById( R.id.pRalationName );
         name=findViewById(R.id.nameUser);
         email=findViewById(R.id.emailEdit);
         phone=findViewById(R.id.mobileNumber);
@@ -163,6 +166,8 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
+                if(hasFocus){
+
                 final Calendar c = Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
@@ -185,7 +190,7 @@ public class EditProfile extends AppCompatActivity {
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
-            }
+            }}
         });
     }
     @Override
@@ -228,12 +233,12 @@ public class EditProfile extends AppCompatActivity {
         {
             if (isNewImageSet)
             {   isNewImageSet=false;
-                uplaodData(Name,Email,Phone,Location,getStringImage(newImage),Dob,Bio,Quali);
+                uplaodData(Name,Email,Phone,Location,getStringImage(newImage),Dob,Bio,Quali,pName);
                 return;
             }
             else
             {
-                uplaodData(Name,Email,Phone,Location,sessionImage, Dob, Bio, Quali);
+                uplaodData(Name,Email,Phone,Location,sessionImage, Dob, Bio, Quali, pName );
 
             }
 
@@ -242,7 +247,9 @@ public class EditProfile extends AppCompatActivity {
 
 
 
-    private void uplaodData(final String name, final String email, final String phone, final String location, final String stringImage, final String dob, final String bio, final String quali)
+    private void uplaodData(final String name, final String email, final String phone,
+                            final String location, final String stringImage, final String dob, final String bio, final String quali,
+                            final EditText pRelation)
     {
         Log.i("profileImage",stringImage);
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -265,7 +272,7 @@ public class EditProfile extends AppCompatActivity {
                                 for (int i = 0; i < jsonArray.length(); i++) {
 
                                     JSONObject object = jsonArray.getJSONObject(i);
-                                    String name = object.getString("name").trim();
+                                    String name1 = object.getString("name").trim();
                                     String email = object.getString("email").trim();
                                     String photo = object.getString("profile_pic").trim();
                                     String phone = object.getString("mobile").trim();
@@ -273,6 +280,7 @@ public class EditProfile extends AppCompatActivity {
                                     String bio = object.getString("bio").trim();
                                     String quali = object.getString("quali").trim();
                                     String dob = object.getString("dob").trim();
+
                                    // sessionManger.clerlast();
                                   //  sessionManger.updateSession(name, email, photo, phone,location, bio, quali, dob);
                                     progressDialog.dismiss();
@@ -313,6 +321,7 @@ public class EditProfile extends AppCompatActivity {
                 params.put("quali", quali);
                 params.put("dob", dob);
                 params.put("bio", bio);
+                params.put( "pRelation" , String.valueOf( pRelation ) );
 
                 return params;
             }

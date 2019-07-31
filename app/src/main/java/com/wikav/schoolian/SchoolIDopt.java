@@ -34,11 +34,13 @@ public class SchoolIDopt extends AppCompatActivity {
     Button schoolOtpButton,schoolNamebutton;
     TextView scl_name;
     ImageView imageView;
+    String mobile;
     private String url="https://schoolian.website/android/newApi/getSchoolName.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_school_idopt );
+        mobile  = getIntent().getStringExtra( "mobile" );
 
         relativeLayout = findViewById( R.id.school_otp_Rlayout );
         schoolOtpET = findViewById(R.id.editTextSchoolVerificatioCode );
@@ -74,8 +76,9 @@ public class SchoolIDopt extends AppCompatActivity {
         schoolNamebutton .setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent( getApplicationContext(),UserMobileNumber.class );
+                Intent intent = new Intent( getApplicationContext(),Registration.class );
                 intent.putExtra("scl_id",sclId);
+                intent.putExtra( "mobile", mobile);
                 startActivity( intent );
                 finish();
             }

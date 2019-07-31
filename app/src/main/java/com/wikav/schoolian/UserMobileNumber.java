@@ -112,7 +112,7 @@ public class UserMobileNumber extends AppCompatActivity {
             else {
                 Intent i = new Intent(UserMobileNumber.this,NewOTP.class);
                 i.putExtra("mobile",no.getText().toString());
-                i.putExtra("sclId",sclId);
+              //  i.putExtra("sclId",sclId);
                 Log.d("Kya",no.getText().toString());
                // Toast.makeText(UserMobileNumber.this,no.getText().toString(),Toast.LENGTH_SHORT).show();
                 startActivity(i);

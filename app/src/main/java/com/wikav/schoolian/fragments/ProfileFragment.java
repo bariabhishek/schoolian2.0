@@ -48,6 +48,7 @@ public class ProfileFragment extends Fragment {
     int PICK_IMAGE_REQUEST = 0;
     String phone;
     Date date;
+    TextView classKonsi;
     Button logout;
     String addImageUrl = "https://voulu.in/api/profileData.php";
     SessionManger sessionManger;
@@ -69,6 +70,7 @@ public class ProfileFragment extends Fragment {
         qualiTv = view.findViewById(R.id.studentClass);
         dobTv = view.findViewById(R.id.dobTv);
         age = view.findViewById(R.id.agtb);
+        classKonsi = view.findViewById( R.id.clasesKonsi );
         bioTv = view.findViewById(R.id.hobbies);
 //        uploadProfile.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -219,6 +221,7 @@ public class ProfileFragment extends Fragment {
         String sessionDob = user.get(sessionManger.DOB);
         String sessionQuali = user.get(sessionManger.QUALI);
         String sessionAbout = user.get(sessionManger.BIO);
+        String sessionCls = user.get( sessionManger.CLAS );
         /*if(!sessionDob.equals("")) {
             String[] spl = sessionDob.split("/");
             String num = spl[2].trim();
@@ -237,6 +240,7 @@ public class ProfileFragment extends Fragment {
         qualiTv.setText(sessionQuali);
         bioTv.setText(sessionAbout);
         dobTv.setText(sessionDob);
+        classKonsi.setText( sessionCls );
         this.email.setText(email);
 
         Glide.with(getActivity())

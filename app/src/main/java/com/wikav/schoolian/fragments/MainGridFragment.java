@@ -1,6 +1,8 @@
 package com.wikav.schoolian.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,7 @@ import com.wikav.schoolian.Syllabus;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -45,6 +48,7 @@ import org.json.JSONObject;
 
 public class MainGridFragment extends Fragment implements View.OnClickListener {
 
+    Activity mActivity;
     Toolbar toolbar;
     SessionManger sessionManger;
     LinearLayout profile,exam,result,classRoutine,message, attendance,notice,event,holiday;
@@ -202,7 +206,25 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
     }
 
     private void banner(String banner) {
+        if(getActivity()==null)
+            return;
         Glide.with( getActivity() ).load( banner ).into( feed );
     }
 
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mActivity = null;
+//    }
+//
+//
+//    @Override
+//    public void onAttach(@NonNull Context context) {
+//        super.onAttach( context );
+//        mActivity = getActivity();
+//    }
+//    private void doAction() {
+//        if (mActivity == null) {
+//            return;
+//        }}
 }

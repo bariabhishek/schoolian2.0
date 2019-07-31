@@ -118,7 +118,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
         clsases.add("Select Class");
 
         mob = getIntent().getStringExtra("mobile");
-        scl_id = getIntent().getStringExtra("sclId");
+        scl_id = getIntent().getStringExtra("scl_id");
         getClasses(scl_id);
         mobile.setText(mob);
         mobile.setEnabled(false);

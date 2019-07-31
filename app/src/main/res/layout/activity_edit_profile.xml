@@ -178,10 +178,48 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+
     </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/relationName"
+            android:layout_below="@+id/ll4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Parents Name"
+                android:textColor="#000"
+                android:gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:id="@+id/pRalationName"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/relationlll"
+            android:layout_below="@+id/relationName"
+            android:layout_width="match_parent"
+            android:visibility="invisible"
+            android:layout_height="wrap_content">
+            <EditText
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Parents Realtion"
+                android:textColor="#000"
+                android:maxLines="5"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:inputType="textWebEmailAddress"
+                android:layout_marginHorizontal="20dp"
+
+                android:id="@+id/pRalation"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
     <LinearLayout
         android:id="@+id/agedob"
-        android:layout_below="@id/ll4"
+        android:layout_below="@id/relationlll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
@@ -208,10 +246,7 @@
             android:layout_gravity="center"
             android:id="@+id/dob" />
         </LinearLayout>
-        <View
-            android:layout_width="@dimen/_2sdp"
-            android:layout_height="match_parent"
-            android:background="#D6D5D5"/>
+
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -279,6 +314,7 @@
         android:hint="Qualification"
         android:id="@+id/quali"
         android:layout_marginHorizontal="@dimen/_10sdp"/>
+
     <EditText
         android:layout_below="@+id/quali"
         android:layout_width="match_parent"

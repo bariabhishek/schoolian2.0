@@ -140,7 +140,7 @@ public class SpleshScreen extends AppCompatActivity {
             }
             else {
                // Toast.makeText(this, "ok he", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(SpleshScreen.this, SchoolIDopt.class);
+                Intent intent = new Intent(SpleshScreen.this, UserMobileNumber.class);
                 startActivity(intent);
                 finish();
             }
