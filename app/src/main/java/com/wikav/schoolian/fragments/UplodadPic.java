@@ -356,6 +356,7 @@ public class UplodadPic extends DialogFragment {
                     viewImage.setImageBitmap(newImage);
                     i=1;
                     imageButton.setVisibility(View.VISIBLE);
+                    imageSelect.setVisibility(View.GONE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

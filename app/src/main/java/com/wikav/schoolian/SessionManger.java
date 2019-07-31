@@ -158,7 +158,7 @@ public class SessionManger {
         updateEditor.clear();
         loginEditor.commit();
         updateEditor.commit();
-        Intent intent = new Intent(context, UserMobileNumber.class);
+        Intent intent = new Intent(context, SchoolIDopt.class);
         context.startActivity(intent);
         ((Activity) context).finish();
     }

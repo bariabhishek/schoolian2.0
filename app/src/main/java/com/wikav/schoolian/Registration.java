@@ -70,6 +70,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
     BroadcastReceiver broadcastReceiver;
     CircleImageView circleImageView;
     Button signin;
+    boolean enter=true;
     String selectedClassId=null;
     ArrayAdapter<String> dataAdapter;
     private final String JSON_URL = "https://schoolian.website/android/newApi/getClasses.php";
@@ -168,14 +169,10 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
         final String smobile = mobile.getText().toString();
 
 
-        if (sname.isEmpty() && selectedClassId.equals("Select Class") && smobile.isEmpty()) {
-            username.setError("not Valid");
-
+        if (sname.isEmpty() || !enter ) {
+            username.setError("Fill all flied and select Class");
         } else {
-            /*if (password.getText().toString().length() <= 8) {
-                userpassword.setError("minimum 8 character requierd");
-                Toast.makeText(getApplicationContext(), "minimum 8 character", Toast.LENGTH_LONG).show();
-            } else {*/
+
                 if (isImageset) {
                     FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
                         @Override
@@ -483,6 +480,13 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         selectedClassId = parent.getItemAtPosition(position).toString();
         Log.d("Khatu",selectedClassId);
+        if(selectedClassId.equals("Select Class"))
+        {
+            enter=false;
+        }
+        else {
+            enter=true;
+        }
     }
 
     @Override
