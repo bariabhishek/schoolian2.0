@@ -177,7 +177,7 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     // email_hint.setError("Invalid Mobile no. or Password");
-                    Toast.makeText(getContext(), "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+                //    Toast.makeText(getContext(), "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
                 }
 
 
@@ -186,7 +186,7 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText( getContext(), "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
+              //  Toast.makeText( getContext(), "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
             }
         } ){  @Override
         protected Map <String, String> getParams() {

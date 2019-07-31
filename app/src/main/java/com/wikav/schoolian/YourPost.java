@@ -151,7 +151,7 @@ RecyclerView recyclerView;
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Something went wrong..." + error, Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getApplicationContext(), "Something went wrong..." + error, Toast.LENGTH_LONG).show();
                         // noData.setVisibility(View.VISIBLE);
                     }
                 }) {

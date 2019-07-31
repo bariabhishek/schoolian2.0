@@ -169,7 +169,7 @@ public class Results extends AppCompatActivity implements AdapterView.OnItemSele
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),"Error 1: "+e.toString(),Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(),"Error 1: "+e.toString(),Toast.LENGTH_LONG).show();
 //                    button.setVisibility(View.VISIBLE);
 //                    progressBar.setVisibility(View.GONE);
                 }
@@ -179,7 +179,7 @@ public class Results extends AppCompatActivity implements AdapterView.OnItemSele
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"Error 2: "+error.toString(),Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(getApplicationContext(),"Error 2: "+error.toString(),Toast.LENGTH_LONG).show();
 //                        button.setVisibility(View.VISIBLE);
 //                        progressBar.setVisibility(View.GONE);
                     }
@@ -255,7 +255,7 @@ public class Results extends AppCompatActivity implements AdapterView.OnItemSele
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+                 //   Toast.makeText(getApplicationContext(), "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
 //                    button.setVisibility(View.VISIBLE);
 //                    progressBar.setVisibility(View.GONE);
                 }
@@ -265,7 +265,7 @@ public class Results extends AppCompatActivity implements AdapterView.OnItemSele
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getApplicationContext(), "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
 //                        button.setVisibility(View.VISIBLE);
 //                        progressBar.setVisibility(View.GONE);
                     }

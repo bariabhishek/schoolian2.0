@@ -59,7 +59,7 @@ public class NotificationFragment extends Fragment {
         sessionManger=new SessionManger(getActivity());
         HashMap<String,String> getUser=sessionManger.getUserDetail();
             mobile=getUser.get(sessionManger.SID);
-        Toast.makeText(getActivity(), ""+mobile, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getActivity(), ""+mobile, Toast.LENGTH_SHORT).show();
         data(mobile);
 
         recyclerView =view.findViewById( R.id.notificationrecycleview );
@@ -126,7 +126,7 @@ public class NotificationFragment extends Fragment {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getContext(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(getContext(), "Something went wrong..."+e, Toast.LENGTH_LONG).show();
                             Log.d("Response", e.getMessage());
 
                         }
@@ -136,7 +136,7 @@ public class NotificationFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getActivity(), "Error2: " + error.toString(), Toast.LENGTH_LONG).show();
                         Log.d("Response", error.toString());
 
 

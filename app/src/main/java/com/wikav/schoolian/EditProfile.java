@@ -186,7 +186,7 @@ public class EditProfile extends AppCompatActivity {
                                 int current_year=date.getYear()+1900;
                                 int a=current_year-year;
                                 age.setText(a+"+");
-                                Toast.makeText(EditProfile.this, ""+a, Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(EditProfile.this, ""+a, Toast.LENGTH_SHORT).show();
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -199,7 +199,7 @@ public class EditProfile extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "calll", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(this, "calll", Toast.LENGTH_SHORT).show();
                 Uri resultUri = result.getUri();
                 try {
 
@@ -408,7 +408,7 @@ public class EditProfile extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this, "kuch nhi kar skte", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "kuch nhi kar skte", Toast.LENGTH_SHORT).show();
         }
         return false;
     }

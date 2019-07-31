@@ -91,7 +91,7 @@ public class ClassMates extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText( ClassMates.this, "Error Hai", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText( ClassMates.this, "Error Hai", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -101,7 +101,7 @@ public class ClassMates extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText( ClassMates.this, "Error", Toast.LENGTH_SHORT).show();
+               // Toast.makeText( ClassMates.this, "Error", Toast.LENGTH_SHORT).show();
 
             }
         }

@@ -34,7 +34,7 @@
                <TextView
                    android:id="@+id/studentName"
                    android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
+                   android:layout_height="match_parent"
                    android:textSize="@dimen/_17sdp"
                    android:textColor="@color/colorWhite"
                    android:text="Name"
@@ -50,6 +50,7 @@
                    android:textColor="@color/colorWhite"
                    android:text="Mobile"
                    android:gravity="center"
+                   android:visibility="gone"
                    android:layout_marginTop="10dp"
 
                    />

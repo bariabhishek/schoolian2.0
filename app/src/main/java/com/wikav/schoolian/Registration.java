@@ -248,7 +248,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(Registration.this, "error:1- " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(Registration.this, "error:1- " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     signin.setVisibility(View.VISIBLE);
                 }
@@ -257,7 +257,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Registration.this, "error:1- " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(Registration.this, "error:1- " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
                         signin.setVisibility(View.VISIBLE);
                     }
@@ -294,7 +294,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
 
         byte[] imageByteArray = byteArrayOutputStream.toByteArray();
         String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
-        Toast.makeText(this, "Call", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "Call", Toast.LENGTH_SHORT).show();
         return encodedImage;
     }
 
@@ -522,7 +522,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(Registration.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+                 //   Toast.makeText(Registration.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
 //                    button.setVisibility(View.VISIBLE);
 //                    progressBar.setVisibility(View.GONE);
                 }
@@ -532,7 +532,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Registration.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
+                  //      Toast.makeText(Registration.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
 //                        button.setVisibility(View.VISIBLE);
 //                        progressBar.setVisibility(View.GONE);
                     }

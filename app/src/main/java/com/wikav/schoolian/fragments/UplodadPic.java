@@ -79,7 +79,7 @@ public class UplodadPic extends DialogFragment {
         String scl_id = user.get(sessionManger.SCL_ID);
         getId=getid;
         scl_Id=scl_id;
-        Toast.makeText(getActivity(), ""+scl_id, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getActivity(), ""+scl_id, Toast.LENGTH_SHORT).show();
         imageButton=view.findViewById(R.id.imageButton);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -297,7 +297,7 @@ public class UplodadPic extends DialogFragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getActivity(), "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -305,7 +305,7 @@ public class UplodadPic extends DialogFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(getActivity(), "Try Again!" + error.toString(), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(getActivity(), "Try Again!" + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })
         {
@@ -348,7 +348,7 @@ public class UplodadPic extends DialogFragment {
             if (resultCode == RESULT_OK) {
 
                 Uri resultUri = result.getUri();
-                Toast.makeText(getActivity(), "Okk", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getActivity(), "Okk", Toast.LENGTH_SHORT).show();
 
                 try {
                     newImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);

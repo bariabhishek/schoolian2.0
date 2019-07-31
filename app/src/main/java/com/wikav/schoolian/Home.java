@@ -92,7 +92,7 @@ public class Home extends NavigationDrawerActivity_ {
 
         checkIntenet();
         String in=getIntent().getStringExtra("intent");
-        Toast.makeText(this, ""+in, Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this, ""+in, Toast.LENGTH_LONG).show();
         if(in!=null)
         {
             setFragment(homeFragment);

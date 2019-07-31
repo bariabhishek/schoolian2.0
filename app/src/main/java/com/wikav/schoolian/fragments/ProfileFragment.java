@@ -85,7 +85,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("tadddd", "click work");
-                Toast.makeText(getActivity(), "jhhhh", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), "jhhhh", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent( getActivity(),EditProfile.class );
                 startActivity( intent );
             }
@@ -210,6 +210,7 @@ public class ProfileFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -247,4 +248,5 @@ public class ProfileFragment extends Fragment {
                 .load(image)
                 .into(uploadProfile);
     }
+
 }

@@ -90,12 +90,12 @@ public class TeacherList extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(TeacherList.this, "No Data", Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(TeacherList.this, "No Data", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(TeacherList.this, "Error Hai", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(TeacherList.this, "Error Hai", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -105,7 +105,7 @@ public class TeacherList extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(TeacherList.this, "Error", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(TeacherList.this, "Error", Toast.LENGTH_SHORT).show();
 
             }
         }

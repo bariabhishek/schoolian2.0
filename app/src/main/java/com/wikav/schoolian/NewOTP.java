@@ -191,7 +191,7 @@ public class NewOTP extends AppCompatActivity {
                             // email_hint.setError("Invalid Mobile no. or Password");
                             progressDialog.dismiss();
 
-                            Toast.makeText(NewOTP.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+                        //    Toast.makeText(NewOTP.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
 
                         }
 
@@ -201,7 +201,7 @@ public class NewOTP extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(NewOTP.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(NewOTP.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
 
                     }
                 }

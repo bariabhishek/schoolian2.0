@@ -118,7 +118,7 @@ public class OTP extends AppCompatActivity {
         public void onVerificationFailed(FirebaseException e) {
             Log.d("Kya", e.getMessage());
 
-            Toast.makeText(OTP.this, e.getMessage(), Toast.LENGTH_LONG).show();
+           // Toast.makeText(OTP.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -243,7 +243,7 @@ public class OTP extends AppCompatActivity {
                             // email_hint.setError("Invalid Mobile no. or Password");
                             progressDialog.dismiss();
 
-                            Toast.makeText(OTP.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+                           // Toast.makeText(OTP.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
 
                         }
 
@@ -253,7 +253,7 @@ public class OTP extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(OTP.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(OTP.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
 
                     }
                 }

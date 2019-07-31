@@ -172,7 +172,7 @@ public class Login extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // email_hint.setError("Invalid Mobile no. or Password");
-                            Toast.makeText(Login.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(Login.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
                             login_btn.setVisibility(View.VISIBLE);
                             progressBar.setVisibility(View.GONE);
                         }
@@ -182,7 +182,7 @@ public class Login extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Login.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(Login.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
                         login_btn.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                     }

@@ -96,7 +96,7 @@ public class Holidays extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(Holidays.this, "Error Hai", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(Holidays.this, "Error Hai", Toast.LENGTH_SHORT).show();
 
                 }
 

@@ -61,7 +61,7 @@ public class SchoolIDopt extends AppCompatActivity {
 
                     getSchoolData(schoolOtpET.getText().toString());
 
-                    Toast.makeText( getApplicationContext(),"working",Toast.LENGTH_LONG ).show();
+                //    Toast.makeText( getApplicationContext(),"working",Toast.LENGTH_LONG ).show();
                 }
             }
         } );
@@ -126,7 +126,7 @@ public class SchoolIDopt extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // email_hint.setError("Invalid Mobile no. or Password");
-                            Toast.makeText(SchoolIDopt.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
+                        //    Toast.makeText(SchoolIDopt.this, "Error 1: " + e.toString(), Toast.LENGTH_LONG).show();
                            /* login_btn.setVisibility(View.VISIBLE);
                             progressBar.setVisibility(View.GONE);*/
                         }
@@ -136,7 +136,7 @@ public class SchoolIDopt extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SchoolIDopt.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
+                    //    Toast.makeText(SchoolIDopt.this, "Error 2: " + error.toString(), Toast.LENGTH_LONG).show();
                        /* login_btn.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);*/
                     }
