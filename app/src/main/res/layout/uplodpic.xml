@@ -31,46 +31,41 @@
         android:layout_marginBottom="30dp"
         android:visibility="gone" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/postImage2"
-        android:layout_alignLeft="@+id/postText"
-        android:layout_alignRight="@+id/postText">
+       android:gravity="center"
+        android:orientation="horizontal"
+       >
 
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+
             android:background="#fff"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:srcCompat="@android:drawable/ic_delete" />
 
         <Button
             android:id="@+id/postUp"
-            android:layout_width="175dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="75dp"
-            android:layout_marginLeft="75dp"
-            android:layout_toEndOf="@+id/imageButton"
-            android:layout_toRightOf="@+id/imageButton"
-            android:background="#fff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:background="@drawable/bg_capsule_for_message"
             android:text="Post" />
+
 
         <Button
             android:id="@+id/choosIm"
-            android:layout_width="175dp"
-            android:layout_height="match_parent"
-            android:layout_alignBaseline="@+id/postUp"
-            android:layout_alignBottom="@+id/postUp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:background="#fff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:background="@drawable/bg_capsule_for_message"
             android:text="Image" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
