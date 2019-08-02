@@ -66,7 +66,7 @@ public class EditProfile extends AppCompatActivity {
     private ImageView editImage;
 
     private String sessionName,sessionImage,sessionPhone,sessionEmail,sessionLocation,sessionAbout,sessionQuali,sessionDob
-    ;
+    ,sclId,sid;
     private SessionManger sessionManger;
     BroadcastReceiver broadcastReceiver;
     RadioButton genderradioButton;
@@ -78,7 +78,7 @@ public class EditProfile extends AppCompatActivity {
     Snackbar snackbar;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    final String Url= "https://schoolian.website/android/newApi/editProfile.php";
+    final String Url= "https://schoolian.website/android/editProfile.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -99,6 +99,8 @@ public class EditProfile extends AppCompatActivity {
                 BaseTransientBottomBar.LENGTH_INDEFINITE);
 
         HashMap<String,String> user=sessionManger.getUserDetail();
+        sclId = user.get(sessionManger.SCL_ID);
+        sid = user.get(sessionManger.SID);
         sessionName = user.get(sessionManger.NAME);
         sessionPhone = user.get(sessionManger.MOBILE);
         sessionImage = user.get( sessionManger.PROFILE_PIC );
@@ -117,25 +119,13 @@ public class EditProfile extends AppCompatActivity {
         phone=findViewById(R.id.mobileNumber);
         quali=findViewById(R.id.quali);
         dob=findViewById(R.id.dob);
-        age=findViewById(R.id.ageTv);
         about=findViewById(R.id.aboutSelf);
         location=findViewById(R.id.location);
         saveBtn=findViewById(R.id.saveButton);
         editImage=findViewById(R.id.imageviewedit);
         imageUploadBtn=findViewById(R.id.imageUploadBtn);
         //radioGroup=(RadioGroup)findViewById(R.id.radioGroup);
-        if(serviceCheck())
-        {
-           // Toast.makeText(this, "ho rha he sb kuch ok", Toast.LENGTH_SHORT).show();
 
-            location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus)
-                {
-                    getPermission();
-                }
-            });
-        }
         setAllFileds();
     }
 
@@ -162,7 +152,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        /*dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
@@ -191,8 +181,9 @@ public class EditProfile extends AppCompatActivity {
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
             }}
-        });
+        });*/
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -204,7 +195,7 @@ public class EditProfile extends AppCompatActivity {
                 try {
 
                     newImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
-                    editImage.setImageBitmap(newImage);
+                    editImage.setImageURI(resultUri);
                     isNewImageSet=true;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -225,6 +216,7 @@ public class EditProfile extends AppCompatActivity {
         String Bio= about.getText().toString();
         String Quali= quali.getText().toString();
         String Dob= dob.getText().toString();
+        Log.d("Data_Test",Name + Email);
         if(Name.equals("")|| Email.equals("")|| Phone.equals(""))
         {
             Toast.makeText(this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
@@ -268,9 +260,7 @@ public class EditProfile extends AppCompatActivity {
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("update");
                             if (success.equals("1")){
-                                //updateSession(String name, String email, String photo, String mobile,String location)
                                 for (int i = 0; i < jsonArray.length(); i++) {
-
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String name1 = object.getString("name").trim();
                                     String email = object.getString("email").trim();
@@ -278,11 +268,14 @@ public class EditProfile extends AppCompatActivity {
                                     String phone = object.getString("mobile").trim();
                                     String location = object.getString("address").trim();
                                     String bio = object.getString("bio").trim();
-                                    String quali = object.getString("quali").trim();
                                     String dob = object.getString("dob").trim();
-
-                                   // sessionManger.clerlast();
-                                  //  sessionManger.updateSession(name, email, photo, phone,location, bio, quali, dob);
+                                    String sid = object.getString("sid").trim();
+                                    String pass = object.getString("pass").trim();
+                                    String scl_pic = object.getString("scl_pic").trim();
+                                    String scl_id = object.getString("scl_id").trim();
+                                    String clas = object.getString("class").trim();
+                                    String sclname = object.getString("scl_name").trim();
+                                    sessionManger.updateSession(name1, email, photo, phone,location, dob,bio,sid,pass,scl_pic,scl_id,clas,sclname);
                                     progressDialog.dismiss();
                                     finish();
 
@@ -312,8 +305,8 @@ public class EditProfile extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-
                 params.put("name", name);
+                params.put("sid", sid);
                 params.put("mobile", phone);
                 params.put("email", email);
                 params.put("profile_pic", stringImage);
@@ -321,7 +314,16 @@ public class EditProfile extends AppCompatActivity {
                 params.put("quali", quali);
                 params.put("dob", dob);
                 params.put("bio", bio);
-                params.put( "pRelation" , String.valueOf( pRelation ) );
+                params.put("scl_id", sclId);
+
+                if(isNewImageSet)
+                {
+                    params.put("newImage", "true");
+
+                }
+                else {
+                    params.put("newImage", "false");
+                }
 
                 return params;
             }
@@ -335,7 +337,6 @@ public class EditProfile extends AppCompatActivity {
     }
 
     private void setToolbar() {
-//        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         toolbar.setTitle("EditProfile");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -354,17 +355,6 @@ public class EditProfile extends AppCompatActivity {
         return encodedImage;
     }
 
-    public void onclickbuttonMethod(View v){
-        int selectedId = radioGroup.getCheckedRadioButtonId();
-        genderradioButton = (RadioButton) findViewById(selectedId);
-        if(selectedId==-1){
-            Toast.makeText(getApplicationContext(),"Nothing selected", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(getApplicationContext(),genderradioButton.getText(), Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
     public void checkInptenet() {
         IntentFilter  intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -378,12 +368,7 @@ public class EditProfile extends AppCompatActivity {
                     if (snackbar.isShown())
                         snackbar.dismiss();
                 } else {
-                    //Toast.makeText(context, "Toast", Toast.LENGTH_SHORT).show();
-                /*FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
-                FullScreenDialogForNoInternet full=new FullScreenDialogForNoInternet();
-                full.show(ft,"show");*/
-
-                    snackbar.show();
+                      snackbar.show();
 
 
                 }
@@ -392,49 +377,7 @@ public class EditProfile extends AppCompatActivity {
         };
         registerReceiver(broadcastReceiver, intentFilter);
     }
-    private boolean serviceCheck()
-    {
-        int result= GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(EditProfile.this);
-        if(result== ConnectionResult.SUCCESS)
-        {
-            Log.d("ConnectOk","ok hai connection");
-            return true;
-        }
-        else if (GoogleApiAvailability.getInstance().isUserResolvableError(result))
-        {
-            Log.d("ConnectOk","error he but thik hoga");
-            Dialog dialog=GoogleApiAvailability.getInstance().getErrorDialog(EditProfile.this,result,DIALOG_REQUEST_ERROR);
-            dialog.show();
-        }
-        else
-        {
-          //  Toast.makeText(this, "kuch nhi kar skte", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }
 
-    private void getPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            if (ContextCompat.checkSelfPermission(EditProfile.this, Manifest.permission.ACCESS_FINE_LOCATION) + ContextCompat
-                    .checkSelfPermission(EditProfile.this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-
-                requestPermissions(
-                        new String[]{
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION},
-                        PERMISSIONS_MULTIPLE_REQUEST);
-
-
-            } else {
-
-            }
-        }
-
-
-    }
     private void getCameraPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
@@ -454,7 +397,7 @@ public class EditProfile extends AppCompatActivity {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setAspectRatio(1, 1)
-                        .start(EditProfile.this);
+                        .start(this);
             }
         }
 

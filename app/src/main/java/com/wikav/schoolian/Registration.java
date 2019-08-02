@@ -70,7 +70,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
     BroadcastReceiver broadcastReceiver;
     CircleImageView circleImageView;
     Button signin;
-    boolean enter=true;
+    boolean enter=true,isBtnClick=false;
     String selectedClassId=null;
     ArrayAdapter<String> dataAdapter;
     private final String JSON_URL = "https://schoolian.website/android/newApi/getClasses.php";
@@ -88,7 +88,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
     CheckBox chkIos;
     Spinner classSpinner;
     SessionManger sessionManger;
-    String Url = "https://schoolian.website/android/newApi/registration.php";
+    String Url = "https://schoolian.website/android/registration.php";
     Uri resultUri;
 
     IntentFilter intentFilter;
@@ -203,6 +203,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void uploadDataWithImage(final String sname, final String smobile, final String spassword, final String gender, final String stringimage, final String newToken) {
+        isBtnClick=true;
         progressBar.setVisibility(View.VISIBLE);
         signin.setVisibility(View.GONE);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -564,5 +565,17 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
         // attaching data adapter to spinner
         classSpinner.setAdapter(dataAdapter);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isBtnClick)
+        {
+            moveTaskToBack(true);
+        }
+        else
+        {
+            super.onBackPressed();
+        }
     }
 }

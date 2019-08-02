@@ -227,7 +227,7 @@ public class NewOTP extends AppCompatActivity {
     }
 
     void setTimer() {
-         newTime= new CountDownTimer(59000, 1000) {
+         newTime= new CountDownTimer(29000, 1000) {
             public void onTick(long millisUntilFinished) {
                 timer.setText("00:" + millisUntilFinished / 1000);
                 timer.setClickable(false);

@@ -210,18 +210,6 @@ public class AnimeActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-  /*  @Override
-    public void onBackPressed() {
-
-        Intent intent =new Intent(AnimeActivity.this, HomeMenuActivity.class);
-        startActivity(intent);
-    }*/
-
     public void deletEdit(View view) {
 
         final CharSequence[] options = { "Delete","Cancel" };

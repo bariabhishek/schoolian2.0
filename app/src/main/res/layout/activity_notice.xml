@@ -30,7 +30,7 @@
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
+<!--
     <TextView
         android:id="@+id/noticetext"
         android:layout_width="wrap_content"
@@ -42,12 +42,14 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorPrimary"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/noticetext"
+        android:layout_below="@id/appbar"
         android:id="@+id/noticeRecycleView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

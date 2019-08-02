@@ -99,6 +99,7 @@ public class SessionManger {
         updateEditor.putString(EMAIL, email);
         updateEditor.putString(PROFILE_PIC, photo);
         updateEditor.putString(MOBILE, mobile);
+        updateEditor.putString(LOCATION, location);
         updateEditor.putString(DOB, dob);
         updateEditor.putString(BIO, bio);
         updateEditor.putString(SID, sid);

@@ -60,12 +60,7 @@ public class Notice extends AppCompatActivity {
 
         getData(sclId,stClass);
 
-        NoticeAdaptor noticeAdaptor = new NoticeAdaptor(getApplicationContext(),list);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getApplicationContext() );
-        linearLayoutManager.setOrientation( RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager( linearLayoutManager );
-        recyclerView.setAdapter( noticeAdaptor );
 
 
     }
@@ -81,16 +76,16 @@ public class Notice extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         String success = jsonObject.getString("success");
-                        JSONArray jsonArray = jsonObject.getJSONArray("Att");
+                        JSONArray jsonArray = jsonObject.getJSONArray("noti");
                         if (success.equals("1")) {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
-                                String absent = object.getString("absent");
-                                String present = object.getString("present");
-                                String leave = object.getString("leave");
-                                String holiday = object.getString("holiday");
+                                String date = object.getString("date");
+                                String msg = object.getString("msg");
 
+                                list.add( new NoticeDataClass( date,msg,"" ) );
                             }
+                            setData(list);
                         }
 
 
@@ -120,18 +115,15 @@ public class Notice extends AppCompatActivity {
 
     }
 
-    private void data() {
 
-        for (int i=0 ; i <=10; i++ ){
-            list.add( new NoticeDataClass( "1/1/1111","kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" +
-                    "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" +
-                    "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq" +
-                    "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq","Sports notice" ) );
+void setData(List<NoticeDataClass> list)
+{
+    NoticeAdaptor noticeAdaptor = new NoticeAdaptor(getApplicationContext(),list);
 
-            list.add( new NoticeDataClass("24/01/2086", "Material is the metaphorA material " +
-                    "metaphor is the unifying theory of a rationalized space and a system of motion." +
-                    "The material is grounded in tactile reality, inspired by the study of paper and ink, yet ", "Exam notice"));
-    }}
-
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getApplicationContext() );
+    linearLayoutManager.setOrientation( RecyclerView.VERTICAL);
+    recyclerView.setLayoutManager( linearLayoutManager );
+    recyclerView.setAdapter( noticeAdaptor );
+}
 
 }
