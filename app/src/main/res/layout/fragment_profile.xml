@@ -14,16 +14,22 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbarlayoutProfile"
             android:layout_width="match_parent"
+            android:theme="@style/AppTheme.AppBarOverlay"
             android:layout_height="@dimen/_50sdp">
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </RelativeLayout>
+                android:layout_height="match_parent"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROFILE"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="@dimen/_30sdp"
+                    android:textStyle="bold"/>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,7 +38,17 @@
             android:layout_below="@id/appbarlayoutProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/bg_parent_rounded_corner"
+                android:backgroundTint="#FFF"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="@dimen/_5sdp"
+                app:cardElevation="5dp"
+                android:layout_below="@id/actionBar"
+                app:cardUseCompatPadding="true">
             <RelativeLayout
 
                 android:layout_width="match_parent"
@@ -358,5 +374,6 @@
 
                 </LinearLayout>
             </RelativeLayout>
+            </androidx.cardview.widget.CardView>
         </ScrollView>
 </RelativeLayout>

@@ -51,9 +51,9 @@ public class Results extends AppCompatActivity implements AdapterView.OnItemSele
     String sclid,Sid,cls;
     String selectedSubject =null;
     ImageView backbtn;
-    private final String JSON_URL_EXAM = "https://schoolian.website/android/newApi/getExamName.php" ;
+    private final String JSON_URL_EXAM = "https://schoolian.in/android/newApi/getExamName.php" ;
     SessionManger sessionManger;
-    private final String JSON_URL = "https://schoolian.website/android/Marks.php" ;
+    private final String JSON_URL = "https://schoolian.in/android/Marks.php" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );

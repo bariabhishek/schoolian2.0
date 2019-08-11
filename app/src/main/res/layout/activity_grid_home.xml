@@ -195,7 +195,8 @@
                                 android:layout_height="@dimen/_80sdp"
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/_10sdp"
-                                android:background="@drawable/schoolian_background_round_skyblue"
+                                android:background="@drawable/schoolian_background_round_pink"
+
                                 android:padding="@dimen/_15sdp"
                                 android:elevation="8dp"
                                 android:src="@drawable/classmates"
@@ -226,7 +227,7 @@
                                 android:layout_height="@dimen/_80sdp"
                                 android:layout_gravity="center"
                                 android:layout_margin="@dimen/_10sdp"
-                                android:background="@drawable/schoolian_background_round_pink"
+                                android:background="@drawable/schoolian_background_round_skyblue"
                                 android:padding="@dimen/_15sdp"
                                 android:elevation="8dp"
                                 android:src="@drawable/sch" />
@@ -346,6 +347,103 @@
                             android:layout_margin="@dimen/_5sdp"
                             android:layout_weight="1"
                             android:id="@+id/resultBtn"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/_80sdp"
+                                android:layout_height="@dimen/_80sdp"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:background="@drawable/schoolian_background_round_gray"
+                                android:padding="@dimen/_15sdp"
+                                android:src="@drawable/result"
+                                android:elevation="8dp"
+                                android:tint="@color/colorWhite"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="Result"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:id="@+id/dailyWork"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/_80sdp"
+                                android:layout_height="98dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:background="@drawable/schoolian_background_round_green"
+                                android:elevation="8dp"
+                                android:padding="@dimen/_15sdp"
+                                android:src="@drawable/agenda"
+                                android:tint="@color/colorWhite" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="Daily Work"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                       android:visibility="invisible"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/_80sdp"
+                                android:layout_height="@dimen/_80sdp"
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:background="@drawable/schoolian_background_round_green"
+                                android:padding="@dimen/_15sdp"
+                                android:src="@drawable/holiday"
+                                android:elevation="8dp"
+                                android:tint="@color/colorWhite"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="Holiday"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="invisible"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:orientation="vertical">
 

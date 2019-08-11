@@ -39,7 +39,7 @@ public class Syllabus extends AppCompatActivity {
     private RecyclerView recyclerView ;
     ProgressBar progressBar;
     ImageView backbtn;
-    private final String JSON_URL = "https://schoolian.website/android/sallybus.php" ;
+    private final String JSON_URL = "https://schoolian.in/android/sallybus.php" ;
 Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

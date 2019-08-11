@@ -43,9 +43,9 @@ public class AnimeActivity extends AppCompatActivity {
 
 
     private RecyclerView.LayoutManager layoutManager;
-    private final String JSON_URL = "https://schoolian.website/android/getComments.php" ;
-    private final String JSON_URL2 ="https://schoolian.website/android/comments.php" ;
-    private final String Delete_URL ="https://schoolian.website/android/deletePost.php" ;
+    private final String JSON_URL = "https://schoolian.in/android/getComments.php" ;
+    private final String JSON_URL2 ="https://schoolian.in/android/comments.php" ;
+    private final String Delete_URL ="https://schoolian.in/android/deletePost.php" ;
     private JsonArrayRequest request ;
 
     private List<CommentAnime> lstAnime ;

@@ -35,7 +35,7 @@ public class SchoolIDopt extends AppCompatActivity {
     TextView scl_name;
     ImageView imageView;
     String mobile;
-    private String url="https://schoolian.website/android/newApi/getSchoolName.php";
+    private String url="https://schoolian.in/android/newApi/getSchoolName.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );

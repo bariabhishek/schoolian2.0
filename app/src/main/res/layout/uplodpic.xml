@@ -8,14 +8,16 @@
 
     <EditText
         android:id="@+id/postText"
+        android:layout_below="@+id/spinnerClass"
         android:layout_width="340dp"
         android:layout_height="106dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:hint="@string/write_your_query_here"
         android:maxLength="250"
-        android:elevation="5dp"
+        android:elevation="2dp"
+        android:padding="@dimen/_5sdp"
         android:background="@drawable/background_rounded"
         android:textColor="#000"
         android:textColorHint="#3E000000"
@@ -27,7 +29,6 @@
         android:layout_height="320dp"
         android:layout_below="@+id/postText"
         android:layout_marginTop="50dp"
-
         android:layout_marginBottom="30dp"
         android:visibility="gone" />
 
@@ -45,18 +46,11 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:background="#fff"
             android:visibility="gone"
             app:srcCompat="@android:drawable/ic_delete" />
 
-        <Button
-            android:id="@+id/postUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_30sdp"
-            android:background="@drawable/bg_capsule_for_message"
-            android:text="Post" />
+
 
 
         <Button
@@ -66,6 +60,13 @@
             android:layout_marginHorizontal="@dimen/_30sdp"
             android:background="@drawable/bg_capsule_for_message"
             android:text="Image" />
+        <Button
+            android:id="@+id/postUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:background="@drawable/bg_capsule_for_message"
+            android:text="Post" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -72,13 +72,13 @@ public class EditProfile extends AppCompatActivity {
     RadioButton genderradioButton;
     RadioGroup radioGroup;
     ImageView backbtn;
-    boolean isNewImageSet = false;
+    boolean isNewImageSet = false,isNewImageSet2=false;
     Bitmap newImage;
     private static final int DIALOG_REQUEST_ERROR=9001;
     Snackbar snackbar;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    final String Url= "https://schoolian.website/android/editProfile.php";
+    final String Url= "https://schoolian.in/android/editProfile.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -152,7 +152,7 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
-        /*dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
@@ -163,25 +163,22 @@ public class EditProfile extends AppCompatActivity {
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
                 final Date date=new Date();
-
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EditProfile.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-
                                 dob.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 int current_year=date.getYear()+1900;
                                 int a=current_year-year;
-                                age.setText(a+"+");
+
                               //  Toast.makeText(EditProfile.this, ""+a, Toast.LENGTH_SHORT).show();
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
             }}
-        });*/
+        });
     }
 
     @Override
@@ -193,10 +190,11 @@ public class EditProfile extends AppCompatActivity {
               //  Toast.makeText(this, "calll", Toast.LENGTH_SHORT).show();
                 Uri resultUri = result.getUri();
                 try {
-
                     newImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
-                    editImage.setImageURI(resultUri);
+                    editImage.setImageBitmap(null);
+                    editImage.setImageBitmap(newImage);
                     isNewImageSet=true;
+                    isNewImageSet2=true;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -224,8 +222,8 @@ public class EditProfile extends AppCompatActivity {
         else
         {
             if (isNewImageSet)
-            {   isNewImageSet=false;
-                uplaodData(Name,Email,Phone,Location,getStringImage(newImage),Dob,Bio,Quali,pName);
+            {   uplaodData(Name,Email,Phone,Location,getStringImage(newImage),Dob,Bio,Quali,pName);
+                isNewImageSet=false;
                 return;
             }
             else
@@ -254,7 +252,7 @@ public class EditProfile extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         //    progressDialog.dismiss();
-                        Log.i("TAG", response.toString());
+                        Log.d("TAGresponse", response.toString());
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
@@ -316,10 +314,10 @@ public class EditProfile extends AppCompatActivity {
                 params.put("bio", bio);
                 params.put("scl_id", sclId);
 
-                if(isNewImageSet)
+                if(isNewImageSet2)
                 {
                     params.put("newImage", "true");
-
+                    isNewImageSet2=false;
                 }
                 else {
                     params.put("newImage", "false");
@@ -348,7 +346,7 @@ public class EditProfile extends AppCompatActivity {
     public String getStringImage(Bitmap bitmap){
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
 
         byte[] imageByteArray = byteArrayOutputStream.toByteArray();
         String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);

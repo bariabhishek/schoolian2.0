@@ -33,7 +33,7 @@ public class Notice extends AppCompatActivity {
     List<NoticeDataClass> list;
     ImageView backbtn;
     SessionManger sessionManger;
-    String Url = "https://schoolian.website/android/newApi/getNotice.php";
+    String Url = "https://schoolian.in/android/newApi/getNotice.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );

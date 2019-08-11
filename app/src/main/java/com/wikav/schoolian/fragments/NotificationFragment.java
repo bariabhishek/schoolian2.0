@@ -39,7 +39,7 @@ import com.wikav.schoolian.SessionManger;
 public class NotificationFragment extends Fragment {
 
     RecyclerView recyclerView;
-    String  Url="https://schoolian.website/android/newApi/getNotification.php",mobile;
+    String  Url="https://schoolian.in/android/newApi/getNotification.php",mobile;
     SessionManger sessionManger;
 
     List<DataForNotification> arrayList;

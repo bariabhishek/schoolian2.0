@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.wikav.schoolian.AttendanceLayout;
 import com.wikav.schoolian.ClassTimeTableSchoolian;
+import com.wikav.schoolian.DailyWork;
 import com.wikav.schoolian.Holidays;
 import com.wikav.schoolian.Notice;
 import com.wikav.schoolian.R;
@@ -51,10 +52,10 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
     Activity mActivity;
     Toolbar toolbar;
     SessionManger sessionManger;
-    LinearLayout profile,exam,result,classRoutine,message, attendance,notice,event,holiday;
+    LinearLayout profile,exam,result,classRoutine,message, attendance,notice,event,holiday,dailyWork;
     ImageView feed;
 
-    private String url="https://schoolian.website/android/newApi/sclName.php";
+    private String url="https://schoolian.in/android/newApi/sclName.php";
     public MainGridFragment() {
         // Required empty public constructor
     }
@@ -82,6 +83,7 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
         notice=view.findViewById(R.id.noticBtn);
         holiday=view.findViewById(R.id.holidayBtn);
         event=view.findViewById(R.id.eventsBtn);
+        dailyWork=view.findViewById(R.id.dailyWork);
         api(sclId);
        setClick();
         return view;
@@ -97,6 +99,7 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
         notice.setOnClickListener(this);
         holiday.setOnClickListener(this);
         event.setOnClickListener(this);
+        dailyWork.setOnClickListener(this);
     }
 
 
@@ -146,8 +149,11 @@ public class MainGridFragment extends Fragment implements View.OnClickListener {
                     startActivity(intent);
                     break;
                 case R.id.noticBtn:
-                    Toast.makeText(getActivity(), "No Notice Available", Toast.LENGTH_SHORT).show();
                     intent = new Intent( getActivity(), Notice.class );
+                    startActivity( intent );
+                    break;
+                    case R.id.dailyWork:
+                    intent = new Intent( getActivity(), DailyWork.class );
                     startActivity( intent );
                     break;
         }

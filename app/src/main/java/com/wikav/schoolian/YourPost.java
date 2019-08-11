@@ -58,7 +58,7 @@ RecyclerView recyclerView;
     SessionManger sessionManger;
     SwipeRefreshLayout swipeRefreshLayout;
     Snackbar snackbar;
-    String Url="https://schoolian.website/android/getUserPost.php";
+    String Url="https://schoolian.in/android/getUserPost.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

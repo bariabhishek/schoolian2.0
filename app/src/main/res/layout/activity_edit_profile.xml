@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgrounds"
     >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -44,11 +46,25 @@
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/bg_parent_rounded_corner"
+            android:backgroundTint="#FFF"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="@dimen/_5sdp"
+            app:cardElevation="5dp"
+            android:layout_below="@id/actionBar"
+            app:cardUseCompatPadding="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 <de.hdodenhof.circleimageview.CircleImageView
     android:id="@+id/imageviewedit"
     android:layout_width="@dimen/_120sdp"
     android:layout_height="@dimen/_120sdp"
-    android:layout_below="@id/actionBar"
     android:layout_centerHorizontal="true"
     android:src="@drawable/logo"
     android:layout_marginTop="10dp"/>
@@ -305,6 +321,8 @@
         android:layout_marginHorizontal="@dimen/_10sdp"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
 </ScrollView>

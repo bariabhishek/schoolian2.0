@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
     List<MyModelList> list;
     List<String> imageArry;
     ImageButton imageButton;
-    String Url = "https://schoolian.website/android/newApi/getPostData.php", response;
+    String Url = "https://schoolian.in/android/newApi/getPostData.php", response;
     String addImageUrl = "https://voulu.in/api/upoladAddImage.php";
     View view;
     TextView noData, adtext;

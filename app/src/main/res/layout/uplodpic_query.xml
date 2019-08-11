@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/background_select_exam"
+        android:id="@+id/spinnerClass"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="80dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/_14sdp"
+            android:layout_weight=".5"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:text="Select Subject"
+            android:background="@color/colorPrimary"/>
+        <Spinner
+            android:id="@+id/spinnerCls"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:dropDownWidth="fill_parent"
+            android:popupBackground="@color/colorWhite"
+            />
+
+    </LinearLayout>
+    <EditText
+        android:id="@+id/postText"
+        android:layout_below="@+id/spinnerClass"
+        android:layout_width="340dp"
+        android:layout_height="106dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:hint="@string/write_your_query_here"
+        android:maxLength="250"
+        android:elevation="2dp"
+        android:padding="@dimen/_5sdp"
+        android:background="@drawable/background_rounded"
+        android:textColor="#000"
+        android:textColorHint="#3E000000"
+        android:inputType="text" />
+
+    <ImageView
+        android:id="@+id/postImage2"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_below="@+id/postText"
+        android:layout_marginTop="50dp"
+
+        android:layout_marginBottom="30dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/postImage2"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:visibility="gone"
+            android:layout_weight=".5"
+            app:srcCompat="@android:drawable/ic_delete" />
+
+
+
+
+        <Button
+            android:id="@+id/choosIm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:background="@drawable/bg_capsule_for_message"
+            android:text="Image"
+            android:layout_weight=".5"
+            />
+        <Button
+            android:id="@+id/postUp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:background="@drawable/bg_capsule_for_message"
+            android:text="Post"
+            android:layout_weight=".5"/>
+    </LinearLayout>
+
+</RelativeLayout>

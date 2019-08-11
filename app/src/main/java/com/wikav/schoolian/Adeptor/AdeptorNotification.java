@@ -39,7 +39,7 @@ import com.wikav.schoolian.R;
 public class AdeptorNotification extends RecyclerView.Adapter<AdeptorNotification.Hold> {
     Context context;
     List<DataForNotification> list;
-    String  Url="https://schoolian.website/android/newApi/setNotificationStatus.php";
+    String  Url="https://schoolian.in/android/newApi/setNotificationStatus.php";
 
 
     public AdeptorNotification(FragmentActivity activity, List <DataForNotification> arrayList) {

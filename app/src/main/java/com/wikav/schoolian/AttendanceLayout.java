@@ -27,7 +27,7 @@ import java.util.Map;
 public class AttendanceLayout extends AppCompatActivity {
     CalendarView cl;
     TextView abst, prst, lev, hol;
-    String Url = "https://schoolian.website/android/newApi/getAttendance.php";
+    String Url = "https://schoolian.in/android/newApi/getAttendance.php";
     SessionManger sessionManger;
     ImageView backbtn;
 

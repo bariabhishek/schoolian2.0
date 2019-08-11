@@ -21,16 +21,20 @@
         android:xlargeScreens="true" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/icon_scl"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".Notice"></activity>
-        <activity android:name=".Gallary"></activity>
+        <activity
+            android:name=".DailyWork"
+            android:label="@string/title_activity_daily_work"></activity>
+        <activity android:name=".Notice" />
+        <activity android:name=".Gallary" />
+        <activity android:name=".DailyWorkCommentActivity" />
         <activity android:name=".SchoolianWorld" />
         <activity android:name=".TeacherList" />
         <activity android:name=".Syllabus" />

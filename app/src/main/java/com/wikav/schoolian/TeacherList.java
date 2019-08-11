@@ -36,7 +36,7 @@ public class TeacherList extends AppCompatActivity {
     List<TeacherSetGet> list ;
     SessionManger sessionManger;
     ImageView backbtn;
-    String url="https://schoolian.website/android/newApi/getTeachers.php";
+    String url="https://schoolian.in/android/newApi/getTeachers.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

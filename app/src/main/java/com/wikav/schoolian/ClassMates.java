@@ -34,7 +34,7 @@ public class ClassMates extends AppCompatActivity {
     List<StudentListSetGet> list ;
     SessionManger sessionManger;
     ImageView backbtn;
-    String url="https://schoolian.website/android/newApi/getClassmate.php";
+    String url="https://schoolian.in/android/newApi/getClassmate.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );

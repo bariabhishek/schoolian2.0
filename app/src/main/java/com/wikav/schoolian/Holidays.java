@@ -32,7 +32,7 @@ public class Holidays extends AppCompatActivity {
 
     RecyclerView recyclerView ;
     List<Evants_holidays_SetGet> list;
-    String url="https://schoolian.website/android/newApi/getHoliday.php";
+    String url="https://schoolian.in/android/newApi/getHoliday.php";
     SessionManger sessionManger;
     ImageView backbtn;
 

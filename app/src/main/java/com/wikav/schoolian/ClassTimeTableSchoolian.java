@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ClassTimeTableSchoolian extends AppCompatActivity {
-    private final String JSON_URL = "https://schoolian.website/android/newApi/getSubTime.php";
+    private final String JSON_URL = "https://schoolian.in/android/newApi/getSubTime.php";
     TextView sun, mon, tue, wed, thu, fri, sat;
     LinearLayout linearLayout;
     RecyclerView recyclerView;

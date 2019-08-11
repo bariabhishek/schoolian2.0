@@ -54,7 +54,7 @@ public class UplodadPic extends DialogFragment {
     public String getId,scl_Id;
     Bitmap newImage;
     int i=0;
-    String uplod="https://schoolian.website/android/post_upload.php";
+    String uplod="https://schoolian.in/android/post_upload.php";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +88,7 @@ public class UplodadPic extends DialogFragment {
                 viewImage.setImageBitmap(null);
                 viewImage.setVisibility(View.GONE);
                 imageSelect.setVisibility(View.VISIBLE);
-                imageButton.setVisibility(View.VISIBLE);
+                imageButton.setVisibility(View.GONE);
                 i=0;
             }
         });

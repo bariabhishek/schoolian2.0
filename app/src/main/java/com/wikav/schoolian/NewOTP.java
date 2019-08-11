@@ -40,7 +40,7 @@ import java.util.Random;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NewOTP extends AppCompatActivity {
-    final String Url = "https://schoolian.website/android/newApi/login.php";
+    final String Url = "https://schoolian.in/android/newApi/login.php";
 
     BroadcastReceiver broadcastReceiver;
     String mob;

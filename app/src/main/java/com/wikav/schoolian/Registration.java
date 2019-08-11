@@ -73,7 +73,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
     boolean enter=true,isBtnClick=false;
     String selectedClassId=null;
     ArrayAdapter<String> dataAdapter;
-    private final String JSON_URL = "https://schoolian.website/android/newApi/getClasses.php";
+    private final String JSON_URL = "https://schoolian.in/android/newApi/getClasses.php";
     TextInputLayout username, userpassword, usermobile;
     EditText name, password, mobile;
     RadioGroup radioGroup;
@@ -88,7 +88,7 @@ public class Registration extends AppCompatActivity implements AdapterView.OnIte
     CheckBox chkIos;
     Spinner classSpinner;
     SessionManger sessionManger;
-    String Url = "https://schoolian.website/android/registration.php";
+    String Url = "https://schoolian.in/android/registration.php";
     Uri resultUri;
 
     IntentFilter intentFilter;

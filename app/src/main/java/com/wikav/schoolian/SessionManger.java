@@ -104,7 +104,6 @@ public class SessionManger {
         updateEditor.putString(BIO, bio);
         updateEditor.putString(SID, sid);
         updateEditor.putString(PASS, pass);
-        updateEditor.putString(Scl_Photo, scl_pic);
         updateEditor.putString(SCL_ID, scl_id);
         updateEditor.putString(CLAS, classs);
         updateEditor.putString(SCLNAME, sclname);
